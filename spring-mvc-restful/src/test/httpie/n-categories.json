@@ -10,9 +10,5 @@
     {
         "name":"Creature",
         "description":"Animals and other creatures to help in many tasks"
-    },
-    {
-        "name":"Machine",
-        "description":"To build things, for the battle, etc."
     }
 ]
