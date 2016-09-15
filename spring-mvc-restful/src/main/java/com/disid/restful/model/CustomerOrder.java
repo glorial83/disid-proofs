@@ -43,6 +43,6 @@ public class CustomerOrder {
 
     /**
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 }

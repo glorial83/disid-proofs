@@ -96,3 +96,13 @@ push-in --class ~.web.OrderDetailFormatter --method parse
 // Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-06-08 13:55:26
 push-in --class ~.repository.CategoryRepositoryImpl
 // Spring Roo 2.0.0.M2 [rev 003b42c] log closed at 2016-06-08 15:39:30
+// Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-15 13:04:35
+hint
+entity jpa --class ~.model.Address 
+field string --fieldName street
+field string --fieldName city
+// [failed] field number --fieldName number --type java.lang.Integer --min 1 
+field number --fieldName streetNumber --type java.lang.Integer --min 1 
+field reference --fieldName customer --type ~.model.Customer --cardinality ONE_TO_ONE --notNull 
+focus --class ~.model.Customer 
+field reference --fieldName address --type ~.model.Address --cardinality ONE_TO_ONE --fetch 

@@ -3,6 +3,7 @@
 
 package com.disid.restful.service.api;
 
+import com.disid.restful.model.Address;
 import com.disid.restful.model.Customer;
 import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerService;
@@ -26,4 +27,6 @@ privileged aspect CustomerService_Roo_Service {
     public abstract Customer CustomerService.findOne(Long id);    
     public abstract long CustomerService.count();    
     public abstract Page<Customer> CustomerService.findAll(GlobalSearch globalSearch, Pageable pageable);    
+    public abstract Page<Customer> CustomerService.findAllByAddress(Address addressField, GlobalSearch globalSearch, Pageable pageable);    
+    public abstract Long CustomerService.countByAddressId(Long id);    
 }

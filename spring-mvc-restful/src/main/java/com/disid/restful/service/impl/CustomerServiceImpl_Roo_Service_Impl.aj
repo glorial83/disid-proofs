@@ -3,6 +3,7 @@
 
 package com.disid.restful.service.impl;
 
+import com.disid.restful.model.Address;
 import com.disid.restful.model.Customer;
 import com.disid.restful.repository.CustomerRepository;
 import com.disid.restful.repository.GlobalSearch;
@@ -63,6 +64,14 @@ privileged aspect CustomerServiceImpl_Roo_Service_Impl {
     
     public Page<Customer> CustomerServiceImpl.findAll(GlobalSearch globalSearch, Pageable pageable) {
         return customerRepository.findAll(globalSearch, pageable);
+    }
+    
+    public Long CustomerServiceImpl.countByAddressId(Long id) {
+        return customerRepository.countByAddressId(id);
+    }
+    
+    public Page<Customer> CustomerServiceImpl.findAllByAddress(Address addressField, GlobalSearch globalSearch, Pageable pageable) {
+        return customerRepository.findAllByAddress(addressField, globalSearch, pageable);
     }
     
 }

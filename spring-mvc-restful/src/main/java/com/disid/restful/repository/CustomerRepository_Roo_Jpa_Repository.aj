@@ -20,4 +20,5 @@ privileged aspect CustomerRepository_Roo_Jpa_Repository {
     
     declare @type: CustomerRepository: @Transactional(readOnly = true);
     
+    public abstract Long CustomerRepository.countByAddressId(Long id);    
 }

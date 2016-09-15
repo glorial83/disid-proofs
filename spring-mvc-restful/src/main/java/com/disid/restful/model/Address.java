@@ -3,34 +3,33 @@ import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @RooJavaBean
 @RooToString
 @RooJpaEntity
-public class Customer {
+public class Address {
 
     /**
      */
-    private String firstName;
+    private String street;
 
     /**
      */
-    private String lastName;
+    private String city;
 
     /**
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
-    private Set<CustomerOrder> orders = new HashSet<CustomerOrder>();
+    @Min(1L)
+    private Integer streetNumber;
 
     /**
      */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Address address;
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "address")
+    private Customer customer;
 }

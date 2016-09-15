@@ -3,6 +3,7 @@
 
 package com.disid.restful.repository;
 
+import com.disid.restful.model.Address;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.QCustomer;
 import com.disid.restful.repository.CustomerRepositoryCustom;
@@ -31,6 +32,46 @@ privileged aspect CustomerRepositoryImpl_Roo_Jpa_Repository_Impl {
         QCustomer customer = QCustomer.customer;
         JPQLQuery query = getQueryFrom(customer);
         BooleanBuilder where = new BooleanBuilder();
+
+        if (globalSearch != null) {
+            String txt = globalSearch.getText();
+            where.and(
+                customer.firstName.containsIgnoreCase(txt)
+                .or(customer.lastName.containsIgnoreCase(txt))
+            );
+
+        }
+        query.where(where);
+
+        long totalFound = query.count();
+        if (pageable != null) {
+            if (pageable.getSort() != null) {
+                for (Sort.Order order : pageable.getSort()) {
+                    Order direction = order.isAscending() ? Order.ASC : Order.DESC;
+
+                    switch(order.getProperty()){
+                        case "firstName":
+                           query.orderBy(new OrderSpecifier<String>(direction, customer.firstName));
+                           break;
+                        case "lastName":
+                           query.orderBy(new OrderSpecifier<String>(direction, customer.lastName));
+                           break;
+                    }
+                }
+            }
+            query.offset(pageable.getOffset()).limit(pageable.getPageSize());
+        }
+        query.orderBy(idCustomer.asc());
+        
+        List<Customer> results = query.list(customer);
+        return new PageImpl<Customer>(results, pageable, totalFound);
+    }
+    
+    public Page<Customer> CustomerRepositoryImpl.findAllByAddress(Address addressField, GlobalSearch globalSearch, Pageable pageable) {
+        NumberPath<Long> idCustomer = new NumberPath<Long>(Long.class, "id");
+        QCustomer customer = QCustomer.customer;
+        JPQLQuery query = getQueryFrom(customer);
+        BooleanBuilder where = new BooleanBuilder(customer.address.eq(addressField));
 
         if (globalSearch != null) {
             String txt = globalSearch.getText();
