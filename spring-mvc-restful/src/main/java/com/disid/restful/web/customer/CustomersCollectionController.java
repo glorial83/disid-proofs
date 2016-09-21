@@ -1,10 +1,10 @@
 package com.disid.restful.web.customer;
 
-import java.net.URI;
-import java.util.Collection;
-import java.util.List;
-
-import javax.validation.Valid;
+import com.disid.restful.datatables.DatatablesData;
+import com.disid.restful.datatables.DatatablesPageable;
+import com.disid.restful.model.Customer;
+import com.disid.restful.repository.GlobalSearch;
+import com.disid.restful.service.api.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,11 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.datatables.DatatablesPageable;
-import com.disid.restful.model.Customer;
-import com.disid.restful.repository.GlobalSearch;
-import com.disid.restful.service.api.CustomerService;
+import java.net.URI;
+import java.util.Collection;
+import java.util.List;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/customers")
@@ -98,7 +98,7 @@ public class CustomersCollectionController {
   @ResponseBody
   public DatatablesData<Customer> list(GlobalSearch search, DatatablesPageable pageable,
       @RequestParam("draw") Integer draw) {
-    Page<Customer> customer = list(search, pageable);
+    Page<Customer> customer = customerService.findAll(search, pageable);
     long allAvailableCustomer = customerService.count();
     return new DatatablesData<Customer>(customer, allAvailableCustomer, draw);
   }

@@ -1,10 +1,10 @@
 package com.disid.restful.web.product;
 
-import java.net.URI;
-import java.util.Collection;
-import java.util.List;
-
-import javax.validation.Valid;
+import com.disid.restful.datatables.DatatablesData;
+import com.disid.restful.datatables.DatatablesPageable;
+import com.disid.restful.model.Product;
+import com.disid.restful.repository.GlobalSearch;
+import com.disid.restful.service.api.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,11 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.datatables.DatatablesPageable;
-import com.disid.restful.model.Product;
-import com.disid.restful.repository.GlobalSearch;
-import com.disid.restful.service.api.ProductService;
+import java.net.URI;
+import java.util.Collection;
+import java.util.List;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/products")
@@ -98,7 +98,7 @@ public class ProductsCollectionController {
   @ResponseBody
   public DatatablesData<Product> list(GlobalSearch search, DatatablesPageable pageable,
       @RequestParam("draw") Integer draw) {
-    Page<Product> product = list(search, pageable);
+    Page<Product> product = productService.findAll(search, pageable);
     long allAvailableProduct = productService.count();
     return new DatatablesData<Product>(product, allAvailableProduct, draw);
   }

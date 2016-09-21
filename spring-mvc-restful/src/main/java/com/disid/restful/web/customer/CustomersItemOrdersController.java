@@ -1,5 +1,12 @@
 package com.disid.restful.web.customer;
 
+import com.disid.restful.datatables.DatatablesData;
+import com.disid.restful.model.Customer;
+import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.repository.GlobalSearch;
+import com.disid.restful.service.api.CustomerOrderService;
+import com.disid.restful.service.api.CustomerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,13 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.model.Customer;
-import com.disid.restful.model.CustomerOrder;
-import com.disid.restful.repository.GlobalSearch;
-import com.disid.restful.service.api.CustomerOrderService;
-import com.disid.restful.service.api.CustomerService;
 
 @Controller
 @RequestMapping("/customers/{customer}/orders")
@@ -54,7 +54,8 @@ public class CustomersItemOrdersController {
   public DatatablesData<CustomerOrder> listCustomerOrder(
       @PathVariable("customer") Customer customer, GlobalSearch search, Pageable pageable,
       @RequestParam("draw") Integer draw) {
-    Page<CustomerOrder> customerOrder = listCustomerOrder(customer, search, pageable);
+    Page<CustomerOrder> customerOrder =
+        customerOrderService.findAllByCustomer(customer, search, pageable);
     long allAvailableCustomerOrderDetails =
         customerOrderService.countByCustomerId(customer.getId());
     return new DatatablesData<CustomerOrder>(customerOrder, allAvailableCustomerOrderDetails, draw);

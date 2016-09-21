@@ -52,7 +52,7 @@ public class ProductsItemCategoriesController {
   @ResponseBody
   public DatatablesData<Category> listCategories(@ModelAttribute Product product,
       GlobalSearch search, Pageable pageable, @RequestParam("draw") Integer draw) {
-    Page<Category> categories = listCategories(product, search, pageable);
+    Page<Category> categories = categoryService.findAllByProduct(product, search, pageable);
     long allAvailableCategories = categoryService.countByProductsContains(product);
     return new DatatablesData<Category>(categories, allAvailableCategories, draw);
   }

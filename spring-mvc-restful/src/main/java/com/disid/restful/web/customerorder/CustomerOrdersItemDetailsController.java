@@ -1,6 +1,11 @@
 package com.disid.restful.web.customerorder;
 
-import javax.validation.Valid;
+import com.disid.restful.datatables.DatatablesData;
+import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.model.OrderDetail;
+import com.disid.restful.repository.GlobalSearch;
+import com.disid.restful.service.api.CustomerOrderService;
+import com.disid.restful.service.api.OrderDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,12 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.model.CustomerOrder;
-import com.disid.restful.model.OrderDetail;
-import com.disid.restful.repository.GlobalSearch;
-import com.disid.restful.service.api.CustomerOrderService;
-import com.disid.restful.service.api.OrderDetailService;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/customerorders/{customerorder}/details")
@@ -57,7 +57,8 @@ public class CustomerOrdersItemDetailsController {
   public DatatablesData<OrderDetail> listOrderDetails(
       @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
       Pageable pageable, @RequestParam("draw") Integer draw) {
-    Page<OrderDetail> orderDetails = listOrderDetails(customerOrder, search, pageable);
+    Page<OrderDetail> orderDetails =
+        orderDetailService.findAllByCustomerOrder(customerOrder, search, pageable);
     long allAvailableOrderDetails =
         orderDetailService.countByCustomerOrderId(customerOrder.getId());
     return new DatatablesData<OrderDetail>(orderDetails, allAvailableOrderDetails, draw);
