@@ -11,21 +11,21 @@ import org.springframework.roo.addon.layers.service.annotations.RooService;
 @RooService(entity = Category.class)
 public interface CategoryService {
 
-    void delete(Category category);
+  void delete(Category category);
 
-    Category addToProducts(Category category, Long... products);
+  Category addToProducts(Category category, Long... products);
 
-    Category addToProducts(Category category, Product... products);
+  Category addToProducts(Category category, Product... products);
 
-    Category deleteFromProducts(Category category, Long... products);
+  Category deleteFromProducts(Category category, Long... products);
 
-    Category deleteFromProducts(Category category, Product... products);
+  Category deleteFromProducts(Category category, Product... products);
 
-    Page<Category> findAllByProduct(Product product, GlobalSearch search, Pageable pageable);
+  Page<Category> findAllByProduct(Product product, GlobalSearch search, Pageable pageable);
 
-    long countByProductsContains(Product product);
+  long countByProductsContains(Product product);
 
   Product addToProducts(Product product, Long... categories);
-    
+
   Product deleteFromProducts(Product product, Long... categories);
 }

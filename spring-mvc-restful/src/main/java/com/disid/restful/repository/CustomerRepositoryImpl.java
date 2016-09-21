@@ -7,13 +7,13 @@ import com.disid.restful.model.QCustomer;
 import com.mysema.query.jpa.JPQLQuery;
 
 @RooJpaRepositoryCustomImpl(repository = CustomerRepositoryCustom.class)
-public class CustomerRepositoryImpl extends QueryDslRepositorySupport{
+public class CustomerRepositoryImpl extends QueryDslRepositorySupport {
 
-    CustomerRepositoryImpl() {
-        super(Customer.class);
-    }
-    
-    private JPQLQuery getQueryFrom(QCustomer qEntity){
-        return from(qEntity);
-    }
+  CustomerRepositoryImpl() {
+    super(Customer.class);
+  }
+
+  private JPQLQuery getQueryFrom(QCustomer qEntity) {
+    return from(qEntity);
+  }
 }

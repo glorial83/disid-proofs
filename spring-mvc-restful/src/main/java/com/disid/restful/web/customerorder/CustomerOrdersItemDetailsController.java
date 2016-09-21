@@ -26,66 +26,71 @@ import com.disid.restful.service.api.OrderDetailService;
 @RequestMapping("/customerorders/{customerorder}/details")
 public class CustomerOrdersItemDetailsController {
 
-    public CustomerOrderService customerOrderService;
+  public CustomerOrderService customerOrderService;
 
-    public OrderDetailService orderDetailService;
+  public OrderDetailService orderDetailService;
 
-    @Autowired
-    public CustomerOrdersItemDetailsController(CustomerOrderService customerOrderService,
-	    OrderDetailService orderDetailService) {
-	this.orderDetailService = orderDetailService;
-        this.customerOrderService = customerOrderService;
-    }
+  @Autowired
+  public CustomerOrdersItemDetailsController(CustomerOrderService customerOrderService,
+      OrderDetailService orderDetailService) {
+    this.orderDetailService = orderDetailService;
+    this.customerOrderService = customerOrderService;
+  }
 
-    @ModelAttribute
-    public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
-	return customerOrderService.findOne(id);
-    }
+  @ModelAttribute
+  public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
+    return customerOrderService.findOne(id);
+  }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Page<OrderDetail> listOrderDetails(@PathVariable("customerorder") CustomerOrder customerOrder,
-	    GlobalSearch search,
-	    Pageable pageable) {
-	Page<OrderDetail> orderDetails = orderDetailService.findAllByCustomerOrder(customerOrder, search, pageable);
-	return orderDetails;
-    }
+  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public Page<OrderDetail> listOrderDetails(
+      @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
+      Pageable pageable) {
+    Page<OrderDetail> orderDetails =
+        orderDetailService.findAllByCustomerOrder(customerOrder, search, pageable);
+    return orderDetails;
+  }
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.datatables+json")
-    @ResponseBody
-    public DatatablesData<OrderDetail> listOrderDetails(@PathVariable("customerorder") CustomerOrder customerOrder,
-	    GlobalSearch search, Pageable pageable, @RequestParam("draw") Integer draw) {
-	Page<OrderDetail> orderDetails = listOrderDetails(customerOrder, search, pageable);
-	long allAvailableOrderDetails = orderDetailService.countByCustomerOrderId(customerOrder.getId());
-	return new DatatablesData<OrderDetail>(orderDetails, allAvailableOrderDetails, draw);
-    }
+  @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.datatables+json")
+  @ResponseBody
+  public DatatablesData<OrderDetail> listOrderDetails(
+      @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
+      Pageable pageable, @RequestParam("draw") Integer draw) {
+    Page<OrderDetail> orderDetails = listOrderDetails(customerOrder, search, pageable);
+    long allAvailableOrderDetails =
+        orderDetailService.countByCustomerOrderId(customerOrder.getId());
+    return new DatatablesData<OrderDetail>(orderDetails, allAvailableOrderDetails, draw);
+  }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public CustomerOrder addToDetails(@ModelAttribute CustomerOrder customerOrder,
-	    @Valid @RequestBody OrderDetail detail) {
-	return customerOrderService.addToDetails(customerOrder, detail);
-    }
+  @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public CustomerOrder addToDetails(@ModelAttribute CustomerOrder customerOrder,
+      @Valid @RequestBody OrderDetail detail) {
+    return customerOrderService.addToDetails(customerOrder, detail);
+  }
 
-    @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public CustomerOrder deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
-	    @Valid @RequestBody OrderDetail detail) {
-	return customerOrderService.deleteFromDetails(customerOrder, detail);
-    }
+  @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public CustomerOrder deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
+      @Valid @RequestBody OrderDetail detail) {
+    return customerOrderService.deleteFromDetails(customerOrder, detail);
+  }
 
-    @RequestMapping(value = "/batch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public CustomerOrder addToDetails(@ModelAttribute CustomerOrder customerOrder,
-	    @Valid @RequestBody OrderDetail[] details) {
-	return customerOrderService.addToDetails(customerOrder, details);
-    }
+  @RequestMapping(value = "/batch", method = RequestMethod.POST,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public CustomerOrder addToDetails(@ModelAttribute CustomerOrder customerOrder,
+      @Valid @RequestBody OrderDetail[] details) {
+    return customerOrderService.addToDetails(customerOrder, details);
+  }
 
-    @RequestMapping(value = "/batch", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public CustomerOrder deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
-	    @Valid @RequestBody OrderDetail[] details) {
-	return customerOrderService.deleteFromDetails(customerOrder, details);
-    }
+  @RequestMapping(value = "/batch", method = RequestMethod.DELETE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public CustomerOrder deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
+      @Valid @RequestBody OrderDetail[] details) {
+    return customerOrderService.deleteFromDetails(customerOrder, details);
+  }
 
 }

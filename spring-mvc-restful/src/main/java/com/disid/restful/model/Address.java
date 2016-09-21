@@ -1,4 +1,5 @@
 package com.disid.restful.model;
+
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
@@ -13,23 +14,23 @@ import javax.validation.constraints.NotNull;
 @RooJpaEntity
 public class Address {
 
-    /**
-     */
-    private String street;
+  /**
+   */
+  private String street;
 
-    /**
-     */
-    private String city;
+  /**
+   */
+  private String city;
 
-    /**
-     */
-    @Min(1L)
-    private Integer streetNumber;
+  /**
+   */
+  @Min(1L)
+  private Integer streetNumber;
 
-    /**
-     * Bidirectional aggregation one-to-one relationship. Child side.
-     */
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
-    private Customer customer;
+  /**
+   * Bidirectional aggregation one-to-one relationship. Child side.
+   */
+  @NotNull
+  @OneToOne(fetch = FetchType.LAZY)
+  private Customer customer;
 }

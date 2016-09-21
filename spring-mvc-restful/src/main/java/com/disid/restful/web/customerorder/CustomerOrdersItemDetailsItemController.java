@@ -23,45 +23,47 @@ import com.disid.restful.service.api.OrderDetailService;
 @RequestMapping("/customerorders/{customerOrder}/details/{orderDetail}")
 public class CustomerOrdersItemDetailsItemController {
 
-    public OrderDetailService orderDetailService;
+  public OrderDetailService orderDetailService;
 
-    @Autowired
-    public CustomerOrdersItemDetailsItemController(OrderDetailService orderDetailService) {
-	this.orderDetailService = orderDetailService;
+  @Autowired
+  public CustomerOrdersItemDetailsItemController(OrderDetailService orderDetailService) {
+    this.orderDetailService = orderDetailService;
+  }
+
+  @ModelAttribute
+  public OrderDetail getOrderDetail(@PathVariable("customerOrder") Long customerOrderId,
+      @PathVariable("orderDetail") Integer orderDetailId) {
+    OrderDetail orderDetail =
+        orderDetailService.findOne(new OrderDetailPK(customerOrderId, orderDetailId));
+    return orderDetail;
+  }
+
+  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public ResponseEntity<OrderDetail> show(@ModelAttribute OrderDetail orderDetail) {
+    if (orderDetail == null) {
+      return new ResponseEntity<OrderDetail>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<OrderDetail>(orderDetail, HttpStatus.FOUND);
+  }
+
+  @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public ResponseEntity<?> update(@ModelAttribute OrderDetail storedOrderDetail,
+      @Valid @RequestBody OrderDetail orderDetail, BindingResult result) {
+    if (result.hasErrors()) {
+      return new ResponseEntity<BindingResult>(result, HttpStatus.CONFLICT);
     }
 
-    @ModelAttribute
-    public OrderDetail getOrderDetail(@PathVariable("customerOrder") Long customerOrderId,
-	    @PathVariable("orderDetail") Integer orderDetailId) {
-	OrderDetail orderDetail = orderDetailService.findOne(new OrderDetailPK(customerOrderId, orderDetailId));
-	return orderDetail;
+    if (storedOrderDetail == null) {
+      return new ResponseEntity<OrderDetail>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<OrderDetail> show(@ModelAttribute OrderDetail orderDetail) {
-	if (orderDetail == null) {
-	    return new ResponseEntity<OrderDetail>(HttpStatus.NOT_FOUND);
-	}
-	return new ResponseEntity<OrderDetail>(orderDetail, HttpStatus.FOUND);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> update(@ModelAttribute OrderDetail storedOrderDetail,
-	    @Valid @RequestBody OrderDetail orderDetail, BindingResult result) {
-	if (result.hasErrors()) {
-	    return new ResponseEntity<BindingResult>(result, HttpStatus.CONFLICT);
-	}
-
-	if (storedOrderDetail == null) {
-	    return new ResponseEntity<OrderDetail>(HttpStatus.NOT_FOUND);
-	}
-
-	storedOrderDetail.setProduct(orderDetail.getProduct());
-	storedOrderDetail.setQuantity(orderDetail.getQuantity());
-	OrderDetail savedOrderDetail = orderDetailService.save(storedOrderDetail);
-	return new ResponseEntity<OrderDetail>(savedOrderDetail, HttpStatus.OK);
-    }
+    storedOrderDetail.setProduct(orderDetail.getProduct());
+    storedOrderDetail.setQuantity(orderDetail.getQuantity());
+    OrderDetail savedOrderDetail = orderDetailService.save(storedOrderDetail);
+    return new ResponseEntity<OrderDetail>(savedOrderDetail, HttpStatus.OK);
+  }
 
 }

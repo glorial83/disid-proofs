@@ -8,5 +8,5 @@ import org.springframework.roo.addon.layers.repository.jpa.annotations.RooJpaRep
 @RooJpaRepository(entity = Category.class)
 public interface CategoryRepository {
 
-    long countByProductsContains(Product product);
+  long countByProductsContains(Product product);
 }

@@ -18,45 +18,46 @@ import java.util.List;
 @RooServiceImpl(service = CustomerService.class)
 public class CustomerServiceImpl {
 
-    private CustomerOrderService customerOrderService;
+  private CustomerOrderService customerOrderService;
 
-    private CustomerServiceImpl(CustomerRepository customerRepository) {
-	this.customerRepository = customerRepository;
-    }
+  private CustomerServiceImpl(CustomerRepository customerRepository) {
+    this.customerRepository = customerRepository;
+  }
 
-    @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository, @Lazy CustomerOrderService customerOrderService) {
-	this(customerRepository);
-	this.customerOrderService = customerOrderService;
-    }
+  @Autowired
+  public CustomerServiceImpl(CustomerRepository customerRepository,
+      @Lazy CustomerOrderService customerOrderService) {
+    this(customerRepository);
+    this.customerOrderService = customerOrderService;
+  }
 
-    public void delete(Customer customer) {
-	customerRepository.delete(customer);
-    }
+  public void delete(Customer customer) {
+    customerRepository.delete(customer);
+  }
 
-    @Transactional
-    public Customer addToOrders(Customer customer, Long... orders) {
+  @Transactional
+  public Customer addToOrders(Customer customer, Long... orders) {
     List<CustomerOrder> customerOrders = customerOrderService.findAll(Arrays.asList(orders));
     customer.addToOrders(customerOrders);
-	return customerRepository.save(customer);
-    }
+    return customerRepository.save(customer);
+  }
 
-    @Transactional
-    public Customer deleteFromOrders(Customer customer, Long... orders) {
+  @Transactional
+  public Customer deleteFromOrders(Customer customer, Long... orders) {
     List<CustomerOrder> customerOrders = customerOrderService.findAll(Arrays.asList(orders));
     customer.removeFromOrders(customerOrders);
-	return customerRepository.save(customer);
-    }
+    return customerRepository.save(customer);
+  }
 
-    @Transactional
-    public Customer setAddress(Customer customer, Address address) {
-      customer.setAddress(address);
-      return customerRepository.save(customer);
-    }
-    
-    @Transactional
-    public Customer removeAddress(Customer customer) {
-      customer.removeAddress();
-      return customerRepository.save(customer);
-    }
+  @Transactional
+  public Customer setAddress(Customer customer, Address address) {
+    customer.setAddress(address);
+    return customerRepository.save(customer);
+  }
+
+  @Transactional
+  public Customer removeAddress(Customer customer) {
+    customer.removeAddress();
+    return customerRepository.save(customer);
+  }
 }

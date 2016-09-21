@@ -15,37 +15,37 @@ import java.util.Set;
 @RooServiceImpl(service = CustomerOrderService.class)
 public class CustomerOrderServiceImpl {
 
-    private OrderDetailService orderDetailService;
+  private OrderDetailService orderDetailService;
 
-    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
-	this.customerOrderRepository = customerOrderRepository;
-    }
+  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
+    this.customerOrderRepository = customerOrderRepository;
+  }
 
-    @Autowired
-    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository,
-	    OrderDetailService orderDetailService) {
-	this(customerOrderRepository);
-	this.orderDetailService = orderDetailService;
-    }
+  @Autowired
+  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository,
+      OrderDetailService orderDetailService) {
+    this(customerOrderRepository);
+    this.orderDetailService = orderDetailService;
+  }
 
-    public void delete(CustomerOrder customerOrder) {
-	customerOrderRepository.delete(customerOrder);
-    }
+  public void delete(CustomerOrder customerOrder) {
+    customerOrderRepository.delete(customerOrder);
+  }
 
-    public Set<CustomerOrder> findByIdIn(Long[] orders) {
-	return customerOrderRepository.findByIdIn(orders);
-    }
+  public Set<CustomerOrder> findByIdIn(Long[] orders) {
+    return customerOrderRepository.findByIdIn(orders);
+  }
 
-    @Transactional
-    public CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details) {
-      customerOrder.addToDetails(details);
-	  return customerOrderRepository.save(customerOrder);
-    }
+  @Transactional
+  public CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details) {
+    customerOrder.addToDetails(details);
+    return customerOrderRepository.save(customerOrder);
+  }
 
-    @Transactional
-    public CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details) {
-      customerOrder.removeFromDetails(details);
-      return customerOrderRepository.save(customerOrder);
-    }
+  @Transactional
+  public CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details) {
+    customerOrder.removeFromDetails(details);
+    return customerOrderRepository.save(customerOrder);
+  }
 
 }

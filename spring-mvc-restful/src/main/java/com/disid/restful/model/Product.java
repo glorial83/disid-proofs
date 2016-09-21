@@ -1,4 +1,5 @@
 package com.disid.restful.model;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,18 +20,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 // property = "id")
 public class Product {
 
-    /**
-     */
-    private String name;
+  /**
+   */
+  private String name;
 
-    /**
-     */
-    private String description;
+  /**
+   */
+  private String description;
 
-    /**
-     * Bidirectional many-to-many relationship. Child side.
-     */
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Category> categories = new HashSet<Category>();
+  /**
+   * Bidirectional many-to-many relationship. Child side.
+   */
+  @JsonIgnore
+  @ManyToMany(fetch = FetchType.LAZY)
+  private Set<Category> categories = new HashSet<Category>();
 }

@@ -19,37 +19,39 @@ import java.util.Set;
 @RooServiceImpl(service = ProductService.class)
 public class ProductServiceImpl {
 
-    private CategoryService categoryService;
+  private CategoryService categoryService;
 
-    private ProductServiceImpl(ProductRepository productRepository) {
-      this.productRepository = productRepository;
-    }
-  
-    @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, @Lazy CategoryService categoryService) {
-      this(productRepository);
-      this.categoryService = categoryService;
-    }
+  private ProductServiceImpl(ProductRepository productRepository) {
+    this.productRepository = productRepository;
+  }
 
-    @Transactional
-    public void delete(Product product) {
-      for(Category category: product.getCategories()) {
-         categoryService.deleteFromProducts(category, product);
-         categoryService.save(category);
-      }
-      productRepository.delete(product);
-    }
+  @Autowired
+  public ProductServiceImpl(ProductRepository productRepository,
+      @Lazy CategoryService categoryService) {
+    this(productRepository);
+    this.categoryService = categoryService;
+  }
 
-    public Page<Product> findAllByCategory(Category category, GlobalSearch search, Pageable pageable) {
-	return productRepository.findAllByCategoriesContains(category, search, pageable);
+  @Transactional
+  public void delete(Product product) {
+    for (Category category : product.getCategories()) {
+      categoryService.deleteFromProducts(category, product);
+      categoryService.save(category);
     }
+    productRepository.delete(product);
+  }
 
-    public long countByCategoriesContains(Category category) {
-	return productRepository.countByCategoriesContains(category);
-    }
+  public Page<Product> findAllByCategory(Category category, GlobalSearch search,
+      Pageable pageable) {
+    return productRepository.findAllByCategoriesContains(category, search, pageable);
+  }
 
-    public Set<Product> findByIdIn(Long[] productIds) {
-	return productRepository.findByIdIn(productIds);
-    }
+  public long countByCategoriesContains(Category category) {
+    return productRepository.countByCategoriesContains(category);
+  }
+
+  public Set<Product> findByIdIn(Long[] productIds) {
+    return productRepository.findByIdIn(productIds);
+  }
 
 }

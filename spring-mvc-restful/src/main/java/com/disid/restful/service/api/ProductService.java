@@ -13,12 +13,12 @@ import java.util.Set;
 @RooService(entity = Product.class)
 public interface ProductService {
 
-    void delete(Product product);
+  void delete(Product product);
 
-    Page<Product> findAllByCategory(Category category, GlobalSearch search, Pageable pageable);
+  Page<Product> findAllByCategory(Category category, GlobalSearch search, Pageable pageable);
 
-    long countByCategoriesContains(Category category);
+  long countByCategoriesContains(Category category);
 
-    Set<Product> findByIdIn(Long[] productIds);
+  Set<Product> findByIdIn(Long[] productIds);
 
 }

@@ -34,8 +34,8 @@ public class DatatablesSortHandlerMethodArgumentResolver extends SortHandlerMeth
 
   @Override
   public DatatablesSort resolveArgument(MethodParameter parameter,
-      ModelAndViewContainer mavContainer,
-      NativeWebRequest request, WebDataBinderFactory binderFactory) {
+      ModelAndViewContainer mavContainer, NativeWebRequest request,
+      WebDataBinderFactory binderFactory) {
 
     DatatablesSort sort =
         new SortParametersParser(maxOrderedColumns, request.getParameterMap()).getSort();

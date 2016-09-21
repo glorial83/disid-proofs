@@ -10,6 +10,7 @@ import com.disid.restful.model.Product;
 @RooJpaRepositoryCustom(entity = Product.class, defaultSearchResult = Product.class)
 public interface ProductRepositoryCustom {
 
-    Page<Product> findAllByCategoriesContains(Category category, GlobalSearch search, Pageable pageable);
+  Page<Product> findAllByCategoriesContains(Category category, GlobalSearch search,
+      Pageable pageable);
 
 }

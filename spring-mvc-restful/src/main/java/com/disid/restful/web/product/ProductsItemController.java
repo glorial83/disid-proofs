@@ -1,4 +1,5 @@
 package com.disid.restful.web.product;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,84 +24,86 @@ import com.disid.restful.service.api.ProductService;
 @RequestMapping("/products/{product}")
 public class ProductsItemController {
 
-    public ProductService productService;
+  public ProductService productService;
 
-    @Autowired
-    public ProductsItemController(ProductService productService) {
-        this.productService = productService;
+  @Autowired
+  public ProductsItemController(ProductService productService) {
+    this.productService = productService;
+  }
+
+  @ModelAttribute
+  public Product getProduct(@PathVariable("product") Long id) {
+    return productService.findOne(id);
+  }
+
+  // Update Product
+
+  @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public ResponseEntity update(@ModelAttribute Product storedProduct,
+      @Valid @RequestBody Product product, BindingResult result) {
+    if (result.hasErrors()) {
+      return new ResponseEntity(result, HttpStatus.CONFLICT);
     }
 
-    @ModelAttribute
-    public Product getProduct(@PathVariable("product") Long id) {
-	return productService.findOne(id);
+    if (storedProduct == null) {
+      return new ResponseEntity(result, HttpStatus.NOT_FOUND);
     }
 
-    // Update Product
+    storedProduct.setDescription(product.getDescription());
+    storedProduct.setName(product.getName());
+    Product savedProduct = productService.save(storedProduct);
+    return new ResponseEntity(savedProduct, HttpStatus.OK);
+  }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public ResponseEntity update(@ModelAttribute Product storedProduct, @Valid @RequestBody Product product,
-	    BindingResult result) {
-        if (result.hasErrors()) {
-            return new ResponseEntity(result, HttpStatus.CONFLICT);
-        }
+  @RequestMapping(value = "/edit-form", method = RequestMethod.GET,
+      produces = MediaType.TEXT_HTML_VALUE)
+  public String editForm(@ModelAttribute Product product, Model model) {
+    return "products/edit";
+  }
 
-	if (storedProduct == null) {
-	    return new ResponseEntity(result, HttpStatus.NOT_FOUND);
-	}
-
-	storedProduct.setDescription(product.getDescription());
-	storedProduct.setName(product.getName());
-	Product savedProduct = productService.save(storedProduct);
-        return new ResponseEntity(savedProduct, HttpStatus.OK);
+  @RequestMapping(method = RequestMethod.PUT, produces = MediaType.TEXT_HTML_VALUE)
+  public String update(@Valid @ModelAttribute Product product, BindingResult result,
+      RedirectAttributes redirectAttrs, Model model) {
+    if (result.hasErrors()) {
+      return "products/edit";
     }
+    Product savedProduct = productService.save(product);
+    redirectAttrs.addAttribute("id", savedProduct.getId());
+    return "redirect:/products/{id}";
+  }
 
-    @RequestMapping(value = "/edit-form", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String editForm(@ModelAttribute Product product, Model model) {
-	return "products/edit";
+  // Delete product
+
+  @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.TEXT_HTML_VALUE)
+  public String delete(@ModelAttribute Product product, Model model) {
+    productService.delete(product);
+    return "redirect:/products";
+  }
+
+  @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public ResponseEntity<Product> delete(@ModelAttribute Product product) {
+    productService.delete(product);
+    return new ResponseEntity<Product>(HttpStatus.OK);
+  }
+
+  // Show Product
+
+  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public ResponseEntity<Product> show(@ModelAttribute Product product) {
+    if (product == null) {
+      return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
     }
+    return new ResponseEntity<Product>(product, HttpStatus.FOUND);
+  }
 
-    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.TEXT_HTML_VALUE)
-    public String update(@Valid @ModelAttribute Product product, BindingResult result,
-	    RedirectAttributes redirectAttrs, Model model) {
-        if (result.hasErrors()) {
-	    return "products/edit";
-        }
-	Product savedProduct = productService.save(product);
-	redirectAttrs.addAttribute("id", savedProduct.getId());
-	return "redirect:/products/{id}";
-    }
-
-    // Delete product
-
-    @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.TEXT_HTML_VALUE)
-    public String delete(@ModelAttribute Product product, Model model) {
-	productService.delete(product);
-        return "redirect:/products";
-    }
-
-    @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<Product> delete(@ModelAttribute Product product) {
-	productService.delete(product);
-	return new ResponseEntity<Product>(HttpStatus.OK);
-    }
-
-    // Show Product
-
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<Product> show(@ModelAttribute Product product) {
-	if (product == null) {
-	    return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
-	}
-	return new ResponseEntity<Product>(product, HttpStatus.FOUND);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String show(@ModelAttribute Product product, Model model) {
-        return "products/show";
-    }
+  @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+  public String show(@ModelAttribute Product product, Model model) {
+    return "products/show";
+  }
 
 }

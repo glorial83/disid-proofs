@@ -13,22 +13,22 @@ import javax.persistence.MapsId;
 @RooJpaEntity(identifierType = OrderDetailPK.class)
 public class OrderDetail {
 
-    /**
-     * Number of products in the order detail.
-     */
-    private Integer quantity;
+  /**
+   * Number of products in the order detail.
+   */
+  private Integer quantity;
 
-    /**
-     * Unidirectional many-to-one relationship.
-     */
-    @ManyToOne
-    private Product product;
+  /**
+   * Unidirectional many-to-one relationship.
+   */
+  @ManyToOne
+  private Product product;
 
-    /**
-     * Bidirectional aggregation many-to-one relationship. Child side.
-     */
-    @ManyToOne
-    @MapsId("customerOrderId")
-    @JoinColumn(name = "customerOrderId", referencedColumnName = "id")
-    private CustomerOrder customerOrder;
+  /**
+   * Bidirectional aggregation many-to-one relationship. Child side.
+   */
+  @ManyToOne
+  @MapsId("customerOrderId")
+  @JoinColumn(name = "customerOrderId", referencedColumnName = "id")
+  private CustomerOrder customerOrder;
 }

@@ -1,4 +1,5 @@
 package com.disid.restful.web.customerorder;
+
 import java.net.URI;
 import java.util.Collection;
 import java.util.List;
@@ -37,111 +38,118 @@ import com.disid.restful.service.api.CustomerOrderService;
 @RequestMapping("/customerorders")
 public class CustomerOrdersCollectionController {
 
-    public CustomerOrderService customerOrderService;
+  public CustomerOrderService customerOrderService;
 
-    @Autowired
-    public CustomerOrdersCollectionController(CustomerOrderService customerOrderService) {
-	this.customerOrderService = customerOrderService;
+  @Autowired
+  public CustomerOrdersCollectionController(CustomerOrderService customerOrderService) {
+    this.customerOrderService = customerOrderService;
+  }
+
+  // Create Customers
+
+  @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public ResponseEntity create(@Valid @RequestBody CustomerOrder customerOrder,
+      BindingResult result) {
+    if (customerOrder.getId() != null) {
+      return new ResponseEntity(HttpStatus.CONFLICT);
     }
-    
-    // Create Customers
-
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public ResponseEntity create(@Valid @RequestBody CustomerOrder customerOrder, BindingResult result) {
-	if (customerOrder.getId() != null) {
-	    return new ResponseEntity(HttpStatus.CONFLICT);
-        }
-        if (result.hasErrors()) {
-	    return new ResponseEntity(result, HttpStatus.CONFLICT);
-        }
-	CustomerOrder newCustomerOrder = customerOrderService.save(customerOrder);
-	HttpHeaders responseHeaders = populateHeaders(newCustomerOrder.getId());
-	return new ResponseEntity(newCustomerOrder, responseHeaders, HttpStatus.CREATED);
+    if (result.hasErrors()) {
+      return new ResponseEntity(result, HttpStatus.CONFLICT);
     }
+    CustomerOrder newCustomerOrder = customerOrderService.save(customerOrder);
+    HttpHeaders responseHeaders = populateHeaders(newCustomerOrder.getId());
+    return new ResponseEntity(newCustomerOrder, responseHeaders, HttpStatus.CREATED);
+  }
 
-    @RequestMapping(value = "/create-form", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String createForm(Model model) {
-	model.addAttribute(new Customer());
-	return "customerorders/create";
+  @RequestMapping(value = "/create-form", method = RequestMethod.GET,
+      produces = MediaType.TEXT_HTML_VALUE)
+  public String createForm(Model model) {
+    model.addAttribute(new Customer());
+    return "customerorders/create";
+  }
+
+  @RequestMapping(method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+  public String create(@Valid @ModelAttribute CustomerOrder customerOrder, BindingResult result,
+      RedirectAttributes redirectAttrs, Model model) {
+    if (result.hasErrors()) {
+      return "customerorders/create";
     }
+    CustomerOrder newCustomerOrder = customerOrderService.save(customerOrder);
+    redirectAttrs.addAttribute("id", newCustomerOrder.getId());
+    return "redirect:/customerorders/{id}";
+  }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
-    public String create(@Valid @ModelAttribute CustomerOrder customerOrder, BindingResult result,
-	    RedirectAttributes redirectAttrs, Model model) {
-	if (result.hasErrors()) {
-	    return "customerorders/create";
-	}
-	CustomerOrder newCustomerOrder = customerOrderService.save(customerOrder);
-	redirectAttrs.addAttribute("id", newCustomerOrder.getId());
-	return "redirect:/customerorders/{id}";
+  // List Customers
+
+  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public Page<CustomerOrder> list(GlobalSearch search, Pageable pageable) {
+    Page<CustomerOrder> customerOrder = customerOrderService.findAll(search, pageable);
+    return customerOrder;
+  }
+
+  @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+  public String list(Model model) {
+    return "customerorders/list";
+  }
+
+  @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.datatables+json")
+  @ResponseBody
+  public DatatablesData<CustomerOrder> list(GlobalSearch search, DatatablesPageable pageable,
+      @RequestParam("draw") Integer draw) {
+    Page<CustomerOrder> customerOrders = list(search, pageable);
+    long allAvailableCustomerOrders = customerOrderService.count();
+    return new DatatablesData<CustomerOrder>(customerOrders, allAvailableCustomerOrders, draw);
+  }
+
+  // Batch operations with Customers
+
+  @RequestMapping(value = "/batch", method = RequestMethod.POST,
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public ResponseEntity createBatch(@Valid @RequestBody Collection<CustomerOrder> customerOrders,
+      BindingResult result) {
+    if (result.hasErrors()) {
+      return new ResponseEntity(result, HttpStatus.CONFLICT);
     }
+    List<CustomerOrder> newCustomerOrders = customerOrderService.save(customerOrders);
+    return new ResponseEntity(newCustomerOrders, HttpStatus.CREATED);
+  }
 
-    // List Customers
-
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Page<CustomerOrder> list(GlobalSearch search, Pageable pageable) {
-	Page<CustomerOrder> customerOrder = customerOrderService.findAll(search, pageable);
-	return customerOrder;
+  @RequestMapping(value = "/batch", method = RequestMethod.PUT,
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public ResponseEntity updateBatch(@Valid @RequestBody Collection<CustomerOrder> customerOrders,
+      BindingResult result) {
+    if (result.hasErrors()) {
+      return new ResponseEntity(result, HttpStatus.CONFLICT);
     }
+    List<CustomerOrder> savedCustomerOrders = customerOrderService.save(customerOrders);
+    return new ResponseEntity(savedCustomerOrders, HttpStatus.OK);
+  }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String list(Model model) {
-	return "customerorders/list";
-    }
+  @RequestMapping(value = "/batch/{ids}", method = RequestMethod.DELETE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  @SuppressWarnings({"rawtypes"})
+  public ResponseEntity deleteBatch(@PathVariable("ids") Collection<Long> ids) {
+    customerOrderService.delete(ids);
+    return new ResponseEntity(HttpStatus.OK);
+  }
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.datatables+json")
-    @ResponseBody
-    public DatatablesData<CustomerOrder> list(GlobalSearch search, DatatablesPageable pageable,
-	    @RequestParam("draw") Integer draw) {
-	Page<CustomerOrder> customerOrders = list(search, pageable);
-	long allAvailableCustomerOrders = customerOrderService.count();
-	return new DatatablesData<CustomerOrder>(customerOrders, allAvailableCustomerOrders, draw);
-    }
+  // Populates
 
-    // Batch operations with Customers
-
-    @RequestMapping(value = "/batch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public ResponseEntity createBatch(@Valid @RequestBody Collection<CustomerOrder> customerOrders,
-	    BindingResult result) {
-        if (result.hasErrors()) {
-            return new ResponseEntity(result, HttpStatus.CONFLICT);
-        }
-	List<CustomerOrder> newCustomerOrders = customerOrderService.save(customerOrders);
-	return new ResponseEntity(newCustomerOrders, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/batch", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public ResponseEntity updateBatch(@Valid @RequestBody Collection<CustomerOrder> customerOrders,
-	    BindingResult result) {
-        if (result.hasErrors()) {
-            return new ResponseEntity(result, HttpStatus.CONFLICT);
-        }
-	List<CustomerOrder> savedCustomerOrders = customerOrderService.save(customerOrders);
-	return new ResponseEntity(savedCustomerOrders, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/batch/{ids}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @SuppressWarnings({ "rawtypes" })
-    public ResponseEntity deleteBatch(@PathVariable("ids") Collection<Long> ids) {
-	customerOrderService.delete(ids);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    // Populates
-
-    private HttpHeaders populateHeaders(Long id) {
-	UriComponents uriComponents = UriComponentsBuilder.fromUriString("/customerorders/{id}").build();
-        URI uri = uriComponents.expand(id).encode().toUri();
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(uri);
-        return responseHeaders;
-    }
+  private HttpHeaders populateHeaders(Long id) {
+    UriComponents uriComponents =
+        UriComponentsBuilder.fromUriString("/customerorders/{id}").build();
+    URI uri = uriComponents.expand(id).encode().toUri();
+    HttpHeaders responseHeaders = new HttpHeaders();
+    responseHeaders.setLocation(uri);
+    return responseHeaders;
+  }
 }

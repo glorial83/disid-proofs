@@ -15,21 +15,21 @@ import org.springframework.roo.addon.javabean.annotations.RooToString;
 @RooEquals
 public class OrderDetailPK implements Serializable {
 
-    private static final long serialVersionUID = 8834571479446197507L;
+  private static final long serialVersionUID = 8834571479446197507L;
 
-    private Integer id;
+  private Integer id;
 
-    @Column(name = "customerOrderId")
-    private Long customerOrderId;
+  @Column(name = "customerOrderId")
+  private Long customerOrderId;
 
-    public OrderDetailPK() {
-	// Nothing to do
-    }
+  public OrderDetailPK() {
+    // Nothing to do
+  }
 
-    public OrderDetailPK(Long customerOrderId, Integer pos) {
-	super();
-	this.id = pos;
-	this.customerOrderId = customerOrderId;
-    }
+  public OrderDetailPK(Long customerOrderId, Integer pos) {
+    super();
+    this.id = pos;
+    this.customerOrderId = customerOrderId;
+  }
 
 }

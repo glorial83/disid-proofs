@@ -60,237 +60,218 @@ import org.springframework.roo.addon.web.mvc.controller.annotations.http.convert
 @RooJSONBindingResultSerializer
 public class BindingResultSerializer extends JsonSerializer<BindingResult> {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(BindingResultSerializer.class);
-    private static final String ERROR_WRITTING_BINDING = "Error writting BindingResult";
+  private static final Logger LOGGER = LoggerFactory.getLogger(BindingResultSerializer.class);
+  private static final String ERROR_WRITTING_BINDING = "Error writting BindingResult";
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void serialize(BindingResult result, JsonGenerator jgen,
-            SerializerProvider provider) throws IOException,
-            JsonProcessingException {
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void serialize(BindingResult result, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException, JsonProcessingException {
 
-        try {
-            // Create the errors map
-            Map<String, Object> allErrorsMessages = new HashMap<String, Object>();
+    try {
+      // Create the errors map
+      Map<String, Object> allErrorsMessages = new HashMap<String, Object>();
 
-            // Get field errors
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            if (fieldErrors.isEmpty()) {
-                // Nothing to do
-                jgen.writeNull();
-                return;
-            }
+      // Get field errors
+      List<FieldError> fieldErrors = result.getFieldErrors();
+      if (fieldErrors.isEmpty()) {
+        // Nothing to do
+        jgen.writeNull();
+        return;
+      }
 
-            // Check if target type is an array or a bean
-            @SuppressWarnings("rawtypes")
-            Class targetClass = result.getTarget().getClass();
-            if (targetClass.isArray()
-                    || Collection.class.isAssignableFrom(targetClass)) {
-                loadListErrors(result.getFieldErrors(), allErrorsMessages);
-            }
-            else {
-                loadObjectErrors(result.getFieldErrors(), allErrorsMessages);
-            }
+      // Check if target type is an array or a bean
+      @SuppressWarnings("rawtypes")
+      Class targetClass = result.getTarget().getClass();
+      if (targetClass.isArray() || Collection.class.isAssignableFrom(targetClass)) {
+        loadListErrors(result.getFieldErrors(), allErrorsMessages);
+      } else {
+        loadObjectErrors(result.getFieldErrors(), allErrorsMessages);
+      }
 
-            // Create the result map
-            Map<String, Object> bindingResult = new HashMap<String, Object>();
-            bindingResult.put("target-resource", StringUtils.lowerCase(result.getObjectName()));
-            bindingResult.put("error-count", result.getErrorCount());
-            bindingResult.put("errors", allErrorsMessages);
+      // Create the result map
+      Map<String, Object> bindingResult = new HashMap<String, Object>();
+      bindingResult.put("target-resource", StringUtils.lowerCase(result.getObjectName()));
+      bindingResult.put("error-count", result.getErrorCount());
+      bindingResult.put("errors", allErrorsMessages);
 
-            jgen.writeObject(bindingResult);
-        }
-        catch (JsonProcessingException e) {
-            LOGGER.warn(ERROR_WRITTING_BINDING, e);
-            throw e;
-        }
-        catch (IOException e) {
-            LOGGER.warn(ERROR_WRITTING_BINDING, e);
-            throw e;
-        }
-        catch (Exception e) {
-            LOGGER.warn(ERROR_WRITTING_BINDING, e);
-            throw new IOException(ERROR_WRITTING_BINDING, e);
-        }
-
+      jgen.writeObject(bindingResult);
+    } catch (JsonProcessingException e) {
+      LOGGER.warn(ERROR_WRITTING_BINDING, e);
+      throw e;
+    } catch (IOException e) {
+      LOGGER.warn(ERROR_WRITTING_BINDING, e);
+      throw e;
+    } catch (Exception e) {
+      LOGGER.warn(ERROR_WRITTING_BINDING, e);
+      throw new IOException(ERROR_WRITTING_BINDING, e);
     }
 
-    /**
-     * Iterate over object errors and load it on allErrorsMessages map.
-     * <p/>
-     * Delegates on {@link #loadObjectError(FieldError, String, Map)}
-     * 
-     * @param fieldErrors
-     * @param allErrorsMessages
-     */
-    private void loadObjectErrors(List<FieldError> fieldErrors,
-            Map<String, Object> allErrorsMessages) {
+  }
 
-        for (FieldError error : fieldErrors) {
-            loadObjectError(error, error.getField(), allErrorsMessages);
-        }
+  /**
+   * Iterate over object errors and load it on allErrorsMessages map.
+   * <p/>
+   * Delegates on {@link #loadObjectError(FieldError, String, Map)}
+   * 
+   * @param fieldErrors
+   * @param allErrorsMessages
+   */
+  private void loadObjectErrors(List<FieldError> fieldErrors,
+      Map<String, Object> allErrorsMessages) {
 
+    for (FieldError error : fieldErrors) {
+      loadObjectError(error, error.getField(), allErrorsMessages);
     }
 
-    /**
-     * Iterate over list items errors and load it on allErrorsMessages map.
-     * <p/>
-     * Delegates on {@link #loadObjectError(FieldError, String, Map)}
-     * 
-     * @param fieldErrors
-     * @param allErrorsMessages
-     */
-    @SuppressWarnings("unchecked")
-    private void loadListErrors(List<FieldError> fieldErrors,
-            Map<String, Object> allErrorsMessages) {
+  }
 
-        // Get prefix to unwrapping list:
-        // "list[0].employedSince"
-        String fieldNamePath = fieldErrors.get(0).getField();
-        String prefix = "";
+  /**
+   * Iterate over list items errors and load it on allErrorsMessages map.
+   * <p/>
+   * Delegates on {@link #loadObjectError(FieldError, String, Map)}
+   * 
+   * @param fieldErrors
+   * @param allErrorsMessages
+   */
+  @SuppressWarnings("unchecked")
+  private void loadListErrors(List<FieldError> fieldErrors, Map<String, Object> allErrorsMessages) {
 
-        if(StringUtils.contains(fieldNamePath, "[")) {
-          // "list"
-          prefix = StringUtils.
-            substringBefore(fieldNamePath, "[");
-        }
+    // Get prefix to unwrapping list:
+    // "list[0].employedSince"
+    String fieldNamePath = fieldErrors.get(0).getField();
+    String prefix = "";
 
-        String index = "";
-        Map<String, Object> currentErrors;
-
-        // Iterate over errors
-        for (FieldError error : fieldErrors) {
-
-          fieldNamePath = error.getField();
-
-          if(StringUtils.contains(fieldNamePath, "]")) {
-
-            // get property path without list prefix
-            // "[0].employedSince"
-            fieldNamePath = StringUtils
-                    .substringAfter(error.getField(), prefix);
-
-            // Get item's index:
-            // "[0].employedSince"
-            index = StringUtils.substringBefore(
-                    StringUtils.substringAfter(fieldNamePath, "["), "]");
-
-            // Remove index definition from field path
-            // "employedSince"
-            fieldNamePath = StringUtils.substringAfter(fieldNamePath, ".");
-          }
-
-            // Check if this item already has errors registered
-            currentErrors = (Map<String, Object>) allErrorsMessages.get(index);
-            if (currentErrors == null) {
-                // No errors registered: create map to contain this error
-                currentErrors = new HashMap<String, Object>();
-                allErrorsMessages.put(index, currentErrors);
-            }
-
-            // Load error on item's map
-            loadObjectError(error, fieldNamePath, currentErrors);
-        }
+    if (StringUtils.contains(fieldNamePath, "[")) {
+      // "list"
+      prefix = StringUtils.substringBefore(fieldNamePath, "[");
     }
 
-    /**
-     * Loads an object field error in errors map.
-     * <p/>
-     * This method identifies if referred object property is an array, an object
-     * or a simple property to decide how to store the error message.
-     * 
-     * @param error
-     * @param fieldNamePath
-     * @param objectErrors
-     */
-    @SuppressWarnings("unchecked")
-    private void loadObjectError(FieldError error, String fieldNamePath,
-            Map<String, Object> objectErrors) {
+    String index = "";
+    Map<String, Object> currentErrors;
 
-        String propertyName;
-        boolean isObject = false;
-        boolean isList = false;
+    // Iterate over errors
+    for (FieldError error : fieldErrors) {
 
-        // Get this property name and if is a object property
-        if (StringUtils.contains(fieldNamePath, ".")) {
-            isObject = true;
-            propertyName = StringUtils.substringBefore(fieldNamePath, ".");
-        }
-        else {
-            isObject = false;
-            propertyName = fieldNamePath;
-        }
+      fieldNamePath = error.getField();
 
-        // Check if property is an array or a list
-        isList = StringUtils.contains(propertyName, "[");
+      if (StringUtils.contains(fieldNamePath, "]")) {
 
-        // Process a list item property
-        if (isList) {
-            // Get property name
-            String listPropertyName = StringUtils.substringBefore(propertyName,
-                    "[");
+        // get property path without list prefix
+        // "[0].employedSince"
+        fieldNamePath = StringUtils.substringAfter(error.getField(), prefix);
 
-            // Get referred item index
-            String index = StringUtils.substringBefore(
-                    StringUtils.substringAfter(propertyName, "["), "]");
+        // Get item's index:
+        // "[0].employedSince"
+        index = StringUtils.substringBefore(StringUtils.substringAfter(fieldNamePath, "["), "]");
 
-            // Get item path
-            String itemPath = StringUtils.substringAfter(fieldNamePath, ".");
+        // Remove index definition from field path
+        // "employedSince"
+        fieldNamePath = StringUtils.substringAfter(fieldNamePath, ".");
+      }
 
-            // Get container of list property errors
-            Map<String, Object> listErrors = (Map<String, Object>) objectErrors
-                    .get(listPropertyName);
+      // Check if this item already has errors registered
+      currentErrors = (Map<String, Object>) allErrorsMessages.get(index);
+      if (currentErrors == null) {
+        // No errors registered: create map to contain this error
+        currentErrors = new HashMap<String, Object>();
+        allErrorsMessages.put(index, currentErrors);
+      }
 
-            if (listErrors == null) {
-                // property has no errors yet: create a container for it
-                listErrors = new HashMap<String, Object>();
-                objectErrors.put(listPropertyName, listErrors);
-            }
-
-            // Get current item errors
-            Map<String, Object> itemErrors = (Map<String, Object>) listErrors
-                    .get(index);
-
-            if (itemErrors == null) {
-                // item has no errors yet: create a container for it
-                itemErrors = new HashMap<String, Object>();
-                listErrors.put(index, itemErrors);
-            }
-
-            // Load error in item property path
-            loadObjectError(error, itemPath, itemErrors);
-
-        }
-        else if (isObject) {
-            // It's not a list but it has properties in it value
-
-            // Get current property errors
-            Map<String, Object> propertyErrors = (Map<String, Object>) objectErrors
-                    .get(propertyName);
-
-            if (propertyErrors == null) {
-                // item has no errors yet: create a container for it
-                propertyErrors = new HashMap<String, Object>();
-                objectErrors.put(propertyName, propertyErrors);
-            }
-
-            // Get error sub path
-            String subFieldPath = StringUtils
-                    .substringAfter(fieldNamePath, ".");
-
-            // Load error in container
-            loadObjectError(error, subFieldPath, propertyErrors);
-
-        }
-        else {
-            // standard property with no children value
-
-            // Store error message in container
-            objectErrors.put(propertyName, error.getDefaultMessage());
-        }
+      // Load error on item's map
+      loadObjectError(error, fieldNamePath, currentErrors);
     }
+  }
+
+  /**
+   * Loads an object field error in errors map.
+   * <p/>
+   * This method identifies if referred object property is an array, an object
+   * or a simple property to decide how to store the error message.
+   * 
+   * @param error
+   * @param fieldNamePath
+   * @param objectErrors
+   */
+  @SuppressWarnings("unchecked")
+  private void loadObjectError(FieldError error, String fieldNamePath,
+      Map<String, Object> objectErrors) {
+
+    String propertyName;
+    boolean isObject = false;
+    boolean isList = false;
+
+    // Get this property name and if is a object property
+    if (StringUtils.contains(fieldNamePath, ".")) {
+      isObject = true;
+      propertyName = StringUtils.substringBefore(fieldNamePath, ".");
+    } else {
+      isObject = false;
+      propertyName = fieldNamePath;
+    }
+
+    // Check if property is an array or a list
+    isList = StringUtils.contains(propertyName, "[");
+
+    // Process a list item property
+    if (isList) {
+      // Get property name
+      String listPropertyName = StringUtils.substringBefore(propertyName, "[");
+
+      // Get referred item index
+      String index =
+          StringUtils.substringBefore(StringUtils.substringAfter(propertyName, "["), "]");
+
+      // Get item path
+      String itemPath = StringUtils.substringAfter(fieldNamePath, ".");
+
+      // Get container of list property errors
+      Map<String, Object> listErrors = (Map<String, Object>) objectErrors.get(listPropertyName);
+
+      if (listErrors == null) {
+        // property has no errors yet: create a container for it
+        listErrors = new HashMap<String, Object>();
+        objectErrors.put(listPropertyName, listErrors);
+      }
+
+      // Get current item errors
+      Map<String, Object> itemErrors = (Map<String, Object>) listErrors.get(index);
+
+      if (itemErrors == null) {
+        // item has no errors yet: create a container for it
+        itemErrors = new HashMap<String, Object>();
+        listErrors.put(index, itemErrors);
+      }
+
+      // Load error in item property path
+      loadObjectError(error, itemPath, itemErrors);
+
+    } else if (isObject) {
+      // It's not a list but it has properties in it value
+
+      // Get current property errors
+      Map<String, Object> propertyErrors = (Map<String, Object>) objectErrors.get(propertyName);
+
+      if (propertyErrors == null) {
+        // item has no errors yet: create a container for it
+        propertyErrors = new HashMap<String, Object>();
+        objectErrors.put(propertyName, propertyErrors);
+      }
+
+      // Get error sub path
+      String subFieldPath = StringUtils.substringAfter(fieldNamePath, ".");
+
+      // Load error in container
+      loadObjectError(error, subFieldPath, propertyErrors);
+
+    } else {
+      // standard property with no children value
+
+      // Store error message in container
+      objectErrors.put(propertyName, error.getDefaultMessage());
+    }
+  }
 
 }

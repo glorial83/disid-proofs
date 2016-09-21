@@ -48,8 +48,8 @@ public class CollectionValidator implements Validator {
     int index = 0;
 
     for (Object object : collection) {
-      BeanPropertyBindingResult elementErrors = new BeanPropertyBindingResult(object,
-          errors.getObjectName());
+      BeanPropertyBindingResult elementErrors =
+          new BeanPropertyBindingResult(object, errors.getObjectName());
       elementErrors.setNestedPath("[".concat(Integer.toString(index++)).concat("]."));
       ValidationUtils.invokeValidator(validator, object, elementErrors);
 

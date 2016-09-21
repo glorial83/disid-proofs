@@ -34,38 +34,38 @@ public class BindingErrorException extends RuntimeException implements BindingRe
   @Override
   public void reject(String errorCode, String defaultMessage) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void reject(String errorCode, Object[] errorArgs, String defaultMessage) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void rejectValue(String field, String errorCode) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void rejectValue(String field, String errorCode, String defaultMessage) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void rejectValue(String field, String errorCode, Object[] errorArgs,
       String defaultMessage) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void addAllErrors(Errors errors) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
@@ -184,7 +184,7 @@ public class BindingErrorException extends RuntimeException implements BindingRe
   @Override
   public void addError(ObjectError error) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
@@ -200,7 +200,7 @@ public class BindingErrorException extends RuntimeException implements BindingRe
   @Override
   public void recordSuppressedField(String field) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
@@ -217,7 +217,7 @@ public class BindingErrorException extends RuntimeException implements BindingRe
   @Override
   public void setNestedPath(String nestedPath) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
@@ -229,19 +229,19 @@ public class BindingErrorException extends RuntimeException implements BindingRe
   @Override
   public void pushNestedPath(String subPath) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void popNestedPath() throws IllegalStateException {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
   public void reject(String errorCode) {
     // TODO Auto-generated method stub
-    
+
   }
 
 }

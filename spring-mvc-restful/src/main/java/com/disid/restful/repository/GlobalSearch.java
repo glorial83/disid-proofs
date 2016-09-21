@@ -2,6 +2,7 @@ package com.disid.restful.repository;
 
 import org.springframework.roo.addon.layers.repository.jpa.annotations.RooGlobalSearch;
 import org.springframework.util.Assert;
+
 /**
  * Defines a global text search. This Value Object is used to define
  * global data searches in an entity or group of entities to validate 

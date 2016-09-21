@@ -10,12 +10,12 @@ import com.disid.restful.model.OrderDetail;
 @RooService(entity = CustomerOrder.class)
 public interface CustomerOrderService {
 
-    void delete(CustomerOrder customerOrder);
+  void delete(CustomerOrder customerOrder);
 
-    Set<CustomerOrder> findByIdIn(Long[] orders);
+  Set<CustomerOrder> findByIdIn(Long[] orders);
 
-    CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details);
+  CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details);
 
-    CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details);
-    
+  CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details);
+
 }
