@@ -29,8 +29,8 @@ privileged aspect OrderDetailService_Roo_Service {
     public abstract OrderDetail OrderDetailService.findOne(OrderDetailPK id);    
     public abstract long OrderDetailService.count();    
     public abstract Page<OrderDetail> OrderDetailService.findAll(GlobalSearch globalSearch, Pageable pageable);    
-    public abstract Page<OrderDetail> OrderDetailService.findAllByCustomerOrder(CustomerOrder customerOrderField, GlobalSearch globalSearch, Pageable pageable);    
     public abstract Page<OrderDetail> OrderDetailService.findAllByProduct(Product productField, GlobalSearch globalSearch, Pageable pageable);    
-    public abstract Long OrderDetailService.countByCustomerOrderId(Long id);    
+    public abstract Page<OrderDetail> OrderDetailService.findAllByCustomerOrder(CustomerOrder customerOrderField, GlobalSearch globalSearch, Pageable pageable);    
     public abstract Long OrderDetailService.countByProductId(Long id);    
+    public abstract Long OrderDetailService.countByCustomerOrderId(Long id);    
 }

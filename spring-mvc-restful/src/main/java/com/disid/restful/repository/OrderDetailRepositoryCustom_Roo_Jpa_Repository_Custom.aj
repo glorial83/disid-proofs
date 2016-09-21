@@ -14,6 +14,6 @@ import org.springframework.data.domain.Pageable;
 privileged aspect OrderDetailRepositoryCustom_Roo_Jpa_Repository_Custom {
     
     public abstract Page<OrderDetail> OrderDetailRepositoryCustom.findAll(GlobalSearch globalSearch, Pageable pageable);    
-    public abstract Page<OrderDetail> OrderDetailRepositoryCustom.findAllByCustomerOrder(CustomerOrder customerOrderField, GlobalSearch globalSearch, Pageable pageable);    
     public abstract Page<OrderDetail> OrderDetailRepositoryCustom.findAllByProduct(Product productField, GlobalSearch globalSearch, Pageable pageable);    
+    public abstract Page<OrderDetail> OrderDetailRepositoryCustom.findAllByCustomerOrder(CustomerOrder customerOrderField, GlobalSearch globalSearch, Pageable pageable);    
 }

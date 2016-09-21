@@ -30,16 +30,8 @@ privileged aspect Customer_Roo_JavaBean {
         return this.orders;
     }
     
-    public void Customer.setOrders(Set<CustomerOrder> orders) {
-        this.orders = orders;
-    }
-    
     public Address Customer.getAddress() {
         return this.address;
-    }
-    
-    public void Customer.setAddress(Address address) {
-        this.address = address;
     }
     
 }

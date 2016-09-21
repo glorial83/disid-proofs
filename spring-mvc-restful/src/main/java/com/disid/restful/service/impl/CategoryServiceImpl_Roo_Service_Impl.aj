@@ -4,7 +4,6 @@
 package com.disid.restful.service.impl;
 
 import com.disid.restful.model.Category;
-import com.disid.restful.repository.CategoryRepository;
 import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.impl.CategoryServiceImpl;
@@ -21,8 +20,6 @@ privileged aspect CategoryServiceImpl_Roo_Service_Impl {
     declare @type: CategoryServiceImpl: @Service;
     
     declare @type: CategoryServiceImpl: @Transactional(readOnly = true);
-    
-    public CategoryRepository CategoryServiceImpl.categoryRepository;
     
     @Transactional(readOnly = false)
     public Category CategoryServiceImpl.save(Category entity) {

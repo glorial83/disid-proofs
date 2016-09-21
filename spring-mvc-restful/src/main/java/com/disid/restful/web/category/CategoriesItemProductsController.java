@@ -1,5 +1,12 @@
 package com.disid.restful.web.category;
 
+import com.disid.restful.datatables.DatatablesData;
+import com.disid.restful.model.Category;
+import com.disid.restful.model.Product;
+import com.disid.restful.repository.GlobalSearch;
+import com.disid.restful.service.api.CategoryService;
+import com.disid.restful.service.api.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,13 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.model.Category;
-import com.disid.restful.model.Product;
-import com.disid.restful.repository.GlobalSearch;
-import com.disid.restful.service.api.CategoryService;
-import com.disid.restful.service.api.ProductService;
 
 @Controller
 @RequestMapping("/categories/{category}/products")
@@ -59,7 +59,7 @@ public class CategoriesItemProductsController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Category addProduct(@ModelAttribute Category category, @RequestBody Long product) {
-	return categoryService.addToProducts(category, product);
+    return categoryService.addToProducts(category, product);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,7 +71,7 @@ public class CategoriesItemProductsController {
     @RequestMapping(value = "/batch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Category addProducts(@ModelAttribute Category category, @RequestBody Long[] products) {
-	return categoryService.addToProducts(category, products);
+    return categoryService.addToProducts(category, products);
     }
 
     @RequestMapping(value = "/batch", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

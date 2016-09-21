@@ -1,5 +1,12 @@
 package com.disid.restful.web.product;
 
+import com.disid.restful.datatables.DatatablesData;
+import com.disid.restful.model.Category;
+import com.disid.restful.model.Product;
+import com.disid.restful.repository.GlobalSearch;
+import com.disid.restful.service.api.CategoryService;
+import com.disid.restful.service.api.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,13 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.model.Category;
-import com.disid.restful.model.Product;
-import com.disid.restful.repository.GlobalSearch;
-import com.disid.restful.service.api.CategoryService;
-import com.disid.restful.service.api.ProductService;
 
 @Controller
 @RequestMapping("/products/{product}/categories")
@@ -59,25 +59,26 @@ public class ProductsItemCategoriesController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Product addToCategories(@ModelAttribute Product product, @RequestBody Long category) {
-	return productService.addToCategories(product, category);
+    return categoryService.addToProducts(product, category);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Product deleteFromCategories(@ModelAttribute Product product, @RequestBody Long category) {
-	return productService.deleteFromCategories(product, category);
+    return categoryService.deleteFromProducts(product, category);
     }
 
     @RequestMapping(value = "/batch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Product addCategories(@ModelAttribute Product product, @RequestBody Long[] categories) {
-	return productService.addToCategories(product, categories);
+    //	return productService.addToCategories(product, categories);
+    return categoryService.addToProducts(product, categories);
     }
 
     @RequestMapping(value = "/batch", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Product deleteCategories(@ModelAttribute Product product, @RequestBody Long[] categories) {
-	return productService.deleteFromCategories(product, categories);
+    return categoryService.deleteFromProducts(product, categories);
     }
 
 }

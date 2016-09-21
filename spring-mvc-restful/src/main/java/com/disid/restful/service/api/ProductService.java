@@ -1,14 +1,14 @@
 package com.disid.restful.service.api;
 
-import java.util.Set;
+import com.disid.restful.model.Category;
+import com.disid.restful.model.Product;
+import com.disid.restful.repository.GlobalSearch;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.roo.addon.layers.service.annotations.RooService;
 
-import com.disid.restful.model.Category;
-import com.disid.restful.model.Product;
-import com.disid.restful.repository.GlobalSearch;
+import java.util.Set;
 
 @RooService(entity = Product.class)
 public interface ProductService {
@@ -21,7 +21,4 @@ public interface ProductService {
 
     Set<Product> findByIdIn(Long[] productIds);
 
-    Product addToCategories(Product product, Long... categories);
-
-    Product deleteFromCategories(Product product, Long... categories);
 }

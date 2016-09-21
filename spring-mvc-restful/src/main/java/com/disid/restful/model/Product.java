@@ -28,8 +28,9 @@ public class Product {
     private String description;
 
     /**
+     * Bidirectional many-to-many relationship. Child side.
      */
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Category> categories = new HashSet<Category>();
 }

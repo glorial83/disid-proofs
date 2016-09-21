@@ -29,8 +29,4 @@ privileged aspect Category_Roo_JavaBean {
         return this.products;
     }
     
-    public void Category.setProducts(Set<Product> products) {
-        this.products = products;
-    }
-    
 }

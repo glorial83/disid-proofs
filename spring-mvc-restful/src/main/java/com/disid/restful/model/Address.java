@@ -3,7 +3,6 @@ import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Min;
@@ -28,8 +27,9 @@ public class Address {
     private Integer streetNumber;
 
     /**
+     * Bidirectional aggregation one-to-one relationship. Child side.
      */
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "address")
+    @OneToOne(fetch = FetchType.LAZY)
     private Customer customer;
 }
