@@ -1,9 +1,0 @@
-= Spring Roo Proof - Detail inside fragment
-
-This proof has been developed to analyze the best way to include a detail in *list.html*.
-
-* Spring Roo 2.0.0.M2 includes the detail inside the *list.html* directly.
-
-* This proof modifies Spring Roo 2.0.0.M2 html generation to include the detail inside a thymeleaf fragment and then, include the fragment inside the *list.html*
-
-
