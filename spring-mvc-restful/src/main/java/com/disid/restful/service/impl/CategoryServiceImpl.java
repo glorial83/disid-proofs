@@ -52,7 +52,7 @@ public class CategoryServiceImpl {
 
   @Transactional
   public Category addToProducts(Category category, Product... products) {
-    category.addToProducts(products);
+    category.addToProducts(Arrays.asList(products));
     return categoryRepository.save(category);
   }
 
@@ -65,7 +65,7 @@ public class CategoryServiceImpl {
 
   @Transactional
   public Category deleteFromProducts(Category category, Product... products) {
-    category.removeFromProducts(products);
+    category.removeFromProducts(Arrays.asList(products));
     return categoryRepository.save(category);
   }
 
@@ -77,6 +77,7 @@ public class CategoryServiceImpl {
     return categoryRepository.countByProductsContains(product);
   }
 
+  @Transactional
   public Product addToProducts(Product product, Long... categories) {
     List<Category> categoryEntities = findAll(Arrays.asList(categories));
     for (Category category : categoryEntities) {
@@ -85,6 +86,7 @@ public class CategoryServiceImpl {
     return product;
   }
 
+  @Transactional
   public Product deleteFromProducts(Product product, Long... categories) {
     List<Category> categoryEntities = findAll(Arrays.asList(categories));
     for (Category category : categoryEntities) {

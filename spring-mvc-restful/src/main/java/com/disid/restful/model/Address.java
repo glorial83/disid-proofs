@@ -28,9 +28,14 @@ public class Address {
   private Integer streetNumber;
 
   /**
-   * Bidirectional aggregation one-to-one relationship. Child side.
+   * Bidirectional composition one-to-one relationship. Child side.
    */
   @NotNull
   @OneToOne(fetch = FetchType.LAZY)
   private Customer customer;
+
+  public String toString() {
+    return super.toString() + " - Street: " + street + ", City: " + city + ", Number: "
+        + streetNumber;
+  }
 }

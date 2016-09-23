@@ -62,7 +62,7 @@
            <li><a href="#">Submenu 1</a></li> 
            <li><a href="#">Submenu 2</a></li> 
            <li><a href="#">Submenu 3</a></li> 
-          </ul> </li> 
+          </ul></li> 
         </ul> 
        </div> 
        <!-- User Menu --> 
@@ -102,6 +102,27 @@
         <div class="col-md-3"> 
          <input id="lastName" name="lastName" data-th-value="*{{lastName}}" type="text" class="form-control" placeholder="lastName" data-th-placeholder="#{label_customer_lastname}" data-toggle="tooltip" /> 
          <span id="name-help" class="help-block alert" data-th-if="${#fields.hasErrors('lastName')}" data-th-errors="*{lastName}">Help message.</span> 
+        </div> 
+       </div> 
+       <div class="form-group" data-th-classappend="${#fields.hasErrors('address.street')}? 'has-error has-feedback'"> 
+        <label for="address.street" class="col-md-3 control-label" data-th-text="#{label_address_street}">address.street</label> 
+        <div class="col-md-3"> 
+         <input id="address.street" name="address.street" data-th-value="*{{address.street}}" type="text" class="form-control" placeholder="address.street" data-th-placeholder="#{label_address_street}" data-toggle="tooltip" /> 
+         <span id="name-help" class="help-block alert" data-th-if="${#fields.hasErrors('address.street')}" data-th-errors="*{address.street}">Help message.</span> 
+        </div> 
+       </div> 
+       <div class="form-group" data-th-classappend="${#fields.hasErrors('address.city')}? 'has-error has-feedback'"> 
+        <label for="address.city" class="col-md-3 control-label" data-th-text="#{label_address_city}">address.city</label> 
+        <div class="col-md-3"> 
+         <input id="address.city" name="address.city" data-th-value="*{{address.city}}" type="text" class="form-control" placeholder="address.city" data-th-placeholder="#{label_address_city}" data-toggle="tooltip" /> 
+         <span id="name-help" class="help-block alert" data-th-if="${#fields.hasErrors('address.city')}" data-th-errors="*{address.city}">Help message.</span> 
+        </div> 
+       </div> 
+       <div class="form-group" data-th-classappend="${#fields.hasErrors('address.streetNumber')}? 'has-error has-feedback'"> 
+        <label for="address.streetNumber" class="col-md-3 control-label" data-th-text="#{label_address_streetNumber}">address.streetNumber</label> 
+        <div class="col-md-3"> 
+         <input id="address.streetNumber" name="address.streetNumber" data-th-value="*{{address.streetNumber}}" type="text" class="form-control" placeholder="address.streetNumber" data-th-placeholder="#{label_address_streetNumber}" data-toggle="tooltip" /> 
+         <span id="name-help" class="help-block alert" data-th-if="${#fields.hasErrors('address.streetNumber')}" data-th-errors="*{address.streetNumber}">Help message.</span> 
         </div> 
        </div> 
        <!-- FORM BUTTONS --> 

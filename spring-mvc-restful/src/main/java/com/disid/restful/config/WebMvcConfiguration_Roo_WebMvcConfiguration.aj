@@ -9,11 +9,6 @@ import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 import com.disid.restful.service.api.OrderDetailService;
 import com.disid.restful.service.api.ProductService;
-import com.disid.restful.web.CategoryFormatter;
-import com.disid.restful.web.CustomerFormatter;
-import com.disid.restful.web.CustomerOrderFormatter;
-import com.disid.restful.web.OrderDetailFormatter;
-import com.disid.restful.web.ProductFormatter;
 import com.disid.restful.web.method.support.GlobalSearchHandlerMethodArgumentResolver;
 import java.lang.Override;
 import java.util.List;
@@ -57,21 +52,6 @@ privileged aspect WebMvcConfiguration_Roo_WebMvcConfiguration {
     @Bean
     public LocalValidatorFactoryBean WebMvcConfiguration.validator() {
         return new LocalValidatorFactoryBean();
-    }
-    
-    @Override
-    public void WebMvcConfiguration.addFormatters(FormatterRegistry registry) {
-        if (!(registry instanceof FormattingConversionService)) {
-            return;
-        }
-        FormattingConversionService conversionService = (FormattingConversionService) registry;
-        
-        // Entity Formatters
-        conversionService.addFormatter(new CategoryFormatter(categoryService, conversionService));
-        conversionService.addFormatter(new CustomerFormatter(customerService, conversionService));
-        conversionService.addFormatter(new CustomerOrderFormatter(customerOrderService, conversionService));
-        conversionService.addFormatter(new OrderDetailFormatter(orderDetailService, conversionService));
-        conversionService.addFormatter(new ProductFormatter(productService, conversionService));
     }
     
     @Bean

@@ -25,7 +25,7 @@ public class OrderDetail {
   private Product product;
 
   /**
-   * Bidirectional aggregation many-to-one relationship. Child side.
+   * Bidirectional composition many-to-one relationship. Child side.
    */
   @ManyToOne
   @MapsId("customerOrderId")

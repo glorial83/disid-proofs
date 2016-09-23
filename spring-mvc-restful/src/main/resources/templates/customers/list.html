@@ -92,7 +92,10 @@
      <h1 data-th-text="#{label_customer_plural}">Customers</h1> 
      <!--START TABLE--> 
      <div class="table-responsive"> 
-      <table id="CustomerTable" class="table table-striped table-hover table-bordered" data-row-id="id" data-select="single" data-order="[[ 0, &quot;asc&quot; ]]" data-th-attr="data-create-url=@{/customers/create-form/}"> 
+      <table id="CustomerTable" class="table table-striped table-hover table-bordered" 
+             data-row-id="id" data-select="single" 
+             data-order="[[ 0, &quot;asc&quot; ]]" 
+             data-th-attr="data-create-url=@{/customers/create-form/}"> 
        <caption data-th-text="#{label_list_entity(#{label_customer_plural})}">
         List Customer
        </caption> 
@@ -100,6 +103,9 @@
         <tr> 
          <th data-th-text="#{label_customer_firstname}">firstName</th> 
          <th data-th-text="#{label_customer_lastname}">lastName</th> 
+         <th data-th-text="#{label_address_street}">street</th> 
+         <th data-th-text="#{label_address_city}">city</th> 
+         <th data-th-text="#{label_address_streetNumber}">streetNumber</th> 
          <th data-th-text="#{label_tools}">Tools</th> 
         </tr> 
        </thead> 
@@ -107,6 +113,9 @@
         <tr> 
          <td>firstName</td> 
          <td>lastName</td> 
+         <td>street</td> 
+         <td>city</td> 
+         <td>streetNumber</td> 
          <td data-th-text="#{label_tools}">Tools</td> 
         </tr> 
        </tbody> 
@@ -202,7 +211,112 @@
    <script type="text/javascript" charset="utf8" src="../../static/public/js/datatables-defaults.js" data-th-src="@{/public/js/datatables-defaults.js}"></script> 
    <script type="text/javascript" charset="utf8" src="../../static/public/js/datatables-defaults-en.js" data-th-src="@{/public/js/datatables-defaults-en.js}"></script> 
    <!-- Datatables page configs --> 
-   <script type="text/javascript" data-th-inline="javascript"> jQuery(document).ready( function () { var CustomerTable = jQuery('#CustomerTable').DataTable({ 'ajax': { 'url': [[@{/customers/}]] }, 'columns': [ { 'data': 'firstName' }, { 'data': 'lastName' }, { 'data': 'id', 'orderable': false, 'searchable': false, 'render': function ( data, type, full, meta ) { return '<a role="button" class="btn-accion ver" href="/customers/' + data + '" data-th-text="#{label_show}">Show</a>' + '<a role="button" class="btn-accion modificar" href="/customers/' + data + '/edit-form" data-th-text="#{label_edit}">Edit</a>' + '<a role="button" class="btn-accion eliminar" data-th-text="#{label_delete}" onclick="javascript:jQuery.deleteCustomer(' + data + ')"></a>' } } ] }); jQuery.extend({ 'deleteCustomer': function(id) { jQuery.ajax({ url: '/customers/'+id, type: 'DELETE', success: function(result) { jQuery('#deleteCustomerModalBody').empty(); jQuery('#deleteCustomerModalBody').append('<p data-th-text="|#{info_deleted_items_number(1)}|">1 removed item</p>'); jQuery('#deleteCustomerModal').modal(); /** Refresh Datatables */ CustomerTable.ajax.reload(); }, error: function(jqXHR) { /** Getting error code */ var message = ''; /** CONFLICT */ if (jqXHR.status == 409) { message = '<p data-th-text="|#{info_no_deleted_item}|">0 items has been deleted.</p>'; } /** NOT_FOUND */ if (jqXHR.status == 404 ) { message = '<p data-th-text="|#{info_deleted_item_problem} #{info_no_exist_item}|">Error deleting selected item.</p>'; } jQuery('#deleteCustomerModalBody').empty(); jQuery('#deleteCustomerModalBody').append(message); jQuery('#deleteCustomerModal').modal(); } }); } }); var CustomerOrderTable = jQuery('#CustomerOrderTable').DataTable({ 'buttons' : [ { 'extend' : 'colvis', 'className' : 'btn-accion' }, { 'extend' : 'pageLength', 'className' : 'btn-accion' } ], 'columns': [ { 'data': 'orderDate' }, { 'data': 'shippedDate' }, { 'data': 'shipAddress' }, { 'data': 'customer' }, { 'data': 'id', 'orderable': false, 'searchable': false, 'render': function ( data, type, full, meta ) { return ''; } } ] }); jQuery.extend({ 'currentCustomerId': undefined, 'CustomerOrderBaseUrl': function() { if(jQuery.currentCustomerId) { return [[@{/customers/}]] + jQuery.currentCustomerId + '/orders/'; } return undefined; }, 'createCustomerOrderUrl': function() { if(jQuery.currentCustomerId) { return jQuery.CustomerOrderBaseUrl() + jQuery.createUri + '/'; } return undefined; }, 'updateCustomerOrderUrl': function(CustomerOrderId) { if(jQuery.currentCustomerId) { return jQuery.CustomerOrderBaseUrl() + CustomerOrderId + '/'+ jQuery.editUri + '/'; } return undefined; }, 'deleteCustomerOrderUrl': function(CustomerOrderId) { if(jQuery.currentCustomerId) { return jQuery.CustomerOrderBaseUrl() + CustomerOrderId + '/'+ jQuery.deleteUri + '/'; } return undefined; } }); CustomerTable.on( 'select', function ( e, dt, type, indexes ) { if ( type === 'row' ) { var newCustomerId = CustomerTable.rows( indexes ).ids()[0]; if (jQuery.currentCustomerId != newCustomerId) { jQuery.currentCustomerId = newCustomerId; var urlCustomerOrder = jQuery.CustomerOrderBaseUrl(); CustomerOrderTable.ajax.url( urlCustomerOrder ).load(); } } }); }); </script> 
+   <script type="text/javascript" data-th-inline="javascript">
+   jQuery(document).ready( function () { 
+     var CustomerTable = jQuery('#CustomerTable').DataTable({ 
+       'ajax': { 
+         'url': [[@{/customers/}]] 
+       }, 
+       'columns': [ 
+         {'data': 'firstName' }, 
+         {'data': 'lastName' }, 
+         {'data': 'address.street' }, 
+         {'data': 'address.city' }, 
+         {'data': 'address.streetNumber' }, 
+         {'data': 'id', 'orderable': false, 'searchable': false, 'render': function ( data, type, full, meta ) { 
+             return '<a role="button" class="btn-accion ver" href="/customers/' + data + '" data-th-text="#{label_show}">Show</a>' + '<a role="button" class="btn-accion modificar" href="/customers/' + data + '/edit-form" data-th-text="#{label_edit}">Edit</a>' + '<a role="button" class="btn-accion eliminar" data-th-text="#{label_delete}" onclick="javascript:jQuery.deleteCustomer(' + data + ')"></a>'
+             }
+         } 
+       ] 
+     }); 
+   
+     jQuery.extend({ 'deleteCustomer': function(id) { 
+       jQuery.ajax({ 
+    	   url: '/customers/'+id, 
+    	   type: 'DELETE', 
+    	   success: function(result) { 
+    		   jQuery('#deleteCustomerModalBody').empty(); 
+    		   jQuery('#deleteCustomerModalBody').append('<p data-th-text="|#{info_deleted_items_number(1)}|">1 removed item</p>'); 
+    		   jQuery('#deleteCustomerModal').modal(); 
+    		   /** Refresh Datatables */ 
+    		   CustomerTable.ajax.reload(); 
+    	   }, 
+    	   error: function(jqXHR) { 
+    		   /** Getting error code */ 
+    		   var message = ''; 
+    		   /** CONFLICT */ 
+    		   if (jqXHR.status == 409) { 
+    			   message = '<p data-th-text="|#{info_no_deleted_item}|">0 items has been deleted.</p>'; 
+    		   } 
+    		   /** NOT_FOUND */ 
+    		   if (jqXHR.status == 404 ) { 
+    			   message = '<p data-th-text="|#{info_deleted_item_problem} #{info_no_exist_item}|">Error deleting selected item.</p>'; 
+    		   } 
+    		   jQuery('#deleteCustomerModalBody').empty(); 
+    		   jQuery('#deleteCustomerModalBody').append(message); 
+    		   jQuery('#deleteCustomerModal').modal(); 
+    	   } 
+       }); 
+     }}); 
+     
+     var CustomerOrderTable = jQuery('#CustomerOrderTable').DataTable({ 
+    	 'buttons' : [ 
+    	   { 'extend' : 'colvis', 'className' : 'btn-accion' },
+    	   { 'extend' : 'pageLength', 'className' : 'btn-accion' } 
+    	 ], 
+    	 'columns': [ 
+           { 'data': 'orderDate' }, 
+           { 'data': 'shippedDate' }, 
+           { 'data': 'shipAddress' }, 
+           { 'data': 'customer' }, 
+           { 'data': 'id', 
+        	 'orderable': false, 
+        	 'searchable': false, 
+        	 'render': function ( data, type, full, meta ) { return ''; } 
+           } 
+         ] 
+     }); 
+     
+     jQuery.extend({ 
+    	 'currentCustomerId': undefined, 
+    	 'CustomerOrderBaseUrl': function() { 
+    		 if(jQuery.currentCustomerId) { 
+    			 return [[@{/customers/}]] + jQuery.currentCustomerId + '/orders/'; 
+    	     } 
+    		 return undefined; 
+    	 }, 
+    	 'createCustomerOrderUrl': function() { 
+    		 if(jQuery.currentCustomerId) { 
+    			 return jQuery.CustomerOrderBaseUrl() + jQuery.createUri + '/'; 
+    	     } 
+    		 return undefined; 
+         }, 
+         'updateCustomerOrderUrl': function(CustomerOrderId) { 
+        	 if(jQuery.currentCustomerId) { 
+        		 return jQuery.CustomerOrderBaseUrl() + CustomerOrderId + '/'+ jQuery.editUri + '/'; 
+             } return undefined; 
+         }, 
+         'deleteCustomerOrderUrl': function(CustomerOrderId) { 
+        	 if(jQuery.currentCustomerId) { 
+        		 return jQuery.CustomerOrderBaseUrl() + CustomerOrderId + '/'+ jQuery.deleteUri + '/'; 
+             } 
+        	 return undefined; 
+         } 
+     }); 
+     
+     CustomerTable.on( 'select', function ( e, dt, type, indexes ) { 
+    	 if ( type === 'row' ) { 
+    		 var newCustomerId = CustomerTable.rows( indexes ).ids()[0]; 
+    		 if (jQuery.currentCustomerId != newCustomerId) { 
+    			 jQuery.currentCustomerId = newCustomerId; 
+    			 var urlCustomerOrder = jQuery.
+    			 CustomerOrderBaseUrl(); 
+    			 CustomerOrderTable.ajax.url( urlCustomerOrder ).load(); 
+    		 } 
+         } 
+     }); 
+   }); 
+   </script> 
   </div> 
   <!-- Application --> 
   <script type="text/javascript" src="../../static/public/js/main.js" data-th-remove="all"></script> 

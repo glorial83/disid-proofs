@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +43,7 @@ public class CustomersItemOrdersController {
 
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public Page<CustomerOrder> listCustomerOrder(@PathVariable("customer") Customer customer,
+  public Page<CustomerOrder> listCustomerOrder(@ModelAttribute Customer customer,
       GlobalSearch search, Pageable pageable) {
     Page<CustomerOrder> customerOrder =
         customerOrderService.findAllByCustomer(customer, search, pageable);
@@ -51,14 +52,17 @@ public class CustomersItemOrdersController {
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.datatables+json")
   @ResponseBody
-  public DatatablesData<CustomerOrder> listCustomerOrder(
-      @PathVariable("customer") Customer customer, GlobalSearch search, Pageable pageable,
-      @RequestParam("draw") Integer draw) {
-    Page<CustomerOrder> customerOrder =
+  public DatatablesData<CustomerOrder> listCustomerOrder(@ModelAttribute Customer customer,
+      GlobalSearch search, Pageable pageable, @RequestParam("draw") Integer draw) {
+    Page<CustomerOrder> customerOrderPage =
         customerOrderService.findAllByCustomer(customer, search, pageable);
-    long allAvailableCustomerOrderDetails =
-        customerOrderService.countByCustomerId(customer.getId());
-    return new DatatablesData<CustomerOrder>(customerOrder, allAvailableCustomerOrderDetails, draw);
+    long orderDetailsWithoutSearchFilterCount = customerOrderPage.getTotalElements();
+    if (search != null && StringUtils.hasText(search.getText())) {
+      orderDetailsWithoutSearchFilterCount =
+          customerOrderService.countByCustomerId(customer.getId());
+    }
+    return new DatatablesData<CustomerOrder>(customerOrderPage,
+        orderDetailsWithoutSearchFilterCount, draw);
   }
 
   @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -6,7 +6,6 @@ import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import org.springframework.util.Assert;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -41,7 +40,7 @@ public class CustomerOrder {
   private String shipAddress;
 
   /**
-  * Bidirectional aggregation one-to-many relationship. Parent side.
+  * Bidirectional composition one-to-many relationship. Parent side.
   * TODO: convertir a List la propiedad details, tal y como está ahora el 
   * remove de lineas y luego añadir no funcionará bien.
   */
@@ -68,18 +67,6 @@ public class CustomerOrder {
    * @param details to add to the order (required)
    * @throws IllegalArgumentException if the detail is null or empty
    */
-  public void addToDetails(OrderDetail... detailsToAdd) {
-    Assert.notEmpty(detailsToAdd, "At least one order detail to add is required");
-    addToDetails(Arrays.asList(detailsToAdd));
-  }
-
-  /**
-   * Adds a list of <b>new</b> details to the order, taking care to update the 
-   * relationship from the {@link OrderDetail} to the
-   * {@link CustomerOrder} either.
-   * @param details to add to the order (required)
-   * @throws IllegalArgumentException if the detail is null or empty
-   */
   public void addToDetails(Collection<OrderDetail> detailsToAdd) {
     Assert.notEmpty(detailsToAdd, "At least one order detail to add is required");
     int lastDetail = getDetails().size();
@@ -90,21 +77,6 @@ public class CustomerOrder {
       detail.setCustomerOrder(this);
       lastDetail++;
     }
-  }
-
-  /**
-   * Removes a detail from the order, taking care to update the 
-   * relationship from the {@link OrderDetail} to the
-   * {@link CustomerOrder} either.
-   * As the {@link #details} property is configured with orphanRemoval
-   * to true, the detail will be removed when this order is persisted.
-   * @param detail to remove from the order (required)
-   * @throws IllegalArgumentException if the detail is null or it isn't
-   * a detail of this customer.
-   */
-  public void removeFromDetails(OrderDetail... detailsToRemove) {
-    Assert.notEmpty(detailsToRemove, "At least one order detail to remove is required");
-    removeFromDetails(Arrays.asList(detailsToRemove));
   }
 
   /**
