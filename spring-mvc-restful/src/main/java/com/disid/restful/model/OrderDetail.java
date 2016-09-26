@@ -7,6 +7,7 @@ import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.validation.constraints.NotNull;
 
 @RooJavaBean
 @RooToString
@@ -22,6 +23,7 @@ public class OrderDetail {
    * Unidirectional many-to-one relationship.
    */
   @ManyToOne
+  @NotNull
   private Product product;
 
   /**

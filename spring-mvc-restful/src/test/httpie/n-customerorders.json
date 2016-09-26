@@ -2,13 +2,21 @@
     {
         "orderDate":"01/01/2016",
         "shippedDate":"02/01/2016",
-    	"shipAddress":"Invernalia",
-    	"customer":"6"
+    	"shipAddress":"Invernalia"
     },
     {
         "orderDate":"02/01/2016",
         "shippedDate":"03/01/2016",
-    	"shipAddress":"Essos",
-    	"customer":"12"
+    	"shipAddress":"Invernalia"
+    },
+    {
+        "orderDate":"01/01/2016",
+        "shippedDate":"02/01/2016",
+    	"shipAddress":"Invernalia"
+    },
+    {
+        "orderDate":"02/01/2016",
+        "shippedDate":"03/01/2016",
+    	"shipAddress":"Essos"
     }
 ]

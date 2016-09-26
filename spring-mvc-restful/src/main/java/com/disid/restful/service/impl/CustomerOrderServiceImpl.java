@@ -31,13 +31,16 @@ public class CustomerOrderServiceImpl {
   @Transactional
   public CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details) {
     customerOrder.addToDetails(Arrays.asList(details));
-    return customerOrderRepository.save(customerOrder);
+    customerOrderRepository.save(customerOrder);
+    return findOne(customerOrder.getId());
   }
 
   @Transactional
   public CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details) {
     customerOrder.removeFromDetails(Arrays.asList(details));
-    return customerOrderRepository.save(customerOrder);
+    customerOrderRepository.save(customerOrder);
+    return findOne(customerOrder.getId());
   }
+
 
 }

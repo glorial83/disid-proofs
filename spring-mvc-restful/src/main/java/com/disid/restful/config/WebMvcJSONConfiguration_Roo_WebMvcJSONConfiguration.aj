@@ -28,17 +28,17 @@ privileged aspect WebMvcJSONConfiguration_Roo_WebMvcJSONConfiguration {
     @Autowired
     private LocalValidatorFactoryBean WebMvcJSONConfiguration.validatorFactory;
     
-    @Bean
-    public Module WebMvcJSONConfiguration.jacksonDatabindModule() {
-        
-        SimpleModule module = new SimpleModule();
-        
-        module.setSerializerModifier(new ConversionServiceBeanSerializerModifier(conversionService));
-        module.setDeserializerModifier(new DataBinderBeanDeserializerModifier(conversionService, validatorFactory));
-        module.addSerializer(BindingResult.class, new BindingResultSerializer());
-        module.addSerializer(FieldError.class, new FieldErrorSerializer());
-        
-        return module;
-    }
+//    @Bean
+//    public Module WebMvcJSONConfiguration.jacksonDatabindModule() {
+//        
+//        SimpleModule module = new SimpleModule();
+//        
+//        module.setSerializerModifier(new ConversionServiceBeanSerializerModifier(conversionService));
+//        module.setDeserializerModifier(new DataBinderBeanDeserializerModifier(conversionService, validatorFactory));
+//        module.addSerializer(BindingResult.class, new BindingResultSerializer());
+//        module.addSerializer(FieldError.class, new FieldErrorSerializer());
+//        
+//        return module;
+//    }
     
 }

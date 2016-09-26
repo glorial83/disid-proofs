@@ -6,6 +6,8 @@ import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerOrderService;
+import com.disid.restful.service.api.CustomerService;
+import com.disid.restful.web.CustomerFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,10 +43,19 @@ import javax.validation.Valid;
 public class CustomerOrdersCollectionController {
 
   public CustomerOrderService customerOrderService;
+  public CustomerService customerService;
 
   @Autowired
-  public CustomerOrdersCollectionController(CustomerOrderService customerOrderService) {
+  public CustomerOrdersCollectionController(CustomerOrderService customerOrderService,
+      CustomerService customerService) {
     this.customerOrderService = customerOrderService;
+    this.customerService = customerService;
+  }
+
+  @InitBinder
+  protected void initBinder(WebDataBinder binder) {
+    binder
+        .addCustomFormatter(new CustomerFormatter(customerService, binder.getConversionService()));
   }
 
   // Create Customers

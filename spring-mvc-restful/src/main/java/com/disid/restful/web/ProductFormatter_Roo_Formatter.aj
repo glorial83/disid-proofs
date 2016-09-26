@@ -20,11 +20,7 @@ privileged aspect ProductFormatter_Roo_Formatter {
     
     public ConversionService ProductFormatter.conversionService;
     
-    public ProductFormatter.new(ProductService productService, ConversionService conversionService) {
-        this.productService = productService;
-        this.conversionService = conversionService;
-    }
-
+    
     public Product ProductFormatter.parse(String text, Locale locale) throws ParseException {
         if (text == null || !StringUtils.hasText(text)) {
             return null;

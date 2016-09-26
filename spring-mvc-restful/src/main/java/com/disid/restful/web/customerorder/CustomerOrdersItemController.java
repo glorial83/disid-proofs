@@ -1,6 +1,8 @@
 package com.disid.restful.web.customerorder;
 
-import javax.validation.Valid;
+import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.service.api.CustomerOrderService;
+import com.disid.restful.service.api.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,22 +19,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.disid.restful.model.CustomerOrder;
-import com.disid.restful.service.api.CustomerOrderService;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/customerorders/{customerorder}")
 public class CustomerOrdersItemController {
 
   public CustomerOrderService customerOrderService;
+  public CustomerService customerService;
 
   @Autowired
-  public CustomerOrdersItemController(CustomerOrderService customerOrderService) {
+  public CustomerOrdersItemController(CustomerOrderService customerOrderService,
+      CustomerService customerService) {
     this.customerOrderService = customerOrderService;
+    this.customerService = customerService;
   }
 
+  //  @InitBinder
+  //  protected void initBinder(WebDataBinder binder) {
+  //    binder
+  //        .addCustomFormatter(new CustomerFormatter(customerService, binder.getConversionService()));
+  //  }
+
   @ModelAttribute
-  public CustomerOrder getCustomer(@PathVariable("customerorder") Long id) {
+  public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
     return customerOrderService.findOne(id);
   }
 
