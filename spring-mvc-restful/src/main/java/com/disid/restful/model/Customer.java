@@ -109,7 +109,10 @@ public class Customer {
   }
 
   public String toString() {
-    return super.toString() + "- First name: " + firstName + ", Last name: " + lastName
-        + ", Address: {" + address.toString() + "}";
+    String text = super.toString() + "- First name: " + firstName + ", Last name: " + lastName;
+    if (address != null) {
+      text = text + ", Address: {" + address.toString() + "}";
+    }
+    return text;
   }
 }
