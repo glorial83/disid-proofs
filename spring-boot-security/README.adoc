@@ -1,0 +1,19 @@
+= Spring Boot Application with Spring Security
+
+Proof of concept that shows how to include Spring Security and its _@Configuration_ classes to the generated Spring Boot application.
+
+It's based on a *petclinic* application generated using *Spring Roo 2.0.0.M2*.
+
+== Setting up the build environment
+
+. Import this project as "External Maven project" in STS 3.8
+
+== Running the application
+
+. Execute `mvn clean compile spring-boot:run` command or run it from STS as Spring Boot application
+
+. Access to http://localhost:8080 
+
+. Check that when you try to access, a login page appears.
+
+

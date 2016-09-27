@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html> 
+ <head> 
+  <meta charset="UTF-8" /> 
+  <title>Page menu</title> 
+ </head> 
+ <body> 
+  <!--
+    Only the internal content of the following div is included within
+    the template, in menu fragment
+    --> 
+  <div data-layout-fragment="menu"> 
+   <!-- Main navbar --> 
+   <nav class="navbar navbar-inverse navbar-fixed-top"> 
+    <div class="container"> 
+     <div class="navbar-header"> 
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Menu</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+      <!-- Brand logo --> 
+      <div class="organization-logo navbar-brand"> 
+       <a title="petclinic" href="/"> <img alt="petclinic" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" /> </a> 
+      </div> 
+      <!-- Name application --> 
+      <div class="application-name navbar-brand hidden-xs">
+       <a href="/" data-th-href="@{/}">petclinic</a>
+      </div> 
+     </div>
+     <!-- /navbar-header --> 
+     <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse"> 
+      <ul class="nav navbar-nav"> 
+       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_owner})}">Owner<span class="caret"></span></a> 
+        <ul class="dropdown-menu"> 
+         <li><a href="/owners/create-form" data-th-text="#{label_create_entity(#{label_owner})}">Create Owner</a></li> 
+         <li><a href="/owners" data-th-text="#{label_list_entity(#{label_owner_plural})}">List Owner</a></li> 
+        </ul> </li> 
+       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_pet})}">Pet<span class="caret"></span></a> 
+        <ul class="dropdown-menu"> 
+         <li><a href="/pets/create-form" data-th-text="#{label_create_entity(#{label_pet})}">Create Pet</a></li> 
+         <li><a href="/pets" data-th-text="#{label_list_entity(#{label_pet_plural})}">List Pet</a></li> 
+        </ul> </li> 
+       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_vet})}">Vet<span class="caret"></span></a> 
+        <ul class="dropdown-menu"> 
+         <li><a href="/vets/create-form" data-th-text="#{label_create_entity(#{label_vet})}">Create Vet</a></li> 
+         <li><a href="/vets" data-th-text="#{label_list_entity(#{label_vet_plural})}">List Vet</a></li> 
+        </ul> </li> 
+       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_visit})}">Visit<span class="caret"></span></a> 
+        <ul class="dropdown-menu"> 
+         <li><a href="/visits/create-form" data-th-text="#{label_create_entity(#{label_visit})}">Create Visit</a></li> 
+         <li><a href="/visits" data-th-text="#{label_list_entity(#{label_visit_plural})}">List Visit</a></li> 
+        </ul> </li> 
+      </ul> 
+      <!-- Languages --> 
+      <div data-layout-include="fragments/languages :: languages"> 
+       <span>Languages</span> 
+      </div> 
+      <!-- Menu --> 
+      <div data-layout-include="fragments/session-links :: session"> 
+       <!-- Content replaced by languages and session template fragment session-links.html --> 
+       <span>User session data</span> 
+      </div> 
+     </div> 
+    </div> 
+   </nav> 
+  </div> 
+ </body> 
+</html>
