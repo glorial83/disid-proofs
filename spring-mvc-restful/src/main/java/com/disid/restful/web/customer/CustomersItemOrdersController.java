@@ -74,7 +74,7 @@ public class CustomersItemOrdersController {
   @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public Customer deleteFromOrders(@ModelAttribute Customer customer, @RequestBody Long order) {
-    return customerService.deleteFromOrders(customer, order);
+    return customerService.removeFromOrders(customer, order);
   }
 
   @RequestMapping(value = "/batch", method = RequestMethod.POST,
@@ -88,7 +88,7 @@ public class CustomersItemOrdersController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public Customer deleteFromOrders(@ModelAttribute Customer customer, @RequestBody Long[] orders) {
-    return customerService.deleteFromOrders(customer, orders);
+    return customerService.removeFromOrders(customer, orders);
   }
 
 }

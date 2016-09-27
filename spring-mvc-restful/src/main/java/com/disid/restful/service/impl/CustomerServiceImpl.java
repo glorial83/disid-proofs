@@ -43,7 +43,7 @@ public class CustomerServiceImpl {
   }
 
   @Transactional
-  public Customer deleteFromOrders(Customer customer, Long... orders) {
+  public Customer removeFromOrders(Customer customer, Long... orders) {
     List<CustomerOrder> customerOrders = customerOrderService.findAll(Arrays.asList(orders));
     customer.removeFromOrders(customerOrders);
     return customerRepository.save(customer);
