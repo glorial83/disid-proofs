@@ -70,7 +70,7 @@ public class CategoryServiceImpl {
   }
 
   public Page<Category> findAllByProduct(Product product, GlobalSearch search, Pageable pageable) {
-    return categoryRepository.findAllByProduct(product, search, pageable);
+    return categoryRepository.findAllByProducts(product, search, pageable);
   }
 
   public long countByProductsContains(Product product) {

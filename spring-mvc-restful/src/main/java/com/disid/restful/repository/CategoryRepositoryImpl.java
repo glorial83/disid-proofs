@@ -17,7 +17,7 @@ public class CategoryRepositoryImpl extends QueryDslRepositorySupportExt<Categor
     super(Category.class);
   }
 
-  public Page<Category> findAllByProduct(Product product, GlobalSearch globalSearch,
+  public Page<Category> findAllByProducts(Product product, GlobalSearch globalSearch,
       Pageable pageable) {
     QCategory category = QCategory.category;
     JPQLQuery query = from(category);

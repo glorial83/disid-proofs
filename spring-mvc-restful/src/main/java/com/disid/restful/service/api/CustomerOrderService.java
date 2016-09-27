@@ -1,11 +1,11 @@
 package com.disid.restful.service.api;
 
-import java.util.Set;
+import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.model.OrderDetail;
 
 import org.springframework.roo.addon.layers.service.annotations.RooService;
 
-import com.disid.restful.model.CustomerOrder;
-import com.disid.restful.model.OrderDetail;
+import java.util.Set;
 
 @RooService(entity = CustomerOrder.class)
 public interface CustomerOrderService {
@@ -17,5 +17,7 @@ public interface CustomerOrderService {
   CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details);
 
   CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details);
+
+
 
 }

@@ -1,19 +1,21 @@
 package com.disid.restful.service.impl;
 
-import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
-import com.disid.restful.model.OrderDetail;
-import com.disid.restful.service.api.OrderDetailService;
 import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.model.Product;
 import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.repository.OrderDetailRepository;
-import java.util.List;
+import com.disid.restful.service.api.OrderDetailService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RooServiceImpl(service = OrderDetailService.class)
 @Service

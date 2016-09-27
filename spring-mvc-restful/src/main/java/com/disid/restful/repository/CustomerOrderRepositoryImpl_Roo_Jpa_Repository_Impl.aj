@@ -63,40 +63,5 @@ privileged aspect CustomerOrderRepositoryImpl_Roo_Jpa_Repository_Impl {
         return new PageImpl<CustomerOrder>(results, pageable, totalFound);
     }
     
-    public Page<CustomerOrder> CustomerOrderRepositoryImpl.findAllByCustomer(Customer customerField, GlobalSearch globalSearch, Pageable pageable) {
-        NumberPath<Long> idCustomerOrder = new NumberPath<Long>(Long.class, "id");
-        QCustomerOrder customerOrder = QCustomerOrder.customerOrder;
-        JPQLQuery query = getQueryFrom(customerOrder);
-        BooleanBuilder where = new BooleanBuilder(customerOrder.customer.eq(customerField));
-
-        if (globalSearch != null) {
-            String txt = globalSearch.getText();
-            where.and(
-                customerOrder.shipAddress.containsIgnoreCase(txt)
-            );
-
-        }
-        query.where(where);
-
-        long totalFound = query.count();
-        if (pageable != null) {
-            if (pageable.getSort() != null) {
-                for (Sort.Order order : pageable.getSort()) {
-                    Order direction = order.isAscending() ? Order.ASC : Order.DESC;
-
-                    switch(order.getProperty()){
-                        case "shipAddress":
-                           query.orderBy(new OrderSpecifier<String>(direction, customerOrder.shipAddress));
-                           break;
-                    }
-                }
-            }
-            query.offset(pageable.getOffset()).limit(pageable.getPageSize());
-        }
-        query.orderBy(idCustomerOrder.asc());
         
-        List<CustomerOrder> results = query.list(customerOrder);
-        return new PageImpl<CustomerOrder>(results, pageable, totalFound);
-    }
-    
 }
