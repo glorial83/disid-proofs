@@ -6,7 +6,7 @@ It's based on a *petclinic* application generated using *Spring Roo 2.0.0.M2*.
 
 == Setting up the build environment
 
-. Import this project as "External Maven project" in STS 3.8
+. Import this project as "External Maven project" in STS 3.8+
 
 == Running the application
 

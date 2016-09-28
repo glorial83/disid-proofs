@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html data-layout-decorator="layouts/simple-layout">
+<head>
+<meta charset="UTF-8" data-th-remove="all" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"
+	data-th-remove="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1"
+	data-th-remove="all" />
+<meta name="description" content="petclinic" data-th-remove="all" />
+<meta name="author" content="Spring Roo" data-th-remove="all" />
+<link data-th-href="@{/public/img/favicon.ico}" data-th-remove="all"
+	rel="icon" href="../../static/public/img/favicon.ico" />
+<link rel="shortcut icon" href="../../static/public/img/favicon.ico"
+	data-th-remove="all" />
+<link rel="apple-touch-icon"
+	href="../../static/public/img/apple-touch-icon.png"
+	data-th-remove="all" />
+<title data-th-title="${projectName}">petclinic</title>
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+	data-th-remove="all" />
+<!-- Font Awesome -->
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+<!-- Bootswatch CSS custom -->
+<link rel="stylesheet" type="text/css"
+	href="../static/public/css/theme.css" data-th-remove="all" />
+<!-- Roo CSS -->
+<link rel="stylesheet" type="text/css"
+	href="../static/public/css/springroo.css" data-th-remove="all" />
+<!-- HTML5 shim y Respond.js para soporte de elementos HTML5 en IE8 y media queries -->
+<!--[if lt IE 9]>
+       <script src="/public/js/html5shiv.min.js"></script>
+        <script src="/public/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="home">
+	<!--Main container-->
+	<div class="bg-container">
+		<!--Content-->
+		<section data-layout-fragment="content">
+			<div class="container content">
+				<div class="box-center" style="padding: 10%;">
+					<form class="form-horizontal" data-th-action="@{/login}"
+						method="post">
+
+						<fieldset>
+
+							<legend class="sr-only" data-th-text="#{help_login}">Insert username and password</legend>
+
+							<div data-th-if="${param.error}" class="alert alert-danger"
+								role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"
+									aria-hidden="true"></span> <span class="sr-only"
+									data-th-text="|#{info_error}:|">Error:</span> <span
+									data-th-text="#{error_login}">Username or password are invalid</span>
+							</div>
+
+							<div data-th-if="${param.logout}" class="alert alert-success"
+								role="alert">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+								<span data-th-text="#{info_closed_session}">Session has been closed successfully!</span>
+							</div>
+
+							<div data-th-if="${param.expired}" class="alert alert-danger"
+								role="alert">
+								<span class="glyphicon glyphicon-exclamation-sign"
+									aria-hidden="true"></span> <span class="sr-only"
+									data-th-text="|#{info_error}:|">Error:</span> <span
+									data-th-text="#{error_expired_session}"> Your session has been expired.</span>
+							</div>
+
+
+							<div class="form-group">
+								<label for="username" class="col-md-3 control-label"
+									data-th-text="#{label_login_username}">Username</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" id="username"
+										name="username" placeholder="Username" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="password" class="col-md-3 control-label"
+									data-th-text="#{label_login_password}">Password</label>
+								<div class="col-md-6">
+									<input type="password" class="form-control" id="password"
+										name="password" placeholder="Password" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-9 col-md-offset-3">
+									<button type="reset" class="btn btn-default"
+										data-th-text="#{label_reset}">Cancel</button>
+									<button type="submit" class="btn btn-primary"
+										data-th-text="#{label_submit}">Accept</button>
+								</div>
+							</div>
+						</fieldset>
+
+					</form>
+				</div>
+			</div>
+			<!--/content-->
+		</section>
+	</div>
+	<!--container-->
+	<footer class="container">
+		<small class="clearfix"> Made with <a
+			href="http://projects.spring.io/spring-roo/" target="_blank"> ©
+				Spring Roo</a> • We <span class="glyphicon glyphicon-heart"></span> <a
+			href="https://github.com/spring-projects/spring-roo/" target="_blank">Open
+				source </a>
+		</small>
+	</footer>
+	<!-- JavaScript
+    ================================================== -->
+	<!-- JQuery -->
+	<script type="text/javascript" charset="utf8"
+		src="https://code.jquery.com/jquery-1.12.3.js"></script>
+	<!-- Bootstrap -->
+	<script type="text/javascript"
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="../static/public/js/ie10-viewport-bug-workaround.js"
+		data-th-src="@{/public/js/ie10-viewport-bug-workaround.js}">
+		
+	</script>
+	<!-- Application -->
+	<script src="../static/public/js/main.js"></script>
+</body>
+</html>
