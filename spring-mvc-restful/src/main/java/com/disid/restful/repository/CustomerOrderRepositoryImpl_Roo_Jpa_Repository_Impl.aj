@@ -3,7 +3,6 @@
 
 package com.disid.restful.repository;
 
-import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.QCustomerOrder;
 import com.disid.restful.repository.CustomerOrderRepositoryCustom;
@@ -63,5 +62,4 @@ privileged aspect CustomerOrderRepositoryImpl_Roo_Jpa_Repository_Impl {
         return new PageImpl<CustomerOrder>(results, pageable, totalFound);
     }
     
-        
 }

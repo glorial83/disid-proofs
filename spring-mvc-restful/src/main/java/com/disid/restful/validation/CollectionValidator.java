@@ -1,8 +1,7 @@
 package com.disid.restful.validation;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.roo.addon.web.mvc.controller.annotations.RooCollectionValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -10,7 +9,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import org.springframework.roo.addon.web.mvc.controller.annotations.RooCollectionValidator;
+import java.util.Collection;
 
 /**
  * Spring {@link Validator} that iterates over the elements of a {@link Collection} and run the 

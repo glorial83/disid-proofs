@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @RooServiceImpl(service = CategoryService.class)
 public class CategoryServiceImpl {
@@ -45,7 +44,7 @@ public class CategoryServiceImpl {
 
   @Transactional
   public Category addToProducts(Category category, Long... productIds) {
-    Set<Product> products = productService.findByIdIn(productIds);
+    List<Product> products = productService.findAll(productIds);
     category.addToProducts(products);
     return categoryRepository.save(category);
   }
@@ -58,7 +57,7 @@ public class CategoryServiceImpl {
 
   @Transactional
   public Category deleteFromProducts(Category category, Long... productIds) {
-    Set<Product> products = productService.findByIdIn(productIds);
+    List<Product> products = productService.findAll(productIds);
     category.removeFromProducts(products);
     return categoryRepository.save(category);
   }
@@ -79,7 +78,7 @@ public class CategoryServiceImpl {
 
   @Transactional
   public Product addToProducts(Product product, Long... categories) {
-    List<Category> categoryEntities = findAll(Arrays.asList(categories));
+    List<Category> categoryEntities = findAll(categories);
     for (Category category : categoryEntities) {
       addToProducts(category, product);
     }
@@ -88,10 +87,15 @@ public class CategoryServiceImpl {
 
   @Transactional
   public Product deleteFromProducts(Product product, Long... categories) {
-    List<Category> categoryEntities = findAll(Arrays.asList(categories));
+    List<Category> categoryEntities = findAll(categories);
     for (Category category : categoryEntities) {
       deleteFromProducts(category, product);
     }
     return product;
   }
+
+  public List<Category> findAll(Long... categories) {
+    return categoryRepository.findAll(Arrays.asList(categories));
+  }
+
 }

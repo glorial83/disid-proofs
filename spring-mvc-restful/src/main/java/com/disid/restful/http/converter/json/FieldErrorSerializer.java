@@ -1,19 +1,18 @@
 package com.disid.restful.http.converter.json;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.validation.FieldError;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.roo.addon.web.mvc.controller.annotations.http.converters.json.RooJSONFieldErrorSerializer;
+import org.springframework.validation.FieldError;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * {@link FieldError} Jackson 2 Serializer.

@@ -7,7 +7,6 @@ import com.disid.restful.config.WebMvcConfiguration;
 import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
-import com.disid.restful.service.api.OrderDetailService;
 import com.disid.restful.service.api.ProductService;
 import com.disid.restful.web.method.support.GlobalSearchHandlerMethodArgumentResolver;
 import java.lang.Override;
@@ -17,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.format.FormatterRegistry;
-import org.springframework.format.support.FormattingConversionService;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -41,9 +38,6 @@ privileged aspect WebMvcConfiguration_Roo_WebMvcConfiguration {
     
     @Autowired
     private CustomerOrderService WebMvcConfiguration.customerOrderService;
-    
-    @Autowired
-    private OrderDetailService WebMvcConfiguration.orderDetailService;
     
     @Autowired
     private ProductService WebMvcConfiguration.productService;

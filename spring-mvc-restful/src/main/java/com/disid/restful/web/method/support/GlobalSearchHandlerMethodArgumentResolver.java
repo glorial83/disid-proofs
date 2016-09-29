@@ -1,14 +1,14 @@
 package com.disid.restful.web.method.support;
 
+import com.disid.restful.repository.GlobalSearch;
+
 import org.springframework.core.MethodParameter;
+import org.springframework.roo.addon.web.mvc.controller.annotations.RooGlobalSearchHandler;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import com.disid.restful.repository.GlobalSearch;
-
-import org.springframework.roo.addon.web.mvc.controller.annotations.RooGlobalSearchHandler;
 
 @RooGlobalSearchHandler
 public class GlobalSearchHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {

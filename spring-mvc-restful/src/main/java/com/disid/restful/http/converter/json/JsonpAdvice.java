@@ -1,11 +1,10 @@
 package com.disid.restful.http.converter.json;
 
+import org.springframework.roo.addon.web.mvc.controller.annotations.http.converters.json.RooJSONJsonpAdvice;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractJsonpResponseBodyAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-
-import org.springframework.roo.addon.web.mvc.controller.annotations.http.converters.json.RooJSONJsonpAdvice;
 
 /**
  * Indicates to MappingJackson2HttpMessageConverter that it should serialize the response

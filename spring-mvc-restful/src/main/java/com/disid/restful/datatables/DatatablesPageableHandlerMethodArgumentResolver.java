@@ -2,13 +2,11 @@ package com.disid.restful.datatables;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.roo.addon.web.mvc.thymeleaf.annotations.RooThymeleafDatatablesPageableHandler;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
-import org.springframework.roo.addon.web.mvc.thymeleaf.annotations.RooThymeleafDatatablesPageableHandler;
 
 @RooThymeleafDatatablesPageableHandler
 public class DatatablesPageableHandlerMethodArgumentResolver

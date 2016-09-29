@@ -1,6 +1,7 @@
 package com.disid.restful.web.category;
 
-import javax.validation.Valid;
+import com.disid.restful.model.Category;
+import com.disid.restful.service.api.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.disid.restful.model.Category;
-import com.disid.restful.service.api.CategoryService;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/categories/{category}")

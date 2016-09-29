@@ -2,7 +2,6 @@ package com.disid.restful.datatables;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.roo.addon.web.mvc.thymeleaf.annotations.RooThymeleafDatatablesPageable;
 
 @RooThymeleafDatatablesPageable

@@ -1,10 +1,9 @@
 package com.disid.restful.datatables;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
-
 import org.springframework.roo.addon.web.mvc.thymeleaf.annotations.RooThymeleafDatatablesData;
+
+import java.util.List;
 
 /**
  * Datatables Thymeleaf integration

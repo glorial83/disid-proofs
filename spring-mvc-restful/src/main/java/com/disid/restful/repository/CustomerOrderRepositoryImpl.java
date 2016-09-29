@@ -2,7 +2,9 @@ package com.disid.restful.repository;
 
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.QCustomerOrder;
+import com.disid.restful.model.QOrderDetail;
 import com.mysema.query.jpa.JPQLQuery;
 
 import org.springframework.data.domain.Page;
@@ -35,4 +37,25 @@ public class CustomerOrderRepositoryImpl extends QueryDslRepositorySupportExt<Cu
 
     return loadPage(query, pageable, customerOrder);
   }
+
+  public Page<OrderDetail> findDetailsByCustomerOrder(CustomerOrder customerOrder,
+      GlobalSearch globalSearch, Pageable pageable) {
+    QOrderDetail detail = QOrderDetail.orderDetail;
+
+    JPQLQuery query =
+        from(detail).where(detail.customerOrder.eq(customerOrder)).leftJoin(detail.product).fetch();
+
+    applyGlobalSearch(globalSearch, query, detail.quantity, detail.product.name);
+    applyPagination(pageable, query);
+    applyOrderById(query, OrderDetail.class);
+
+    return loadPage(query, pageable, detail);
+  }
+  //
+  //  public long countDetailsByCustomerOrder(CustomerOrder customerOrder) {
+  //    QOrderDetail detail = QOrderDetail.orderDetail;
+  //
+  //    return from(detail).where(detail.customerOrder.eq(customerOrder)).count();
+  //  }
+
 }

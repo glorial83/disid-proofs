@@ -1,10 +1,10 @@
 package com.disid.restful.web.product;
 
+import com.disid.restful.service.api.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.disid.restful.service.api.ProductService;
 
 @Controller
 @RequestMapping("/products/search")

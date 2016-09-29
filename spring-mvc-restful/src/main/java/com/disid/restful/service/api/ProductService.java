@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.roo.addon.layers.service.annotations.RooService;
 
-import java.util.Set;
+import java.util.List;
 
 @RooService(entity = Product.class)
 public interface ProductService {
@@ -19,6 +19,6 @@ public interface ProductService {
 
   long countByCategoriesContains(Category category);
 
-  Set<Product> findByIdIn(Long[] productIds);
+  List<Product> findAll(Long[] productIds);
 
 }

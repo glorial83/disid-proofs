@@ -3,14 +3,16 @@ package com.disid.restful.web.customerorder;
 import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
+import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerOrderService;
-import com.disid.restful.service.api.OrderDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,16 +30,12 @@ public class CustomerOrdersItemDetailsController {
 
   public CustomerOrderService customerOrderService;
 
-  public OrderDetailService orderDetailService;
-
   @Autowired
-  public CustomerOrdersItemDetailsController(CustomerOrderService customerOrderService,
-      OrderDetailService orderDetailService) {
-    this.orderDetailService = orderDetailService;
+  public CustomerOrdersItemDetailsController(CustomerOrderService customerOrderService) {
     this.customerOrderService = customerOrderService;
   }
 
-  @ModelAttribute
+  @ModelAttribute("customerorder")
   public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
     return customerOrderService.findOne(id);
   }
@@ -48,7 +46,7 @@ public class CustomerOrdersItemDetailsController {
       @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
       Pageable pageable) {
     Page<OrderDetail> orderDetails =
-        orderDetailService.findAllByCustomerOrder(customerOrder, search, pageable);
+        customerOrderService.findDetailsByCustomerOrder(customerOrder, search, pageable);
     return orderDetails;
   }
 
@@ -58,9 +56,8 @@ public class CustomerOrdersItemDetailsController {
       @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
       Pageable pageable, @RequestParam("draw") Integer draw) {
     Page<OrderDetail> orderDetails =
-        orderDetailService.findAllByCustomerOrder(customerOrder, search, pageable);
-    long allAvailableOrderDetails =
-        orderDetailService.countByCustomerOrderId(customerOrder.getId());
+        customerOrderService.findDetailsByCustomerOrder(customerOrder, search, pageable);
+    long allAvailableOrderDetails = customerOrderService.countDetailsByCustomerOrder(customerOrder);
     return new DatatablesData<OrderDetail>(orderDetails, allAvailableOrderDetails, draw);
   }
 
@@ -92,6 +89,24 @@ public class CustomerOrdersItemDetailsController {
   public CustomerOrder deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
       @Valid @RequestBody OrderDetail[] details) {
     return customerOrderService.deleteFromDetails(customerOrder, details);
+  }
+
+  @RequestMapping(value = "/{orderDetail}", method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public ResponseEntity<OrderDetail> show(@ModelAttribute CustomerOrder customerOrder,
+      @PathVariable("orderDetail") Integer orderDetailId) {
+
+    OrderDetail orderDetail = null;
+    if (orderDetailId != null) {
+      orderDetail = customerOrderService
+          .findOneOrderDetail(new OrderDetailPK(customerOrder.getId(), orderDetailId));
+    }
+    if (orderDetail == null) {
+      return new ResponseEntity<OrderDetail>(HttpStatus.NOT_FOUND);
+    }
+
+    return new ResponseEntity<OrderDetail>(orderDetail, HttpStatus.FOUND);
   }
 
 }

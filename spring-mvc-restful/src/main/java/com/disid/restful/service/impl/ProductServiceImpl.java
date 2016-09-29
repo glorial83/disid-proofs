@@ -14,7 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 @RooServiceImpl(service = ProductService.class)
 public class ProductServiceImpl {
@@ -50,8 +51,8 @@ public class ProductServiceImpl {
     return productRepository.countByCategoriesContains(category);
   }
 
-  public Set<Product> findByIdIn(Long[] productIds) {
-    return productRepository.findByIdIn(productIds);
+  public List<Product> findAll(Long[] productIds) {
+    return productRepository.findAll(Arrays.asList(productIds));
   }
 
 }

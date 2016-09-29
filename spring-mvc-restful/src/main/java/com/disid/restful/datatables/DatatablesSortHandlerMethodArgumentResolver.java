@@ -1,21 +1,19 @@
 package com.disid.restful.datatables;
 
+import org.springframework.core.MethodParameter;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.web.SortHandlerMethodArgumentResolver;
+import org.springframework.roo.addon.web.mvc.thymeleaf.annotations.RooThymeleafDatatablesSortHandler;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.ModelAndViewContainer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.springframework.core.MethodParameter;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.web.SortHandlerMethodArgumentResolver;
-import org.springframework.web.bind.support.WebDataBinderFactory;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.support.ModelAndViewContainer;
-
-import org.springframework.roo.addon.web.mvc.thymeleaf.annotations.RooThymeleafDatatablesSortHandler;
 
 @RooThymeleafDatatablesSortHandler
 public class DatatablesSortHandlerMethodArgumentResolver extends SortHandlerMethodArgumentResolver {

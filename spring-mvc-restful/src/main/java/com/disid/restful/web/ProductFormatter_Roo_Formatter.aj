@@ -20,7 +20,6 @@ privileged aspect ProductFormatter_Roo_Formatter {
     
     public ConversionService ProductFormatter.conversionService;
     
-    
     public Product ProductFormatter.parse(String text, Locale locale) throws ParseException {
         if (text == null || !StringUtils.hasText(text)) {
             return null;

@@ -1,19 +1,19 @@
-package com.disid.restful.web.customer;
+package com.disid.restful.web.api.customer;
 
 import com.disid.restful.service.api.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController()
 @RequestMapping("/customers/search")
-public class CustomersSearchController {
+public class CustomersSearchRestController {
 
   public CustomerService customerService;
 
   @Autowired
-  public CustomersSearchController(CustomerService customerService) {
+  public CustomersSearchRestController(CustomerService customerService) {
     this.customerService = customerService;
   }
 

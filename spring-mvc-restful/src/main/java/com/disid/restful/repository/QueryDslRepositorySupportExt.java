@@ -1,18 +1,5 @@
 package com.disid.restful.repository;
 
-import java.util.List;
-
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
-import javax.persistence.metamodel.SingularAttribute;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
-import org.springframework.util.StringUtils;
-
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.JPQLQuery;
 import com.mysema.query.types.EntityPath;
@@ -23,6 +10,19 @@ import com.mysema.query.types.Path;
 import com.mysema.query.types.expr.NumberExpression;
 import com.mysema.query.types.path.PathBuilder;
 import com.mysema.query.types.path.StringPath;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
+
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
+import javax.persistence.metamodel.SingularAttribute;
 
 public class QueryDslRepositorySupportExt<T> extends QueryDslRepositorySupport {
 
@@ -41,9 +41,13 @@ public class QueryDslRepositorySupportExt<T> extends QueryDslRepositorySupport {
     return getQuerydsl().applySorting(sort, query);
   }
 
-  @SuppressWarnings({"rawtypes", "unchecked"})
   protected JPQLQuery applyOrderById(JPQLQuery query) {
-    EntityType<?> entity = getEntityMetaModel();
+    return applyOrderById(query, domainClass);
+  }
+
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  protected <M> JPQLQuery applyOrderById(JPQLQuery query, Class<M> entityClass) {
+    EntityType<M> entity = getEntityMetaModel(entityClass);
     SingularAttribute<?, ?> id = entity.getId(entity.getIdType().getJavaType());
     PathBuilder<Object> idPath = getBuilder().get(id.getName());
 
@@ -70,16 +74,14 @@ public class QueryDslRepositorySupportExt<T> extends QueryDslRepositorySupport {
     return query;
   }
 
-  protected Page<T> loadPage(JPQLQuery query, Pageable pageable, EntityPath<T> path) {
+  protected <M> Page<M> loadPage(JPQLQuery query, Pageable pageable, EntityPath<M> path) {
     long totalFound = query.count();
-    List<T> results = query.list(path);
-    return new PageImpl<T>(results, pageable, totalFound);
+    List<M> results = query.list(path);
+    return new PageImpl<M>(results, pageable, totalFound);
   }
 
-  private EntityType<T> getEntityMetaModel() {
+  private <M> EntityType<M> getEntityMetaModel(Class<M> entityClass) {
     Metamodel metamodel = getEntityManager().getMetamodel();
-    EntityType<T> entity = metamodel.entity(domainClass);
-    return entity;
+    return metamodel.entity(entityClass);
   }
-
 }

@@ -111,3 +111,5 @@ field reference --fieldName address --type ~.model.Address --cardinality ONE_TO_
 // Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-19 16:28:05
 // Spring Roo 2.0.0.M2 [rev 003b42c] log closed at 2016-09-19 18:46:33
 // Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-21 12:37:46
+// Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-29 12:20:00
+push-in --class ~.repository.OrderDetailRepositoryCustom

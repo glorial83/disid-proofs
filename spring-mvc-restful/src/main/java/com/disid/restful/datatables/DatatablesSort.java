@@ -1,10 +1,9 @@
 package com.disid.restful.datatables;
 
-import java.util.List;
-
 import org.springframework.data.domain.Sort;
-
 import org.springframework.roo.addon.web.mvc.thymeleaf.annotations.RooThymeleafDatatablesSort;
+
+import java.util.List;
 
 @RooThymeleafDatatablesSort
 public class DatatablesSort extends Sort {

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.roo.addon.layers.service.annotations.RooService;
 
+import java.util.List;
+
 @RooService(entity = Category.class)
 public interface CategoryService {
 
@@ -28,4 +30,6 @@ public interface CategoryService {
   Product addToProducts(Product product, Long... categories);
 
   Product deleteFromProducts(Product product, Long... categories);
+
+  List<Category> findAll(Long... categories);
 }

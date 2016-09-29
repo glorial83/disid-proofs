@@ -1,13 +1,13 @@
 package com.disid.restful.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
 import com.disid.restful.model.QCategory;
 import com.mysema.query.jpa.JPQLQuery;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 public class CategoryRepositoryImpl extends QueryDslRepositorySupportExt<Category>
