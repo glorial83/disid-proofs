@@ -4,10 +4,11 @@ import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.datatables.DatatablesPageable;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
-import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 import com.disid.restful.web.CustomerFormatter;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

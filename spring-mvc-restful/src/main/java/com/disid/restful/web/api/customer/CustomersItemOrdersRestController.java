@@ -2,7 +2,6 @@ package com.disid.restful.web.api.customer;
 
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
-import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 
@@ -41,9 +40,9 @@ public class CustomersItemOrdersRestController {
 
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Page<CustomerOrder>> listCustomerOrder(@ModelAttribute Customer customer,
-      GlobalSearch search, Pageable pageable) {
+      Pageable pageable) {
     Page<CustomerOrder> customerOrders =
-        customerOrderService.findAllByCustomer(customer, search, pageable);
+        customerOrderService.findAllByCustomer(customer, null, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(customerOrders);
   }
 

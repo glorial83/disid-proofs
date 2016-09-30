@@ -3,8 +3,11 @@ package com.disid.restful.repository;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerSearchForm;
 import com.disid.restful.model.QCustomer;
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.JPQLQuery;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPQLQuery;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
+import io.springlets.data.jpa.repository.support.QueryDslRepositorySupportExt;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +24,7 @@ public class CustomerRepositoryImpl extends QueryDslRepositorySupportExt<Custome
 
   public Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable) {
     QCustomer customer = QCustomer.customer;
-    JPQLQuery query = from(customer).leftJoin(customer.address).fetch();
+    JPQLQuery<Customer> query = from(customer).leftJoin(customer.address).fetchJoin();
     applyGlobalSearch(globalSearch, query, customer.firstName, customer.lastName,
         customer.address.street, customer.address.city, customer.address.streetNumber);
     applyPagination(pageable, query);
@@ -32,7 +35,7 @@ public class CustomerRepositoryImpl extends QueryDslRepositorySupportExt<Custome
   public Page<Customer> findByFirstNameLastName(CustomerSearchForm formBean,
       GlobalSearch globalSearch, Pageable pageable) {
     QCustomer customer = QCustomer.customer;
-    JPQLQuery query = from(customer).leftJoin(customer.address).fetch();
+    JPQLQuery<Customer> query = from(customer).leftJoin(customer.address).fetchJoin();
     applySearchForm(formBean, query);
     applyGlobalSearch(globalSearch, query, customer.firstName, customer.lastName,
         customer.address.street, customer.address.city, customer.address.streetNumber);
@@ -43,9 +46,9 @@ public class CustomerRepositoryImpl extends QueryDslRepositorySupportExt<Custome
 
   public long countByFirstNameLastName(CustomerSearchForm formBean) {
     QCustomer customer = QCustomer.customer;
-    JPQLQuery query = from(customer);
+    JPQLQuery<Customer> query = from(customer);
     applySearchForm(formBean, query);
-    return query.count();
+    return query.fetchCount();
   }
 
   private void applySearchForm(CustomerSearchForm formBean, JPQLQuery query) {

@@ -26,8 +26,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Jackson 2 {@link JsonDeserializer} based on Spring DataBinder.
@@ -59,7 +59,7 @@ public class DataBinderDeserializer extends BeanDeserializerBase {
     super(source, objectIdReader);
   }
 
-  public DataBinderDeserializer(BeanDeserializerBase source, HashSet<String> ignorableProps) {
+  public DataBinderDeserializer(BeanDeserializerBase source, Set<String> ignorableProps) {
     super(source, ignorableProps);
   }
 
@@ -79,7 +79,7 @@ public class DataBinderDeserializer extends BeanDeserializerBase {
    * Uses {@link DataBinderDeserializer}
    */
   @Override
-  public BeanDeserializerBase withIgnorableProperties(HashSet<String> ignorableProps) {
+  public BeanDeserializerBase withIgnorableProperties(Set<String> ignorableProps) {
     return new DataBinderDeserializer(this, ignorableProps);
   }
 

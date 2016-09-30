@@ -3,7 +3,10 @@ package com.disid.restful.repository;
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
 import com.disid.restful.model.QProduct;
-import com.mysema.query.jpa.JPQLQuery;
+import com.querydsl.jpa.JPQLQuery;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
+import io.springlets.data.jpa.repository.support.QueryDslRepositorySupportExt;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

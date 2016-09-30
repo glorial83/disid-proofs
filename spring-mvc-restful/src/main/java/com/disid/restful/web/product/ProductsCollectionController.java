@@ -3,8 +3,9 @@ package com.disid.restful.web.product;
 import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.datatables.DatatablesPageable;
 import com.disid.restful.model.Product;
-import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.ProductService;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

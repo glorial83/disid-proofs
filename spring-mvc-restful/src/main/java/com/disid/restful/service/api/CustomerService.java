@@ -3,7 +3,8 @@ package com.disid.restful.service.api;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.CustomerSearchForm;
-import com.disid.restful.repository.GlobalSearch;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

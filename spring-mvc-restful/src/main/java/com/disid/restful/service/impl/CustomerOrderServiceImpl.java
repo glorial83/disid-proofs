@@ -5,8 +5,10 @@ import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.repository.CustomerOrderRepository;
-import com.disid.restful.repository.GlobalSearch;
+import com.disid.restful.repository.OrderDetailRepository;
 import com.disid.restful.service.api.CustomerOrderService;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,9 +23,14 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
+  private CustomerOrderRepository customerOrderRepository;
+  private OrderDetailRepository orderDetailRepository;
+
   @Autowired
-  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
+  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository,
+      OrderDetailRepository orderDetailRepository) {
     this.customerOrderRepository = customerOrderRepository;
+    this.orderDetailRepository = orderDetailRepository;
   }
 
   public void delete(CustomerOrder customerOrder) {
@@ -50,19 +57,17 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
   public Page<OrderDetail> findDetailsByCustomerOrder(CustomerOrder customerOrderField,
       GlobalSearch globalSearch, Pageable pageable) {
-    return customerOrderRepository.findDetailsByCustomerOrder(customerOrderField, globalSearch,
+    return orderDetailRepository.findByCustomerOrder(customerOrderField, globalSearch,
         pageable);
   }
 
   public long countDetailsByCustomerOrder(CustomerOrder customerOrderField) {
-    return customerOrderRepository.countDetailsByCustomerOrder(customerOrderField);
+    return orderDetailRepository.countByCustomerOrder(customerOrderField);
   }
 
   public OrderDetail findOneOrderDetail(OrderDetailPK orderDetailPK) {
-    return customerOrderRepository.findOneOrderDetail(orderDetailPK);
+    return orderDetailRepository.findOne(orderDetailPK);
   }
-
-  public CustomerOrderRepository customerOrderRepository;
 
   @Transactional(readOnly = false)
   public CustomerOrder save(CustomerOrder entity) {

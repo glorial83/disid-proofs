@@ -4,7 +4,6 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 import com.disid.restful.model.Customer;
-import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +63,8 @@ public class CustomersCollectionRestController {
 
   @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Page<Customer>> list(GlobalSearch search, Pageable pageable) {
-    Page<Customer> customers = customerService.findAll(search, pageable);
+  public ResponseEntity<Page<Customer>> list(Pageable pageable) {
+    Page<Customer> customers = customerService.findAll(null, pageable);
     return ResponseEntity.ok(customers);
   }
 
@@ -80,7 +79,7 @@ public class CustomersCollectionRestController {
     }
     customerService.save(customers);
 
-    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
+    URI uri = fromMethodCall(on(getClass()).list(null)).build().encode().toUri();
 
     return ResponseEntity.created(uri).build();
   }

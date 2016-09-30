@@ -1,6 +1,7 @@
 package com.disid.restful.web.method.support;
 
-import com.disid.restful.repository.GlobalSearch;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.roo.addon.web.mvc.controller.annotations.RooGlobalSearchHandler;

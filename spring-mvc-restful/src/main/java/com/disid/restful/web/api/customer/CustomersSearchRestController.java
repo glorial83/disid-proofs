@@ -2,7 +2,6 @@ package com.disid.restful.web.api.customer;
 
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerSearchForm;
-import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +28,8 @@ public class CustomersSearchRestController {
   @RequestMapping(value = "/byFirstNameLastName", method = RequestMethod.GET,
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Page<Customer>> findByFirstNameLastName(CustomerSearchForm formBean,
-      GlobalSearch search, Pageable pageable) {
-    Page<Customer> customers = customerService.findByFirstNameLastName(formBean, search, pageable);
+      Pageable pageable) {
+    Page<Customer> customers = customerService.findByFirstNameLastName(formBean, null, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(customers);
   }
 

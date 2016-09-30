@@ -3,9 +3,10 @@ package com.disid.restful.service.impl;
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
 import com.disid.restful.repository.CategoryRepository;
-import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.api.ProductService;
+
+import io.springlets.data.jpa.repository.support.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
