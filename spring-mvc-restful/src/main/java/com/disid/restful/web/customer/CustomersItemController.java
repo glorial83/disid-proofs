@@ -9,17 +9,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/customers/{customer}")
+@RequestMapping(value = "/customers/{customer}", produces = MediaType.TEXT_HTML_VALUE)
 public class CustomersItemController {
 
   public CustomerService customerService;
@@ -40,18 +42,14 @@ public class CustomersItemController {
     return customerService.findOne(id);
   }
 
-  // Update Customer
-
-  @RequestMapping(value = "/edit-form", method = RequestMethod.GET,
-      produces = MediaType.TEXT_HTML_VALUE)
+  @GetMapping(value = "/edit-form")
   public String editForm(@ModelAttribute Customer customer, Model model) {
 
     // TODO: what happens if the customer to edit does not exist?
-
     return "customers/edit";
   }
 
-  @RequestMapping(method = RequestMethod.PUT, produces = MediaType.TEXT_HTML_VALUE)
+  @PutMapping
   public String update(@Valid @ModelAttribute Customer customer, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
@@ -63,17 +61,13 @@ public class CustomersItemController {
     return "redirect:/customers/{id}";
   }
 
-  // Delete Customer
-
-  @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.TEXT_HTML_VALUE)
+  @DeleteMapping
   public String delete(@ModelAttribute Customer customer, Model model) {
     customerService.delete(customer);
     return "redirect:/customers";
   }
 
-  // Show Customer
-
-  @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+  @GetMapping
   public String show(@ModelAttribute Customer customer, Model model) {
     return "customers/show";
   }

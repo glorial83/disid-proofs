@@ -8,17 +8,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/customers/{customer}")
+@RequestMapping(value = "/customers/{customer}", consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomersItemRestController {
 
   public CustomerService customerService;
@@ -33,10 +36,7 @@ public class CustomersItemRestController {
     return customerService.findOne(id);
   }
 
-  // Update Customer
-
-  @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @PutMapping
   public ResponseEntity<?> update(@ModelAttribute Customer storedCustomer,
       @Valid @RequestBody Customer customer, BindingResult result) {
     if (result.hasErrors()) {
@@ -53,15 +53,13 @@ public class CustomersItemRestController {
     return ResponseEntity.ok().build();
   }
 
-  @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @DeleteMapping
   public ResponseEntity<?> delete(@ModelAttribute Customer customer) {
     customerService.delete(customer);
     return ResponseEntity.ok().build();
   }
 
-  // Show Customer
-
-  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
   public ResponseEntity<?> show(@ModelAttribute Customer customer) {
     if (customer == null) {
       return ResponseEntity.notFound().build();

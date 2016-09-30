@@ -13,10 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -25,7 +28,8 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomersCollectionRestController {
 
   public CustomerService customerService;
@@ -37,8 +41,7 @@ public class CustomersCollectionRestController {
 
   // Create Customers
 
-  @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping
   public ResponseEntity<?> create(@Valid @RequestBody Customer customer, BindingResult result) {
     if (customer.getId() != null
         || (customer.getAddress() != null && customer.getAddress().getId() != null)) {
@@ -49,10 +52,6 @@ public class CustomersCollectionRestController {
     }
     Customer newCustomer = customerService.save(customer);
 
-    // TODO: replace with controller uri building
-    //    UriComponents uriComponents = UriComponentsBuilder.fromUriString("/customers/{id}").build();
-    //    URI uri = uriComponents.expand(newCustomer.getId()).encode().toUri();
-
     URI uri = fromMethodCall(on(CustomersItemRestController.class).show(null))
         .buildAndExpand(newCustomer.getId()).encode().toUri();
 
@@ -61,8 +60,7 @@ public class CustomersCollectionRestController {
 
   // List Customers
 
-  @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
   public ResponseEntity<Page<Customer>> list(Pageable pageable) {
     Page<Customer> customers = customerService.findAll(null, pageable);
     return ResponseEntity.ok(customers);
@@ -70,8 +68,7 @@ public class CustomersCollectionRestController {
 
   // Batch operations with Customers
 
-  @RequestMapping(value = "/batch", method = RequestMethod.POST,
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/batch")
   public ResponseEntity<?> createBatch(@Valid @RequestBody Collection<Customer> customers,
       BindingResult result) {
     if (result.hasErrors()) {
@@ -84,8 +81,7 @@ public class CustomersCollectionRestController {
     return ResponseEntity.created(uri).build();
   }
 
-  @RequestMapping(value = "/batch", method = RequestMethod.PUT,
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PutMapping(value = "/batch")
   public ResponseEntity<?> updateBatch(@Valid @RequestBody Collection<Customer> customers,
       BindingResult result) {
     if (result.hasErrors()) {
@@ -95,8 +91,7 @@ public class CustomersCollectionRestController {
     return ResponseEntity.ok().build();
   }
 
-  @RequestMapping(value = "/batch/{ids}", method = RequestMethod.DELETE,
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @DeleteMapping(value = "/batch/{ids}")
   public ResponseEntity<?> deleteBatch(@PathVariable("ids") Collection<Long> ids) {
     customerService.delete(ids);
     return ResponseEntity.ok().build();

@@ -13,18 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/customers/{customer}/orders")
+@RequestMapping(value = "/customers/{customer}/orders", produces = MediaType.TEXT_HTML_VALUE)
 public class CustomersItemOrdersController {
 
   public CustomerOrderService customerOrderService;
@@ -43,7 +44,7 @@ public class CustomersItemOrdersController {
     return customerService.findOne(id);
   }
 
-  @RequestMapping(method = RequestMethod.GET, produces = Datatables.MEDIA_TYPE)
+  @GetMapping(produces = Datatables.MEDIA_TYPE)
   @ResponseBody
   public ResponseEntity<DatatablesData<CustomerOrder>> listCustomerOrder(
       @ModelAttribute Customer customer, GlobalSearch search, Pageable pageable,

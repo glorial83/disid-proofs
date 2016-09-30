@@ -11,15 +11,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/customers/{customer}/orders")
+@RequestMapping(value = "/customers/{customer}/orders", consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomersItemOrdersRestController {
 
   public CustomerOrderService customerOrderService;
@@ -38,7 +41,7 @@ public class CustomersItemOrdersRestController {
     return customerService.findOne(id);
   }
 
-  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
   public ResponseEntity<Page<CustomerOrder>> listCustomerOrder(@ModelAttribute Customer customer,
       Pageable pageable) {
     Page<CustomerOrder> customerOrders =
@@ -46,29 +49,27 @@ public class CustomersItemOrdersRestController {
     return ResponseEntity.status(HttpStatus.FOUND).body(customerOrders);
   }
 
-  @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping
   public ResponseEntity<?> addToOrders(@ModelAttribute Customer customer, @RequestBody Long order) {
     customerService.addToOrders(customer, order);
     return ResponseEntity.ok().build();
   }
 
-  @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @DeleteMapping
   public ResponseEntity<?> deleteFromOrders(@ModelAttribute Customer customer,
       @RequestBody Long order) {
     customerService.removeFromOrders(customer, order);
     return ResponseEntity.ok().build();
   }
 
-  @RequestMapping(value = "/batch", method = RequestMethod.POST,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/batch")
   public ResponseEntity<?> addToOrders(@ModelAttribute Customer customer,
       @RequestBody Long[] orders) {
     customerService.addToOrders(customer, orders);
     return ResponseEntity.ok().build();
   }
 
-  @RequestMapping(value = "/batch", method = RequestMethod.DELETE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @DeleteMapping(value = "/batch")
   public ResponseEntity<?> deleteFromOrders(@ModelAttribute Customer customer,
       @RequestBody Long[] orders) {
     customerService.removeFromOrders(customer, orders);

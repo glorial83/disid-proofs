@@ -16,13 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/customers/search")
+@RequestMapping(value = "/customers/search", produces = MediaType.TEXT_HTML_VALUE)
 public class CustomersSearchController {
 
   public CustomerService customerService;
@@ -32,14 +32,12 @@ public class CustomersSearchController {
     this.customerService = customerService;
   }
 
-  @RequestMapping(value = "/byFirstNameLastName", method = RequestMethod.GET,
-      produces = MediaType.TEXT_HTML_VALUE)
+  @GetMapping(value = "/byFirstNameLastName")
   public String findByFirstNameLastName(Model model) {
     return "customers/findByFirstNameLastName";
   }
 
-  @RequestMapping(value = "/byFirstNameLastName", method = RequestMethod.GET,
-      produces = Datatables.MEDIA_TYPE)
+  @GetMapping(value = "/byFirstNameLastName", produces = Datatables.MEDIA_TYPE)
   @ResponseBody
   public ResponseEntity<DatatablesData<Customer>> findByFirstNameLastName(
       CustomerSearchForm formBean, GlobalSearch search, DatatablesPageable pageable,

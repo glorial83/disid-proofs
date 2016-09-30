@@ -17,18 +17,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+
 @Controller
-@RequestMapping("/customers")
+// TODO: no tienen consumes??
+@RequestMapping(value = "/customers", produces = MediaType.TEXT_HTML_VALUE)
 public class CustomersCollectionController {
 
   public CustomerService customerService;
@@ -45,14 +48,13 @@ public class CustomersCollectionController {
   }
 
   // Create Customers
-  @RequestMapping(value = "/create-form", method = RequestMethod.GET,
-      produces = MediaType.TEXT_HTML_VALUE)
+  @GetMapping(value = "/create-form")
   public String createForm(Model model) {
     model.addAttribute(new Customer());
     return "customers/create";
   }
 
-  @RequestMapping(method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+  @PostMapping
   public String create(@Valid @ModelAttribute Customer customer, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
@@ -64,12 +66,12 @@ public class CustomersCollectionController {
   }
 
   // List Customers
-  @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+  @GetMapping
   public String list(Model model) {
     return "customers/list";
   }
 
-  @RequestMapping(method = RequestMethod.GET, produces = Datatables.MEDIA_TYPE)
+  @GetMapping(produces = Datatables.MEDIA_TYPE)
   @ResponseBody
   public ResponseEntity<DatatablesData<Customer>> list(GlobalSearch search,
       DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
