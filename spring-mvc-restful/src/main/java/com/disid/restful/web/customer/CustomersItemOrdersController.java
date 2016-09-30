@@ -45,8 +45,8 @@ public class CustomersItemOrdersController {
   @RequestMapping(method = RequestMethod.GET, produces = Datatables.MEDIA_TYPE)
   @ResponseBody
   public ResponseEntity<DatatablesData<CustomerOrder>> listCustomerOrder(
-      @ModelAttribute Customer customer,
-      GlobalSearch search, Pageable pageable, @RequestParam("draw") Integer draw) {
+      @ModelAttribute Customer customer, GlobalSearch search, Pageable pageable,
+      @RequestParam("draw") Integer draw) {
     Page<CustomerOrder> customerOrderPage =
         customerOrderService.findAllByCustomer(customer, search, pageable);
     long orderDetailsWithoutSearchFilterCount = customerOrderPage.getTotalElements();
@@ -54,9 +54,8 @@ public class CustomersItemOrdersController {
       orderDetailsWithoutSearchFilterCount =
           customerOrderService.countByCustomerId(customer.getId());
     }
-    DatatablesData<CustomerOrder> datatablesData =
-        new DatatablesData<CustomerOrder>(customerOrderPage,
-        orderDetailsWithoutSearchFilterCount, draw);
+    DatatablesData<CustomerOrder> datatablesData = new DatatablesData<CustomerOrder>(
+        customerOrderPage, orderDetailsWithoutSearchFilterCount, draw);
     return ResponseEntity.status(HttpStatus.FOUND).body(datatablesData);
   }
 

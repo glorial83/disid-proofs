@@ -25,8 +25,7 @@ public class CustomerSerializer extends JsonSerializer<Customer> {
   private CustomerFormatter formatter;
 
   @Autowired
-  public CustomerSerializer(CustomerService customerService,
-      ConversionService conversionService) {
+  public CustomerSerializer(CustomerService customerService, ConversionService conversionService) {
     this.formatter = new CustomerFormatter(customerService, conversionService);
   }
 

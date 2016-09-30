@@ -1,4 +1,5 @@
 package com.disid.restful.repository;
+
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
 
@@ -10,5 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface ProductRepository extends JpaRepository<Product, Long>, ProductRepositoryCustom {
 
-    long countByCategoriesContains(Category category);
+  long countByCategoriesContains(Category category);
 }

@@ -71,8 +71,7 @@ public class CustomersCollectionController {
   @RequestMapping(method = RequestMethod.GET, produces = Datatables.MEDIA_TYPE)
   @ResponseBody
   public ResponseEntity<DatatablesData<Customer>> list(GlobalSearch search,
-      DatatablesPageable pageable,
-      @RequestParam("draw") Integer draw) {
+      DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
     Page<Customer> customer = customerService.findAll(search, pageable);
     long allAvailableCustomer = customerService.count();
     DatatablesData<Customer> datatablesData =

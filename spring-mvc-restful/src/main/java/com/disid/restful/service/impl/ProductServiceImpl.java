@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,6 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-@RooServiceImpl(service = ProductService.class)
 public class ProductServiceImpl implements ProductService {
 
   private CategoryService categoryService;
