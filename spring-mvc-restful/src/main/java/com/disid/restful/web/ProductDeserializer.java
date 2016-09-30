@@ -45,7 +45,7 @@ public class ProductDeserializer extends JsonDeserializer<Product> {
       }
       String msg =
           id == null ? "Product deserialize error" : "Could not find Product with id: " + id;
-      throw new JsonMappingException(msg, ex);
+      throw new JsonMappingException(jp, msg, ex);
     }
   }
 

@@ -23,7 +23,7 @@ public class ProductRepositoryImpl extends QueryDslRepositorySupportExt<Product>
   public Page<Product> findAllByCategories(Category category, GlobalSearch globalSearch,
       Pageable pageable) {
     QProduct product = QProduct.product;
-    JPQLQuery query = from(product);
+    JPQLQuery<Product> query = from(product);
     if (category != null) {
       query.where(product.categories.contains(category));
     }
@@ -35,7 +35,7 @@ public class ProductRepositoryImpl extends QueryDslRepositorySupportExt<Product>
 
   public Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable) {
     QProduct product = QProduct.product;
-    JPQLQuery query = from(product);
+    JPQLQuery<Product> query = from(product);
     applyGlobalSearch(globalSearch, query, product.name, product.description);
     applyPagination(pageable, query);
     applyOrderById(query);

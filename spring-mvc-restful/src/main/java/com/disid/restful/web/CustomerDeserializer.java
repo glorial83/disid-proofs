@@ -45,7 +45,7 @@ public class CustomerDeserializer extends JsonDeserializer<Customer> {
       if (ex instanceof IOException) {
         throw (IOException) ex;
       }
-      throw new JsonMappingException("Object deserialize error", ex);
+      throw new JsonMappingException(jp, "Object deserialize error", ex);
     }
   }
 
