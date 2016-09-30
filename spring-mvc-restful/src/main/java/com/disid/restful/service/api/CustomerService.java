@@ -2,7 +2,11 @@ package com.disid.restful.service.api;
 
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.model.CustomerSearchForm;
+import com.disid.restful.repository.GlobalSearch;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.roo.addon.layers.service.annotations.RooService;
 
 @RooService(entity = Customer.class)
@@ -25,4 +29,9 @@ public interface CustomerService {
    * @return the updated {@link Customer}
    */
   Customer removeFromOrders(Customer customer, Long... orders);
+
+  Page<Customer> findByFirstNameLastName(CustomerSearchForm formBean, GlobalSearch search,
+      Pageable pageable);
+
+  long countByFirstNameLastName(CustomerSearchForm formBean);
 }

@@ -3,12 +3,16 @@ package com.disid.restful.service.impl;
 import com.disid.restful.model.Address;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
+import com.disid.restful.model.CustomerSearchForm;
 import com.disid.restful.repository.CustomerRepository;
+import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +34,7 @@ public class CustomerServiceImpl {
     this.customerOrderService = customerOrderService;
   }
 
+  @Transactional
   public void delete(Customer customer) {
     customerRepository.delete(customer);
   }
@@ -59,4 +64,14 @@ public class CustomerServiceImpl {
     customer.removeAddress();
     return customerRepository.save(customer);
   }
+
+  public Page<Customer> findByFirstNameLastName(CustomerSearchForm formBean, GlobalSearch search,
+      Pageable pageable) {
+    return customerRepository.findByFirstNameLastName(formBean, search, pageable);
+  }
+
+  public long countByFirstNameLastName(CustomerSearchForm formBean) {
+    return customerRepository.countByFirstNameLastName(formBean);
+  }
+
 }
