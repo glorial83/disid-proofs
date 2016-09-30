@@ -113,3 +113,22 @@ field reference --fieldName address --type ~.model.Address --cardinality ONE_TO_
 // Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-21 12:37:46
 // Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-29 12:20:00
 push-in --class ~.repository.OrderDetailRepositoryCustom
+// Spring Roo 2.0.0.M2 [rev 003b42c] log closed at 2016-09-29 17:58:59
+// Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-30 12:21:37
+help field set
+help field reference
+help field list 
+push-in --class ~.repository.CategoryRepository
+push-in --package ~.repository
+// [failed] push-in --package ~.service.api
+// [failed] push-in --package ~.service.impl
+// [failed] push-in --package ~.service.api
+// [failed] push-in --package ~.service.impl
+// [failed] push-in --class ~.service.api.CategoryService
+// [failed] push-in --class ~.service.api.CustomerService
+// [failed] push-in --class ~.service.impl.CategoryServiceImpl
+// Spring Roo 2.0.0.M2 [rev 003b42c] log closed at 2016-09-30 14:56:38
+// Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-30 14:56:59
+// Spring Roo 2.0.0.M2 [rev 003b42c] log closed at 2016-09-30 15:00:53
+// Spring Roo 2.0.0.M2 [rev 003b42c] log opened at 2016-09-30 15:01:08
+hint
