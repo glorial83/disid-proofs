@@ -4,7 +4,6 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 import com.disid.restful.model.Customer;
-import com.disid.restful.model.CustomerSearchForm;
 import com.disid.restful.repository.GlobalSearch;
 import com.disid.restful.service.api.CustomerService;
 
@@ -67,17 +66,6 @@ public class CustomersCollectionRestController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Page<Customer>> list(GlobalSearch search, Pageable pageable) {
     Page<Customer> customers = customerService.findAll(search, pageable);
-    return ResponseEntity.ok(customers);
-  }
-
-  // List Customers
-
-  @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Page<Customer>> findByFirstNameLastName(CustomerSearchForm formBean,
-      GlobalSearch search,
-      Pageable pageable) {
-    Page<Customer> customers = customerService.findByFirstNameLastName(formBean, search, pageable);
     return ResponseEntity.ok(customers);
   }
 
