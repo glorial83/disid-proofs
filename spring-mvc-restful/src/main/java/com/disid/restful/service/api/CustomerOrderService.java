@@ -20,7 +20,7 @@ public interface CustomerOrderService {
 
   CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details);
 
-  CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details);
+  CustomerOrder removeFromDetails(CustomerOrder customerOrder, OrderDetail... details);
 
   Page<OrderDetail> findDetailsByCustomerOrder(CustomerOrder customerOrderField,
       GlobalSearch globalSearch, Pageable pageable);

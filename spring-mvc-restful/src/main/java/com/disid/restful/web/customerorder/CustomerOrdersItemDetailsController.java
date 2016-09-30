@@ -72,7 +72,7 @@ public class CustomerOrdersItemDetailsController {
   @ResponseBody
   public CustomerOrder deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
       @Valid @RequestBody OrderDetail detail) {
-    return customerOrderService.deleteFromDetails(customerOrder, detail);
+    return customerOrderService.removeFromDetails(customerOrder, detail);
   }
 
   @RequestMapping(value = "/batch", method = RequestMethod.POST,
@@ -88,7 +88,7 @@ public class CustomerOrdersItemDetailsController {
   @ResponseBody
   public CustomerOrder deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
       @Valid @RequestBody OrderDetail[] details) {
-    return customerOrderService.deleteFromDetails(customerOrder, details);
+    return customerOrderService.removeFromDetails(customerOrder, details);
   }
 
   @RequestMapping(value = "/{orderDetail}", method = RequestMethod.GET,

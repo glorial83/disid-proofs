@@ -36,7 +36,7 @@ public class CustomerOrderServiceImpl {
   }
 
   @Transactional
-  public CustomerOrder deleteFromDetails(CustomerOrder customerOrder, OrderDetail... details) {
+  public CustomerOrder removeFromDetails(CustomerOrder customerOrder, OrderDetail... details) {
     customerOrder.removeFromDetails(Arrays.asList(details));
     customerOrderRepository.save(customerOrder);
     return findOne(customerOrder.getId());
