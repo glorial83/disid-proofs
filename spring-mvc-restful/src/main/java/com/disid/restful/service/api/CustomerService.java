@@ -1,6 +1,5 @@
 package com.disid.restful.service.api;
 
-import com.disid.restful.model.Address;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.CustomerSearchForm;
@@ -54,10 +53,5 @@ public interface CustomerService {
   long count();
 
   Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable);
-
-  Page<Customer> findAllByAddress(Address addressField, GlobalSearch globalSearch,
-      Pageable pageable);
-
-  Long countByAddressId(Long id);
 
 }

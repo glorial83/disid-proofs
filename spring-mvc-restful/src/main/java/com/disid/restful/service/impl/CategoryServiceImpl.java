@@ -69,14 +69,6 @@ public class CategoryServiceImpl implements CategoryService {
     return categoryRepository.save(category);
   }
 
-  public Page<Category> findAllByProduct(Product product, GlobalSearch search, Pageable pageable) {
-    return categoryRepository.findAllByProducts(product, search, pageable);
-  }
-
-  public long countByProductsContains(Product product) {
-    return categoryRepository.countByProductsContains(product);
-  }
-
   @Transactional
   public Product addToProducts(Product product, Long... categories) {
     List<Category> categoryEntities = findAll(categories);
@@ -100,44 +92,44 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
 
-	@Transactional(readOnly = false)
-    public Category save(Category entity) {
-        return categoryRepository.save(entity);
-    }
+  @Transactional(readOnly = false)
+  public Category save(Category entity) {
+    return categoryRepository.save(entity);
+  }
 
-	@Transactional(readOnly = false)
-    public void delete(Long id) {
-         categoryRepository.delete(id);
-    }
+  @Transactional(readOnly = false)
+  public void delete(Long id) {
+    categoryRepository.delete(id);
+  }
 
-	@Transactional(readOnly = false)
-    public List<Category> save(Iterable<Category> entities) {
-        return categoryRepository.save(entities);
-    }
+  @Transactional(readOnly = false)
+  public List<Category> save(Iterable<Category> entities) {
+    return categoryRepository.save(entities);
+  }
 
-	@Transactional(readOnly = false)
-    public void delete(Iterable<Long> ids) {
-        List<Category> toDelete = categoryRepository.findAll(ids);
-        categoryRepository.deleteInBatch(toDelete);
-    }
+  @Transactional(readOnly = false)
+  public void delete(Iterable<Long> ids) {
+    List<Category> toDelete = categoryRepository.findAll(ids);
+    categoryRepository.deleteInBatch(toDelete);
+  }
 
-	public List<Category> findAll() {
-        return categoryRepository.findAll();
-    }
+  public List<Category> findAll() {
+    return categoryRepository.findAll();
+  }
 
-	public List<Category> findAll(Iterable<Long> ids) {
-        return categoryRepository.findAll(ids);
-    }
+  public List<Category> findAll(Iterable<Long> ids) {
+    return categoryRepository.findAll(ids);
+  }
 
-	public Category findOne(Long id) {
-        return categoryRepository.findOne(id);
-    }
+  public Category findOne(Long id) {
+    return categoryRepository.findOne(id);
+  }
 
-	public long count() {
-        return categoryRepository.count();
-    }
+  public long count() {
+    return categoryRepository.count();
+  }
 
-	public Page<Category> findAll(GlobalSearch globalSearch, Pageable pageable) {
-        return categoryRepository.findAll(globalSearch, pageable);
-    }
+  public Page<Category> findAll(GlobalSearch globalSearch, Pageable pageable) {
+    return categoryRepository.findAll(globalSearch, pageable);
+  }
 }

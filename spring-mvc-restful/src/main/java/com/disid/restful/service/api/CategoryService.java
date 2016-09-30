@@ -21,10 +21,6 @@ public interface CategoryService {
 
   Category deleteFromProducts(Category category, Product... products);
 
-  Page<Category> findAllByProduct(Product product, GlobalSearch search, Pageable pageable);
-
-  long countByProductsContains(Product product);
-
   Product addToProducts(Product product, Long... categories);
 
   Product deleteFromProducts(Product product, Long... categories);

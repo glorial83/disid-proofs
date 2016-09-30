@@ -20,6 +20,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Custo
      */
     @Query("select c from Customer c left join fetch c.address where c.id = ?1")
     Customer findOne(Long id);
-
-    public abstract Long countByAddressId(Long id);
 }

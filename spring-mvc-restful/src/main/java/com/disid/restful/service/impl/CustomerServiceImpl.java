@@ -119,12 +119,4 @@ public class CustomerServiceImpl implements CustomerService {
     return customerRepository.findAll(globalSearch, pageable);
   }
 
-  public Long countByAddressId(Long id) {
-    return customerRepository.countByAddressId(id);
-  }
-
-  public Page<Customer> findAllByAddress(Address addressField, GlobalSearch globalSearch,
-      Pageable pageable) {
-    return customerRepository.findAllByAddress(addressField, globalSearch, pageable);
-  }
 }
