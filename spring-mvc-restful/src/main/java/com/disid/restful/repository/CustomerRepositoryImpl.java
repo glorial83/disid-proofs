@@ -6,7 +6,7 @@ import com.disid.restful.model.QCustomer;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 
-import io.springlets.data.jpa.repository.support.GlobalSearch;
+import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.jpa.repository.support.QueryDslRepositorySupportExt;
 
 import org.springframework.data.domain.Page;
@@ -51,7 +51,7 @@ public class CustomerRepositoryImpl extends QueryDslRepositorySupportExt<Custome
     return query.fetchCount();
   }
 
-  private void applySearchForm(CustomerSearchForm formBean, JPQLQuery query) {
+  private void applySearchForm(CustomerSearchForm formBean, JPQLQuery<Customer> query) {
     QCustomer customer = QCustomer.customer;
     BooleanBuilder searchFormCondition = new BooleanBuilder();
     if (StringUtils.hasText(formBean.getFirstName())) {

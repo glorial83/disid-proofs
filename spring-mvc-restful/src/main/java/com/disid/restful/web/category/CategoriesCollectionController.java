@@ -5,7 +5,7 @@ import com.disid.restful.datatables.DatatablesPageable;
 import com.disid.restful.model.Category;
 import com.disid.restful.service.api.CategoryService;
 
-import io.springlets.data.jpa.repository.support.GlobalSearch;
+import io.springlets.data.domain.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

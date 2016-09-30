@@ -5,7 +5,7 @@ import com.disid.restful.model.Product;
 import com.disid.restful.model.QProduct;
 import com.querydsl.jpa.JPQLQuery;
 
-import io.springlets.data.jpa.repository.support.GlobalSearch;
+import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.jpa.repository.support.QueryDslRepositorySupportExt;
 
 import org.springframework.data.domain.Page;

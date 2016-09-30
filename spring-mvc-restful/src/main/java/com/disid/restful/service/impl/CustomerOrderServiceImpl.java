@@ -8,7 +8,7 @@ import com.disid.restful.repository.CustomerOrderRepository;
 import com.disid.restful.repository.OrderDetailRepository;
 import com.disid.restful.service.api.CustomerOrderService;
 
-import io.springlets.data.jpa.repository.support.GlobalSearch;
+import io.springlets.data.domain.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

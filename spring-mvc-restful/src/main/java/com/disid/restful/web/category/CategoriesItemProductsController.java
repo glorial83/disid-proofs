@@ -6,7 +6,7 @@ import com.disid.restful.model.Product;
 import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.api.ProductService;
 
-import io.springlets.data.jpa.repository.support.GlobalSearch;
+import io.springlets.data.domain.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
