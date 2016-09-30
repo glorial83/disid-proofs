@@ -11,14 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
 
-@RooServiceImpl(service = CategoryService.class)
-public class CategoryServiceImpl {
+@Service
+@Transactional(readOnly = true)
+public class CategoryServiceImpl implements CategoryService {
 
   private ProductService productService;
   private CategoryRepository categoryRepository;
@@ -98,4 +99,45 @@ public class CategoryServiceImpl {
     return categoryRepository.findAll(Arrays.asList(categories));
   }
 
+
+	@Transactional(readOnly = false)
+    public Category save(Category entity) {
+        return categoryRepository.save(entity);
+    }
+
+	@Transactional(readOnly = false)
+    public void delete(Long id) {
+         categoryRepository.delete(id);
+    }
+
+	@Transactional(readOnly = false)
+    public List<Category> save(Iterable<Category> entities) {
+        return categoryRepository.save(entities);
+    }
+
+	@Transactional(readOnly = false)
+    public void delete(Iterable<Long> ids) {
+        List<Category> toDelete = categoryRepository.findAll(ids);
+        categoryRepository.deleteInBatch(toDelete);
+    }
+
+	public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
+
+	public List<Category> findAll(Iterable<Long> ids) {
+        return categoryRepository.findAll(ids);
+    }
+
+	public Category findOne(Long id) {
+        return categoryRepository.findOne(id);
+    }
+
+	public long count() {
+        return categoryRepository.count();
+    }
+
+	public Page<Category> findAll(GlobalSearch globalSearch, Pageable pageable) {
+        return categoryRepository.findAll(globalSearch, pageable);
+    }
 }

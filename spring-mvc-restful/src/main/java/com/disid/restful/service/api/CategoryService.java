@@ -6,11 +6,9 @@ import com.disid.restful.repository.GlobalSearch;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.roo.addon.layers.service.annotations.RooService;
 
 import java.util.List;
 
-@RooService(entity = Category.class)
 public interface CategoryService {
 
   void delete(Category category);
@@ -32,4 +30,23 @@ public interface CategoryService {
   Product deleteFromProducts(Product product, Long... categories);
 
   List<Category> findAll(Long... categories);
+
+  List<Category> findAll();
+
+  List<Category> findAll(Iterable<Long> ids);
+
+  Category findOne(Long id);
+
+  long count();
+
+  Page<Category> findAll(GlobalSearch globalSearch, Pageable pageable);
+
+  Category save(Category entity);
+
+  void delete(Long id);
+
+  List<Category> save(Iterable<Category> entities);
+
+  void delete(Iterable<Long> ids);
+
 }

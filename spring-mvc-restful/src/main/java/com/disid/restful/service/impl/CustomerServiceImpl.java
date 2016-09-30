@@ -13,13 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RooServiceImpl(service = CustomerService.class)
-public class CustomerServiceImpl {
+@Service
+@Transactional(readOnly = true)
+public class CustomerServiceImpl implements CustomerService {
 
   private CustomerOrderService customerOrderService;
 
@@ -74,4 +75,56 @@ public class CustomerServiceImpl {
     return customerRepository.countByFirstNameLastName(formBean);
   }
 
+
+  public CustomerRepository customerRepository;
+
+  @Transactional(readOnly = false)
+  public Customer save(Customer entity) {
+    return customerRepository.save(entity);
+  }
+
+  @Transactional(readOnly = false)
+  public void delete(Long id) {
+    customerRepository.delete(id);
+  }
+
+  @Transactional(readOnly = false)
+  public List<Customer> save(Iterable<Customer> entities) {
+    return customerRepository.save(entities);
+  }
+
+  @Transactional(readOnly = false)
+  public void delete(Iterable<Long> ids) {
+    List<Customer> toDelete = customerRepository.findAll(ids);
+    customerRepository.deleteInBatch(toDelete);
+  }
+
+  public List<Customer> findAll() {
+    return customerRepository.findAll();
+  }
+
+  public List<Customer> findAll(Iterable<Long> ids) {
+    return customerRepository.findAll(ids);
+  }
+
+  public Customer findOne(Long id) {
+    return customerRepository.findOne(id);
+  }
+
+  public long count() {
+    return customerRepository.count();
+  }
+
+  public Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable) {
+    return customerRepository.findAll(globalSearch, pageable);
+  }
+
+  public Long countByAddressId(Long id) {
+    return customerRepository.countByAddressId(id);
+  }
+
+  public Page<Customer> findAllByAddress(Address addressField, GlobalSearch globalSearch,
+      Pageable pageable) {
+    return customerRepository.findAllByAddress(addressField, globalSearch, pageable);
+  }
 }

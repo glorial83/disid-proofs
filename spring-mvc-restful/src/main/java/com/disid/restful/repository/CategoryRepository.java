@@ -1,12 +1,14 @@
 package com.disid.restful.repository;
-
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
 
-import org.springframework.roo.addon.layers.repository.jpa.annotations.RooJpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@RooJpaRepository(entity = Category.class)
-public interface CategoryRepository {
+@Repository
+@Transactional(readOnly = true)
+public interface CategoryRepository extends JpaRepository<Category, Long>, CategoryRepositoryCustom {
 
-  long countByProductsContains(Product product);
+    long countByProductsContains(Product product);
 }

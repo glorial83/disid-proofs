@@ -1,5 +1,6 @@
 package com.disid.restful.service.api;
 
+import com.disid.restful.model.Address;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.CustomerSearchForm;
@@ -7,9 +8,9 @@ import com.disid.restful.repository.GlobalSearch;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.roo.addon.layers.service.annotations.RooService;
 
-@RooService(entity = Customer.class)
+import java.util.List;
+
 public interface CustomerService {
 
   void delete(Customer customer);
@@ -34,4 +35,29 @@ public interface CustomerService {
       Pageable pageable);
 
   long countByFirstNameLastName(CustomerSearchForm formBean);
+
+
+  Customer save(Customer entity);
+
+  void delete(Long id);
+
+  List<Customer> save(Iterable<Customer> entities);
+
+  void delete(Iterable<Long> ids);
+
+  List<Customer> findAll();
+
+  List<Customer> findAll(Iterable<Long> ids);
+
+  Customer findOne(Long id);
+
+  long count();
+
+  Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable);
+
+  Page<Customer> findAllByAddress(Address addressField, GlobalSearch globalSearch,
+      Pageable pageable);
+
+  Long countByAddressId(Long id);
+
 }

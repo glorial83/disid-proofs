@@ -1,5 +1,6 @@
 package com.disid.restful.service.impl;
 
+import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.OrderDetailPK;
@@ -10,14 +11,15 @@ import com.disid.restful.service.api.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
 
-@RooServiceImpl(service = CustomerOrderService.class)
-public class CustomerOrderServiceImpl {
+@Service
+@Transactional(readOnly = true)
+public class CustomerOrderServiceImpl implements CustomerOrderService {
 
   @Autowired
   public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
@@ -59,4 +61,55 @@ public class CustomerOrderServiceImpl {
   public OrderDetail findOneOrderDetail(OrderDetailPK orderDetailPK) {
     return customerOrderRepository.findOneOrderDetail(orderDetailPK);
   }
+
+	public CustomerOrderRepository customerOrderRepository;
+
+	@Transactional(readOnly = false)
+    public CustomerOrder save(CustomerOrder entity) {
+        return customerOrderRepository.save(entity);
+    }
+
+	@Transactional(readOnly = false)
+    public void delete(Long id) {
+         customerOrderRepository.delete(id);
+    }
+
+	@Transactional(readOnly = false)
+    public List<CustomerOrder> save(Iterable<CustomerOrder> entities) {
+        return customerOrderRepository.save(entities);
+    }
+
+	@Transactional(readOnly = false)
+    public void delete(Iterable<Long> ids) {
+        List<CustomerOrder> toDelete = customerOrderRepository.findAll(ids);
+        customerOrderRepository.deleteInBatch(toDelete);
+    }
+
+	public List<CustomerOrder> findAll() {
+        return customerOrderRepository.findAll();
+    }
+
+	public List<CustomerOrder> findAll(Iterable<Long> ids) {
+        return customerOrderRepository.findAll(ids);
+    }
+
+	public CustomerOrder findOne(Long id) {
+        return customerOrderRepository.findOne(id);
+    }
+
+	public long count() {
+        return customerOrderRepository.count();
+    }
+
+	public Page<CustomerOrder> findAll(GlobalSearch globalSearch, Pageable pageable) {
+        return customerOrderRepository.findAll(globalSearch, pageable);
+    }
+
+	public Long countByCustomerId(Long id) {
+        return customerOrderRepository.countByCustomerId(id);
+    }
+
+	public Page<CustomerOrder> findAllByCustomer(Customer customerField, GlobalSearch globalSearch, Pageable pageable) {
+        return customerOrderRepository.findAllByCustomer(customerField, globalSearch, pageable);
+    }
 }
