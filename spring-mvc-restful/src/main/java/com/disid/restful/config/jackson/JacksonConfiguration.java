@@ -33,22 +33,10 @@ import org.springframework.validation.FieldError;
 @Configuration
 class JacksonConfiguration {
 
-  //  @Autowired
-  //  private CustomerService customerService;
-  //
-  //  @Autowired
-  //  private ConversionService conversionService;
-
   @Bean
   public Module modelModule() {
     return new DomainModelModule();
   }
-
-  //  @Bean
-  //  public CustomerDeserializer customerDeserializer() {
-  //    return new CustomerDeserializer(new CustomerFormatter(customerService, conversionService));
-  //  }
-
 
   @Bean
   public Module bindingResultModule() {

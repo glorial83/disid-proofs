@@ -47,15 +47,6 @@ public class DomainModelModule extends SimpleModule {
 
   static abstract class CustomerOrderMixin {
 
-    // Not needed, creation or modification of entities will be supported
-    // only with direct properties or composition. Aggregation relationships
-    // will be handled through its own relation controller.
-    //  @JsonDeserialize(using = CustomerDeserializer.class)
-    // Not needed, just use default serialization with the @JsonIdentityInfo
-    // annotation to avoid infinite cycles.
-    //      @JsonSerialize(using = CustomerSerializer.class)
-    // private Customer customer;
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date orderDate;
 
@@ -66,7 +57,8 @@ public class DomainModelModule extends SimpleModule {
   static abstract class OrderDetailMixin {
 
     // The product property in the OrderDetail entity cannot be null,
-    // so the product must be sent as an Id.
+    // so the product must be sent as an Id, which will be serialized
+    // to the Product entity
     @JsonDeserialize(using = ProductDeserializer.class)
     private Product product;
   }
