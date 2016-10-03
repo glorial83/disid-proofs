@@ -12,5 +12,5 @@
 
 ./post-n-customer-item-orders.sh
 
-#./post-n-customerorder-item-details.sh
+./post-n-customerorder-item-details.sh
 
