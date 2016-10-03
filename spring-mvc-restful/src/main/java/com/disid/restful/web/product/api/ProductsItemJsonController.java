@@ -50,7 +50,7 @@ public class ProductsItemJsonController {
     }
 
     product.setId(storedProduct.getId());
-    productService.save(storedProduct);
+    productService.save(product);
     return ResponseEntity.ok().build();
   }
 

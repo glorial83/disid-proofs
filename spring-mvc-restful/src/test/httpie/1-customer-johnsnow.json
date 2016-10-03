@@ -1,0 +1,9 @@
+{
+    "firstName":"Jonn",
+    "lastName":"Snow",
+    "address": {
+        "city" : "The Wall2",
+        "street": "Castle Black",
+        "streetNumber": 2
+    }
+}

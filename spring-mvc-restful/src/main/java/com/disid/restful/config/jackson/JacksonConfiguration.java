@@ -15,10 +15,15 @@
  */
 package com.disid.restful.config.jackson;
 
+import com.disid.restful.http.converter.json.BindingResultSerializer;
+import com.disid.restful.http.converter.json.FieldErrorSerializer;
 import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 /**
  * Configures custom serialization and deserialization of entities.
@@ -36,7 +41,7 @@ class JacksonConfiguration {
 
   @Bean
   public Module modelModule() {
-    return new ModelModule();
+    return new DomainModelModule();
   }
 
   //  @Bean
@@ -44,4 +49,15 @@ class JacksonConfiguration {
   //    return new CustomerDeserializer(new CustomerFormatter(customerService, conversionService));
   //  }
 
+
+  @Bean
+  public Module bindingResultModule() {
+
+    SimpleModule module = new SimpleModule();
+
+    module.addSerializer(BindingResult.class, new BindingResultSerializer());
+    module.addSerializer(FieldError.class, new FieldErrorSerializer());
+
+    return module;
+  }
 }

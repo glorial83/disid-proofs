@@ -48,6 +48,7 @@ public class CustomersItemJsonController {
     }
 
     customer.setId(storedCustomer.getId());
+    customer.getAddress().setId(storedCustomer.getAddress().getId());
     customerService.save(customer);
     return ResponseEntity.ok().build();
   }

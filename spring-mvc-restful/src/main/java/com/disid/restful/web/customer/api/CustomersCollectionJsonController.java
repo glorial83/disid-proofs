@@ -43,8 +43,9 @@ public class CustomersCollectionJsonController {
 
   @PostMapping
   public ResponseEntity<?> create(@Valid @RequestBody Customer customer, BindingResult result) {
-    if (customer.getId() != null
-        || (customer.getAddress() != null && customer.getAddress().getId() != null)) {
+    if (customer.getId() != null || customer.getVersion() != null
+        || (customer.getAddress() != null && (customer.getAddress().getId() != null)
+            || customer.getAddress().getVersion() != null)) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
     if (result.hasErrors()) {

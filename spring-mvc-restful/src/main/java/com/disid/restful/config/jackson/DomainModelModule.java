@@ -1,26 +1,48 @@
 package com.disid.restful.config.jackson;
 
+import com.disid.restful.model.Category;
+import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.Product;
 import com.disid.restful.web.ProductDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.util.Date;
+import java.util.Set;
 
-public class ModelModule extends SimpleModule {
+public class DomainModelModule extends SimpleModule {
 
   private static final long serialVersionUID = 8965404165272410003L;
 
-  public ModelModule() {
+  public DomainModelModule() {
 
-    //			setMixInAnnotation(Customer.class, CustomerMixin.class);
-    setMixInAnnotation(CustomerOrder.class, ModelModule.CustomerOrderMixin.class);
-    setMixInAnnotation(OrderDetail.class, ModelModule.OrderDetailMixin.class);
-    //			setMixInAnnotation(Category.class, CategoryMixin.class);
-    //            setMixInAnnotation(Product.class, ProductMixin.class);
+    setMixInAnnotation(Category.class, CategoryMixin.class);
+    setMixInAnnotation(Product.class, ProductMixin.class);
+    setMixInAnnotation(Customer.class, CustomerMixin.class);
+    setMixInAnnotation(CustomerOrder.class, CustomerOrderMixin.class);
+    setMixInAnnotation(OrderDetail.class, OrderDetailMixin.class);
+  }
+
+  static abstract class CategoryMixin {
+
+    @JsonIgnore
+    private Set<Product> products;
+  }
+
+  static abstract class ProductMixin {
+
+    @JsonIgnore
+    private Set<Category> categories;
+  }
+
+  static abstract class CustomerMixin {
+
+    @JsonIgnore
+    private Set<CustomerOrder> orders;
   }
 
   static abstract class CustomerOrderMixin {
@@ -49,25 +71,4 @@ public class ModelModule extends SimpleModule {
     private Product product;
   }
 
-  //		@JsonAutoDetect(isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-  //		static abstract class OrderMixin {
-  //
-  //			@JsonCreator
-  //			public OrderMixin(Collection<LineItem> lineItems, Location location) {}
-  //		}
-  //
-  //		static abstract class LineItemMixin {
-  //
-  //			@JsonCreator
-  //			public LineItemMixin(String name, int quantity, Milk milk, Size size, MonetaryAmount price) {}
-  //		}
-  //
-  //		@JsonAutoDetect(isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-  //		static abstract class CreditCardMixin {
-  //
-  //			abstract @JsonUnwrapped CreditCardNumber getNumber();
-  //		}
-  //
-  //		@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-  //		static abstract class CreditCardNumberMixin {}
 }

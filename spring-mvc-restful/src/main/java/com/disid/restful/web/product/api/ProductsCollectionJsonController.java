@@ -42,7 +42,7 @@ public class ProductsCollectionJsonController {
   // Create Products
 
   @PostMapping
-  public ResponseEntity create(@Valid @RequestBody Product product, BindingResult result) {
+  public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result) {
     if (product.getId() != null) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }

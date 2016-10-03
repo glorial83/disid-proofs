@@ -5,8 +5,6 @@ import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.service.api.CustomerOrderService;
 
-import io.springlets.data.domain.GlobalSearch;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,17 +34,16 @@ public class CustomerOrdersItemDetailsJsonController {
     this.customerOrderService = customerOrderService;
   }
 
-  @ModelAttribute("customerorder")
+  @ModelAttribute
   public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
     return customerOrderService.findOne(id);
   }
 
   @GetMapping
   public ResponseEntity<Page<OrderDetail>> listOrderDetails(
-      @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
-      Pageable pageable) {
+      @ModelAttribute("customerorder") CustomerOrder customerOrder, Pageable pageable) {
     Page<OrderDetail> orderDetails =
-        customerOrderService.findDetailsByCustomerOrder(customerOrder, search, pageable);
+        customerOrderService.findDetailsByCustomerOrder(customerOrder, null, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(orderDetails);
   }
 

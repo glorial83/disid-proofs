@@ -50,6 +50,7 @@ public class CategoriesItemRestController {
     }
 
     category.setId(storedCategory.getId());
+    category.setVersion(storedCategory.getVersion());
     categoryService.save(category);
     return ResponseEntity.ok().build();
   }
