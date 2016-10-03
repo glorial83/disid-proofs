@@ -1,4 +1,4 @@
-package com.disid.restful.web.customer;
+package com.disid.restful.web.customer.html;
 
 import com.disid.restful.datatables.Datatables;
 import com.disid.restful.datatables.DatatablesData;
@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/customers/{customer}/orders", produces = MediaType.TEXT_HTML_VALUE)
-public class CustomersItemOrdersController {
+public class CustomersItemOrdersThymeleafController {
 
   public CustomerOrderService customerOrderService;
 
   public CustomerService customerService;
 
   @Autowired
-  public CustomersItemOrdersController(CustomerService customerService,
+  public CustomersItemOrdersThymeleafController(CustomerService customerService,
       CustomerOrderService customerOrderService) {
     this.customerService = customerService;
     this.customerOrderService = customerOrderService;
@@ -49,15 +49,15 @@ public class CustomersItemOrdersController {
   public ResponseEntity<DatatablesData<CustomerOrder>> listCustomerOrder(
       @ModelAttribute Customer customer, GlobalSearch search, Pageable pageable,
       @RequestParam("draw") Integer draw) {
-    Page<CustomerOrder> customerOrderPage =
+    Page<CustomerOrder> customerOrders =
         customerOrderService.findAllByCustomer(customer, search, pageable);
-    long orderDetailsWithoutSearchFilterCount = customerOrderPage.getTotalElements();
+    long totalCustomerOrderCount = customerOrders.getTotalElements();
     if (search != null && StringUtils.hasText(search.getText())) {
-      orderDetailsWithoutSearchFilterCount =
+      totalCustomerOrderCount =
           customerOrderService.countByCustomerId(customer.getId());
     }
     DatatablesData<CustomerOrder> datatablesData = new DatatablesData<CustomerOrder>(
-        customerOrderPage, orderDetailsWithoutSearchFilterCount, draw);
+        customerOrders, totalCustomerOrderCount, draw);
     return ResponseEntity.status(HttpStatus.FOUND).body(datatablesData);
   }
 

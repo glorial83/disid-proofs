@@ -1,4 +1,4 @@
-package com.disid.restful.web.api.customer;
+package com.disid.restful.web.customer.api;
 
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/customers/{customer}/orders", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomersItemOrdersRestController {
+public class CustomersItemOrdersJsonController {
 
   public CustomerOrderService customerOrderService;
 
   public CustomerService customerService;
 
   @Autowired
-  public CustomersItemOrdersRestController(CustomerService customerService,
+  public CustomersItemOrdersJsonController(CustomerService customerService,
       CustomerOrderService customerOrderService) {
     this.customerService = customerService;
     this.customerOrderService = customerOrderService;
@@ -62,14 +62,14 @@ public class CustomersItemOrdersRestController {
     return ResponseEntity.ok().build();
   }
 
-  @PostMapping(value = "/batch")
+  @PostMapping("/batch")
   public ResponseEntity<?> addToOrders(@ModelAttribute Customer customer,
       @RequestBody Long[] orders) {
     customerService.addToOrders(customer, orders);
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping(value = "/batch")
+  @DeleteMapping("/batch")
   public ResponseEntity<?> deleteFromOrders(@ModelAttribute Customer customer,
       @RequestBody Long[] orders) {
     customerService.removeFromOrders(customer, orders);

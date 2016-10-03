@@ -1,4 +1,4 @@
-package com.disid.restful.web.api.customer;
+package com.disid.restful.web.customer.api;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
@@ -30,12 +30,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomersCollectionRestController {
+public class CustomersCollectionJsonController {
 
   public CustomerService customerService;
 
   @Autowired
-  public CustomersCollectionRestController(CustomerService customerService) {
+  public CustomersCollectionJsonController(CustomerService customerService) {
     this.customerService = customerService;
   }
 
@@ -52,7 +52,7 @@ public class CustomersCollectionRestController {
     }
     Customer newCustomer = customerService.save(customer);
 
-    URI uri = fromMethodCall(on(CustomersItemRestController.class).show(null))
+    URI uri = fromMethodCall(on(CustomersItemJsonController.class).show(null))
         .buildAndExpand(newCustomer.getId()).encode().toUri();
 
     return ResponseEntity.created(uri).build();
@@ -63,12 +63,12 @@ public class CustomersCollectionRestController {
   @GetMapping
   public ResponseEntity<Page<Customer>> list(Pageable pageable) {
     Page<Customer> customers = customerService.findAll(null, pageable);
-    return ResponseEntity.ok(customers);
+    return ResponseEntity.status(HttpStatus.FOUND).body(customers);
   }
 
   // Batch operations with Customers
 
-  @PostMapping(value = "/batch")
+  @PostMapping("/batch")
   public ResponseEntity<?> createBatch(@Valid @RequestBody Collection<Customer> customers,
       BindingResult result) {
     if (result.hasErrors()) {
@@ -77,11 +77,10 @@ public class CustomersCollectionRestController {
     customerService.save(customers);
 
     URI uri = fromMethodCall(on(getClass()).list(null)).build().encode().toUri();
-
     return ResponseEntity.created(uri).build();
   }
 
-  @PutMapping(value = "/batch")
+  @PutMapping("/batch")
   public ResponseEntity<?> updateBatch(@Valid @RequestBody Collection<Customer> customers,
       BindingResult result) {
     if (result.hasErrors()) {
@@ -91,7 +90,7 @@ public class CustomersCollectionRestController {
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping(value = "/batch/{ids}")
+  @DeleteMapping("/batch/{ids}")
   public ResponseEntity<?> deleteBatch(@PathVariable("ids") Collection<Long> ids) {
     customerService.delete(ids);
     return ResponseEntity.ok().build();

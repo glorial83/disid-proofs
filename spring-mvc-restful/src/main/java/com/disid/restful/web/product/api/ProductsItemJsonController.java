@@ -1,7 +1,7 @@
-package com.disid.restful.web.api.customer;
+package com.disid.restful.web.product.api;
 
-import com.disid.restful.model.Customer;
-import com.disid.restful.service.api.CustomerService;
+import com.disid.restful.model.Product;
+import com.disid.restful.service.api.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,51 +20,53 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/customers/{customer}", consumes = MediaType.APPLICATION_JSON_VALUE,
+@RequestMapping(value = "/products/{product}", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomersItemRestController {
+public class ProductsItemJsonController {
 
-  public CustomerService customerService;
+  public ProductService productService;
 
   @Autowired
-  public CustomersItemRestController(CustomerService customerService) {
-    this.customerService = customerService;
+  public ProductsItemJsonController(ProductService productService) {
+    this.productService = productService;
   }
 
   @ModelAttribute
-  public Customer getCustomer(@PathVariable("customer") Long id) {
-    return customerService.findOne(id);
+  public Product getProduct(@PathVariable("product") Long id) {
+    return productService.findOne(id);
   }
 
+  // Update Product
+
   @PutMapping
-  public ResponseEntity<?> update(@ModelAttribute Customer storedCustomer,
-      @Valid @RequestBody Customer customer, BindingResult result) {
+  public ResponseEntity<?> update(@ModelAttribute Product storedProduct,
+      @Valid @RequestBody Product product, BindingResult result) {
     if (result.hasErrors()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
     }
 
-    if (storedCustomer == null) {
+    if (storedProduct == null) {
       return ResponseEntity.notFound().build();
     }
 
-    customer.setId(storedCustomer.getId());
-
-    customerService.save(customer);
+    product.setId(storedProduct.getId());
+    productService.save(storedProduct);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping
-  public ResponseEntity<?> delete(@ModelAttribute Customer customer) {
-    customerService.delete(customer);
+  public ResponseEntity<?> delete(@ModelAttribute Product product) {
+    productService.delete(product);
     return ResponseEntity.ok().build();
   }
 
+
   @GetMapping
-  public ResponseEntity<?> show(@ModelAttribute Customer customer) {
-    if (customer == null) {
+  public ResponseEntity<?> show(@ModelAttribute Product product) {
+    if (product == null) {
       return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.status(HttpStatus.FOUND).body(customer);
+    return ResponseEntity.status(HttpStatus.FOUND).body(product);
   }
 
 }

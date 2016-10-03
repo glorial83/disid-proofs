@@ -1,4 +1,4 @@
-package com.disid.restful.web.customer;
+package com.disid.restful.web.customer.html;
 
 import com.disid.restful.model.Customer;
 import com.disid.restful.service.api.CustomerService;
@@ -22,12 +22,12 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/customers/{customer}", produces = MediaType.TEXT_HTML_VALUE)
-public class CustomersItemController {
+public class CustomersItemThymeleafController {
 
   public CustomerService customerService;
 
   @Autowired
-  public CustomersItemController(CustomerService customerService) {
+  public CustomersItemThymeleafController(CustomerService customerService) {
     this.customerService = customerService;
   }
 
@@ -42,7 +42,7 @@ public class CustomersItemController {
     return customerService.findOne(id);
   }
 
-  @GetMapping(value = "/edit-form")
+  @GetMapping("/edit-form")
   public String editForm(@ModelAttribute Customer customer, Model model) {
 
     // TODO: what happens if the customer to edit does not exist?

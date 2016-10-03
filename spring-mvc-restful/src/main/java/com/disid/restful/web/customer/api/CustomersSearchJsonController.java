@@ -1,4 +1,4 @@
-package com.disid.restful.web.api.customer;
+package com.disid.restful.web.customer.api;
 
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerSearchForm;
@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping(value = "/customers/search", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomersSearchRestController {
+public class CustomersSearchJsonController {
 
   public CustomerService customerService;
 
   @Autowired
-  public CustomersSearchRestController(CustomerService customerService) {
+  public CustomersSearchJsonController(CustomerService customerService) {
     this.customerService = customerService;
   }
 
-  @GetMapping(value = "/byFirstNameLastName")
+  @GetMapping("/byFirstNameLastName")
   public ResponseEntity<Page<Customer>> findByFirstNameLastName(CustomerSearchForm formBean,
       Pageable pageable) {
     Page<Customer> customers = customerService.findByFirstNameLastName(formBean, null, pageable);

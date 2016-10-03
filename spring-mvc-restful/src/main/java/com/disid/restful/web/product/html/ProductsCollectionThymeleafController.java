@@ -1,10 +1,10 @@
-package com.disid.restful.web.customer;
+package com.disid.restful.web.product.html;
 
 import com.disid.restful.datatables.Datatables;
 import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.datatables.DatatablesPageable;
-import com.disid.restful.model.Customer;
-import com.disid.restful.service.api.CustomerService;
+import com.disid.restful.model.Product;
+import com.disid.restful.service.api.ProductService;
 
 import io.springlets.data.domain.GlobalSearch;
 
@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,57 +29,55 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-
 @Controller
-// TODO: no tienen consumes??
-@RequestMapping(value = "/customers", produces = MediaType.TEXT_HTML_VALUE)
-public class CustomersCollectionController {
+@RequestMapping(value = "/products", produces = MediaType.TEXT_HTML_VALUE)
+public class ProductsCollectionThymeleafController {
 
-  public CustomerService customerService;
+  public ProductService productService;
 
   @Autowired
-  public CustomersCollectionController(CustomerService customerService) {
-    this.customerService = customerService;
+  public ProductsCollectionThymeleafController(ProductService productService) {
+    this.productService = productService;
   }
 
-  @InitBinder("customer")
+  @InitBinder("product")
   public void initOwnerBinder(WebDataBinder dataBinder) {
     dataBinder.setDisallowedFields("id");
-    dataBinder.setDisallowedFields("address.id");
   }
 
-  // Create Customers
-  @GetMapping(value = "/create-form")
+  @GetMapping("/create-form")
   public String createForm(Model model) {
-    model.addAttribute(new Customer());
-    return "customers/create";
+    model.addAttribute(new Product());
+    return "products/create";
   }
 
   @PostMapping
-  public String create(@Valid @ModelAttribute Customer customer, BindingResult result,
+  public String create(@Valid @ModelAttribute Product product, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
-      return "customers/create";
+      return "products/create";
     }
-    Customer newCustomer = customerService.save(customer);
-    redirectAttrs.addAttribute("id", newCustomer.getId());
-    return "redirect:/customers/{id}";
+    Product newProduct = productService.save(product);
+    redirectAttrs.addAttribute("id", newProduct.getId());
+    return "redirect:/products/{id}";
   }
 
-  // List Customers
   @GetMapping
   public String list(Model model) {
-    return "customers/list";
+    return "products/list";
   }
 
   @GetMapping(produces = Datatables.MEDIA_TYPE)
   @ResponseBody
-  public ResponseEntity<DatatablesData<Customer>> list(GlobalSearch search,
+  public ResponseEntity<DatatablesData<Product>> list(GlobalSearch search,
       DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
-    Page<Customer> customer = customerService.findAll(search, pageable);
-    long allAvailableCustomer = customerService.count();
-    DatatablesData<Customer> datatablesData =
-        new DatatablesData<Customer>(customer, allAvailableCustomer, draw);
+    Page<Product> products = productService.findAll(search, pageable);
+    long totalProductsCount = products.getTotalElements();
+    if (search != null && StringUtils.hasText(search.getText())) {
+      totalProductsCount = productService.count();
+    }
+    DatatablesData<Product> datatablesData =
+        new DatatablesData<Product>(products, totalProductsCount, draw);
     return ResponseEntity.status(HttpStatus.FOUND).body(datatablesData);
   }
 

@@ -1,4 +1,4 @@
-package com.disid.restful.web.customer;
+package com.disid.restful.web.customer.html;
 
 import com.disid.restful.datatables.Datatables;
 import com.disid.restful.datatables.DatatablesData;
@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/customers/search", produces = MediaType.TEXT_HTML_VALUE)
-public class CustomersSearchController {
+public class CustomersSearchThymeleafController {
 
   public CustomerService customerService;
 
   @Autowired
-  public CustomersSearchController(CustomerService customerService) {
+  public CustomersSearchThymeleafController(CustomerService customerService) {
     this.customerService = customerService;
   }
 
-  @GetMapping(value = "/byFirstNameLastName")
+  @GetMapping("/byFirstNameLastName")
   public String findByFirstNameLastName(Model model) {
     return "customers/findByFirstNameLastName";
   }
