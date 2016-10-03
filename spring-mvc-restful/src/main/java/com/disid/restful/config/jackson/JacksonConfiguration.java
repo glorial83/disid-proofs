@@ -15,10 +15,11 @@
  */
 package com.disid.restful.config.jackson;
 
-import com.disid.restful.http.converter.json.BindingResultSerializer;
-import com.disid.restful.http.converter.json.FieldErrorSerializer;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import io.springlets.http.converter.json.BindingResultSerializer;
+import io.springlets.http.converter.json.FieldErrorSerializer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

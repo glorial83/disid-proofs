@@ -105,6 +105,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>io.springlets</groupId>
+			<artifactId>springlets-web</artifactId>
+			<version>${springlets.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 		</dependency>

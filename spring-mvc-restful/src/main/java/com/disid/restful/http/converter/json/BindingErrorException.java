@@ -2,7 +2,6 @@ package com.disid.restful.http.converter.json;
 
 import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.http.HttpStatus;
-import org.springframework.roo.addon.web.mvc.controller.annotations.http.converters.json.RooJSONBindingErrorException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-@RooJSONBindingErrorException
 public class BindingErrorException extends RuntimeException implements BindingResult {
 
   private static final long serialVersionUID = 3173335735776325694L;
