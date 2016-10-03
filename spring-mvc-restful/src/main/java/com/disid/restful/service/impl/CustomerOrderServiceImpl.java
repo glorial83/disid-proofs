@@ -3,9 +3,7 @@ package com.disid.restful.service.impl;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
-import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.repository.CustomerOrderRepository;
-import com.disid.restful.repository.OrderDetailRepository;
 import com.disid.restful.service.api.CustomerOrderService;
 
 import io.springlets.data.domain.GlobalSearch;
@@ -24,13 +22,10 @@ import java.util.List;
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
   private CustomerOrderRepository customerOrderRepository;
-  private OrderDetailRepository orderDetailRepository;
 
   @Autowired
-  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository,
-      OrderDetailRepository orderDetailRepository) {
+  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
     this.customerOrderRepository = customerOrderRepository;
-    this.orderDetailRepository = orderDetailRepository;
   }
 
   public void delete(CustomerOrder customerOrder) {
@@ -53,20 +48,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
   public List<CustomerOrder> findAll(Long... ids) {
     return customerOrderRepository.findAll(Arrays.asList(ids));
-  }
-
-  public Page<OrderDetail> findDetailsByCustomerOrder(CustomerOrder customerOrderField,
-      GlobalSearch globalSearch, Pageable pageable) {
-    return orderDetailRepository.findByCustomerOrder(customerOrderField, globalSearch,
-        pageable);
-  }
-
-  public long countDetailsByCustomerOrder(CustomerOrder customerOrderField) {
-    return orderDetailRepository.countByCustomerOrder(customerOrderField);
-  }
-
-  public OrderDetail findOneOrderDetail(OrderDetailPK orderDetailPK) {
-    return orderDetailRepository.findOne(orderDetailPK);
   }
 
   @Transactional(readOnly = false)
@@ -110,12 +91,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     return customerOrderRepository.findAll(globalSearch, pageable);
   }
 
-  public Long countByCustomerId(Long id) {
-    return customerOrderRepository.countByCustomerId(id);
+  public Long countByCustomer(Customer customer) {
+    return customerOrderRepository.countByCustomer(customer);
   }
 
-  public Page<CustomerOrder> findAllByCustomer(Customer customerField, GlobalSearch globalSearch,
+  public Page<CustomerOrder> findByCustomer(Customer customer, GlobalSearch globalSearch,
       Pageable pageable) {
-    return customerOrderRepository.findAllByCustomer(customerField, globalSearch, pageable);
+    return customerOrderRepository.findByCustomer(customer, globalSearch, pageable);
   }
 }

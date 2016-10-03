@@ -50,11 +50,11 @@ public class CustomersItemOrdersThymeleafController {
       @ModelAttribute Customer customer, GlobalSearch search, Pageable pageable,
       @RequestParam("draw") Integer draw) {
     Page<CustomerOrder> customerOrders =
-        customerOrderService.findAllByCustomer(customer, search, pageable);
+        customerOrderService.findByCustomer(customer, search, pageable);
     long totalCustomerOrderCount = customerOrders.getTotalElements();
     if (search != null && StringUtils.hasText(search.getText())) {
       totalCustomerOrderCount =
-          customerOrderService.countByCustomerId(customer.getId());
+          customerOrderService.countByCustomer(customer);
     }
     DatatablesData<CustomerOrder> datatablesData = new DatatablesData<CustomerOrder>(
         customerOrders, totalCustomerOrderCount, draw);

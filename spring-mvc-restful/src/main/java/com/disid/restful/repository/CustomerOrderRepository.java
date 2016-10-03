@@ -1,5 +1,6 @@
 package com.disid.restful.repository;
 
+import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 
@@ -24,5 +25,5 @@ public interface CustomerOrderRepository
   @Query("select c from CustomerOrder c left join fetch c.details left join fetch c.customer where c.id = ?1")
   CustomerOrder findOne(Long id);
 
-  public abstract Long countByCustomerId(Long id);
+  Long countByCustomer(Customer customer);
 }

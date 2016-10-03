@@ -4,6 +4,7 @@ import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.service.api.CustomerOrderService;
+import com.disid.restful.service.api.OrderDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,10 +29,13 @@ import javax.validation.Valid;
 public class CustomerOrdersItemDetailsJsonController {
 
   public CustomerOrderService customerOrderService;
+  public OrderDetailService orderDetailService;
 
   @Autowired
-  public CustomerOrdersItemDetailsJsonController(CustomerOrderService customerOrderService) {
+  public CustomerOrdersItemDetailsJsonController(CustomerOrderService customerOrderService,
+      OrderDetailService orderDetailService) {
     this.customerOrderService = customerOrderService;
+    this.orderDetailService = orderDetailService;
   }
 
   @ModelAttribute
@@ -43,7 +47,7 @@ public class CustomerOrdersItemDetailsJsonController {
   public ResponseEntity<Page<OrderDetail>> listOrderDetails(
       @ModelAttribute("customerorder") CustomerOrder customerOrder, Pageable pageable) {
     Page<OrderDetail> orderDetails =
-        customerOrderService.findDetailsByCustomerOrder(customerOrder, null, pageable);
+        orderDetailService.findByCustomerOrder(customerOrder, null, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(orderDetails);
   }
 
@@ -81,8 +85,8 @@ public class CustomerOrdersItemDetailsJsonController {
 
     OrderDetail orderDetail = null;
     if (orderDetailId != null) {
-      orderDetail = customerOrderService
-          .findOneOrderDetail(new OrderDetailPK(customerOrder.getId(), orderDetailId));
+      orderDetail =
+          orderDetailService.findOne(new OrderDetailPK(customerOrder.getId(), orderDetailId));
     }
     if (orderDetail == null) {
       return ResponseEntity.notFound().build();

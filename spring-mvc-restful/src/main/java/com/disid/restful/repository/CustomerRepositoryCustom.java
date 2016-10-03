@@ -15,5 +15,5 @@ public interface CustomerRepositoryCustom {
 
   long countByFirstNameLastName(CustomerSearchForm formBean);
 
-  public abstract Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable);
+  Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable);
 }

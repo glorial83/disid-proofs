@@ -14,7 +14,7 @@ public interface ProductService {
 
   void delete(Product product);
 
-  Page<Product> findAllByCategory(Category category, GlobalSearch search, Pageable pageable);
+  Page<Product> findByCategoriesContains(Category category, GlobalSearch search, Pageable pageable);
 
   long countByCategoriesContains(Category category);
 

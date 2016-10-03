@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductRepositoryCustom {
 
-  Page<Product> findAllByCategories(Category category, GlobalSearch search, Pageable pageable);
+  Page<Product> findByCategoriesContains(Category category, GlobalSearch search, Pageable pageable);
 
   public abstract Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable);
 }

@@ -5,6 +5,7 @@ import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 import com.disid.restful.service.api.CustomerOrderService;
+import com.disid.restful.service.api.OrderDetailService;
 
 import io.springlets.data.domain.GlobalSearch;
 
@@ -29,10 +30,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CustomerOrdersItemDetailsThymeleafController {
 
   public CustomerOrderService customerOrderService;
+  public OrderDetailService orderDetailService;
 
   @Autowired
-  public CustomerOrdersItemDetailsThymeleafController(CustomerOrderService customerOrderService) {
+  public CustomerOrdersItemDetailsThymeleafController(CustomerOrderService customerOrderService,
+      OrderDetailService orderDetailService) {
     this.customerOrderService = customerOrderService;
+    this.orderDetailService = orderDetailService;
   }
 
   @ModelAttribute("customerorder")
@@ -46,10 +50,10 @@ public class CustomerOrdersItemDetailsThymeleafController {
       @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
       Pageable pageable, @RequestParam("draw") Integer draw) {
     Page<OrderDetail> orderDetails =
-        customerOrderService.findDetailsByCustomerOrder(customerOrder, search, pageable);
+        orderDetailService.findByCustomerOrder(customerOrder, search, pageable);
     long totalOrderDetailCount = orderDetails.getTotalElements();
     if (search != null && StringUtils.hasText(search.getText())) {
-      totalOrderDetailCount = customerOrderService.countDetailsByCustomerOrder(customerOrder);
+      totalOrderDetailCount = orderDetailService.countByCustomerOrder(customerOrder);
     }
     DatatablesData<OrderDetail> datatablesData =
         new DatatablesData<OrderDetail>(orderDetails, totalOrderDetailCount, draw);

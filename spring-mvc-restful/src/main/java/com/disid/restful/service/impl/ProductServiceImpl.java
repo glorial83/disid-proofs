@@ -44,9 +44,9 @@ public class ProductServiceImpl implements ProductService {
     productRepository.delete(product);
   }
 
-  public Page<Product> findAllByCategory(Category category, GlobalSearch search,
+  public Page<Product> findByCategoriesContains(Category category, GlobalSearch search,
       Pageable pageable) {
-    return productRepository.findAllByCategories(category, search, pageable);
+    return productRepository.findByCategoriesContains(category, search, pageable);
   }
 
   public long countByCategoriesContains(Category category) {

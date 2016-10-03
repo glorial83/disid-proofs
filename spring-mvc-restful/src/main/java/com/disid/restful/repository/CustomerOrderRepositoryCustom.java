@@ -12,6 +12,6 @@ public interface CustomerOrderRepositoryCustom {
 
   Page<CustomerOrder> findAll(GlobalSearch globalSearch, Pageable pageable);
 
-  Page<CustomerOrder> findAllByCustomer(Customer customerField, GlobalSearch globalSearch,
+  Page<CustomerOrder> findByCustomer(Customer customer, GlobalSearch globalSearch,
       Pageable pageable);
 }

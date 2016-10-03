@@ -45,7 +45,7 @@ public class CustomersItemOrdersJsonController {
   public ResponseEntity<Page<CustomerOrder>> listCustomerOrder(@ModelAttribute Customer customer,
       Pageable pageable) {
     Page<CustomerOrder> customerOrders =
-        customerOrderService.findAllByCustomer(customer, null, pageable);
+        customerOrderService.findByCustomer(customer, null, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(customerOrders);
   }
 

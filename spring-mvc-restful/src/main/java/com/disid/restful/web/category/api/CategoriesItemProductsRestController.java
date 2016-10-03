@@ -44,7 +44,7 @@ public class CategoriesItemProductsRestController {
   @GetMapping
   public ResponseEntity<Page<Product>> listProducts(@ModelAttribute Category category,
       Pageable pageable) {
-    Page<Product> products = productService.findAllByCategory(category, null, pageable);
+    Page<Product> products = productService.findByCategoriesContains(category, null, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
   }
 

@@ -45,7 +45,7 @@ public class CategoriesItemProductsController {
   @ResponseBody
   public DatatablesData<Product> listProduct(@ModelAttribute Category category, GlobalSearch search,
       Pageable pageable, @RequestParam("draw") Integer draw) {
-    Page<Product> products = productService.findAllByCategory(category, search, pageable);
+    Page<Product> products = productService.findByCategoriesContains(category, search, pageable);
     long allAvailableProducts = productService.countByCategoriesContains(category);
     return new DatatablesData<Product>(products, allAvailableProducts, draw);
   }

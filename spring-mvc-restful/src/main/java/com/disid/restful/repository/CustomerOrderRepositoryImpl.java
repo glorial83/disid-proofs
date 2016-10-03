@@ -20,7 +20,7 @@ public class CustomerOrderRepositoryImpl extends QueryDslRepositorySupportExt<Cu
     super(CustomerOrder.class);
   }
 
-  public Page<CustomerOrder> findAllByCustomer(Customer customer, GlobalSearch globalSearch,
+  public Page<CustomerOrder> findByCustomer(Customer customer, GlobalSearch globalSearch,
       Pageable pageable) {
     QCustomerOrder customerOrder = QCustomerOrder.customerOrder;
     JPQLQuery<CustomerOrder> query = from(customerOrder);

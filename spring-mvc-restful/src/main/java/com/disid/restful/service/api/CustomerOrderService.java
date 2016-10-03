@@ -3,7 +3,6 @@ package com.disid.restful.service.api;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
-import com.disid.restful.model.OrderDetailPK;
 
 import io.springlets.data.domain.GlobalSearch;
 
@@ -21,13 +20,6 @@ public interface CustomerOrderService {
   CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details);
 
   CustomerOrder removeFromDetails(CustomerOrder customerOrder, OrderDetail... details);
-
-  Page<OrderDetail> findDetailsByCustomerOrder(CustomerOrder customerOrderField,
-      GlobalSearch globalSearch, Pageable pageable);
-
-  long countDetailsByCustomerOrder(CustomerOrder customerOrderField);
-
-  OrderDetail findOneOrderDetail(OrderDetailPK orderDetailPK);
 
   CustomerOrder save(CustomerOrder entity);
 
@@ -47,8 +39,8 @@ public interface CustomerOrderService {
 
   Page<CustomerOrder> findAll(GlobalSearch globalSearch, Pageable pageable);
 
-  Page<CustomerOrder> findAllByCustomer(Customer customerField, GlobalSearch globalSearch,
+  Page<CustomerOrder> findByCustomer(Customer customer, GlobalSearch globalSearch,
       Pageable pageable);
 
-  Long countByCustomerId(Long id);
+  Long countByCustomer(Customer customer);
 }
