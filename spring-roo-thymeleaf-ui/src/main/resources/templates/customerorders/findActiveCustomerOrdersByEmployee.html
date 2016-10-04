@@ -29,167 +29,173 @@
 
   </head>
 
-<body>
+	<body>
 
-  <!--CONTAINER-->
-  <div class="container bg-container">
+	  <!--CONTAINER-->
+	  <div class="container bg-container">
 
-    <!-- HEADER -->
-    <header role="banner">
+	    <!-- HEADER -->
+	    <header role="banner">
 
-      <!-- cabecera -->
-      <div class="bg-header">
-        <div class="organization-logo">
-          <a
-            title="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            href="http://www.msssi.gob.es/"><img
-            alt="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            src="../../static/public/img/logo_ministerio.jpg" /></a>
-        </div>
-        <div class="application-name">
-          <a href="/" data-th-href="@{/}">Aplicación Northwind</a>
-        </div>
-      </div>
+	      <!-- cabecera -->
+	      <div class="bg-header">
+	        <div class="organization-logo">
+	          <a
+	            title="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
+	            href="http://www.msssi.gob.es/"><img
+	            alt="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
+	            src="../../static/public/img/logo_ministerio.jpg" /></a>
+	        </div>
+	        <div class="application-name">
+	          <a href="/" data-th-href="@{/}">Aplicación Northwind</a>
+	        </div>
+	      </div>
 
-      <!-- MENÚ PRINCIPAL -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
+	      <!-- MENÚ PRINCIPAL -->
+	      <nav class="navbar navbar-default">
+	        <div class="container-fluid">
 
-          <!-- collapsed menu button -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false">
-              <span class="sr-only">Desplegable</span> <span class="icon-bar"></span> <span
-                class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Menú principal</a>
-          </div>
+	          <!-- collapsed menu button -->
+	          <div class="navbar-header">
+	            <button type="button" class="navbar-toggle collapsed"
+	              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+	              aria-expanded="false">
+	              <span class="sr-only">Desplegable</span> <span class="icon-bar"></span> <span
+	                class="icon-bar"></span> <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="#">Menú principal</a>
+	          </div>
 
-          <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+	          <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
 
-            <!-- menú principal -->
-            <div class="row">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Menú 1 activo</a></li>
-                <li><a href="#">Menú 2</a></li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle"
-                  data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Menú 3 desplegable<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Submenú 1</a></li>
-                    <li><a href="#">Submenú 2</a></li>
-                    <li><a href="#">Submenú 3</a></li>
-                  </ul></li>
-              </ul>
-            </div>
+	            <!-- menú principal -->
+	            <div class="row">
+	              <ul class="nav navbar-nav">
+	                <li class="active"><a href="#">Menú 1 activo</a></li>
+	                <li><a href="#">Menú 2</a></li>
+	                <li class="dropdown"><a href="#" class="dropdown-toggle"
+	                  data-toggle="dropdown" role="button" aria-haspopup="true"
+	                  aria-expanded="false">Menú 3 desplegable<span class="caret"></span></a>
+	                  <ul class="dropdown-menu">
+	                    <li><a href="#">Submenú 1</a></li>
+	                    <li><a href="#">Submenú 2</a></li>
+	                    <li><a href="#">Submenú 3</a></li>
+	                  </ul></li>
+	              </ul>
+	            </div>
 
-            <!-- menú de usuario -->
-            <div class="container upper-nav">
-              <ul class="nav navbar-nav navbar-right session">
-                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>First Name
-                  Last Name</li>
-                <li><button type="submit" class="exit">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Log out</span>
-                  </button></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right links">
-                <li><a href="#"><span class="glyphicon glyphicon-envelope"
-                    aria-hidden="true"></span><span>Contacto</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-question-sign"
-                    aria-hidden="true"></span><span>Ayuda</span></a></li>
-              </ul>
-            </div>
+	            <!-- menú de usuario -->
+	            <div class="container upper-nav">
+	              <ul class="nav navbar-nav navbar-right session">
+	                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>First Name
+	                  Last Name</li>
+	                <li><button type="submit" class="exit">
+	                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Log out</span>
+	                  </button></li>
+	              </ul>
+	              <ul class="nav navbar-nav navbar-right links">
+	                <li><a href="#"><span class="glyphicon glyphicon-envelope"
+	                    aria-hidden="true"></span><span>Contacto</span></a></li>
+	                <li><a href="#"><span class="glyphicon glyphicon-question-sign"
+	                    aria-hidden="true"></span><span>Ayuda</span></a></li>
+	              </ul>
+	            </div>
 
-          </div>
+	          </div>
 
-        </div>
-      </nav>
+	        </div>
+	      </nav>
 
-    </header>
-    <!--  /HEADER -->
+	    </header>
+	    <!--  /HEADER -->
 
-    <!--CONTENT-->
-    <section data-layout-fragment="content">
-      <div class="container-fluid content">
-        <!--
-          Only the inner content of the following tag "section" is included
-          within the template, in the section "content"
-          -->
+	    <!--CONTENT-->
+	    <section data-layout-fragment="content">
+	      <div class="container-fluid content">
+	        <!--
+	          Only the inner content of the following tag "section" is included
+	          within the template, in the section "content"
+	          -->
 
-        <h1 data-th-text="#{label_find_entity(#{label_customerorder})}">Order
-    Customer Search by Employee</h1>
+	        <h1 data-th-text="#{label_find_entity(#{label_customerorder})}">Order
+	    Customer Search by Employee</h1>
 
-        <div class="panel panel-default">
-          <div class="panel-body">
+	        <div class="panel panel-default">
+	          <div class="panel-body">
 
-            <!--FORM-->
-            <form id="search-form" class="form-horizontal">
-              <fieldset>
-                <div class="form-group">
-                  <label for="employee" class="col-md-3 control-label"
-                    data-th-text="#{label_customerorder_employee}">Employee</label>
-                  <div class="col-md-6">
-                    <select class="form-control" id="empId">
-                      <option data-th-each="employee : ${employees}"
-                        data-th-text="|${employee.firstName} ${employee.lastName}|"
-                        data-th-value="|${employee.id}|" value="1">Sergio Ibarra</option>
-                      <option value="2">Manuel García</option>
-                      <option value="3">David Navarro</option>
-                    </select>
-                  </div>
-                </div>
+	            <!--FORM-->
+	            <form id="search-form" class="form-horizontal">
+	              <fieldset>
+	                <div class="form-group">
+	                  <label for="employee" class="col-md-3 control-label"
+	                    data-th-text="#{label_customerorder_employee}">Employee</label>
+	                  <div class="col-md-6">
+	                    <select class="form-control" id="empId">
+	                      <option data-th-each="employee : ${employees}"
+	                        data-th-text="|${employee.firstName} ${employee.lastName}|"
+	                        data-th-value="|${employee.id}|" value="1">Sergio Ibarra</option>
+	                      <option value="2">Manuel García</option>
+	                      <option value="3">David Navarro</option>
+	                    </select>
+	                  </div>
+	                </div>
 
-                <div class="form-group">
-                  <div class="col-md-9 col-md-offset-3">
-                    <button type="reset" class="btn btn-default"
-                      onclick="location.href='list.html'"
-                      data-th-onclick="'location.href=\'' + @{/customerorders} + '\''"
-                      data-th-text="#{label_reset}">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> <span
-                        data-th-text="#{label_find}">Search</span>
-                    </button>
-                  </div>
-                </div>
-              </fieldset>
-            </form>
-            <!-- /FORM-->
-          </div>
-        </div>
+	                <div class="form-group">
+	                  <div class="col-md-9 col-md-offset-3">
+	                    <button type="reset" class="btn btn-default"
+	                      onclick="location.href='list.html'"
+	                      data-th-onclick="'location.href=\'' + @{/customerorders} + '\''"
+	                      data-th-text="#{label_reset}">Cancel</button>
+	                    <button type="submit" class="btn btn-primary">
+	                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> <span
+	                        data-th-text="#{label_find}">Search</span>
+	                    </button>
+	                  </div>
+	                </div>
+	              </fieldset>
+	            </form>
+	            <!-- /FORM-->
+	          </div>
+	        </div>
 
-        <!-- RESULT -->
-        <div id="result"></div>
+	        <!-- RESULT -->
+	        <div id="result"></div>
 
-      </div>
-      <!-- /CONTENT-->
+	      </div>
+	      <!-- /CONTENT-->
 
-    </section>
+	    </section>
 
-  </div>
-  <!-- /CONTAINER-->
+	  </div>
+	  <!-- /CONTAINER-->
 
-  <footer class="container">
-    <p class="text-right">© Ministerio de Sanidad, Servicios Sociales e
-      Igualdad</p>
-  </footer>
+    <footer class="container">
+      <small class="clearfix">
+        Made with
+        <a href="http://projects.spring.io/spring-roo/"
+        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+        Spring Roo &copy; 2016</a> •
+        We <span class="glyphicon glyphicon-heart"></span>
+        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
+      </small>
+    </footer>
 
-  <!-- JavaScript
-    ================================================== -->
-  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
-  <!-- JQuery -->
-  <script type="text/javascript" charset="utf8"
-    src="https://code.jquery.com/jquery-1.12.3.js"></script>
+	  <!-- JavaScript
+	    ================================================== -->
+	  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
+	  <!-- JQuery -->
+	  <script type="text/javascript" charset="utf8"
+	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
 
-  <!-- Bootstrap -->
-  <script type="text/javascript"
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+	  <!-- Bootstrap -->
+	  <script type="text/javascript"
+	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
 
-  <!-- Application -->
-  <script src="../../static/public/js/main.js"></script>
+	  <!-- Application -->
+	  <script src="../../static/public/js/main.js"></script>
 
-</body>
+	</body>
 </html>
