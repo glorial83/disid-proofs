@@ -1,36 +1,29 @@
 <!DOCTYPE html>
-<html lang="es" data-layout-decorator="layouts/default-layout">
+<html lang="en" data-layout-decorator="layouts/default-layout">
 <head>
-<meta charset="UTF-8" data-th-remove="all" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
-<meta name="viewport" content="width=device-width, initial-scale=1"
-  data-th-remove="all" />
-<meta name="description"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<meta name="author"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
+	<meta charset="UTF-8" data-th-remove="all" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"
+	  data-th-remove="all" />
+	<meta name="description"
+	  content="A next-generation rapid application development tool for Java developers.
+	  With Roo you can easily build full Java applications in minutes."
+	  data-th-remove="all" />
+	<meta name="author"
+	  content="Spring Roo Team"
+	  data-th-remove="all" />
+	<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
 
-<title data-th-text="#{label_create_entity(#{label_store})}">Northwind -
-  Crear Almacén</title>
+	<title data-th-text="#{label_create_entity(#{label_store})}">Create Store -
+	Spring Roo application</title>
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-  data-th-remove="all"></link>
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css"
-  data-th-remove="all"></link>
-
-<!-- MSSSI CSS -->
-<link rel="stylesheet" type="text/css"
-  href="../../static/public/css/sanidad-internet.css" data-th-remove="all" />
-<noscript data-th-remove="all">
-  <link rel="stylesheet" href="../../static/public/css/nojs-sanidad-internet.css"
-    data-th-remove="all" />
-</noscript>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css"
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+	  data-th-remove="all"></link>
+	<link rel="stylesheet" type="text/css"
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css"
+	  data-th-remove="all"></link>
 
 </head>
 <body>
@@ -38,23 +31,19 @@
   <div class="container upper-nav">
     <div class="session">
       <div>
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>Nombre
-        Apellido Apellido
-      </div>
-      <div>
-        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Último
-        acceso: 00-00-0000
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>First Name
+        Last Name
       </div>
       <button type="submit" class="exit">
-        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>Salir
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>Log out
       </button>
     </div>
   </div>
 
-  <!--INICIO CONTENEDOR-->
+  <!--CONTAINER-->
   <div class="container bg-container">
 
-    <!-- CABECERA -->
+    <!-- HEADER -->
     <header role="banner">
 
       <div class="bg-header">
@@ -100,87 +89,87 @@
         </div>
       </nav>
     </header>
-    <!-- FIN CABECERA -->
+    <!--  /HEADER -->
 
-    <!--INICIO CONTENIDO-->
+    <!--CONTENT-->
     <section data-layout-fragment="content">
       <div class="container-fluid content">
         <!--
-          Sólo el contenido interno del tag "section" se incluirá dentro de la
-          plantilla, en el apartado "content"
+          Only the inner content of the following tag "section" is included
+          within the template, in the section "content"
         -->
 
-        <h1 data-th-text="#{label_create_entity(#{label_store})}">Crear Almacén</h1>
+        <h1 data-th-text="#{label_create_entity(#{label_store})}">Create Store</h1>
 
-        <!--INICIO FORMULARIO-->
+        <!--FORM-->
         <form class="form-horizontal" method="POST" data-th-object="${store}"
           data-th-action="@{/stores}">
 
           <fieldset>
-            <legend data-th-text="#{label_store_storedata}">Datos de Almacén</legend>
+            <legend data-th-text="#{label_store_storedata}">Store data</legend>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('name')}? 'has-error'">
               <label for="name" class="col-md-3 control-label"
-                data-th-text="#{label_store_name}">Nombre</label>
+                data-th-text="#{label_store_name}">First Name</label>
               <div class="col-md-3">
                 <input data-th-field="*{name}" type="text" class="form-control"
-                  placeholder="Nombre" data-th-placeholder="#{label_store_name}"
-                  data-toggle="tooltip" title="Campo obligatorio"
+                  placeholder="First Name" data-th-placeholder="#{label_store_name}"
+                  data-toggle="tooltip" title="Required field"
                   data-th-title="#{label_requiredfield}" /> <span id="name-help"
                   class="help-block" data-th-if="${#fields.hasErrors('name')}"
-                  data-th-errors="*{name}">Mensaje de ayuda.</span>
+                  data-th-errors="*{name}">Help message.</span>
               </div>
             </div>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('phone')}? 'has-error'">
               <label for="phone" class="col-md-3 control-label"
-                data-th-text="#{label_store_phone}">Teléfono</label>
+                data-th-text="#{label_store_phone}">Phone</label>
               <div class="col-md-3">
                 <input data-th-field="*{phone}" type="text" class="form-control"
-                  placeholder="Teléfono" data-th-placeholder="#{label_store_phone}"
-                  data-toggle="tooltip" title="Campo obligatorio"
+                  placeholder="Phone" data-th-placeholder="#{label_store_phone}"
+                  data-toggle="tooltip" title="Required field"
                   data-th-title="#{label_requiredfield}" /> <span id="phone-help"
                   class="help-block" data-th-if="${#fields.hasErrors('phone')}"
-                  data-th-errors="*{phone}">Mensaje de ayuda.</span>
+                  data-th-errors="*{phone}">Help message.</span>
               </div>
             </div>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('address')}? 'has-error'">
               <label for="address" class="col-md-3 control-label"
-                data-th-text="#{label_store_address}">Dirección</label>
+                data-th-text="#{label_store_address}">Adress</label>
               <div class="col-md-8">
                 <input data-th-field="*{address}" type="text" class="form-control"
-                  placeholder="Dirección" data-th-placeholder="#{label_store_address}"
-                  data-toggle="tooltip" title="Campo obligatorio"
+                  placeholder="Adress" data-th-placeholder="#{label_store_address}"
+                  data-toggle="tooltip" title="Required field"
                   data-th-title="#{label_requiredfield}" /> <span id="address-help"
                   class="help-block" data-th-if="${#fields.hasErrors('address')}"
-                  data-th-errors="*{address}">Mensaje de ayuda.</span>
+                  data-th-errors="*{address}">Help message.</span>
               </div>
             </div>
 
-            <!--  TODO Implementar selects según se especificque -->
+            <!--Select sample-->
             <div class="form-group">
               <label for="country" class="col-md-3 control-label"
-                data-th-text="#{label_store_country}">País</label>
+                data-th-text="#{label_store_country}">Country</label>
               <div class="col-md-6">
                 <select class="form-control" data-th-field="*{country.id}"
-                  data-toggle="tooltip" id="country" title="Campo obligatorio"
+                  data-toggle="tooltip" id="country" title="Required field"
                   data-th-title="#{label_requiredfield}">
-                  <option value="1">España</option>
-                  <option value="2">Portugal</option>
+                  <option value="1">Portugal</option>
+                  <option value="2">Spain</option>
                 </select>
               </div>
             </div>
 
             <div class="form-group">
               <label for="region" class="col-md-3 control-label"
-                data-th-text="#{label_store_region}">Provincia</label>
+                data-th-text="#{label_store_region}">Region</label>
               <div class="col-md-6">
                 <select class="form-control" data-th-field="*{region.id}"
-                  data-toggle="tooltip" id="region" title="Campo obligatorio"
+                  data-toggle="tooltip" id="region" title="Required field"
                   data-th-title="#{label_requiredfield}">
                   <option value="1">ALAVA/ARABA</option>
                   <option value="2">ALBACETE</option>
@@ -190,10 +179,10 @@
             </div>
             <div class="form-group">
               <label for="city" class="col-md-3 control-label"
-                data-th-text="#{label_store_city}">Población</label>
+                data-th-text="#{label_store_city}">City</label>
               <div class="col-md-6">
                 <select class="form-control" data-th-field="*{city.id}"
-                  data-toggle="tooltip" id="city" title="Campo obligatorio"
+                  data-toggle="tooltip" id="city" title="Required field"
                   data-th-title="#{label_requiredfield}">
                   <option value="1">Alegría-Dulantzi</option>
                   <option value="2">Amurrio</option>
@@ -207,45 +196,43 @@
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('postalCode')}? 'has-error'">
               <label for="postalCode" class="col-md-3 control-label"
-                data-th-text="#{label_store_postalcode}">Código postal</label>
+                data-th-text="#{label_store_postalcode}">Postal code</label>
               <div class="col-md-3">
                 <input data-th-field="*{postalCode}" type="text" class="form-control"
-                  placeholder="Código postal"
+                  placeholder="Postal code"
                   data-th-placeholder="#{label_store_postalcode}" data-toggle="tooltip"
-                  title="Campo obligatorio" data-th-title="#{label_requiredfield}" /> <span
+                  title="Required field" data-th-title="#{label_requiredfield}" /> <span
                   id="postalCode-help" class="help-block"
                   data-th-if="${#fields.hasErrors('postalCode')}"
-                  data-th-errors="*{postalCode}">Mensaje de ayuda.</span>
+                  data-th-errors="*{postalCode}">Help message.</span>
               </div>
             </div>
 
-            <!-- TODO Revisar botones -->
-            <!-- BOTONES FORMULARIO -->
+            <!-- FORM BUTTONS -->
             <div class="row">
               <div class="col-md-9 col-md-offset-3">
-                <!-- TODO IE8 -->
                 <button type="reset" class="btn btn-default"
                   onclick="location.href='list.html'"
                   data-th-onclick="'location.href=\'' + @{/stores.html} + '\''"
-                  data-th-text="#{label_reset}">Cancelar</button>
+                  data-th-text="#{label_reset}">Cancel</button>
                 <button type="submit" class="btn btn-primary"
                   onclick="location.href='list.html'"
                   data-th-onclick="'location.href=\'' + @{/stores.html} + '\''"
-                  value="Aceptar" data-th-text="#{label_submit}">Aceptar</button>
+                  value="Save" data-th-text="#{label_submit}">Save</button>
               </div>
             </div>
 
           </fieldset>
         </form>
-        <!--FIN FORMULARIO-->
+        <!-- /FORM-->
 
       </div>
-      <!--FIN CONTENIDO-->
+      <!-- /CONTENT-->
 
     </section>
 
   </div>
-  <!--FIN CONTENEDOR-->
+  <!-- /CONTAINER-->
 
   <footer class="container">
     <p class="text-right">© Ministerio de Sanidad, Servicios Sociales e

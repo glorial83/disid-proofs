@@ -1,49 +1,46 @@
 <!DOCTYPE html>
-<html lang="es" data-layout-decorator="layouts/default-layout">
+<html lang="en" data-layout-decorator="layouts/default-layout">
 <head>
-<meta charset="UTF-8" data-th-remove="all" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
-<meta name="viewport" content="width=device-width, initial-scale=1"
-  data-th-remove="all" />
-<meta name="description"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<meta name="author"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
+	<meta charset="UTF-8" data-th-remove="all" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"
+	  data-th-remove="all" />
+	<meta name="description"
+	  content="A next-generation rapid application development tool for Java developers.
+	  With Roo you can easily build full Java applications in minutes."
+	  data-th-remove="all" />
+	<meta name="author"
+	  content="Spring Roo Team"
+	  data-th-remove="all" />
+	<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
 
-<title data-th-text="#{label_edit_entity(#{label_customerorder})}">Northwind
-  - Editar pedido</title>
+	<title data-th-text="#{label_edit_entity(#{label_customerorder})}">Edit Order -
+  Spring Roo application</title>
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-  data-th-remove="all"></link>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css"
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+	  data-th-remove="all"></link>
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
-  data-th-remove="all"></link>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<link rel="stylesheet" type="text/css"
+	  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
+	  data-th-remove="all"></link>
 
-<!-- CSS MSSSI -->
-<link rel="stylesheet" type="text/css"
-  href="../../static/public/css/sanidad-internet.css" data-th-remove="all" />
-
-<!-- Select2 -->
-<link rel="stylesheet" type="text/css" data-th-href="@{/public/css/select2.css}"
-  href="../../static/public/css/select2.css" />
-<link rel="stylesheet" type="text/css"
-  data-th-href="@{/public/css/select2-bootstrap.css}"
-  href="../../static/public/css/select2-bootstrap.css" />
+	<!-- Select2 -->
+	<link rel="stylesheet" type="text/css" data-th-href="@{/public/css/select2.css}"
+	  href="../../static/public/css/select2.css" />
+	<link rel="stylesheet" type="text/css"
+	  data-th-href="@{/public/css/select2-bootstrap.css}"
+	  href="../../static/public/css/select2-bootstrap.css" />
 
 </head>
 <body>
 
-  <!--INICIO CONTENEDOR-->
+  <!--CONTAINER-->
   <div class="container bg-container">
 
-    <!-- CABECERA -->
+    <!-- HEADER -->
     <header role="banner">
 
       <!-- cabecera -->
@@ -96,10 +93,10 @@
             <!-- menú de usuario -->
             <div class="container upper-nav">
               <ul class="nav navbar-nav navbar-right session">
-                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Nombre
-                  Apellido Apellido</li>
+                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>First Name
+                  Last Name</li>
                 <li><button type="submit" class="exit">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Salir</span>
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Log out</span>
                   </button></li>
               </ul>
               <ul class="nav navbar-nav navbar-right links">
@@ -116,20 +113,20 @@
       </nav>
 
     </header>
-    <!-- FIN CABECERA -->
+    <!--  /HEADER -->
 
-    <!--INICIO CONTENIDO-->
+    <!--CONTENT-->
     <section data-layout-fragment="content">
       <div class="container-fluid content">
         <!--
-         Sólo el contenido interno del tag "section" se incluirá dentro de la
-         plantilla, en el apartado "content"
+         Only the inner content of the following tag "section" is included
+         within the template, in the section "content"
         -->
 
-        <h1 data-th-text="#{label_edit_entity(#{label_customerorder})}">Editar
-          Pedido</h1>
+        <h1 data-th-text="#{label_edit_entity(#{label_customerorder})}">Edit
+          Order</h1>
 
-        <!-- INICIO FORMULARIO -->
+        <!-- FORM -->
         <form class="form-horizontal" method="POST"
           data-th-object="${customerOrder}"
           data-th-action="@{/customerorders/{id}(id=*{id})}">
@@ -138,7 +135,7 @@
           <fieldset>
             <div class="form-group">
               <label for="status" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_status}">Estado</label>
+                data-th-text="#{label_customerorder_status}">Status</label>
               <div class="col-md-6">
                 <input type="text" class="form-control" data-th-field="*{status}"
                   value="SENT" readonly="readonly" />
@@ -147,10 +144,10 @@
 
             <div class="form-group">
               <label for="employee" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_employee}">Empleado</label>
+                data-th-text="#{label_customerorder_employee}">Employee</label>
               <div class="col-md-6">
+
                 <!-- Select2 -->
-                <!--  TODO Falta internalización de "data-placeholder" -->
                 <select id="employee" class="dropdown-select" data-tags="true"
                   style="width: 50%" data-placeholder="Select an option"
                   data-allow-clear="true" data-id-field="employeeId"
@@ -162,147 +159,144 @@
                     data-th-text="|*{employee.firstName} *{employee.lastName}|"
                     selected="selected">Employee</option>
                 </select>
+
               </div>
             </div>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('requiredDate')}? 'has-error has-feedback'">
               <label for="requiredDate" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_requireddate}"> Fecha
-                Requerido</label>
-              <!-- TODO Revisar formatos de fechas -->
+                data-th-text="#{label_customerorder_requireddate}">Required
+                Date</label>
               <div class="col-md-3">
                 <input type="text" class="form-control datetimepicker"
                   data-th-field="*{requiredDate}"
                   data-th-placeholder="#{label_customerorder_requireddate}"
-                  placeholder="Fecha Requerido" data-toggle="tooltip"
-                  data-th-title="#{label_requiredfield}" title="Campo obligatorio"
+                  placeholder="Required Date" data-toggle="tooltip"
+                  data-th-title="#{label_requiredfield}" title="Required field"
                   value="01/12/2016" /> <span
                   data-th-classappend="${#fields.hasErrors('requiredDate')}? 'glyphicon glyphicon-remove form-control-feedback'"
                   data-th-if="${#fields.hasErrors('requiredDate')}" aria-hidden="true"></span>
                 <span id="customerOrderRequiredDate-help" class="help-block alert"
                   data-th-if="${#fields.hasErrors('requiredDate')}"
-                  data-th-errors="*{requiredDate}">Mensaje de error</span>
+                  data-th-errors="*{requiredDate}">Error message.</span>
               </div>
             </div>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('freight')}? 'has-error has-feedback'">
               <label for="freight" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_freight}">Gastos Envío</label>
+                data-th-text="#{label_customerorder_freight}">Shipping</label>
               <div class="col-md-2">
                 <input type="text" class="form-control" data-th-field="*{freight}"
                   data-th-placeholder="#{label_customerorder_freight}"
-                  placeholder="Gastos Envío" data-toggle="tooltip"
-                  data-th-title="#{label_requiredfield}" title="Campo obligatorio"
+                  placeholder="Shipping" data-toggle="tooltip"
+                  data-th-title="#{label_requiredfield}" title="Required field"
                   value="5,70" /> <span
                   data-th-classappend="${#fields.hasErrors('freight')}? 'glyphicon glyphicon-remove form-control-feedback'"
                   data-th-if="${#fields.hasErrors('freight')}" aria-hidden="true"></span>
                 <span id="customerOrderFreight-help" class="help-block alert"
                   data-th-if="${#fields.hasErrors('freight')}"
-                  data-th-errors="*{freight}">Mensaje de error</span>
+                  data-th-errors="*{freight}">Error message.</span>
               </div>
             </div>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('shipName')}? 'has-error has-feedback'">
               <label for="shipName" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_shipname}">Nombre Envío </label>
+                data-th-text="#{label_customerorder_shipname}">Shipping Name</label>
               <div class="col-md-6">
                 <input type="text" class="form-control" data-th-field="*{shipName}"
                   data-th-placeholder="#{label_customerorder_shipname}"
-                  placeholder="Nombre Envío" data-toggle="tooltip"
-                  data-th-title="#{label_requiredfield}" title="Campo obligatorio"
+                  placeholder="Shipping Name" data-toggle="tooltip"
+                  data-th-title="#{label_requiredfield}" title="Required field"
                   value="Tranportes A" /> <span
                   data-th-classappend="${#fields.hasErrors('shipName')}? 'glyphicon glyphicon-remove form-control-feedback'"
                   data-th-if="${#fields.hasErrors('shipName')}" aria-hidden="true"></span>
                 <span id="customerOrderShipName-help" class="help-block alert"
                   data-th-if="${#fields.hasErrors('shipName')}"
-                  data-th-errors="*{shipName}">Mensaje de error</span>
+                  data-th-errors="*{shipName}">Error message.</span>
               </div>
             </div>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('shipAddress')}? 'has-error has-feedback'">
               <label for="shipAddress" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_shipaddress}">Dirección
+                data-th-text="#{label_customerorder_shipaddress}">Adress
                 Envío</label>
               <div class="col-md-6">
                 <input type="text" class="form-control" data-th-field="*{shipAddress}"
                   data-th-placeholder="#{label_customerorder_shipaddress}"
-                  placeholder="Dirección" data-toggle="tooltip"
-                  data-th-title="#{label_requiredfield}" title="Campo obligatorio"
+                  placeholder="Adress" data-toggle="tooltip"
+                  data-th-title="#{label_requiredfield}" title="Required field"
                   value="Avenida del Mediterráneo nº 2" /> <span
                   data-th-classappend="${#fields.hasErrors('shipAddress')}? 'glyphicon glyphicon-remove form-control-feedback'"
                   data-th-if="${#fields.hasErrors('shipAddress')}" aria-hidden="true"></span>
                 <span id="customerOrderShipAddress-help" class="help-block alert"
                   data-th-if="${#fields.hasErrors('shipAddress')}"
-                  data-th-errors="*{shipAddress}">Mensaje de error</span>
+                  data-th-errors="*{shipAddress}">Error message.</span>
               </div>
             </div>
-
-            <!-- TODO Falta País/Provincia/Población -->
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('shipPostalCode')}? 'has-error has-feedback'">
               <label for="postalCode" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_shippostalcode}">Código
-                Postal Envío</label>
+                data-th-text="#{label_customerorder_shippostalcode}">Postal
+                Code</label>
               <div class="col-md-2">
                 <input type="text" class="form-control"
                   data-th-field="*{shipPostalCode}"
                   data-th-placeholder="#{label_customerorder_shippostalcode}"
-                  placeholder="Código Postal" data-toggle="tooltip"
-                  data-th-title="#{label_requiredfield}" title="Campo obligatorio"
+                  placeholder="Postal code" data-toggle="tooltip"
+                  data-th-title="#{label_requiredfield}" title="Required field"
                   value="00000" /> <span
                   data-th-classappend="${#fields.hasErrors('shipPostalCode')}? 'glyphicon glyphicon-remove form-control-feedback'"
                   data-th-if="${#fields.hasErrors('shipPostalCode')}" aria-hidden="true"></span>
                 <span id="customerOrderShipPostalCode-help" class="help-block alert"
                   data-th-if="${#fields.hasErrors('shipPostalCode')}"
-                  data-th-errors="*{shipPostalCode}">Mensaje de error</span>
+                  data-th-errors="*{shipPostalCode}">Error message.</span>
               </div>
             </div>
 
             <div class="form-group"
               data-th-classappend="${#fields.hasErrors('shipPhone')}? 'has-error has-feedback'">
               <label for="shipPhone" class="col-md-3 control-label"
-                data-th-text="#{label_customerorder_shipphone}">Teléfono Envío</label>
+                data-th-text="#{label_customerorder_shipphone}">Shipping Phone</label>
               <div class="col-md-2">
                 <input type="text" class="form-control" data-th-field="*{shipPhone}"
                   data-th-placeholder="#{label_customerorder_shipphone}"
-                  placeholder="Teléfono" data-toggle="tooltip"
-                  data-th-title="#{label_requiredfield}" title="Campo obligatorio"
+                  placeholder="Phone" data-toggle="tooltip"
+                  data-th-title="#{label_requiredfield}" title="Required field"
                   value="000000000" /> <span
                   data-th-classappend="${#fields.hasErrors('shipPhone')}? 'glyphicon glyphicon-remove form-control-feedback'"
                   data-th-if="${#fields.hasErrors('shipPhone')}" aria-hidden="true"></span>
                 <span id="customerOrderShiPhone-help" class="help-block alert"
                   data-th-if="${#fields.hasErrors('shipPhone')}"
-                  data-th-errors="*{shipPhone}">Mensaje de error</span>
+                  data-th-errors="*{shipPhone}">Error message.</span>
               </div>
             </div>
           </fieldset>
 
-          <!-- BOTONES FORMULARIO -->
+          <!-- FORM BUTTONS -->
           <div class="form-group">
             <div class="col-md-12">
               <div class="pull-left">
-                <!-- TODO IE8 -->
                 <button type="reset" class="btn btn-default"
                   onclick="location.href='list.html'"
-                  data-th-onclick="'location.href=\'' + @{/customerorders} + '\''" data-th-text="#{label_reset}">Cancelar</button>
+                  data-th-onclick="'location.href=\'' + @{/customerorders} + '\''" data-th-text="#{label_reset}">Cancel</button>
               </div>
               <div class="pull-right">
-                <input type="submit" value="Aceptar" data-th-value="#{label_submit}" class="btn btn-primary" />
+                <input type="submit" value="Save" data-th-value="#{label_submit}" class="btn btn-primary" />
               </div>
             </div>
           </div>
         </form>
-        <!--  FIN FORMULARIO -->
+        <!--   /FORM -->
       </div>
-      <!-- FIN CONTENIDO -->
+      <!--  /CONTENT -->
     </section>
   </div>
-  <!--FIN CONTENEDOR-->
+  <!-- /CONTAINER-->
 
   <footer class="container">
     <p class="text-right">© Ministerio de Sanidad, Servicios Sociales e

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<title>Información de sesión</title>
+  <meta charset="UTF-8" />
+  <title>Session info</title>
 </head>
 <body>
   <!--
-    Sólo el contenido interno del siguiente div se incluirá dentro de la
-    plantilla, en el apartado session
+    Only the inner content of the following div is included
+    within the template, in the section "datatables"
     -->
   <div data-layout-fragment="datatables">
 
@@ -58,7 +58,7 @@
                 location.href = url;
               }
             },
-            'className' : 'btn-accion agregar',
+            'className' : 'btn-action add',
             'text': dt.i18n( 'buttons.add', 'Añadir' )
           };
         }
@@ -73,11 +73,11 @@
             'add',
             {
             'extend' : 'colvis',
-            'className' : 'btn-accion',
+            'className' : 'btn-action',
             },
             {
             'extend' : 'pageLength',
-            'className' : 'btn-accion',
+            'className' : 'btn-action',
             }
         ],
         'deferRender' : true,
@@ -86,42 +86,42 @@
         'responsive' : true,
         'serverSide' : true,
         'stateSave' : true,
-        // Definiciones de textos multiidioma añadiendo algunas a las ya proporcionadas
-        // por defecto de Datatables
+        // multilingual texts definitions, adding some to those already provided
+        // default by Datatables
         'language': {
           'buttons': {
-            'add': /*[[#{label_datatables_add}]]*/ 'Añadir',
-            'colvis': /*[[#{label_datatables_columns}]]*/ 'Columnas',
-            'pageLength': /*[[#{label_datatables_showRows}]]*/ 'Mostrar %d filas'
+            'add': /*[[#{label_datatables_add}]]*/ 'Add',
+            'colvis': /*[[#{label_datatables_columns}]]*/ 'Columns',
+            'pageLength': /*[[#{label_datatables_showRows}]]*/ 'Show %d rows'
           },
           'select': {
             'rows': {
-              _: /*[[#{label_datatables_selectedRows}]]*/ '%d filas seleccionadas',
+              _: /*[[#{label_datatables_selectedRows}]]*/ '%d selected rows',
               0: "",
-              1: /*[[#{label_datatables_selectedRow}]]*/ '1 fila seleccionada'
+              1: /*[[#{label_datatables_selectedRow}]]*/ '1 selected row'
             }
           },
-          'decimal':         /*[[#{label_datatables_decimal}]]*/ ',',
-          'emptyTable':      /*[[#{label_datatables_emptyTable}]]*/ 'Ningún dato disponible en esta tabla',
-          'info':            /*[[#{label_datatables_info}]]*/ 'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-          'infoEmpty':       /*[[#{label_datatables_infoEmpty}]]*/ 'Mostrando registros del 0 al 0 de un total de 0 registros',
-          'infoFiltered':    /*[[#{label_datatables_infoFiltered}]]*/ '(filtrado de un total de _MAX_ registros)',
+          'decimal':         /*[[#{label_datatables_decimal}]]*/ '.',
+          'emptyTable':      /*[[#{label_datatables_emptyTable}]]*/ 'No data available in table',
+          'info':            /*[[#{label_datatables_info}]]*/ 'Showing _START_ to _END_ of _TOTAL_ entries',
+          'infoEmpty':       /*[[#{label_datatables_infoEmpty}]]*/ 'Showing 0 to 0 of 0 entries',
+          'infoFiltered':    /*[[#{label_datatables_infoFiltered}]]*/ '(filtered from _MAX_ total entries)',
           'infoPostFix':     /*[[#{label_datatables_infoPostFix}]]*/ '',
-          'thousands':       /*[[#{label_datatables_thousands}]]*/ '.',
-          'lengthMenu':      /*[[#{label_datatables_lengthMenu}]]*/ 'Mostrar _MENU_ registros',
-          'loadingRecords':  /*[[#{label_datatables_loadingRecords}]]*/ 'Cargando...',
-          'processing':      /*[[#{label_datatables_processing}]]*/ 'Procesando...',
-          'search':          /*[[#{label_datatables_search}]]*/ 'Buscar:',
-          'zeroRecords':     /*[[#{label_datatables_zeroRecords}]]*/ 'No se encontraron resultados',
+          'thousands':       /*[[#{label_datatables_thousands}]]*/ '',
+          'lengthMenu':      /*[[#{label_datatables_lengthMenu}]]*/ 'Show _MENU_ entries',
+          'loadingRecords':  /*[[#{label_datatables_loadingRecords}]]*/ 'Loading...',
+          'processing':      /*[[#{label_datatables_processing}]]*/ 'Processing...',
+          'search':          /*[[#{label_datatables_search}]]*/ 'Search:',
+          'zeroRecords':     /*[[#{label_datatables_zeroRecords}]]*/ ' No matching records found',
           'paginate': {
-             'first':       /*[[#{label_datatables_first}]]*/ 'Primero',
-              'last':        /*[[#{label_datatables_last}]]*/ 'Último',
-              'next':        /*[[#{label_datatables_next}]]*/ 'Siguiente',
-              'previous':    /*[[#{label_datatables_previous}]]*/ 'Anterior'
+             'first':       /*[[#{label_datatables_first}]]*/ 'First',
+              'last':        /*[[#{label_datatables_last}]]*/ 'Last',
+              'next':        /*[[#{label_datatables_next}]]*/ 'Next',
+              'previous':    /*[[#{label_datatables_previous}]]*/ 'Previous'
           },
           'aria': {
-              'sortAscending':   /*[[#{label_datatables_sortAscending}]]*/ ': Activar para ordenar la columna de manera ascendente',
-              'sortDescending':  /*[[#{label_datatables_sortDescending}]]*/ ': Activar para ordenar la columna de manera descendente'
+              'sortAscending':   /*[[#{label_datatables_sortAscending}]]*/ ': activate to sort column ascending',
+              'sortDescending':  /*[[#{label_datatables_sortDescending}]]*/ ': activate to sort column descending'
           }
         },
       });

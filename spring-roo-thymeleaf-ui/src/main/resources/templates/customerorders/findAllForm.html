@@ -1,42 +1,39 @@
 <!DOCTYPE html>
-<html lang="es" data-layout-decorator="layouts/default-layout">
+<html lang="en" data-layout-decorator="layouts/default-layout">
 <head>
-<meta charset="UTF-8" data-th-remove="all" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
-<meta name="viewport" content="width=device-width, initial-scale=1"
-  data-th-remove="all" />
-<meta name="description"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<meta name="author"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
+	<meta charset="UTF-8" data-th-remove="all" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"
+	  data-th-remove="all" />
+	<meta name="description"
+	  content="A next-generation rapid application development tool for Java developers.
+	  With Roo you can easily build full Java applications in minutes."
+	  data-th-remove="all" />
+	<meta name="author"
+	  content="Spring Roo Team"
+	  data-th-remove="all" />
+	<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
 
-<title data-th-text="#{label_find_entity(#{label_customerorder})}">Northwind
-  - Buscar Pedido Cliente</title>
+	<title data-th-text="#{label_find_entity(#{label_customerorder})}">Customer
+  Order Search - Spring Roo application</title>
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-  data-th-remove="all"></link>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css"
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+	  data-th-remove="all"></link>
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
-  data-th-remove="all"></link>
-
-<!-- MSSSI CSS -->
-<link rel="stylesheet" type="text/css"
-  href="../../static/public/css/sanidad-internet.css" data-th-remove="all" />
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<link rel="stylesheet" type="text/css"
+	  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
+	  data-th-remove="all"></link>
 
 </head>
 <body>
 
-  <!--INICIO CONTENEDOR-->
+  <!--CONTAINER-->
   <div class="container bg-container">
 
-    <!-- CABECERA -->
+    <!-- HEADER -->
     <header role="banner">
 
       <!-- cabecera -->
@@ -89,10 +86,10 @@
             <!-- menú de usuario -->
             <div class="container upper-nav">
               <ul class="nav navbar-nav navbar-right session">
-                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Nombre
-                  Apellido Apellido</li>
+                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>First Name
+                  Last Name</li>
                 <li><button type="submit" class="exit">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Salir</span>
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Log out</span>
                   </button></li>
               </ul>
               <ul class="nav navbar-nav navbar-right links">
@@ -109,23 +106,23 @@
       </nav>
 
     </header>
-    <!-- FIN CABECERA -->
+    <!--  /HEADER -->
 
-    <!--INICIO CONTENIDO-->
+    <!--CONTENT-->
     <section data-layout-fragment="content">
       <div class="container-fluid content">
         <!--
-          Sólo el contenido interno del tag "section" se incluirá dentro de la
-            plantilla, en el apartado "content"
+          Only the inner content of the following tag "section" is included
+          within the template, in the section "content"
           -->
 
-        <h1 data-th-text="#{label_find_entity(#{label_customerorder})}">Buscar
-          Pedido Cliente</h1>
+        <h1 data-th-text="#{label_find_entity(#{label_customerorder})}">Customer
+        Order Search</h1>
 
         <div class="panel panel-default">
           <div class="panel-body">
 
-            <!--INICIO FORMULARIO-->
+            <!--FORM-->
             <form id="search-form" class="form-horizontal" method="POST"
               data-th-object="${customerOrderSearch}"
               data-th-action="@{/customerorders/findAll/}">
@@ -133,7 +130,7 @@
               <fieldset>
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="customer"
-                    data-th-text="#{label_customerorder_customer}">Cliente</label>
+                    data-th-text="#{label_customerorder_customer}">Customer</label>
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control" id="customer"
@@ -141,9 +138,9 @@
                         <option value=""></option>
                         <option data-th-each="customer : ${customers}"
                           data-th-text="${customer.companyName}"
-                          data-th-value="${customer.id}" value="1">Cliente 1</option>
-                        <option value="2" data-th-remove="all">Cliente 2</option>
-                        <option value="3" data-th-remove="all">Cliente 3</option>
+                          data-th-value="${customer.id}" value="1">Customer 1</option>
+                        <option value="2" data-th-remove="all">Customer 2</option>
+                        <option value="3" data-th-remove="all">Customer 3</option>
                       </select>
                     </div>
                   </div>
@@ -151,7 +148,7 @@
 
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="employee"
-                    data-th-text="#{label_customerorder_employee}">Empleado</label>
+                    data-th-text="#{label_customerorder_employee}">Employee</label>
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control" id="employee"
@@ -169,17 +166,17 @@
 
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="status"
-                    data-th-text="#{label_customerorder_status}">Estado</label>
+                    data-th-text="#{label_customerorder_status}">Status</label>
                   <div class="col-md-6">
                     <div class="input-group">
                       <select class="form-control" id="status" data-th-field="*{statuses}"
                         multiple="multiple">
                         <option data-th-each="status : ${statuses}" data-th-text="${status}"
-                          data-th-value="${status}" value="NEWLY">Nuevo</option>
-                        <option value="SEND_BILL" data-th-remove="all">Facturado</option>
-                        <option value="SENT" data-th-remove="all">Enviado</option>
-                        <option value="CLOSED" data-th-remove="all">Cerrado</option>
-                        <option value="CANCELED" data-th-remove="all">Cancelado</option>
+                          data-th-value="${status}" value="NEWLY">New</option>
+                        <option value="SEND_BILL" data-th-remove="all">Invoiced</option>
+                        <option value="SENT" data-th-remove="all">Sent</option>
+                        <option value="CLOSED" data-th-remove="all">Closed</option>
+                        <option value="CANCELED" data-th-remove="all">Canceled</option>
                       </select>
                     </div>
                   </div>
@@ -187,8 +184,8 @@
 
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="orderDateStart"
-                    data-th-text="#{label_customerorder_orderdate_from}">Fecha
-                    Pedido Inicio</label>
+                    data-th-text="#{label_customerorder_orderdate_from}">Order
+                    Date Start</label>
                   <div class="col-md-6">
                     <div class="input-group">
                       <input id="orderDateStart" type="date"
@@ -199,8 +196,8 @@
 
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="orderDateEnd"
-                    data-th-text="#{label_customerorder_orderdate_thru}">Fecha
-                    Pedido Final</label>
+                    data-th-text="#{label_customerorder_orderdate_thru}">Order
+                    Date End</label>
                   <div class="col-md-6">
                     <div class="input-group">
                       <input id="orderDateEnd" type="date" data-th-field="*{orderDateEnd}" />
@@ -211,21 +208,20 @@
 
               <div class="form-group">
                 <div class="col-md-9 col-md-offset-3">
-                  <!-- TODO IE8 -->
                   <button type="reset" class="btn btn-default"
                     onclick="location.href='list.html'"
                     data-th-onclick="'location.href=\'' + @{/customerorders} + '\''"
-                    data-th-text="#{label_reset}">Cancelar</button>
+                    data-th-text="#{label_reset}">Cancel</button>
                   <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span><span
-                      data-th-text="#{label_find}">Buscar</span>
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> <span
+                      data-th-text="#{label_find}">Search</span>
                   </button>
                 </div>
               </div>
 
             </form>
 
-            <!--FIN FORMULARIO-->
+            <!-- /FORM-->
           </div>
         </div>
         <!-- panel -->
@@ -234,12 +230,12 @@
         <div id="result"></div>
 
       </div>
-      <!--FIN CONTENIDO-->
+      <!-- /CONTENT-->
 
     </section>
 
   </div>
-  <!--FIN CONTENEDOR-->
+  <!-- /CONTAINER-->
 
   <footer class="container">
     <p class="text-right">© Ministerio de Sanidad, Servicios Sociales e

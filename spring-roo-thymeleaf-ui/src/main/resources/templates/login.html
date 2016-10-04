@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
        data-th-remove="all" />
 
-    <title>Spring Roo application login</title>
+    <title>Login- Spring Roo application</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
@@ -34,7 +34,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css"
-    href="../static/public/css/font-awesome.min.css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
     data-th-remove="all" />
 
     <!-- Bootswatch CSS custom -->
@@ -130,41 +130,39 @@
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title" data-th-text="#{label_login}">Inicio de
-                sesión</h1>
+              <h1 class="panel-title" data-th-text="#{label_login}">Login</h1>
             </div>
             <div class="panel-body">
               <form class="form-horizontal" data-th-action="@{/login}" method="post">
 
                 <fieldset>
-                  <legend class="sr-only">Introduzca su usuario y contraseña</legend>
+                  <legend class="sr-only">Enter your login and password</legend>
 
                   <div data-th-if="${param.error}" class="alert alert-danger"
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error:</span> <span
-                      data-th-text="#{error_login}">Usuario y password no válidos</span>
+                      data-th-text="#{error_login}">Invalid user and password</span>
                   </div>
 
                   <div data-th-if="${param.logout}" class="alert alert-success"
                     role="alert">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <span
-                      data-th-text="#{info_session_closed}"> Sesión cerrada
-                      correctamente</span>
+                      data-th-text="#{info_session_closed}">Log out correctly</span>
                   </div>
 
                   <div class="form-group">
                     <label for="usuario" class="col-md-3 control-label"
-                      data-th-text="#{label_login_username}">Usuario</label>
+                      data-th-text="#{label_login_username}">User</label>
                     <div class="col-md-6">
                       <input type="text" class="form-control" id="username" name="username"
-                        placeholder="Usuario" />
+                        placeholder="User" />
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="password" class="col-md-3 control-label"
-                      data-th-text="#{label_login_password}">Contraseña</label>
+                      data-th-text="#{label_login_password}">Password</label>
                     <div class="col-md-6">
                       <input type="password" class="form-control" id="password"
                         name="password" placeholder="Password" />
@@ -174,9 +172,9 @@
                   <div class="form-group">
                     <div class="col-md-9 col-md-offset-3">
                       <button type="reset" class="btn btn-default"
-                        data-th-text="#{label_reset}">Cancelar</button>
+                        data-th-text="#{label_reset}">Cancel</button>
                       <button type="submit" class="btn btn-primary"
-                        data-th-text="#{label_submit}">Aceptar</button>
+                        data-th-text="#{label_submit}">Accept</button>
                     </div>
                   </div>
                 </fieldset>
