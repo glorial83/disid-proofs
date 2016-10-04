@@ -49,13 +49,13 @@ public class Customer {
    * Sets the address for the customer, taking
    * care to update the relationship from the {@link Address} to the
    * {@link Customer} either.
-   * If address is null the {@link #removeAddress()} method is called 
+   * If address is null the {@link #removeFromAddress()} method is called 
    * instead.
    * @param address for the customer
    */
-  public void setAddress(Address address) {
+  public void addToAddress(Address address) {
     if (address == null) {
-      removeAddress();
+      removeFromAddress();
     } else {
       this.address = address;
       address.setCustomer(this);
@@ -67,7 +67,7 @@ public class Customer {
    * care to update the relationship from the {@link Address} to the
    * {@link Customer} either.
    */
-  public void removeAddress() {
+  public void removeFromAddress() {
     if (this.address != null) {
       address.setCustomer(null);
     }

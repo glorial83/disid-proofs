@@ -57,13 +57,13 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Transactional
   public Customer setAddress(Customer customer, Address address) {
-    customer.setAddress(address);
+    customer.addToAddress(address);
     return customerRepository.save(customer);
   }
 
   @Transactional
   public Customer removeAddress(Customer customer) {
-    customer.removeAddress();
+    customer.removeFromAddress();
     return customerRepository.save(customer);
   }
 
