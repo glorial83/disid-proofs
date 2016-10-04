@@ -6,6 +6,8 @@ import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.OrderDetailService;
 
+import io.springlets.data.domain.GlobalSearch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,9 +47,10 @@ public class CustomerOrdersItemDetailsJsonController {
 
   @GetMapping
   public ResponseEntity<Page<OrderDetail>> listOrderDetails(
-      @ModelAttribute("customerorder") CustomerOrder customerOrder, Pageable pageable) {
+      @ModelAttribute("customerorder") CustomerOrder customerOrder, GlobalSearch globalSearch,
+      Pageable pageable) {
     Page<OrderDetail> orderDetails =
-        orderDetailService.findByCustomerOrder(customerOrder, null, pageable);
+        orderDetailService.findByCustomerOrder(customerOrder, globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(orderDetails);
   }
 

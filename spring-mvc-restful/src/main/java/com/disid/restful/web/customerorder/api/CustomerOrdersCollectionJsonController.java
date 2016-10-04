@@ -7,6 +7,8 @@ import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 
+import io.springlets.data.domain.GlobalSearch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,8 +65,8 @@ public class CustomerOrdersCollectionJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<CustomerOrder>> list(Pageable pageable) {
-    Page<CustomerOrder> customerOrders = customerOrderService.findAll(null, pageable);
+  public ResponseEntity<Page<CustomerOrder>> list(GlobalSearch globalSearch, Pageable pageable) {
+    Page<CustomerOrder> customerOrders = customerOrderService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(customerOrders);
   }
 
@@ -78,7 +80,7 @@ public class CustomerOrdersCollectionJsonController {
     }
     customerOrderService.save(customerOrders);
 
-    URI uri = fromMethodCall(on(getClass()).list(null)).build().encode().toUri();
+    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
     return ResponseEntity.created(uri).build();
   }
 

@@ -5,6 +5,8 @@ import com.disid.restful.model.Product;
 import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.api.ProductService;
 
+import io.springlets.data.domain.GlobalSearch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,8 +45,9 @@ public class CategoriesItemProductsRestController {
 
   @GetMapping
   public ResponseEntity<Page<Product>> listProducts(@ModelAttribute Category category,
-      Pageable pageable) {
-    Page<Product> products = productService.findByCategoriesContains(category, null, pageable);
+      GlobalSearch globalSearch, Pageable pageable) {
+    Page<Product> products =
+        productService.findByCategoriesContains(category, globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
   }
 

@@ -6,6 +6,8 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 import com.disid.restful.model.Category;
 import com.disid.restful.service.api.CategoryService;
 
+import io.springlets.data.domain.GlobalSearch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,8 +60,8 @@ public class CategoriesCollectionRestController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<Category>> list(Pageable pageable) {
-    Page<Category> category = categoryService.findAll(null, pageable);
+  public ResponseEntity<Page<Category>> list(GlobalSearch globalSearch, Pageable pageable) {
+    Page<Category> category = categoryService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(category);
   }
 
@@ -73,7 +75,7 @@ public class CategoriesCollectionRestController {
     }
     categoryService.save(categorys);
 
-    URI uri = fromMethodCall(on(getClass()).list(null)).build().encode().toUri();
+    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
     return ResponseEntity.created(uri).build();
   }
 

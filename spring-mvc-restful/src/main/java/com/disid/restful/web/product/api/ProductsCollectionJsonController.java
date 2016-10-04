@@ -6,6 +6,8 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 import com.disid.restful.model.Product;
 import com.disid.restful.service.api.ProductService;
 
+import io.springlets.data.domain.GlobalSearch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,8 +60,8 @@ public class ProductsCollectionJsonController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<Product>> list(Pageable pageable) {
-    Page<Product> products = productService.findAll(null, pageable);
+  public ResponseEntity<Page<Product>> list(GlobalSearch globalSearch, Pageable pageable) {
+    Page<Product> products = productService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
   }
 
@@ -73,7 +75,7 @@ public class ProductsCollectionJsonController {
     }
     productService.save(products);
 
-    URI uri = fromMethodCall(on(getClass()).list(null)).build().encode().toUri();
+    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
     return ResponseEntity.created(uri).build();
   }
 
