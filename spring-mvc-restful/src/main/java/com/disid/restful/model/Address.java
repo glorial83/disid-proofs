@@ -7,7 +7,6 @@ import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 @RooJavaBean
 @RooToString
@@ -30,7 +29,6 @@ public class Address {
   /**
    * Bidirectional composition one-to-one relationship. Child side.
    */
-  @NotNull
   @OneToOne(fetch = FetchType.LAZY)
   private Customer customer;
 
