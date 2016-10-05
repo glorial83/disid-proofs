@@ -1,8 +1,5 @@
 package com.disid.restful.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
@@ -20,7 +17,6 @@ import javax.persistence.OneToOne;
 @RooJavaBean
 @RooToString
 @RooJpaEntity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Customer {
 
   /**

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 public class DomainModelModule extends SimpleModule {
@@ -39,12 +40,14 @@ public class DomainModelModule extends SimpleModule {
     private Set<Category> categories;
   }
 
+  //  @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
   static abstract class CustomerMixin {
 
     @JsonIgnore
     private Set<CustomerOrder> orders;
   }
 
+  //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
   static abstract class CustomerOrderMixin {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -61,6 +64,9 @@ public class DomainModelModule extends SimpleModule {
     // to the Product entity
     @JsonDeserialize(using = ProductDeserializer.class)
     private Product product;
+
+    @JsonIgnore
+    private Set<Category> categories = new HashSet<Category>();
   }
 
 }

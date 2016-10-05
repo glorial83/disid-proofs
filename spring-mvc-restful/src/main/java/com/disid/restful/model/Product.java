@@ -1,7 +1,5 @@
 package com.disid.restful.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
@@ -15,8 +13,6 @@ import javax.persistence.ManyToMany;
 @RooJavaBean
 @RooToString
 @RooJpaEntity
-// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-// property = "id")
 public class Product {
 
   /**
@@ -30,7 +26,6 @@ public class Product {
   /**
    * Bidirectional aggregation many-to-many relationship. Child side.
    */
-  @JsonIgnore
   @ManyToMany(fetch = FetchType.LAZY)
   private Set<Category> categories = new HashSet<Category>();
 }
