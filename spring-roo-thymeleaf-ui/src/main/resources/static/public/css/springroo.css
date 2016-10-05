@@ -23,7 +23,7 @@ a:focus, a:hover{
 	}
 .content a:hover {text-decoration: underline}
 
-.content a.btn-accion:hover,
+.content a.btn-action:hover,
 .content .paginate_button a:hover,
 .content a.btn:hover {text-decoration: none;}
 
@@ -40,6 +40,32 @@ a.navbar-brand {}
 .navbar-header .application-name small {}
 
 .navbar-nav > li > .dropdown-menu {  margin-top: 4px;}
+
+.dropdown-menu > li button.btn-link {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #999999;
+  white-space: nowrap;
+  text-transform: none;
+  font-size: 1em;
+}
+.dropdown-menu > li button.btn-link:hover,
+.dropdown-menu > li button.btn-link:focus {
+  text-decoration: none;
+  color: #333333;
+  background-color: transparent;
+}
+.dropdown-menu > .active button.btn-link,
+.dropdown-menu > .active button.btn-link:hover,
+.dropdown-menu > .active button.btn-link:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #6db33f;
+}
 
 /*--FOOTER-------------*/
 
@@ -127,7 +153,7 @@ body.home .box-center{
 
 /*--BTN-------------*/
 
-.btn-accion {
+.btn-action {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
@@ -150,14 +176,14 @@ body.home .box-center{
     text-decoration: none;
 }
 
-.btn-accion + .btn-accion {
+.btn-action + .btn-action {
     margin: 0 0 0 0.35em;
 }
-table a.btn-accion {
+table a.btn-action {
     text-decoration: none;
 }
 
-.btn-accion:hover,.btn-accion:focus, .btn-accion:active {
+.btn-action:hover,.btn-action:focus, .btn-action:active {
     background-color: #eeeeee;
     border-color: #e2e2e2;
     margin-top: 1px;
@@ -166,24 +192,24 @@ table a.btn-accion {
     text-decoration: none;
 }
 
-.btn-accion:before {
+.btn-action:before {
     font-family: 'FontAwesome';
     padding: 0 0.3em 0 0;
 }
-.btn-accion.eliminar:before {
+.btn-action.delete:before {
   content:"\f014";
   }
-.btn-accion.editar:before,
-.btn-accion.modificar:before {
+.btn-action.edit:before,
+.btn-action.modify:before {
   content:"\f040";
   }
-.btn-accion.aceptar:before {
+.btn-action.accept:before {
   content:"\f00c";
   }
-.btn-accion.agregar:before {
+.btn-action.add:before {
 	content:"\f067";
 	}
-.btn-accion.ver:before {
+.btn-action.show:before {
 	content:"\f06e";
 }
 

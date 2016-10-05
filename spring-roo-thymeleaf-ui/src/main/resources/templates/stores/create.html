@@ -1,272 +1,304 @@
 <!DOCTYPE html>
-<html lang="es" data-layout-decorator="layouts/default-layout">
-<head>
-<meta charset="UTF-8" data-th-remove="all" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
-<meta name="viewport" content="width=device-width, initial-scale=1"
-  data-th-remove="all" />
-<meta name="description"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<meta name="author"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
+<html lang="en" data-layout-decorator="layouts/default-layout">
+	<head>
+		<meta charset="UTF-8" data-th-remove="all" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"
+		  data-th-remove="all" />
+		<meta name="description"
+		  content="A next-generation rapid application development tool for Java developers.
+		  With Roo you can easily build full Java applications in minutes."
+		  data-th-remove="all" />
+		<meta name="author"
+		  content="Spring Roo Team"
+		  data-th-remove="all" />
+		<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
 
-<title data-th-text="#{label_create_entity(#{label_store})}">Northwind -
-  Crear Almacén</title>
+		<title data-th-text="#{label_create_entity(#{label_store})}">Create Store -
+		Spring Roo application</title>
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-  data-th-remove="all"></link>
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css"
-  data-th-remove="all"></link>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+		  data-th-remove="all"></link>
+		<link rel="stylesheet" type="text/css"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.css"
+		  data-th-remove="all"></link>
 
-<!-- MSSSI CSS -->
-<link rel="stylesheet" type="text/css"
-  href="../../static/public/css/sanidad-internet.css" data-th-remove="all" />
-<noscript data-th-remove="all">
-  <link rel="stylesheet" href="../../static/public/css/nojs-sanidad-internet.css"
-    data-th-remove="all" />
-</noscript>
+	</head>
+	<body>
 
-</head>
-<body>
+	  <div class="container upper-nav">
+	    <div class="session">
+	      <div>
+	        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>First Name
+	        Last Name
+	      </div>
+	      <button type="submit" class="exit">
+	        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>Log out
+	      </button>
+	    </div>
+	  </div>
 
-  <div class="container upper-nav">
-    <div class="session">
-      <div>
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>Nombre
-        Apellido Apellido
-      </div>
-      <div>
-        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>Último
-        acceso: 00-00-0000
-      </div>
-      <button type="submit" class="exit">
-        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>Salir
-      </button>
-    </div>
-  </div>
+	  <!--CONTAINER-->
+	  <div class="container bg-container">
 
-  <!--INICIO CONTENEDOR-->
-  <div class="container bg-container">
+	    <!-- HEADER -->
+	    <header role="banner">
 
-    <!-- CABECERA -->
-    <header role="banner">
-
-      <div class="bg-header">
-        <div class="organization-logo">
-          <a
-            title="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            href="http://www.msssi.gob.es/"><img
-            alt="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            src="../../static/public/img/logo_ministerio.jpg" /></a>
+	      <!-- BANNER -->
+	      <div class="bg-header">
+	        <div class="jumbotron bg-banner">
+	            <div class="container">
+	              <h1 class="project-name">Hello, we are Spring Roo!</h1>
+	              <h2 class="project-tagline">Get start your next awesome project</h2>
+	            </div>
+	        </div>
         </div>
-        <div class="application-name">
-          Título de la aplicación <small>Subtítulo de la aplicación</small>
-        </div>
-      </div>
 
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
+	      <!-- Main navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
 
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false">
-              <span class="sr-only">Desplegable</span> <span class="icon-bar"></span> <span
-                class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Menú principal</a>
+            <!-- navbar-header -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <!-- Brand logo -->
+              <div class="organization-logo navbar-brand">
+                <a title="Spring Roo Application" href="http://projects.spring.io/spring-roo/">
+                  <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
+                </a>
+              </div>
+              <!-- Name application -->
+              <div class="application-name navbar-brand hidden-xs"><a href="/" data-th-href="@{/}">Spring Roo Application</a></div>
+
+            </div>
+            <!-- /navbar-header -->
+
+            <!-- menu -->
+            <div id="mainnav" class="navbar-collapse collapse">
+
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Menu 1 active</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu 3 dropdown<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Submenu 1</a></li>
+                    <li><a href="#">Submenu 2</a></li>
+                    <li><a href="#">Submenu 3</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+              <!-- User menu -->
+              <ul class="nav navbar-nav navbar-right upper-nav session">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">User</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                   <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;<span>Admin Profile</span></a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;<span>Change password</span></a></li>
+                   <li><form action="/logout" method="post">
+                     <button type="button" class="btn btn-link">
+                      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                      <span>Log out</span>
+                     </button>
+                   </form></li>
+                 </ul>
+                </li>
+              </ul>
+
+              <!-- User menu links -->
+              <ul class="nav navbar-nav navbar-right upper-nav links">
+                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Contact</span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Help</span></a></li>
+              </ul>
+
+           </div>
+
           </div>
+        </nav>
 
-          <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Menú 1 activo</a></li>
-              <li><a href="#">Menú 2</a></li>
-              <li class="dropdown"><a href="#" class="dropdown-toggle"
-                data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Menú 3 desplegable<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Submenú 1</a></li>
-                  <li><a href="#">Submenú 2</a></li>
-                  <li><a href="#">Submenú 3</a></li>
-                </ul></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <!-- FIN CABECERA -->
+	    </header>
+	    <!--  /HEADER -->
 
-    <!--INICIO CONTENIDO-->
-    <section data-layout-fragment="content">
-      <div class="container-fluid content">
-        <!--
-          Sólo el contenido interno del tag "section" se incluirá dentro de la
-          plantilla, en el apartado "content"
-        -->
+	    <!--CONTENT-->
+	    <section data-layout-fragment="content">
+	      <div class="container-fluid content">
+	        <!--
+	          Only the inner content of the following tag "section" is included
+	          within the template, in the section "content"
+	        -->
 
-        <h1 data-th-text="#{label_create_entity(#{label_store})}">Crear Almacén</h1>
+	        <h1 data-th-text="#{label_create_entity(#{label_store})}">Create Store</h1>
 
-        <!--INICIO FORMULARIO-->
-        <form class="form-horizontal" method="POST" data-th-object="${store}"
-          data-th-action="@{/stores}">
+	        <!--FORM-->
+	        <form class="form-horizontal" method="POST" data-th-object="${store}"
+	          data-th-action="@{/stores}">
 
-          <fieldset>
-            <legend data-th-text="#{label_store_storedata}">Datos de Almacén</legend>
+	          <fieldset>
+	            <legend data-th-text="#{label_store_storedata}">Store data</legend>
 
-            <div class="form-group"
-              data-th-classappend="${#fields.hasErrors('name')}? 'has-error'">
-              <label for="name" class="col-md-3 control-label"
-                data-th-text="#{label_store_name}">Nombre</label>
-              <div class="col-md-3">
-                <input data-th-field="*{name}" type="text" class="form-control"
-                  placeholder="Nombre" data-th-placeholder="#{label_store_name}"
-                  data-toggle="tooltip" title="Campo obligatorio"
-                  data-th-title="#{label_requiredfield}" /> <span id="name-help"
-                  class="help-block" data-th-if="${#fields.hasErrors('name')}"
-                  data-th-errors="*{name}">Mensaje de ayuda.</span>
-              </div>
-            </div>
+	            <div class="form-group"
+	              data-th-classappend="${#fields.hasErrors('name')}? 'has-error'">
+	              <label for="name" class="col-md-3 control-label"
+	                data-th-text="#{label_store_name}">First Name</label>
+	              <div class="col-md-3">
+	                <input data-th-field="*{name}" type="text" class="form-control"
+	                  placeholder="First Name" data-th-placeholder="#{label_store_name}"
+	                  data-toggle="tooltip" title="Required field"
+	                  data-th-title="#{label_requiredfield}" /> <span id="name-help"
+	                  class="help-block" data-th-if="${#fields.hasErrors('name')}"
+	                  data-th-errors="*{name}">Help message.</span>
+	              </div>
+	            </div>
 
-            <div class="form-group"
-              data-th-classappend="${#fields.hasErrors('phone')}? 'has-error'">
-              <label for="phone" class="col-md-3 control-label"
-                data-th-text="#{label_store_phone}">Teléfono</label>
-              <div class="col-md-3">
-                <input data-th-field="*{phone}" type="text" class="form-control"
-                  placeholder="Teléfono" data-th-placeholder="#{label_store_phone}"
-                  data-toggle="tooltip" title="Campo obligatorio"
-                  data-th-title="#{label_requiredfield}" /> <span id="phone-help"
-                  class="help-block" data-th-if="${#fields.hasErrors('phone')}"
-                  data-th-errors="*{phone}">Mensaje de ayuda.</span>
-              </div>
-            </div>
+	            <div class="form-group"
+	              data-th-classappend="${#fields.hasErrors('phone')}? 'has-error'">
+	              <label for="phone" class="col-md-3 control-label"
+	                data-th-text="#{label_store_phone}">Phone</label>
+	              <div class="col-md-3">
+	                <input data-th-field="*{phone}" type="text" class="form-control"
+	                  placeholder="Phone" data-th-placeholder="#{label_store_phone}"
+	                  data-toggle="tooltip" title="Required field"
+	                  data-th-title="#{label_requiredfield}" /> <span id="phone-help"
+	                  class="help-block" data-th-if="${#fields.hasErrors('phone')}"
+	                  data-th-errors="*{phone}">Help message.</span>
+	              </div>
+	            </div>
 
-            <div class="form-group"
-              data-th-classappend="${#fields.hasErrors('address')}? 'has-error'">
-              <label for="address" class="col-md-3 control-label"
-                data-th-text="#{label_store_address}">Dirección</label>
-              <div class="col-md-8">
-                <input data-th-field="*{address}" type="text" class="form-control"
-                  placeholder="Dirección" data-th-placeholder="#{label_store_address}"
-                  data-toggle="tooltip" title="Campo obligatorio"
-                  data-th-title="#{label_requiredfield}" /> <span id="address-help"
-                  class="help-block" data-th-if="${#fields.hasErrors('address')}"
-                  data-th-errors="*{address}">Mensaje de ayuda.</span>
-              </div>
-            </div>
+	            <div class="form-group"
+	              data-th-classappend="${#fields.hasErrors('address')}? 'has-error'">
+	              <label for="address" class="col-md-3 control-label"
+	                data-th-text="#{label_store_address}">Adress</label>
+	              <div class="col-md-8">
+	                <input data-th-field="*{address}" type="text" class="form-control"
+	                  placeholder="Adress" data-th-placeholder="#{label_store_address}"
+	                  data-toggle="tooltip" title="Required field"
+	                  data-th-title="#{label_requiredfield}" /> <span id="address-help"
+	                  class="help-block" data-th-if="${#fields.hasErrors('address')}"
+	                  data-th-errors="*{address}">Help message.</span>
+	              </div>
+	            </div>
 
-            <!--  TODO Implementar selects según se especificque -->
-            <div class="form-group">
-              <label for="country" class="col-md-3 control-label"
-                data-th-text="#{label_store_country}">País</label>
-              <div class="col-md-6">
-                <select class="form-control" data-th-field="*{country.id}"
-                  data-toggle="tooltip" id="country" title="Campo obligatorio"
-                  data-th-title="#{label_requiredfield}">
-                  <option value="1">España</option>
-                  <option value="2">Portugal</option>
-                </select>
-              </div>
-            </div>
+	            <!--Select sample-->
+	            <div class="form-group">
+	              <label for="country" class="col-md-3 control-label"
+	                data-th-text="#{label_store_country}">Country</label>
+	              <div class="col-md-6">
+	                <select class="form-control" data-th-field="*{country.id}"
+	                  data-toggle="tooltip" id="country" title="Required field"
+	                  data-th-title="#{label_requiredfield}">
+	                  <option value="1">Portugal</option>
+	                  <option value="2">Spain</option>
+	                </select>
+	              </div>
+	            </div>
 
-            <div class="form-group">
-              <label for="region" class="col-md-3 control-label"
-                data-th-text="#{label_store_region}">Provincia</label>
-              <div class="col-md-6">
-                <select class="form-control" data-th-field="*{region.id}"
-                  data-toggle="tooltip" id="region" title="Campo obligatorio"
-                  data-th-title="#{label_requiredfield}">
-                  <option value="1">ALAVA/ARABA</option>
-                  <option value="2">ALBACETE</option>
-                  <option value="3">ALICANTE/ALACANT</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="city" class="col-md-3 control-label"
-                data-th-text="#{label_store_city}">Población</label>
-              <div class="col-md-6">
-                <select class="form-control" data-th-field="*{city.id}"
-                  data-toggle="tooltip" id="city" title="Campo obligatorio"
-                  data-th-title="#{label_requiredfield}">
-                  <option value="1">Alegría-Dulantzi</option>
-                  <option value="2">Amurrio</option>
-                  <option value="3">Añana</option>
-                  <option value="4">Aramaio</option>
-                  <option value="5">Armiñón</option>
-                </select>
-              </div>
-            </div>
+	            <div class="form-group">
+	              <label for="region" class="col-md-3 control-label"
+	                data-th-text="#{label_store_region}">Region</label>
+	              <div class="col-md-6">
+	                <select class="form-control" data-th-field="*{region.id}"
+	                  data-toggle="tooltip" id="region" title="Required field"
+	                  data-th-title="#{label_requiredfield}">
+	                  <option value="1">ALAVA/ARABA</option>
+	                  <option value="2">ALBACETE</option>
+	                  <option value="3">ALICANTE/ALACANT</option>
+	                </select>
+	              </div>
+	            </div>
+	            <div class="form-group">
+	              <label for="city" class="col-md-3 control-label"
+	                data-th-text="#{label_store_city}">City</label>
+	              <div class="col-md-6">
+	                <select class="form-control" data-th-field="*{city.id}"
+	                  data-toggle="tooltip" id="city" title="Required field"
+	                  data-th-title="#{label_requiredfield}">
+	                  <option value="1">Alegría-Dulantzi</option>
+	                  <option value="2">Amurrio</option>
+	                  <option value="3">Añana</option>
+	                  <option value="4">Aramaio</option>
+	                  <option value="5">Armiñón</option>
+	                </select>
+	              </div>
+	            </div>
 
-            <div class="form-group"
-              data-th-classappend="${#fields.hasErrors('postalCode')}? 'has-error'">
-              <label for="postalCode" class="col-md-3 control-label"
-                data-th-text="#{label_store_postalcode}">Código postal</label>
-              <div class="col-md-3">
-                <input data-th-field="*{postalCode}" type="text" class="form-control"
-                  placeholder="Código postal"
-                  data-th-placeholder="#{label_store_postalcode}" data-toggle="tooltip"
-                  title="Campo obligatorio" data-th-title="#{label_requiredfield}" /> <span
-                  id="postalCode-help" class="help-block"
-                  data-th-if="${#fields.hasErrors('postalCode')}"
-                  data-th-errors="*{postalCode}">Mensaje de ayuda.</span>
-              </div>
-            </div>
+	            <div class="form-group"
+	              data-th-classappend="${#fields.hasErrors('postalCode')}? 'has-error'">
+	              <label for="postalCode" class="col-md-3 control-label"
+	                data-th-text="#{label_store_postalcode}">Postal code</label>
+	              <div class="col-md-3">
+	                <input data-th-field="*{postalCode}" type="text" class="form-control"
+	                  placeholder="Postal code"
+	                  data-th-placeholder="#{label_store_postalcode}" data-toggle="tooltip"
+	                  title="Required field" data-th-title="#{label_requiredfield}" /> <span
+	                  id="postalCode-help" class="help-block"
+	                  data-th-if="${#fields.hasErrors('postalCode')}"
+	                  data-th-errors="*{postalCode}">Help message.</span>
+	              </div>
+	            </div>
 
-            <!-- TODO Revisar botones -->
-            <!-- BOTONES FORMULARIO -->
-            <div class="row">
-              <div class="col-md-9 col-md-offset-3">
-                <!-- TODO IE8 -->
-                <button type="reset" class="btn btn-default"
-                  onclick="location.href='list.html'"
-                  data-th-onclick="'location.href=\'' + @{/stores.html} + '\''"
-                  data-th-text="#{label_reset}">Cancelar</button>
-                <button type="submit" class="btn btn-primary"
-                  onclick="location.href='list.html'"
-                  data-th-onclick="'location.href=\'' + @{/stores.html} + '\''"
-                  value="Aceptar" data-th-text="#{label_submit}">Aceptar</button>
-              </div>
-            </div>
+	            <!-- FORM BUTTONS -->
+	            <div class="row">
+	              <div class="col-md-9 col-md-offset-3">
+	                <button type="reset" class="btn btn-default"
+	                  onclick="location.href='list.html'"
+	                  data-th-onclick="'location.href=\'' + @{/stores.html} + '\''"
+	                  data-th-text="#{label_reset}">Cancel</button>
+	                <button type="submit" class="btn btn-primary"
+	                  onclick="location.href='list.html'"
+	                  data-th-onclick="'location.href=\'' + @{/stores.html} + '\''"
+	                  value="Save" data-th-text="#{label_submit}">Save</button>
+	              </div>
+	            </div>
 
-          </fieldset>
-        </form>
-        <!--FIN FORMULARIO-->
+	          </fieldset>
+	        </form>
+	        <!-- /FORM-->
 
-      </div>
-      <!--FIN CONTENIDO-->
+	      </div>
+	      <!-- /CONTENT-->
 
-    </section>
+	    </section>
 
-  </div>
-  <!--FIN CONTENEDOR-->
+	  </div>
+	  <!-- /CONTAINER-->
 
-  <footer class="container">
-    <p class="text-right">© Ministerio de Sanidad, Servicios Sociales e
-      Igualdad</p>
-  </footer>
+	  <footer class="container">
+      <small class="clearfix">
+        Made with
+        <a href="http://projects.spring.io/spring-roo/"
+        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+        Spring Roo &copy; 2016</a> •
+        We <span class="glyphicon glyphicon-heart"></span>
+        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
+      </small>
+    </footer>
 
-  <!-- JavaScript
-  ================================================== -->
-  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
-  <!-- JQuery -->
-  <script type="text/javascript" charset="utf8"
-    src="https://code.jquery.com/jquery-1.12.3.js"></script>
+	  <!-- JavaScript
+	  ================================================== -->
+	  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
+	  <!-- JQuery -->
+	  <script type="text/javascript" charset="utf8"
+	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
 
-  <!-- Bootstrap -->
-  <script type="text/javascript"
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+	  <!-- Bootstrap -->
+	  <script type="text/javascript"
+	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-  <script src="../../static/public/js/main.js"></script>
+	  <script src="../../static/public/js/main.js"></script>
 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
 
-</body>
+	</body>
 </html>

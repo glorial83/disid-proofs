@@ -20,7 +20,7 @@
     <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
        data-th-remove="all" />
 
-    <title>Spring Roo application login</title>
+    <title>Login- Spring Roo application</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
@@ -34,7 +34,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css"
-    href="../static/public/css/font-awesome.min.css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
     data-th-remove="all" />
 
     <!-- Bootswatch CSS custom -->
@@ -63,16 +63,23 @@
       <!-- Header -->
       <header role="banner">
 
-        <!--Banner -->
+        <!--banner -->
         <div class="bg-header">
+          <div class="jumbotron bg-banner">
+              <div class="container">
+                <h1 class="project-name">Hello, we are Spring Roo!</h1>
+                <h2 class="project-tagline">Get start your next awesome project</h2>
+              </div>
+          </div>
         </div>
 
-        <!-- Main nav -->
+        <!-- Main navbar -->
         <nav class="navbar navbar-inverse navbar-fixed-top">
          <div class="container">
 
+            <!-- navbar-header -->
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
                 <span class="sr-only">Menu</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -89,9 +96,10 @@
               <div class="application-name navbar-brand hidden-xs"><a href="/" data-th-href="@{/}">Spring Roo Application</a></div>
 
             </div>
-            <!-- navbar header -->
+            <!-- /navbar-header -->
 
-            <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+            <!-- menu -->
+            <div id="mainnav" class="navbar-collapse collapse">
 
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Menu 1 active</a></li>
@@ -107,19 +115,35 @@
               </ul>
 
               <!-- User menu -->
-              <ul class="nav navbar-nav navbar-right upper-nav links">
-                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><span class="hidden-sm"> Contact</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span><span class="hidden-sm"> Help</span></a></li>
+              <ul class="nav navbar-nav navbar-right upper-nav session">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">User</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                   <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;<span>Admin Profile</span></a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;<span>Change password</span></a></li>
+                   <li><form action="/logout" method="post">
+                     <button type="button" class="btn btn-link">
+                      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                      <span>Log out</span>
+                     </button>
+                   </form></li>
+                 </ul>
+                </li>
               </ul>
 
-              <ul class="nav navbar-nav navbar-right upper-nav session">
-                <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="hidden-sm"> User</span></a></li>
+              <!-- User menu links -->
+              <ul class="nav navbar-nav navbar-right upper-nav links">
+                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Contact</span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Help</span></a></li>
               </ul>
 
            </div>
 
           </div>
         </nav>
+
 
       </header>
 
@@ -130,41 +154,39 @@
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title" data-th-text="#{label_login}">Inicio de
-                sesión</h1>
+              <h1 class="panel-title" data-th-text="#{label_login}">Login</h1>
             </div>
             <div class="panel-body">
               <form class="form-horizontal" data-th-action="@{/login}" method="post">
 
                 <fieldset>
-                  <legend class="sr-only">Introduzca su usuario y contraseña</legend>
+                  <legend class="sr-only">Enter your login and password</legend>
 
                   <div data-th-if="${param.error}" class="alert alert-danger"
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error:</span> <span
-                      data-th-text="#{error_login}">Usuario y password no válidos</span>
+                      data-th-text="#{error_login}">Invalid user and password</span>
                   </div>
 
                   <div data-th-if="${param.logout}" class="alert alert-success"
                     role="alert">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <span
-                      data-th-text="#{info_session_closed}"> Sesión cerrada
-                      correctamente</span>
+                      data-th-text="#{info_session_closed}">Log out correctly</span>
                   </div>
 
                   <div class="form-group">
                     <label for="usuario" class="col-md-3 control-label"
-                      data-th-text="#{label_login_username}">Usuario</label>
+                      data-th-text="#{label_login_username}">User</label>
                     <div class="col-md-6">
                       <input type="text" class="form-control" id="username" name="username"
-                        placeholder="Usuario" />
+                        placeholder="User" />
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="password" class="col-md-3 control-label"
-                      data-th-text="#{label_login_password}">Contraseña</label>
+                      data-th-text="#{label_login_password}">Password</label>
                     <div class="col-md-6">
                       <input type="password" class="form-control" id="password"
                         name="password" placeholder="Password" />
@@ -174,9 +196,9 @@
                   <div class="form-group">
                     <div class="col-md-9 col-md-offset-3">
                       <button type="reset" class="btn btn-default"
-                        data-th-text="#{label_reset}">Cancelar</button>
+                        data-th-text="#{label_reset}">Cancel</button>
                       <button type="submit" class="btn btn-primary"
-                        data-th-text="#{label_submit}">Aceptar</button>
+                        data-th-text="#{label_submit}">Accept</button>
                     </div>
                   </div>
                 </fieldset>
@@ -195,9 +217,12 @@
 
     <footer class="container">
       <small class="clearfix">
-          Made with <a href="http://projects.spring.io/spring-roo/" target="_blank">
-          &copy; Spring Roo</a> •
-          We <span class="glyphicon glyphicon-heart"></span> <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source </a>
+        Made with
+        <a href="http://projects.spring.io/spring-roo/"
+        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+        Spring Roo &copy; 2016</a> •
+        We <span class="glyphicon glyphicon-heart"></span>
+        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
       </small>
     </footer>
 

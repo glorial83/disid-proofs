@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"
       data-th-remove="all" />
     <meta name="description"
-      content="Spring Roo, a next-generation rapid application development tool for Java developers.
-      With Roo you can easily build full Java applications in minutes." data-th-remove="all" />
+		  content="A next-generation rapid application development tool for Java developers.
+		  With Roo you can easily build full Java applications in minutes."
+		  data-th-remove="all" />
     <meta name="author"
       content="Spring Roo development team"
       data-th-remove="all" />
@@ -20,7 +21,7 @@
     <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
        data-th-remove="all" />
 
-    <title>Error</title>
+    <title>Error - Spring Roo application</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
@@ -34,7 +35,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css"
-    href="../static/public/css/font-awesome.min.css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
     data-th-remove="all" />
 
     <!-- Bootswatch CSS custom -->
@@ -55,34 +56,36 @@
     <![endif]-->
 
   </head>
-<body>
-  <!--
-    Only the internal content of the following tag "section" is included within
-    the template, in "content" fragment
-    -->
-  <header>
-    <h1>Error page</h1>
-  </header>
+	<body>
+	  <!--
+	    Only the internal content of the following tag "section" is included within
+	    the template, in "content" fragment
+	    -->
+	  <header>
+	    <h1>Error page</h1>
+	  </header>
 
-  <section data-layout-fragment="content">
+	  <section data-layout-fragment="content">
 
-    <div class="alert alert-danger fade in" role="alert">
-      <h4>Error!</h4>
-      <p>An unexpected error has occurred (type=<span data-text="${error}">Bad</span>,
-              status=<span data-text="${status}">500</span>).</p>
-      <div data-text="${message}"></div>
+	    <div class="alert alert-danger fade in" role="alert">
+	      <h4>Error!</h4>
+	      <p>An unexpected error has occurred (type=<span data-text="${error}">Bad</span>,
+	              status=<span data-text="${status}">500</span>).</p>
+	      <div data-text="${message}"></div>
+	    </div>
 
-    </div>
+	  </section>
 
-  </section>
-  <footer>
-    <div class="container">
-          <small class="clearfix">
-          Made with <a href="http://projects.spring.io/spring-roo/" target="_blank" data-th-text="| Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
-          &copy; Spring Roo</a> •
-          We <span class="glyphicon glyphicon-heart"></span> <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source </a>
-          </small>
-    </div>
-  </footer>
-</body>
+	  <footer class="container">
+      <small class="clearfix">
+        Made with
+        <a href="http://projects.spring.io/spring-roo/"
+        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+        Spring Roo &copy; 2016</a> •
+        We <span class="glyphicon glyphicon-heart"></span>
+        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
+      </small>
+    </footer>
+
+	</body>
 </html>

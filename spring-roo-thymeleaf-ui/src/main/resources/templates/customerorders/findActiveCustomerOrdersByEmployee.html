@@ -1,198 +1,213 @@
 <!DOCTYPE html>
-<html lang="es" data-layout-decorator="layouts/default-layout">
-<head>
-<meta charset="UTF-8" data-th-remove="all" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
-<meta name="viewport" content="width=device-width, initial-scale=1"
-  data-th-remove="all" />
-<meta name="description"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<meta name="author"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
+<html lang="en" data-layout-decorator="layouts/default-layout">
+	<head>
+		<meta charset="UTF-8" data-th-remove="all" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"
+		  data-th-remove="all" />
+		<meta name="description"
+		  content="A next-generation rapid application development tool for Java developers.
+		  With Roo you can easily build full Java applications in minutes."
+		  data-th-remove="all" />
+		<meta name="author"
+		  content="Spring Roo Team"
+		  data-th-remove="all" />
+		<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
 
-<title data-th-text="#{label_find_entity(#{label_customerorder})}">Northwind
-  - Buscar Pedido Cliente</title>
+		<title data-th-text="#{label_find_entity(#{label_customerorder})}">Order
+		Customer Search by Employee -  Spring Roo application</title>
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-  data-th-remove="all"></link>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+		  data-th-remove="all"></link>
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
-  data-th-remove="all"></link>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<link rel="stylesheet" type="text/css"
+		  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
+		  data-th-remove="all"></link>
 
-<!-- CSS MSSSI  -->
-<link rel="stylesheet" type="text/css"
-  href="../../static/public/css/sanidad-internet.css" data-th-remove="all" />
+  </head>
 
-</head>
-<body>
+	<body>
 
-  <!--INICIO CONTENEDOR-->
-  <div class="container bg-container">
+	  <!--CONTAINER-->
+	  <div class="container bg-container">
 
-    <!-- CABECERA -->
-    <header role="banner">
+	    <!-- HEADER -->
+	    <header role="banner">
 
-      <!-- cabecera -->
-      <div class="bg-header">
-        <div class="organization-logo">
-          <a
-            title="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            href="http://www.msssi.gob.es/"><img
-            alt="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            src="../../static/public/img/logo_ministerio.jpg" /></a>
-        </div>
-        <div class="application-name">
-          <a href="/" data-th-href="@{/}">Aplicación Northwind</a>
-        </div>
-      </div>
-
-      <!-- MENÚ PRINCIPAL -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-
-          <!-- collapsed menu button -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false">
-              <span class="sr-only">Desplegable</span> <span class="icon-bar"></span> <span
-                class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Menú principal</a>
+	      <!-- BANNER -->
+        <div class="bg-header">
+          <div class="jumbotron bg-banner">
+              <div class="container">
+                <h1 class="project-name">Hello, we are Spring Roo!</h1>
+                <h2 class="project-tagline">Get start your next awesome project</h2>
+              </div>
           </div>
+        </div>
 
-          <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+        <!-- Main navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
 
-            <!-- menú principal -->
-            <div class="row">
+            <!-- navbar-header -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <!-- Brand logo -->
+              <div class="organization-logo navbar-brand">
+                <a title="Spring Roo Application" href="http://projects.spring.io/spring-roo/">
+                  <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
+                </a>
+              </div>
+              <!-- Name application -->
+              <div class="application-name navbar-brand hidden-xs"><a href="/" data-th-href="@{/}">Spring Roo Application</a></div>
+
+            </div>
+            <!-- /navbar-header -->
+
+            <!-- menu -->
+            <div id="mainnav" class="navbar-collapse collapse">
+
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Menú 1 activo</a></li>
-                <li><a href="#">Menú 2</a></li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle"
-                  data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Menú 3 desplegable<span class="caret"></span></a>
+                <li class="active"><a href="#">Menu 1 active</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu 3 dropdown<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Submenú 1</a></li>
-                    <li><a href="#">Submenú 2</a></li>
-                    <li><a href="#">Submenú 3</a></li>
-                  </ul></li>
+                    <li><a href="#">Submenu 1</a></li>
+                    <li><a href="#">Submenu 2</a></li>
+                    <li><a href="#">Submenu 3</a></li>
+                  </ul>
+                </li>
               </ul>
-            </div>
 
-            <!-- menú de usuario -->
-            <div class="container upper-nav">
-              <ul class="nav navbar-nav navbar-right session">
-                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Nombre
-                  Apellido Apellido</li>
-                <li><button type="submit" class="exit">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Salir</span>
-                  </button></li>
+              <!-- User menu -->
+              <ul class="nav navbar-nav navbar-right upper-nav session">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">User</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                   <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;<span>Admin Profile</span></a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;<span>Change password</span></a></li>
+                   <li><form action="/logout" method="post">
+                     <button type="button" class="btn btn-link">
+                      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                      <span>Log out</span>
+                     </button>
+                   </form></li>
+                 </ul>
+                </li>
               </ul>
-              <ul class="nav navbar-nav navbar-right links">
-                <li><a href="#"><span class="glyphicon glyphicon-envelope"
-                    aria-hidden="true"></span><span>Contacto</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-question-sign"
-                    aria-hidden="true"></span><span>Ayuda</span></a></li>
+
+              <!-- User menu links -->
+              <ul class="nav navbar-nav navbar-right upper-nav links">
+                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Contact</span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Help</span></a></li>
               </ul>
-            </div>
+
+           </div>
 
           </div>
+        </nav>
 
-        </div>
-      </nav>
+	    </header>
+	    <!--  /HEADER -->
 
-    </header>
-    <!-- FIN CABECERA -->
+	    <!--CONTENT-->
+	    <section data-layout-fragment="content">
+	      <div class="container-fluid content">
+	        <!--
+	          Only the inner content of the following tag "section" is included
+	          within the template, in the section "content"
+	          -->
 
-    <!--INICIO CONTENIDO-->
-    <section data-layout-fragment="content">
-      <div class="container-fluid content">
-        <!--
-          Sólo el contenido interno del tag "section" se incluirá dentro de la
-            plantilla, en el apartado "content"
-          -->
+	        <h1 data-th-text="#{label_find_entity(#{label_customerorder})}">Order
+	    Customer Search by Employee</h1>
 
-        <h1 data-th-text="#{label_find_entity(#{label_customerorder})}">Buscar
-          Pedido Cliente</h1>
+	        <div class="panel panel-default">
+	          <div class="panel-body">
 
-        <div class="panel panel-default">
-          <div class="panel-body">
+	            <!--FORM-->
+	            <form id="search-form" class="form-horizontal">
+	              <fieldset>
+	                <div class="form-group">
+	                  <label for="employee" class="col-md-3 control-label"
+	                    data-th-text="#{label_customerorder_employee}">Employee</label>
+	                  <div class="col-md-6">
+	                    <select class="form-control" id="empId">
+	                      <option data-th-each="employee : ${employees}"
+	                        data-th-text="|${employee.firstName} ${employee.lastName}|"
+	                        data-th-value="|${employee.id}|" value="1">Sergio Ibarra</option>
+	                      <option value="2">Manuel García</option>
+	                      <option value="3">David Navarro</option>
+	                    </select>
+	                  </div>
+	                </div>
 
-            <!--INICIO FORMULARIO-->
-            <form id="search-form" class="form-horizontal">
-              <fieldset>
-                <div class="form-group">
-                  <label for="employee" class="col-md-3 control-label"
-                    data-th-text="#{label_customerorder_employee}">Empleado</label>
-                  <div class="col-md-6">
-                    <select class="form-control" id="empId">
-                      <option data-th-each="employee : ${employees}"
-                        data-th-text="|${employee.firstName} ${employee.lastName}|"
-                        data-th-value="|${employee.id}|" value="1">Sergio Ibarra</option>
-                      <option value="2">Manuel García</option>
-                      <option value="3">David Navarro</option>
-                    </select>
-                  </div>
-                </div>
+	                <div class="form-group">
+	                  <div class="col-md-9 col-md-offset-3">
+	                    <button type="reset" class="btn btn-default"
+	                      onclick="location.href='list.html'"
+	                      data-th-onclick="'location.href=\'' + @{/customerorders} + '\''"
+	                      data-th-text="#{label_reset}">Cancel</button>
+	                    <button type="submit" class="btn btn-primary">
+	                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> <span
+	                        data-th-text="#{label_find}">Search</span>
+	                    </button>
+	                  </div>
+	                </div>
+	              </fieldset>
+	            </form>
+	            <!-- /FORM-->
+	          </div>
+	        </div>
 
-                <div class="form-group">
-                  <div class="col-md-9 col-md-offset-3">
-                    <!-- TODO IE8 -->
-                    <button type="reset" class="btn btn-default"
-                      onclick="location.href='list.html'"
-                      data-th-onclick="'location.href=\'' + @{/customerorders} + '\''"
-                      data-th-text="#{label_reset}">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">
-                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span><span
-                        data-th-text="#{label_find}">Buscar</span>
-                    </button>
-                  </div>
-                </div>
-              </fieldset>
-            </form>
-            <!--FIN FORMULARIO-->
-          </div>
-        </div>
+	        <!-- RESULT -->
+	        <div id="result"></div>
 
-        <!-- RESULT -->
-        <div id="result"></div>
+	      </div>
+	      <!-- /CONTENT-->
 
-      </div>
-      <!--FIN CONTENIDO-->
+	    </section>
 
-    </section>
+	  </div>
+	  <!-- /CONTAINER-->
 
-  </div>
-  <!--FIN CONTENEDOR-->
+    <footer class="container">
+      <small class="clearfix">
+        Made with
+        <a href="http://projects.spring.io/spring-roo/"
+        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+        Spring Roo &copy; 2016</a> •
+        We <span class="glyphicon glyphicon-heart"></span>
+        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
+      </small>
+    </footer>
 
-  <footer class="container">
-    <p class="text-right">© Ministerio de Sanidad, Servicios Sociales e
-      Igualdad</p>
-  </footer>
+	  <!-- JavaScript
+	    ================================================== -->
+	  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
+	  <!-- JQuery -->
+	  <script type="text/javascript" charset="utf8"
+	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
 
-  <!-- JavaScript
-    ================================================== -->
-  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
-  <!-- JQuery -->
-  <script type="text/javascript" charset="utf8"
-    src="https://code.jquery.com/jquery-1.12.3.js"></script>
+	  <!-- Bootstrap -->
+	  <script type="text/javascript"
+	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-  <!-- Bootstrap -->
-  <script type="text/javascript"
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+	  <!-- Application -->
+	  <script src="../../static/public/js/main.js"></script>
 
-  <!-- Application -->
-  <script src="../../static/public/js/main.js"></script>
-
-</body>
+	</body>
 </html>

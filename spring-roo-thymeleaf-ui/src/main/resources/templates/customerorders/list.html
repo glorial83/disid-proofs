@@ -1,399 +1,412 @@
 <!DOCTYPE html>
-<html lang="es" data-layout-decorator="layouts/default-layout">
-<head>
-<meta charset="UTF-8" data-th-remove="all" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
-<meta name="viewport" content="width=device-width, initial-scale=1"
-  data-th-remove="all" />
-<meta name="description"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<meta name="author"
-  content="Ministerio de Sanidad, Servicios Sociales e Igualdad"
-  data-th-remove="all" />
-<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
+<html lang="en" data-layout-decorator="layouts/default-layout">
+	<head>
+		<meta charset="UTF-8" data-th-remove="all" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"
+		  data-th-remove="all" />
+		<meta name="description"
+		  content="A next-generation rapid application development tool for Java developers.
+		  With Roo you can easily build full Java applications in minutes."
+		  data-th-remove="all" />
+		<meta name="author"
+		  content="Spring Roo Team"
+		  data-th-remove="all" />
+		<link data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" />
 
-<title data-th-text="#{label_list_entity(#{label_customer_plural})}">Northwind
-  - Listar Pedidos Cliente</title>
+		<title data-th-text="#{label_list_entity(#{label_customer_plural})}">Order
+		Customer List - Spring Roo application</title>
 
-<!-- Bootstrap -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-  data-th-remove="all"></link>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+		  data-th-remove="all"></link>
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
-  data-th-remove="all"></link>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<link rel="stylesheet" type="text/css"
+		  href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
+		  data-th-remove="all"></link>
 
-<!-- Datatables -->
-<link
-  data-th-href="@{/webjars/datatables/1.10.11/media/css/jquery.dataTables.css}"
-  rel="stylesheet" type="text/css"
-  href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css"></link>
+		<!-- Datatables -->
+		<link
+		  data-th-href="@{/webjars/datatables/1.10.11/media/css/jquery.dataTables.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css"></link>
 
-<link
-  data-th-href="@{/webjars/datatables.net-bs/1.10.11/css/dataTables.bootstrap.css}"
-  rel="stylesheet" type="text/css"
-  href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css"></link>
+		<link
+		  data-th-href="@{/webjars/datatables.net-bs/1.10.11/css/dataTables.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css"></link>
 
-<link
-  data-th-href="@{/webjars/datatables.net-responsive-bs/2.0.2/css/responsive.bootstrap.css}"
-  rel="stylesheet" type="text/css"
-  href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css"></link>
+		<link
+		  data-th-href="@{/webjars/datatables.net-responsive-bs/2.0.2/css/responsive.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css"></link>
 
-<link
-  data-th-href="@{/webjars/datatables.net-buttons-bs/1.1.2/css/buttons.bootstrap.css}"
-  rel="stylesheet" type="text/css"
-  href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.css"></link>
+		<link
+		  data-th-href="@{/webjars/datatables.net-buttons-bs/1.1.2/css/buttons.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.css"></link>
 
-<link
-  data-th-href="@{/webjars/datatables.net-select-bs/1.1.2/css/select.bootstrap.css}"
-  rel="stylesheet" type="text/css"
-  href="https://cdn.datatables.net/select/1.1.2/css/select.bootstrap.css"></link>
+		<link
+		  data-th-href="@{/webjars/datatables.net-select-bs/1.1.2/css/select.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/select/1.1.2/css/select.bootstrap.css"></link>
 
-<!-- Estilo de sanidad -->
-<link rel="stylesheet" type="text/css" data-th-remove="all"
-  href="../../static/public/css/sanidad-internet.css"></link>
+	</head>
 
-</head>
+	<body>
 
-<body>
+	  <!--CONTAINER-->
+	  <div class="container bg-container">
 
-  <!--INICIO CONTENEDOR-->
-  <div class="container bg-container">
+	    <!-- HEADER -->
+	    <header role="banner">
 
-    <!-- CABECERA -->
-    <header role="banner">
-
-      <!-- cabecera -->
-      <div class="bg-header">
-        <div class="organization-logo">
-          <a
-            title="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            href="http://www.msssi.gob.es/"><img
-            alt="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-            src="../../static/public/img/logo_ministerio.jpg" /></a>
-        </div>
-        <div class="application-name">
-          <a href="/" data-th-href="@{/}">Aplicación Northwind</a>
-        </div>
-      </div>
-
-      <!-- MENÚ PRINCIPAL -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-
-          <!-- collapsed menu button -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false">
-              <span class="sr-only">Desplegable</span> <span class="icon-bar"></span> <span
-                class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Menú principal</a>
+	      <!-- BANNER -->
+        <div class="bg-header">
+          <div class="jumbotron bg-banner">
+              <div class="container">
+                <h1 class="project-name">Hello, we are Spring Roo!</h1>
+                <h2 class="project-tagline">Get start your next awesome project</h2>
+              </div>
           </div>
+        </div>
 
-          <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+        <!-- Main navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
 
-            <!-- menú principal -->
-            <div class="row">
+            <!-- navbar-header -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <!-- Brand logo -->
+              <div class="organization-logo navbar-brand">
+                <a title="Spring Roo Application" href="http://projects.spring.io/spring-roo/">
+                  <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
+                </a>
+              </div>
+              <!-- Name application -->
+              <div class="application-name navbar-brand hidden-xs"><a href="/" data-th-href="@{/}">Spring Roo Application</a></div>
+
+            </div>
+            <!-- /navbar-header -->
+
+            <!-- menu -->
+            <div id="mainnav" class="navbar-collapse collapse">
+
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Menú 1 activo</a></li>
-                <li><a href="#">Menú 2</a></li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle"
-                  data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Menú 3 desplegable<span class="caret"></span></a>
+                <li class="active"><a href="#">Menu 1 active</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu 3 dropdown<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Submenú 1</a></li>
-                    <li><a href="#">Submenú 2</a></li>
-                    <li><a href="#">Submenú 3</a></li>
-                  </ul></li>
+                    <li><a href="#">Submenu 1</a></li>
+                    <li><a href="#">Submenu 2</a></li>
+                    <li><a href="#">Submenu 3</a></li>
+                  </ul>
+                </li>
               </ul>
-            </div>
 
-            <!-- menú de usuario -->
-            <div class="container upper-nav">
-              <ul class="nav navbar-nav navbar-right session">
-                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Nombre
-                  Apellido Apellido</li>
-                <li><button type="submit" class="exit">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Salir</span>
-                  </button></li>
+              <!-- User menu -->
+              <ul class="nav navbar-nav navbar-right upper-nav session">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">User</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                   <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;<span>Admin Profile</span></a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;<span>Change password</span></a></li>
+                   <li><form action="/logout" method="post">
+                     <button type="button" class="btn btn-link">
+                      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                      <span>Log out</span>
+                     </button>
+                   </form></li>
+                 </ul>
+                </li>
               </ul>
-              <ul class="nav navbar-nav navbar-right links">
-                <li><a href="#"><span class="glyphicon glyphicon-envelope"
-                    aria-hidden="true"></span><span>Contacto</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-question-sign"
-                    aria-hidden="true"></span><span>Ayuda</span></a></li>
+
+              <!-- User menu links -->
+              <ul class="nav navbar-nav navbar-right upper-nav links">
+                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Contact</span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Help</span></a></li>
               </ul>
-            </div>
+
+           </div>
 
           </div>
+        </nav>
 
-        </div>
-      </nav>
+	    </header>
+	    <!--  /HEADER -->
 
-    </header>
-    <!-- FIN CABECERA -->
+	    <!--CONTENT-->
+	    <section data-layout-fragment="content">
+	      <div class="container-fluid content">
+	        <!--
+	           Only the inner content of the following tag "section" is included
+	          within the template, in the section "content"
+	          -->
 
-    <!--INICIO CONTENIDO-->
-    <section data-layout-fragment="content">
-      <div class="container-fluid content">
-        <!--
-           Sólo el contenido interno del tag "section" se incluirá dentro de
-           la plantilla, en el apartado "content"
-          -->
+	        <h1 data-th-text="#{label_customerorder_plural}">Customer Orders</h1>
 
-        <h1 data-th-text="#{label_customerorder_plural}">Pedidos Cliente</h1>
+	        <!--TABLE-->
+	        <div class="table-responsive">
+	          <table id="customerOrdersTable"
+	            class="table table-striped table-hover table-bordered"
+	            data-row-id="orderId" data-select="single"
+	            data-order="[[ 0, &quot;asc&quot; ]]"
+	            data-th-attr="data-create-url=@{/customerorders/createorder}">
+	            <caption
+	              data-th-text="#{label_list_entity(#{label_customerorder_plural})}">
+	              Orders Customer List</caption>
+	            <thead>
+	              <tr>
+	                <th data-th-text="#{label_customerorder_orderdate}">Order Date</th>
+	                <th data-th-text="#{label_customerorder_status}">Status</th>
+	                <th data-th-text="#{label_customerorder_employee}">Employee</th>
+	                <th data-th-text="#{label_customerorder_customer}">Customer</th>
+	                <th data-th-text="#{label_customerorder_shippeddate}">Shipped
+	                Date</th>
+	                <th data-th-text="#{label_customerorder_freight}">Shipping</th>
+	                <th data-th-text="#{label_action}">Action</th>
+	              </tr>
+	            </thead>
+	            <tbody data-th-remove="all">
+	              <tr>
+	                <td>99/99/9999</td>
+	                <td>Active</td>
+	                <td>Alberto Giménez Giménez</td>
+	                <td>Vicente Pérez</td>
+	                <td>99/99/9999</td>
+	                <td>10.5€</td>
+	                <td><a role="button" class="btn-action show" href="show.html">Show</a>
+	                  <a role="button" class="btn-action edit" href="edit.html">Edit</a>
+	                  <a role="button" class="btn-action delete" href="cancel.html">Cancel</a>
+	                </td>
+	              </tr>
+	            </tbody>
+	          </table>
+	        </div>
+	        <!-- /TABLE-->
 
-        <!--INICIO TABLA-->
-        <div class="table-responsive">
-          <table id="customerOrdersTable"
-            class="table table-striped table-hover table-bordered"
-            data-row-id="orderId" data-select="single"
-            data-order="[[ 0, &quot;asc&quot; ]]"
-            data-th-attr="data-create-url=@{/customerorders/createorder}">
-            <caption
-              data-th-text="#{label_list_entity(#{label_customerorder_plural})}">Listar
-              Pedidos Cliente</caption>
-            <thead>
-              <tr>
-                <th data-th-text="#{label_customerorder_orderdate}">Fecha pedido</th>
-                <th data-th-text="#{label_customerorder_status}">Estado</th>
-                <th data-th-text="#{label_customerorder_employee}">Empleado</th>
-                <th data-th-text="#{label_customerorder_customer}">Cliente</th>
-                <th data-th-text="#{label_customerorder_shippeddate}">Fecha de
-                  envío</th>
-                <th data-th-text="#{label_customerorder_freight}">Costes de envío</th>
-                <th data-th-text="#{label_action}">Acción</th>
-              </tr>
-            </thead>
-            <tbody data-th-remove="all">
-              <tr>
-                <td>99/99/9999</td>
-                <td>Activo</td>
-                <td>Alberto Giménez Giménez</td>
-                <td>Vicente Pérez</td>
-                <td>99/99/9999</td>
-                <td>10.5€</td>
-                <td><a role="button" class="btn-accion ver" href="show.html">Ver</a>
-                  <a role="button" class="btn-accion editar" href="edit.html">Editar</a>
-                  <!-- // TODO Cambiar href del botón cancelar -->
-                  <a role="button" class="btn-accion eliminar" href="cancel.html">Cancelar</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!--FIN TABLA-->
+	        <!--ORDER PRODUCTS TABLE -->
+	        <div class="table-responsive">
+	          <table id="orderDetailTable"
+	            class="table table-striped table-hover table-bordered"
+	            data-row-id="orderDetailId" data-defer-loading="0"
+	            data-order="[[ 0, &quot;asc&quot; ]]"
+	            data-create-url-function="createOrderDetailUrl">
+	            <caption id="orderDetailTableCaption"
+	              data-th-text="#{label_list_entity(#{label_customerorder_orderdetails})}">
+	              Products List</caption>
+	            <thead>
+	              <tr>
+	                <th data-th-text="#{label_customerorder_orderdetail_product}">Product</th>
+	                <th data-th-text="#{label_customerorder_orderdetail_quantity}">Quantity</th>
+	                <th data-th-text="#{label_customerorder_orderdetail_unitprice}">Unit
+	                Price</th>
+	                <th data-th-text="#{label_customerorder_orderdetail_discount}">Discount
+	                  %</th>
+	                <th data-th-text="#{label_customerorder_orderdetail_total}">Total</th>
+	                <th data-th-text="#{label_action}">Action</th>
+	              </tr>
+	            </thead>
+	            <tbody data-th-remove="all">
+	              <tr>
+	                <td>Apricot</td>
+	                <td>2</td>
+	                <td>0,60</td>
+	                <td>0</td>
+	                <td>1,2</td>
+	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a>
+	                </td>
+	              </tr>
+	              <tr>
+	                <td>Tomato</td>
+	                <td>4</td>
+	                <td>0,50</td>
+	                <td>20</td>
+	                <td>1,6</td>
+	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a>
+	                </td>
+	              </tr>
+	              <tr>
+	                <td>Sardine</td>
+	                <td>5</td>
+	                <td>5,32</td>
+	                <td>3</td>
+	                <td>25,80</td>
+	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a>
+	                </td>
+	              </tr>
+	              <tr>
+	                <td>White wine</td>
+	                <td>7</td>
+	                <td>5,65</td>
+	                <td>10</td>
+	                <td>35,60</td>
+	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a>
+	                </td>
+	              </tr>
+	            </tbody>
+	          </table>
+	        </div>
+	        <!-- /ORDER PRODUCTS TABLE -->
 
-        <!--INICIO TABLA LÍNEAS DE PEDIDO -->
-        <div class="table-responsive">
-          <table id="orderDetailTable"
-            class="table table-striped table-hover table-bordered"
-            data-row-id="orderDetailId" data-defer-loading="0"
-            data-order="[[ 0, &quot;asc&quot; ]]"
-            data-create-url-function="createOrderDetailUrl">
-            <caption id="orderDetailTableCaption"
-              data-th-text="#{label_list_entity(#{label_customerorder_orderdetails})}">Listar
-              Productos</caption>
-            <thead>
-              <tr>
-                <th data-th-text="#{label_customerorder_orderdetail_product}">Producto</th>
-                <th data-th-text="#{label_customerorder_orderdetail_quantity}">Cantidad</th>
-                <th data-th-text="#{label_customerorder_orderdetail_unitprice}">Precio
-                  Unidad</th>
-                <th data-th-text="#{label_customerorder_orderdetail_discount}">Descuento
-                  %</th>
-                <th data-th-text="#{label_customerorder_orderdetail_total}">Total</th>
-                <th data-th-text="#{label_action}">Acción</th>
-              </tr>
-            </thead>
-            <tbody data-th-remove="all">
-              <tr>
-                <td>Albaricoque</td>
-                <td>2</td>
-                <td>0,60</td>
-                <td>0</td>
-                <td>1,2</td>
-                <td><a role="button" class="btn-accion editar" href="edit.html">Editar</a>
-                  <a role="button" class="btn-accion eliminar" href="delete.html">Eliminar</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Tomate</td>
-                <td>4</td>
-                <td>0,50</td>
-                <td>20</td>
-                <td>1,6</td>
-                <td><a role="button" class="btn-accion editar" href="edit.html">Editar</a>
-                  <a role="button" class="btn-accion eliminar" href="delete.html">Eliminar</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Sardina</td>
-                <td>5</td>
-                <td>5,32</td>
-                <td>3</td>
-                <td>25,80</td>
-                <td><a role="button" class="btn-accion editar" href="edit.html">Editar</a>
-                  <a role="button" class="btn-accion eliminar" href="delete.html">Eliminar</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Vino blanco</td>
-                <td>7</td>
-                <td>5,65</td>
-                <td>10</td>
-                <td>35,60</td>
-                <td><a role="button" class="btn-accion editar" href="edit.html">Editar</a>
-                  <a role="button" class="btn-accion eliminar" href="delete.html">Eliminar</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!--FIN TABLA LINEAS DE PEDIDO -->
+	        <div class="clearfix">
+	          <div class="pull-left">
+	            <a href="../index.html" class="btn btn-default" data-th-href="@{/}"> <span
+	              class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span data-th-text="#{label_back}">Back</span>
+	            </a>
+	          </div>
+	        </div>
 
-        <div class="clearfix">
-          <div class="pull-left">
-            <a href="../index.html" class="btn btn-default" data-th-href="@{/}"> <span
-              class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span data-th-text="#{label_back}">Volver</span>
-            </a>
-          </div>
-        </div>
+	      </div>
+	      <!-- /CONTENT-->
+	    </section>
 
-      </div>
-      <!--FIN CONTENIDO-->
-    </section>
+	  </div>
+	  <!-- /CONTAINER-->
 
-  </div>
-  <!--FIN CONTENEDOR-->
+    <footer class="container">
+      <small class="clearfix">
+        Made with
+        <a href="http://projects.spring.io/spring-roo/"
+        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+        Spring Roo &copy; 2016</a> •
+        We <span class="glyphicon glyphicon-heart"></span>
+        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
+      </small>
+    </footer>
 
-  <footer class="container">
-    <p class="text-right">© Ministerio de Sanidad, Servicios Sociales e
-      Igualdad</p>
-  </footer>
+	  <!-- JavaScript
+	    ================================================== -->
+	  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
+	  <!-- JQuery -->
+	  <script type="text/javascript" charset="utf8"
+	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
 
-  <!-- JavaScript
-    ================================================== -->
-  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
-  <!-- JQuery -->
-  <script type="text/javascript" charset="utf8"
-    src="https://code.jquery.com/jquery-1.12.3.js"></script>
+	  <!-- Bootstrap -->
+	  <script type="text/javascript"
+	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-  <!-- Bootstrap -->
-  <script type="text/javascript"
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+	  <div data-layout-fragment="javascript">
+	    <div data-layout-include="fragments/js/datatables :: datatables"></div>
 
-  <div data-layout-fragment="javascript">
-    <div data-layout-include="fragments/js/datatables :: datatables"></div>
+	    <!-- Datatables page configs -->
+	    <script type="text/javascript" data-th-inline="javascript">
+	      jQuery(document).ready( function () {
+	    	    // TODO Cambiar acción del botón cancelar
+	          var customerOrdersTable = jQuery('#customerOrdersTable').DataTable({
+	              'ajax': {
+	                  'url': [[@{/customerorders/}]]
+	              },
+	              'columns': [
+	                { 'data': 'orderDate' },
+	                { 'data': 'status' },
+	                { 'data': 'employeeName' },
+	                { 'data': 'customerCompanyName' },
+	                { 'data': 'shippedDate' },
+	                { 'data': 'freight' },
+	                {
+	                  'data': 'orderId',
+	                  'orderable': false,
+	                  'searchable': false,
+	                  'render': function ( data, type, full, meta ) {
+	                      var baseUrl = [[@{/customerorders/}]];
+	                      return '<a role="button" class="btn-action show" data-th-text="#{label_show}" href="' + baseUrl + data + '">Show</a>' +
+	                      '<a role="button" class="btn-action edit" data-th-text="#{label_edit}" href="' + baseUrl + data + '/' + jQuery.editUri + '/">Edit</a>' +
+	                      '<a role="button" class="btn-action delete" data-th-text="#{label_reset}" href="' + baseUrl + data + '/' + jQuery.deleteUri + '/">Cancel</a>'
+	                  }
+	                }
+	              ]
+	          });
 
-    <!-- Datatables page configs -->
-    <script type="text/javascript" data-th-inline="javascript">
-      jQuery(document).ready( function () {
-    	    // TODO Cambiar acción del botón cancelar
-          var customerOrdersTable = jQuery('#customerOrdersTable').DataTable({
-              'ajax': {
-                  'url': [[@{/customerorders/}]]
-              },
-              'columns': [
-                { 'data': 'orderDate' },
-                { 'data': 'status' },
-                { 'data': 'employeeName' },
-                { 'data': 'customerCompanyName' },
-                { 'data': 'shippedDate' },
-                { 'data': 'freight' },
-                {
-                  'data': 'orderId',
-                  'orderable': false,
-                  'searchable': false,
-                  'render': function ( data, type, full, meta ) {
-                      var baseUrl = [[@{/customerorders/}]];
-                      return '<a role="button" class="btn-accion ver" data-th-text="#{label_show}" href="' + baseUrl + data + '">Ver</a>' +
-                      '<a role="button" class="btn-accion editar" data-th-text="#{label_edit}" href="' + baseUrl + data + '/' + jQuery.editUri + '/">Editar</a>' +
-                      '<a role="button" class="btn-accion eliminar" data-th-text="#{label_reset}" href="' + baseUrl + data + '/' + jQuery.deleteUri + '/">Cancelar</a>'
-                  }
-                }
-              ]
-          });
+	          // TODO Falta implementar los enlaces. Visualización, creación, edición y borrado no está implementado.
+	          var orderDetailTable = jQuery('#orderDetailTable').DataTable({
+	              'columns': [
+	                { 'data': 'productName' },
+	                { 'data': 'quantity' },
+	                { 'data': 'unitPrice' },
+	                { 'data': 'discount' },
+	                { 'data': 'total' },
+	                {
+	                  'data': 'orderDetailId',
+	                  'orderable': false,
+	                  'searchable': false,
+	                  'render': function ( data, type, full, meta ) {
+	                      return '<a role="button" class="btn-action edit" data-th-text="#{label_edit}" href="' + jQuery.updateOrderDetailUrl(data) + '">Edit</a>' +
+	                             '<a role="button" class="btn-action delete" data-th-text="#{label_delete}" href="' + jQuery.deleteOrderDetailUrl(data) + '">Delete</a>'
+	                  }
+	                }
+	              ]
+	          });
 
-          // TODO Falta implementar los enlaces. Visualización, creación, edición y borrado no está implementado.
-          var orderDetailTable = jQuery('#orderDetailTable').DataTable({
-              'columns': [
-                { 'data': 'productName' },
-                { 'data': 'quantity' },
-                { 'data': 'unitPrice' },
-                { 'data': 'discount' },
-                { 'data': 'total' },
-                {
-                  'data': 'orderDetailId',
-                  'orderable': false,
-                  'searchable': false,
-                  'render': function ( data, type, full, meta ) {
-                      return '<a role="button" class="btn-accion editar" data-th-text="#{label_edit}" href="' + jQuery.updateOrderDetailUrl(data) + '">Editar</a>' +
-                             '<a role="button" class="btn-accion eliminar" data-th-text="#{label_delete}" href="' + jQuery.deleteOrderDetailUrl(data) + '">Eliminar</a>'
-                  }
-                }
-              ]
-          });
+	          jQuery.extend({
+	            'currentCustomerOrderId': undefined,
+	            'orderDetailsBaseUrl': function() {
+	              if(jQuery.currentCustomerOrderId) {
+	                return [[@{/customerorders/}]] + jQuery.currentCustomerOrderId + '/orderdetails/';
+	              }
+	              return undefined;
+	            },
+	            'createOrderDetailUrl': function() {
+	              if(jQuery.currentCustomerOrderId) {
+	                return jQuery.orderDetailsBaseUrl() + jQuery.createUri + '/';
+	              }
+	              return undefined;
+	            },
+	            'updateOrderDetailUrl': function(orderDetailId) {
+	              if(jQuery.currentCustomerOrderId) {
+	                return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.editUri + '/';
+	              }
+	              return undefined;
+	            },
+	            'deleteOrderDetailUrl': function(orderDetailId) {
+	              if(jQuery.currentCustomerOrderId) {
+	                return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.deleteUri + '/';
+	              }
+	              return undefined;
+	            }
+	          });
 
-          jQuery.extend({
-            'currentCustomerOrderId': undefined,
-            'orderDetailsBaseUrl': function() {
-              if(jQuery.currentCustomerOrderId) {
-                return [[@{/customerorders/}]] + jQuery.currentCustomerOrderId + '/orderdetails/';
-              }
-              return undefined;
-            },
-            'createOrderDetailUrl': function() {
-              if(jQuery.currentCustomerOrderId) {
-                return jQuery.orderDetailsBaseUrl() + jQuery.createUri + '/';
-              }
-              return undefined;
-            },
-            'updateOrderDetailUrl': function(orderDetailId) {
-              if(jQuery.currentCustomerOrderId) {
-                return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.editUri + '/';
-              }
-              return undefined;
-            },
-            'deleteOrderDetailUrl': function(orderDetailId) {
-              if(jQuery.currentCustomerOrderId) {
-                return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.deleteUri + '/';
-              }
-              return undefined;
-            }
-          });
+	          customerOrdersTable.on( 'select', function ( e, dt, type, indexes ) {
+	              if ( type === 'row' ) {
+	                var newCustomerOrderId = customerOrdersTable.rows( indexes ).ids()[0];
+	                if (jQuery.currentCustomerOrderId != newCustomerOrderId) {
+	                  jQuery.currentCustomerOrderId = newCustomerOrderId;
+	                  var url = jQuery.orderDetailsBaseUrl();
+	                  orderDetailTable.ajax.url( url ).load();
+	                  var customerOrder = customerOrdersTable.rows( indexes ).data()[0];
+	                  var customer = customerOrder['customerCompanyName'];
+	                  var orderDate = customerOrder['orderDate'];
+	                  jQuery('#orderDetailTableCaption').text('Order products for the customer ' + customer + ' with date ' + orderDate);
+	                }
+	              }
+	          } );
+	      });
+	      </script>
 
-          customerOrdersTable.on( 'select', function ( e, dt, type, indexes ) {
-              if ( type === 'row' ) {
-                var newCustomerOrderId = customerOrdersTable.rows( indexes ).ids()[0];
-                if (jQuery.currentCustomerOrderId != newCustomerOrderId) {
-                  jQuery.currentCustomerOrderId = newCustomerOrderId;
-                  var url = jQuery.orderDetailsBaseUrl();
-                  orderDetailTable.ajax.url( url ).load();
-                  var customerOrder = customerOrdersTable.rows( indexes ).data()[0];
-                  var customer = customerOrder['customerCompanyName'];
-                  var orderDate = customerOrder['orderDate'];
-                  // TODO Falta la internalización
-                  jQuery('#orderDetailTableCaption').text('Productos del pedido para el cliente ' + customer + ' con fecha ' + orderDate);
-                }
-              }
-          } );
-      });
-      </script>
+    </div>
 
-  </div>
+	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+	  <!-- Application -->
+	  <script src="../../static/public/js/main.js"></script>
 
-  <!-- Application -->
-  <script src="../../static/public/js/main.js"></script>
-
-</body>
+  </body>
 
 </html>
