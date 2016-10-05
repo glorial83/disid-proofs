@@ -1,5 +1,8 @@
 package com.disid.restful.web.customer.html;
 
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
+
 import com.disid.restful.datatables.Datatables;
 import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.datatables.DatatablesPageable;
@@ -61,8 +64,10 @@ public class CustomersCollectionThymeleafController {
       return "customers/create";
     }
     Customer newCustomer = customerService.save(customer);
-    redirectAttrs.addAttribute("id", newCustomer.getId());
-    return "redirect:/customers/{id}";
+
+    String uri = fromMethodCall(on(CustomersItemThymeleafController.class).show(null, null))
+        .buildAndExpand(newCustomer.getId()).encode().toUriString();
+    return "redirect:" + uri;
   }
 
   // List Customers

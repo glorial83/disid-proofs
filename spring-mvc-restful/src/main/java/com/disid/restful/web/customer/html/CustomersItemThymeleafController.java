@@ -1,5 +1,8 @@
 package com.disid.restful.web.customer.html;
 
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
+
 import com.disid.restful.model.Customer;
 import com.disid.restful.service.api.CustomerService;
 
@@ -39,13 +42,12 @@ public class CustomersItemThymeleafController {
 
   @ModelAttribute
   public Customer getCustomer(@PathVariable("customer") Long id) {
-    return customerService.findOne(id);
+    Customer customer = customerService.findOne(id);
+    return customer;
   }
 
   @GetMapping("/edit-form")
   public String editForm(@ModelAttribute Customer customer, Model model) {
-
-    // TODO: what happens if the customer to edit does not exist?
     return "customers/edit";
   }
 
@@ -57,14 +59,19 @@ public class CustomersItemThymeleafController {
     }
 
     Customer savedCustomer = customerService.save(customer);
-    redirectAttrs.addAttribute("id", savedCustomer.getId());
-    return "redirect:/customers/{id}";
+
+    String uri = fromMethodCall(on(CustomersItemThymeleafController.class).show(null, null))
+        .buildAndExpand(savedCustomer.getId()).encode().toUriString();
+    return "redirect:" + uri;
   }
 
   @DeleteMapping
   public String delete(@ModelAttribute Customer customer, Model model) {
     customerService.delete(customer);
-    return "redirect:/customers";
+    String uri =
+        fromMethodCall(on(CustomersCollectionThymeleafController.class).list(null)).build().encode()
+            .toUriString();
+    return "redirect:" + uri;
   }
 
   @GetMapping

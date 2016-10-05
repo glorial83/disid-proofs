@@ -8,8 +8,10 @@ import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Locale;
+
 @Controller
 @RequestMapping(value = "/customers/{customer}/orders", produces = MediaType.TEXT_HTML_VALUE)
 public class CustomersItemOrdersThymeleafController {
@@ -32,16 +36,24 @@ public class CustomersItemOrdersThymeleafController {
 
   public CustomerService customerService;
 
+  public MessageSource messageSource;
+
   @Autowired
   public CustomersItemOrdersThymeleafController(CustomerService customerService,
-      CustomerOrderService customerOrderService) {
+      CustomerOrderService customerOrderService, MessageSource messageSource) {
     this.customerService = customerService;
     this.customerOrderService = customerOrderService;
+    this.messageSource = messageSource;
   }
 
   @ModelAttribute
-  public Customer getCustomer(@PathVariable("customer") Long id) {
-    return customerService.findOne(id);
+  public Customer getCustomer(@PathVariable("customer") Long id, Locale locale) {
+    Customer customer = customerService.findOne(id);
+    if (customer == null) {
+      String message = messageSource.getMessage("error_customerNotFound", null, locale);
+      throw new NotFoundException(message);
+    }
+    return customer;
   }
 
   @GetMapping(produces = Datatables.MEDIA_TYPE)

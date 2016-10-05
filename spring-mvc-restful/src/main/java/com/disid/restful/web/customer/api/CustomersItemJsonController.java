@@ -3,6 +3,8 @@ package com.disid.restful.web.customer.api;
 import com.disid.restful.model.Customer;
 import com.disid.restful.service.api.CustomerService;
 
+import io.springlets.web.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +35,11 @@ public class CustomersItemJsonController {
 
   @ModelAttribute
   public Customer getCustomer(@PathVariable("customer") Long id) {
-    return customerService.findOne(id);
+    Customer customer = customerService.findOne(id);
+    if (customer == null) {
+      throw new NotFoundException("Customer not found");
+    }
+    return customer;
   }
 
   @PutMapping
@@ -41,10 +47,6 @@ public class CustomersItemJsonController {
       @Valid @RequestBody Customer customer, BindingResult result) {
     if (result.hasErrors()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
-    }
-
-    if (storedCustomer == null) {
-      return ResponseEntity.notFound().build();
     }
 
     customer.setId(storedCustomer.getId());
@@ -61,9 +63,6 @@ public class CustomersItemJsonController {
 
   @GetMapping
   public ResponseEntity<?> show(@ModelAttribute Customer customer) {
-    if (customer == null) {
-      return ResponseEntity.notFound().build();
-    }
     return ResponseEntity.status(HttpStatus.FOUND).body(customer);
   }
 
