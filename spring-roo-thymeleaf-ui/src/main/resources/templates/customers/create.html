@@ -62,7 +62,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css"
       data-th-href="@{/webjars/select2-bootstrap-theme/0.1.0-beta.7/dist/select2-bootstrap.css}" />
 
-		<!-- DatePicker -->
+		<!-- DateTimePicker -->
 		<link rel="stylesheet" type="text/css"
 		  data-th-href="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.min.css}"
 		  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.min.css" />
@@ -182,87 +182,6 @@
             </div>
 
           <fieldset>
-
-            <legend data-th-text="#{label_customeruserlogininfo_userdata}">Store data
-            </legend>
-
-            <div class="form-group has-error has-feedback" id="username"
-              data-th-classappend="${#fields.hasErrors('username')}? 'has-error has-feedback'"
-              data-th-class="form-group">
-              <label for="username" class="col-md-3 control-label"
-                data-th-text="#{label_customeruserlogininfo_username}">Name</label>
-              <div class="col-md-3">
-                <input type="text" class="form-control" id="username"
-                  name="username" data-th-field="*{username}"
-                  data-th-placeholder="#{label_customeruserlogininfo_username}"
-                  placeholder="Name" data-toggle="tooltip"
-                  data-th-title="#{info_required_field}" required="required"
-                  title="Required field" /> <span
-                  data-th-classappend="${#fields.hasErrors('username')}? 'glyphicon glyphicon-remove form-control-feedback'"
-                  class="glyphicon glyphicon-remove form-control-feedback"
-                  data-th-if="${#fields.hasErrors('username')}"
-                  aria-hidden="true"></span> <span id="username-error"
-                  class="help-block"
-                  data-th-if="${#fields.hasErrors('username')}"
-                  data-th-errors="*{username}">Error message.</span>
-              </div>
-            </div>
-
-            <div class="form-group has-error has-feedback" id="password"
-              data-th-classappend="${#fields.hasErrors('password')}? 'has-error has-feedback'"
-              data-th-class="form-group">
-              <label for="password" class="col-md-3 control-label"
-                data-th-text="#{label_customeruserlogininfo_password}">Password</label>
-              <div class="col-md-3">
-                <input type="password" class="form-control" id="password"
-                  name="password" data-th-field="*{password}"
-                  data-th-placeholder="#{label_customeruserlogininfo_password}"
-                  placeholder="Password" data-toggle="tooltip"
-                  data-th-title="#{info_required_field}" required="required"
-                  title="Required field" /> <span
-                  data-th-classappend="${#fields.hasErrors('password')}? 'glyphicon glyphicon-remove form-control-feedback'"
-                  class="glyphicon glyphicon-remove form-control-feedback"
-                  data-th-if="${#fields.hasErrors('password')}"
-                  aria-hidden="true"></span> <span id="password-error"
-                  class="help-block"
-                  data-th-if="${#fields.hasErrors('password')}"
-                  data-th-errors="*{password}">Error message.</span>
-              </div>
-            </div>
-
-            <div class="form-group has-error has-feedback" id="repeatPassword"
-              data-th-classappend="${#fields.hasErrors('repeatPassword')}? 'has-error has-feedback'"
-              data-th-class="form-group">
-              <label for="repeatPassword" class="col-md-3 control-label"
-                data-th-text="#{label_customeruserlogininfo_repeatpassword}">Repeat
-                Password</label>
-              <div class="col-md-3">
-                <input type="password" class="form-control" id="repeatPassword"
-                  name="repeatPassword" data-th-field="*{repeatPassword}"
-                  data-th-placeholder="#{label_customeruserlogininfo_repeatpassword}"
-                  placeholder="Repeat password" data-toggle="tooltip"
-                  data-th-title="#{info_required_field}"
-                  title="Required field" required="required" /> <span
-                  data-th-classappend="${#fields.hasErrors('repeatPassword')}? 'glyphicon glyphicon-remove form-control-feedback'"
-                  class="glyphicon glyphicon-remove form-control-feedback"
-                  data-th-if="${#fields.hasErrors('repeatPassword')}"
-                  aria-hidden="true"></span> <span id="repeatPassword-error"
-                  class="help-block"
-                  data-th-if="${#fields.hasErrors('repeatPassword')}"
-                  data-th-errors="*{repeatPassword}">Error message.</span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-md-offset-3 col-md-3">
-                <div class="help-block alert alert-info"
-                  data-th-text="#{error_Pattern.userLoginPassword.password}">Info
-                  message.</div>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
             <legend data-th-text="#{label_customeruserlogininfo_customerdata}">
             Customer Data</legend>
 
@@ -285,6 +204,9 @@
                   class="help-block"
                   data-th-if="${#fields.hasErrors('companyName')}"
                   data-th-errors="*{companyName}">Error message.</span>
+                  <div class="help-block alert alert-info"
+                  data-th-text="#{error_Pattern.userLoginPassword.password}">Info
+                  message.</div>
               </div>
             </div>
 
@@ -308,6 +230,29 @@
                   class="help-block"
                   data-th-if="${#fields.hasErrors('contactName')}"
                   data-th-errors="*{contactName}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback"
+              data-th-classappend="${#fields.hasErrors('birthDate')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="birthDate" class="col-md-3 control-label"
+                data-th-text="#{label_employeeuserlogininfo_birthdate}">Birth
+                Date </label>
+              <div class="col-md-3">
+                <input type="text" class="form-control datetimepicker"
+                  id="birthDate" name="birthDate" data-th-field="*{birthDate}"
+                  data-th-placeholder="#{label_employeeuserlogininfo_birthdate}"
+                  placeholder="Birth Date" data-toggle="tooltip"
+                  data-th-title="#{info_required_field}" required="required"
+                  title="Required field" data-dateformat="dd/MM/yyyy" /> <span
+                  data-th-classappend="${#fields.hasErrors('birthDate')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('birthDate')}"
+                  aria-hidden="true"></span> <span id="birthdate-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('birthDate')}"
+                  data-th-errors="*{birthDate}">Error message.</span>
               </div>
             </div>
 
@@ -581,9 +526,33 @@
 	  <script type="text/javascript"
 	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
+	  <!-- MomentJS -->
+	  <script
+	    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+	    data-th-src="@{/webjars/org.webjars.bower/momentjs/2.13.0/moment.js}">
+	    </script>
+
+	  <script
+	    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
+	    data-th-src="@{/webjars/org.webjars.bower/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
+	    data-th-if="${#locale.language} != 'en'">
+	  </script>
+	  <script src="../../static/public/js/moment-defaults.js"
+	    data-th-src="@{/public/js/moment-defaults.js}">
+	  </script>
+
 	  <div data-layout-fragment="javascript">
+
 	    <!-- Select2 -->
 	    <div data-layout-include="fragments/js/select2 :: select2"></div>
+
+	    <!-- DateTimePicker -->
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"
+        data-th-src="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js}"></script>
+      <script src="../../static/public/js/datetimepicker-defaults.js"
+        data-th-src="@{/public/js/datetimepicker-defaults.js}"></script>
+
 	  </div>
 
 	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

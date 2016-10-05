@@ -62,7 +62,7 @@
 		  href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css"
 		  data-th-href="@{/webjars/select2-bootstrap-theme/0.1.0-beta.7/dist/select2-bootstrap.css}" />
 
-		<!-- DatePicker -->
+		<!-- DateTimePicker -->
 		<link rel="stylesheet" type="text/css"
 		  data-th-href="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.min.css}"
 		  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.min.css" />
@@ -181,12 +181,12 @@
             data-th-classappend="${#fields.hasErrors('companyName')}? 'has-error has-feedback'"
            data-th-class="form-group">
             <label for="companyName" class="col-md-3 control-label"
-              data-th-text="#{label_customer_companyname}">Compañía</label>
+              data-th-text="#{label_customer_companyname}">Company</label>
             <div class="col-md-3">
               <input type="text" class="form-control" id="companyName"
                 name="companyName" data-th-field="*{companyName}"
                 data-th-placeholder="#{label_customer_companyname}"
-                placeholder="Compañía" data-toggle="tooltip"
+                placeholder="Company" data-toggle="tooltip"
                 data-th-title="#{info_required_field}" title="Required field"
                 required="required" /> <span
                 data-th-classappend="${#fields.hasErrors('companyName')}? 'glyphicon glyphicon-remove form-control-feedback'"
@@ -221,6 +221,29 @@
                 data-th-errors="*{contactName}">Error message.</span>
             </div>
           </div>
+
+          <div class="form-group has-error has-feedback"
+              data-th-classappend="${#fields.hasErrors('birthDate')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="birthDate" class="col-md-3 control-label"
+                data-th-text="#{label_employeeuserlogininfo_birthdate}">Birth
+                Date </label>
+              <div class="col-md-3">
+                <input type="text" class="form-control datetimepicker"
+                  id="birthDate" name="birthDate" data-th-field="*{birthDate}"
+                  data-th-placeholder="#{label_employeeuserlogininfo_birthdate}"
+                  placeholder="Birth Date" data-toggle="tooltip"
+                  data-th-title="#{info_required_field}" required="required"
+                  title="Required field" data-dateformat="dd/MM/yyyy" /> <span
+                  data-th-classappend="${#fields.hasErrors('birthDate')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('birthDate')}"
+                  aria-hidden="true"></span> <span id="birthdate-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('birthDate')}"
+                  data-th-errors="*{birthDate}">Error message.</span>
+              </div>
+            </div>
 
           <div class="form-group has-error has-feedback" id="contactTitle"
             data-th-classappend="${#fields.hasErrors('contactTitle')}? 'has-error has-feedback'"
@@ -495,12 +518,35 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script type="text/javascript"
-      src="../../static/public/js/ie10-viewport-bug-workaround.js"></script>s
+      src="../../static/public/js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MomentJS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+      data-th-src="@{/webjars/org.webjars.bower/momentjs/2.13.0/moment.js}">
+      </script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
+      data-th-src="@{/webjars/org.webjars.bower/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
+      data-th-if="${#locale.language} != 'en'">
+    </script>
+    <script src="../../static/public/js/moment-defaults.js"
+      data-th-src="@{/public/js/moment-defaults.js}">
+    </script>
 
 	 <div data-layout-fragment="javascript">
       <!-- Select2 -->
       <div data-layout-include="fragments/js/select2 :: select2"></div>
-    </div>
+
+      <!-- DateTimePicker -->
+	    <script
+	      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"
+	      data-th-src="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js}"></script>
+	    <script src="../../static/public/js/datetimepicker-defaults.js"
+	      data-th-src="@{/public/js/datetimepicker-defaults.js}"></script>
+
+   </div>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script type="text/javascript" charset="utf8"
