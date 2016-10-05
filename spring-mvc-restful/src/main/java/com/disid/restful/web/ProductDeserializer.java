@@ -6,16 +6,16 @@ package com.disid.restful.web;
 import com.disid.restful.model.Product;
 import com.disid.restful.service.api.ProductService;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import io.springlets.web.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonComponent;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -26,8 +26,8 @@ import java.io.IOException;
  * from text to {@link Long}.
  * @author Cèsar Ordiñana
  */
-@Component
-public class ProductDeserializer extends JsonDeserializer<Product> {
+@JsonComponent
+public class ProductDeserializer extends JsonObjectDeserializer<Product> {
 
   private ProductService productService;
   private ConversionService conversionService;
@@ -39,24 +39,15 @@ public class ProductDeserializer extends JsonDeserializer<Product> {
   }
 
   @Override
-  public Product deserialize(JsonParser jp, DeserializationContext ctxt)
-      throws IOException, JsonProcessingException {
-    String idText = null;
-    try {
-      ObjectCodec codec = jp.getCodec();
-      JsonNode tree = codec.readTree(jp);
-      idText = tree.asText();
-      Long id = conversionService.convert(idText, Long.class);
-      return productService.findOne(id);
-    } catch (Exception ex) {
-      if (ex instanceof IOException) {
-        throw (IOException) ex;
-      }
-      String msg =
-          idText == null ? "Product deserialize error"
-              : "Could not find Product with id: " + idText;
-      throw new JsonMappingException(jp, msg, ex);
+  protected Product deserializeObject(JsonParser jsonParser, DeserializationContext context,
+      ObjectCodec codec, JsonNode tree) throws IOException {
+    String idText = tree.asText();
+    Long id = conversionService.convert(idText, Long.class);
+    Product product = productService.findOne(id);
+    if (product == null) {
+      throw new NotFoundException("Product not found");
     }
+    return product;
   }
 
 }
