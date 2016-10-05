@@ -209,7 +209,7 @@ table a.btn-action {
 .btn-action.add:before {
 	content:"\f067";
 	}
-.btn-action.show:before {
+.btn-action.showInfo:before {
 	content:"\f06e";
 }
 
