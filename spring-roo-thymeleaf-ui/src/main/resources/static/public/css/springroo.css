@@ -41,6 +41,32 @@ a.navbar-brand {}
 
 .navbar-nav > li > .dropdown-menu {  margin-top: 4px;}
 
+.dropdown-menu > li button.btn-link {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #999999;
+  white-space: nowrap;
+  text-transform: none;
+  font-size: 1em;
+}
+.dropdown-menu > li button.btn-link:hover,
+.dropdown-menu > li button.btn-link:focus {
+  text-decoration: none;
+  color: #333333;
+  background-color: transparent;
+}
+.dropdown-menu > .active button.btn-link,
+.dropdown-menu > .active button.btn-link:hover,
+.dropdown-menu > .active button.btn-link:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #6db33f;
+}
+
 /*--FOOTER-------------*/
 
 footer {

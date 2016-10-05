@@ -43,74 +43,86 @@
 	    <!-- HEADER -->
 	    <header role="banner">
 
-	      <!-- cabecera -->
-	      <div class="bg-header">
-	        <div class="organization-logo">
-	          <a
-	            title="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-	            href="http://www.msssi.gob.es/"><img
-	            alt="Ministerio de Sanidad, Servicios Sociales e Igualdad - Gobierno de España"
-	            src="../../static/public/img/logo_ministerio.jpg" /></a>
-	        </div>
-	        <div class="application-name">
-	          <a href="/" data-th-href="@{/}">Aplicación Northwind</a>
-	        </div>
-	      </div>
+	      <!-- BANNER -->
+        <div class="bg-header">
+          <div class="jumbotron bg-banner">
+              <div class="container">
+                <h1 class="project-name">Hello, we are Spring Roo!</h1>
+                <h2 class="project-tagline">Get start your next awesome project</h2>
+              </div>
+          </div>
+        </div>
 
-	      <!-- MENÚ PRINCIPAL -->
-	      <nav class="navbar navbar-default">
-	        <div class="container-fluid">
+        <!-- Main navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
 
-	          <!-- collapsed menu button -->
-	          <div class="navbar-header">
-	            <button type="button" class="navbar-toggle collapsed"
-	              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-	              aria-expanded="false">
-	              <span class="sr-only">Desplegable</span> <span class="icon-bar"></span> <span
-	                class="icon-bar"></span> <span class="icon-bar"></span>
-	            </button>
-	            <a class="navbar-brand" href="#">Menú principal</a>
-	          </div>
+            <!-- navbar-header -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
 
-	          <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+              <!-- Brand logo -->
+              <div class="organization-logo navbar-brand">
+                <a title="Spring Roo Application" href="http://projects.spring.io/spring-roo/">
+                  <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
+                </a>
+              </div>
+              <!-- Name application -->
+              <div class="application-name navbar-brand hidden-xs"><a href="/" data-th-href="@{/}">Spring Roo Application</a></div>
 
-	            <!-- menú principal -->
-	            <div class="row">
-	              <ul class="nav navbar-nav">
-	                <li class="active"><a href="#">Menú 1 activo</a></li>
-	                <li><a href="#">Menú 2</a></li>
-	                <li class="dropdown"><a href="#" class="dropdown-toggle"
-	                  data-toggle="dropdown" role="button" aria-haspopup="true"
-	                  aria-expanded="false">Menú 3 desplegable<span class="caret"></span></a>
-	                  <ul class="dropdown-menu">
-	                    <li><a href="#">Submenú 1</a></li>
-	                    <li><a href="#">Submenú 2</a></li>
-	                    <li><a href="#">Submenú 3</a></li>
-	                  </ul></li>
-	              </ul>
-	            </div>
+            </div>
+            <!-- /navbar-header -->
 
-	            <!-- menú de usuario -->
-	            <div class="container upper-nav">
-	              <ul class="nav navbar-nav navbar-right session">
-	                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>First Name
-	                  Last Name</li>
-	                <li><button type="submit" class="exit">
-	                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Log out</span>
-	                  </button></li>
-	              </ul>
-	              <ul class="nav navbar-nav navbar-right links">
-	                <li><a href="#"><span class="glyphicon glyphicon-envelope"
-	                    aria-hidden="true"></span><span>Contacto</span></a></li>
-	                <li><a href="#"><span class="glyphicon glyphicon-question-sign"
-	                    aria-hidden="true"></span><span>Ayuda</span></a></li>
-	              </ul>
-	            </div>
+            <!-- menu -->
+            <div id="mainnav" class="navbar-collapse collapse">
 
-	          </div>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Menu 1 active</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu 3 dropdown<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Submenu 1</a></li>
+                    <li><a href="#">Submenu 2</a></li>
+                    <li><a href="#">Submenu 3</a></li>
+                  </ul>
+                </li>
+              </ul>
 
-	        </div>
-	      </nav>
+              <!-- User menu -->
+              <ul class="nav navbar-nav navbar-right upper-nav session">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">User</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                   <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;<span>Admin Profile</span></a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;<span>Change password</span></a></li>
+                   <li><form action="/logout" method="post">
+                     <button type="button" class="btn btn-link">
+                      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                      <span>Log out</span>
+                     </button>
+                   </form></li>
+                 </ul>
+                </li>
+              </ul>
+
+              <!-- User menu links -->
+              <ul class="nav navbar-nav navbar-right upper-nav links">
+                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Contact</span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Help</span></a></li>
+              </ul>
+
+           </div>
+
+          </div>
+        </nav>
 
 	    </header>
 	    <!--  /HEADER -->
