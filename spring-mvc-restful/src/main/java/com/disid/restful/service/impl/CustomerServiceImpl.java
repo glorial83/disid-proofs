@@ -81,6 +81,8 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Transactional(readOnly = false)
   public Customer save(Customer entity) {
+    // Ensure the relationship is maintained
+    entity.addToAddress(entity.getAddress());
     return customerRepository.save(entity);
   }
 
