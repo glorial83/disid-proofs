@@ -15,38 +15,27 @@
  */
 package com.disid.restful.config.jackson;
 
-import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import io.springlets.http.converter.json.BindingResultSerializer;
 import io.springlets.http.converter.json.FieldErrorSerializer;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 /**
- * Configures custom serialization and deserialization of entities.
+ * Module to configure the serialization of BindingResult objects.
  *
  * @author Cèsar Ordiñana
  */
-@Configuration
-class JacksonConfiguration {
+@JsonComponent
+public class BindingResultModule extends SimpleModule {
 
-  @Bean
-  public Module modelModule() {
-    return new DomainModelModule();
-  }
+  private static final long serialVersionUID = 6297913040418497316L;
 
-  @Bean
-  public Module bindingResultModule() {
-
-    SimpleModule module = new SimpleModule();
-
-    module.addSerializer(BindingResult.class, new BindingResultSerializer());
-    module.addSerializer(FieldError.class, new FieldErrorSerializer());
-
-    return module;
+  public BindingResultModule() {
+    addSerializer(BindingResult.class, new BindingResultSerializer());
+    addSerializer(FieldError.class, new FieldErrorSerializer());
   }
 }

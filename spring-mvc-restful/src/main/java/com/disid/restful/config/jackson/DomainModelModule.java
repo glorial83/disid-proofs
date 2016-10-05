@@ -5,68 +5,31 @@ import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 import com.disid.restful.model.Product;
-import com.disid.restful.web.ProductDeserializer;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.disid.restful.web.category.CategoryJsonMixin;
+import com.disid.restful.web.customer.CustomerJsonMixin;
+import com.disid.restful.web.customerorder.CustomerOrderJsonMixin;
+import com.disid.restful.web.customerorder.OrderDetailJsonMixin;
+import com.disid.restful.web.product.ProductJsonMixin;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.boot.jackson.JsonComponent;
 
+/**
+ * Module to register Jackson mixins with annotations for the application
+ * domain model entities.
+ * @author Cèsar Ordiñana at http://www.disid.com[DISID Corporation S.L.]
+ */
+@JsonComponent
 public class DomainModelModule extends SimpleModule {
 
   private static final long serialVersionUID = 8965404165272410003L;
 
   public DomainModelModule() {
-
-    setMixInAnnotation(Category.class, CategoryMixin.class);
-    setMixInAnnotation(Product.class, ProductMixin.class);
-    setMixInAnnotation(Customer.class, CustomerMixin.class);
-    setMixInAnnotation(CustomerOrder.class, CustomerOrderMixin.class);
-    setMixInAnnotation(OrderDetail.class, OrderDetailMixin.class);
-  }
-
-  static abstract class CategoryMixin {
-
-    @JsonIgnore
-    private Set<Product> products;
-  }
-
-  static abstract class ProductMixin {
-
-    @JsonIgnore
-    private Set<Category> categories;
-  }
-
-  //  @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-  static abstract class CustomerMixin {
-
-    @JsonIgnore
-    private Set<CustomerOrder> orders;
-  }
-
-  //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-  static abstract class CustomerOrderMixin {
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date orderDate;
-
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date shippedDate;
-  }
-
-  static abstract class OrderDetailMixin {
-
-    // The product property in the OrderDetail entity cannot be null,
-    // so the product must be sent as an Id, which will be serialized
-    // to the Product entity
-    @JsonDeserialize(using = ProductDeserializer.class)
-    private Product product;
-
-    @JsonIgnore
-    private Set<Category> categories = new HashSet<Category>();
+    setMixInAnnotation(Category.class, CategoryJsonMixin.class);
+    setMixInAnnotation(Product.class, ProductJsonMixin.class);
+    setMixInAnnotation(Customer.class, CustomerJsonMixin.class);
+    setMixInAnnotation(CustomerOrder.class, CustomerOrderJsonMixin.class);
+    setMixInAnnotation(OrderDetail.class, OrderDetailJsonMixin.class);
   }
 
 }
