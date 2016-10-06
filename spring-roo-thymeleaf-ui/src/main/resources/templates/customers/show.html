@@ -19,8 +19,8 @@
     <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
       data-th-remove="all" />
 
-		<title data-th-text="#{label_show_entity(#{label_customerorder})}">
-		  Order Customer Form - Spring Roo application</title>
+		<title data-th-text="#{label_show_entity(#{label_customer})}">
+		  Customer - Spring Roo application</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
@@ -114,6 +114,23 @@
                 </li>
               </ul>
 
+              <!-- Language -->
+              <ul class="nav navbar-nav navbar-right upper-nav language">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Language</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" id="languageFlags">
+                   <li id="enFlag"><a href="?lang=en"><img class="flag"
+                   data-th-src="@{/public/img/en.png}" src="../../static/public/img/en.png"
+                   alt="English">&nbsp;<span>English</span></a> </li>
+                   <li id="esFlag"><a href="?lang=es"><img class="flag"
+                   data-th-src="@{/public/img/es.png}" src="../../static/public/img/es.png"
+                   alt="Spanish">&nbsp;<span>Spanish</span></a> </li>
+                 </ul>
+               </li>
+              </ul>
+
               <!-- User menu -->
               <ul class="nav navbar-nav navbar-right upper-nav session">
                 <li class="dropdown">
@@ -152,118 +169,71 @@
 	      <div class="container-fluid content">
 
 	        <!-- CONTENT -->
-	        <h1 data-th-text="#{label_show_entity(#{label_customerorder})}">Order
-	        Customer Form</h1>
-	        <dl class="dl-horizontal">
-	          <dt data-th-text="#{label_customerorder_status}">Status</dt>
-	          <dd data-th-text="*{status}">Sent</dd>
-	          <dt data-th-text="#{label_customerorder_employee}">Employee</dt>
-	          <dd data-th-text="*{{employee}}">Employee X</dd>
-	          <dt data-th-text="#{label_customerorder_customer}">Customer</dt>
-	          <dd data-th-text="*{{customer}}">Company A</dd>
-	          <dt data-th-text="#{label_customerorder_requireddate}">Required Date</dt>
-	          <dd data-th-text="*{{requiredDate}}">01/01/2001</dd>
-	          <dt data-th-text="#{label_customerorder_grandtotal}">Total amount
-	            Order</dt>
-	          <dd data-th-text="*{{grandTotal}}">0,00</dd>
+	        <h1 data-th-text="#{label_show_entity(#{label_customer})}">
+	        Customer</h1>
 
-	          <dt data-th-if="*{invoiceDate != null}"
-	            data-th-text="#{label_customerorder_invoicedate}">Invoice Date</dt>
-	          <dd data-th-if="*{invoiceDate != null}" data-th-text="*{{invoiceDate}}">01/01/2011</dd>
-	          <dt data-th-if="*{invoiceFile != null}"
-	            data-th-text="#{label_customerorder_invoicefile}">Invoice</dt>
-	          <dd data-th-if="*{invoiceFile != null}">Invoice 1</dd>
-
-	          <dt data-th-if="*{shippedDate != null}"
-	            data-th-text="#{label_customerorder_shippeddate}">Shipped Date</dt>
-	          <dd data-th-if="*{shippedDate != null}" data-th-text="*{{shippedDate}}">01/01/2011</dd>
-	          <dt data-th-text="#{label_customerorder_shipvia}">Shipper</dt>
-	          <dd data-th-text="*{{shipVia}}">Shipper A</dd>
-	          <dt data-th-text="#{label_customerorder_freight}">Shipping</dt>
-	          <dd data-th-text="*{{freight}}">0,00 €</dd>
-	          <dt data-th-text="#{label_customerorder_shipname}">Shipper Name</dt>
-	          <dd data-th-text="*{shipName}">Empresas AA S.A.</dd>
-	          <dt data-th-text="#{label_customerorder_shipaddress}">Adress</dt>
-	          <dd data-th-text="*{shipAddress}">C/ San Juan Número 88, Polígono
-	            Industrial A</dd>
-	          <dt data-th-text="#{label_customerorder_shipcountry}">Country</dt>
-	          <dd data-th-text="*{{shipCountry}}">España</dd>
-	          <dt data-th-text="#{label_customerorder_shipregion}">Region</dt>
-	          <dd data-th-text="*{{shipRegion}}">Valencia</dd>
-	          <dt data-th-text="|#{label_customerorder_shipcity}|">City</dt>
-	          <dd data-th-text="*{{shipCity}}">Valencia</dd>
-	          <dt data-th-text="|#{label_customerorder_shippostalcode}|">Postal
-	          code</dt>
-	          <dd data-th-text="*{shipPostalCode}">12345</dd>
-	          <dt data-th-text="|#{label_customerorder_shipphone}|">Phone</dt>
-	          <dd data-th-text="*{shipPhone}">000000000</dd>
-	        </dl>
-
-	        <div class="panel panel-default">
-	          <div class="panel-heading">
-	            <h3 class="panel-title" data-th-text="#{label_customerorder_orderdetails}">Products</h3>
-	          </div>
-	          <div class="panel-body">
-	            <!-- Order product table -->
-
-	            <div class="table-responsive">
-	              <table class="table table-striped table-hover table-bordered">
-	                <!-- NOTE: tag "caption" is not used when the table is included in "panel" class. -->
-	                <thead>
-	                  <tr>
-	                    <th data-th-text="#{label_customerorder_orderdetail_product}">Product</th>
-	                    <th data-th-text="#{label_customerorder_orderdetail_quantity}">Quantity</th>
-	                    <th data-th-text="#{label_customerorder_orderdetail_unitprice}">Unit
-	                    Price</th>
-	                    <th data-th-text="#{label_customerorder_orderdetail_discount}">Discount</th>
-	                    <th data-th-text="#{label_customerorder_orderdetail_total}">Total</th>
-	                  </tr>
-	                </thead>
-	                <tbody>
-	                  <tr>
-	                    <td>Apricot</td>
-	                    <td>2</td>
-	                    <td>0,60</td>
-	                    <td>0</td>
-	                    <td>1,20</td>
-	                  </tr>
-	                  <tr>
-	                    <td>Tomato</td>
-	                    <td>4</td>
-	                    <td>0,50</td>
-	                    <td>20</td>
-	                    <td>1,60</td>
-	                  </tr>
-	                <tfoot>
-	                  <tr>
-	                    <th colspan="4" style="text-align: right" rowspan="1"
-	                      data-th-text="#{label_customerorder_orderdetail_total}">Total</th>
-	                    <th rowspan="1" colspan="1">0,00</th>
-	                  </tr>
-	                </tfoot>
-	                </tbody>
-	              </table>
-	            </div>
-	          </div>
-	        </div>
+            <ul class="list-unstyled">
+              <li id="companyname">
+                <strong data-th-text="#{label_customer_companyname}">Company</strong>
+                <span data-th-text="*{companyName}">Company</span>
+              </li>
+              <li id="contactname">
+                <strong data-th-text="#{label_customer_contactname}">Contact Name
+                </strong>
+                <span data-th-text="*{contactName}">Contact Name</span>
+              </li>
+              <li id="contacttitle">
+                <strong data-th-text="#{label_customer_contacttitle}">Job</strong>
+                <span data-th-text="*{contactTitle}">Job</span>
+              </li>
+              <li id="email">
+	              <strong data-th-text="#{label_customer_email}">Email</strong>
+	              <span data-th-text="*{email}">example@example.com</span>
+	            </li>
+              <li id="adress">
+                <strong data-th-text="#{label_customer_address}">Address</strong>
+                <span data-th-text="*{address}">Address</span>
+              </li>
+              <li id="country">
+                <strong data-th-text="#{label_customer_country}">Country</strong>
+                <span data-th-text="*{{country}}">Country</span>
+              </li>
+              <li id="region">
+                <strong data-th-text="#{label_customer_region}">Region</strong>
+                <span data-th-text="*{{region}}">Region</span>
+              </li>
+              <li id="city">
+                <strong data-th-text="#{label_customer_city}">City</strong>
+                <span data-th-text="*{{city}}">City</span>
+              </li>
+              <li id="postalcode">
+                <strong data-th-text="#{label_customer_postalcode}">Postal code</strong>
+                <span data-th-text="*{postalCode}">00000</span>
+              </li>
+              <li id="phone">
+                <strong data-th-text="#{label_customer_phone}">Phone</strong>
+                <span data-th-text="*{phone}">000 000 000</span>
+              </li>
+              <li id="fax">
+                <strong data-th-text="#{label_customer_fax}">Fax</strong>
+                <span data-th-text="*{fax}">000 000 000</span>
+              </li>
+            </ul>
 
 	        <div class="clearfix">
 	          <div class="pull-left">
-	            <button data-th-onclick="'location.href=\'' + @{/customerorders} + '\''"
-	              type="button" class="btn btn-default" onclick="location.href='list.html'">
-	              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span
-	                data-th-text="#{label_back}">Back</span>
-	            </button>
+	            <a id="store_list" href="list.html" class="btn btn-default"
+	              data-th-href="@{/stores}"> <span
+	              class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span
+	              data-th-text="#{label_back}">Back</span>
+	            </a>
 	          </div>
 	          <div class="pull-right">
-	            <button
-	              data-th-onclick="'location.href=\'' + @{/customerorders/{customerOrderId}/edit-form(customerOrderId=*{id})} + '\''"
-	              data-sec-authorize="hasAnyRole('ROLE_ADMIN','ROLE_EMPLEADO')"
-	              type="button" class="btn btn-primary" onclick="location.href='edit.html'"
-	              data-th-text="#{label_edit}">Edit</button>
+	            <a id="store_edit" href="edit.html" class="btn btn-primary"
+	              data-th-href="@{/stores/{storeId}/edit-form(storeId=*{id})}"
+	              data-th-text="#{label_edit}">Edit</a>
 	          </div>
 	        </div>
-
 	      </div>
 	    </section>
 	    <!-- /CONTENT-->
@@ -284,7 +254,7 @@
 
 	  <!-- JavaScript
 	    ================================================== -->
-	  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
+	   <!-- Placed at the end of the document so that the pages load faster -->
 	  <!-- JQuery -->
 	  <script type="text/javascript" charset="utf8"
 	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
@@ -293,8 +263,9 @@
 	  <script type="text/javascript"
 	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script type="text/javascript" charset="utf8"
+      src="../../static/public/js/ie10-viewport-bug-workaround.js"></script>
 
 	  <!-- Application -->
 	  <script src="../../static/public/js/main.js"></script>

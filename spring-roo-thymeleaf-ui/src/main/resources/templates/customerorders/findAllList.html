@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" data-layout-decorator="layouts/default-layout">
-	<head>
-		<meta charset="UTF-8" data-th-remove="all" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
-		<meta name="viewport" content="width=device-width, initial-scale=1"
-		  data-th-remove="all" />
-		<meta name="description"
-		  content="A next-generation rapid application development tool for Java developers.
-		  With Roo you can easily build full Java applications in minutes."
-		  data-th-remove="all" />
-		<meta name="author"
-		  content="Spring Roo Team"
-		  data-th-remove="all" />
+  <head>
+    <meta charset="UTF-8" data-th-remove="all" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"
+      data-th-remove="all" />
+    <meta name="description"
+      content="A next-generation rapid application development tool for Java developers.
+      With Roo you can easily build full Java applications in minutes."
+      data-th-remove="all" />
+    <meta name="author"
+      content="Spring Roo Team"
+      data-th-remove="all" />
 
     <link rel="shortcut icon" href="../../static/public/img/favicon.ico"
       data-th-remove="all" />
@@ -19,10 +19,10 @@
     <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
       data-th-remove="all" />
 
-		<title data-th-text="#{label_list_entity(#{label_customer_plural})}">Customer
-		Orders Search List - Spring Roo application</title>
+    <title data-th-text="#{label_list_entity(#{label_customer_plural})}">Customer
+    Orders Search List - Spring Roo application</title>
 
-		    <!-- Bootstrap -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
       data-th-remove="all"></link>
@@ -36,6 +36,32 @@
     <link rel="stylesheet" type="text/css"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
     data-th-remove="all" />
+
+    <!-- Datatables -->
+    <link
+      data-th-href="@{/webjars/datatables/1.10.11/media/css/jquery.dataTables.css}"
+      rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css"></link>
+
+    <link
+      data-th-href="@{/webjars/datatables.net-bs/1.10.11/css/dataTables.bootstrap.css}"
+      rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css"></link>
+
+    <link
+      data-th-href="@{/webjars/datatables.net-responsive-bs/2.0.2/css/responsive.bootstrap.css}"
+      rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css"></link>
+
+    <link
+      data-th-href="@{/webjars/datatables.net-buttons-bs/1.1.2/css/buttons.bootstrap.css}"
+      rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.css"></link>
+
+    <link
+      data-th-href="@{/webjars/datatables.net-select-bs/1.1.2/css/select.bootstrap.css}"
+      rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/select/1.1.2/css/select.bootstrap.css"></link>
 
     <!-- Bootswatch CSS custom -->
     <link rel="stylesheet" type="text/css"
@@ -54,43 +80,17 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-		<!-- Datatables -->
-		<link
-		  data-th-href="@{/webjars/datatables/1.10.11/media/css/jquery.dataTables.css}"
-		  rel="stylesheet" type="text/css"
-		  href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css"></link>
+  </head>
 
-		<link
-		  data-th-href="@{/webjars/datatables.net-bs/1.10.11/css/dataTables.bootstrap.css}"
-		  rel="stylesheet" type="text/css"
-		  href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css"></link>
+  <body>
 
-		<link
-		  data-th-href="@{/webjars/datatables.net-responsive-bs/2.0.2/css/responsive.bootstrap.css}"
-		  rel="stylesheet" type="text/css"
-		  href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css"></link>
+    <!--CONTAINER-->
+    <div class="container bg-container">
 
-		<link
-		  data-th-href="@{/webjars/datatables.net-buttons-bs/1.1.2/css/buttons.bootstrap.css}"
-		  rel="stylesheet" type="text/css"
-		  href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.css"></link>
+      <!-- HEADER -->
+      <header role="banner">
 
-		<link
-		  data-th-href="@{/webjars/datatables.net-select-bs/1.1.2/css/select.bootstrap.css}"
-		  rel="stylesheet" type="text/css"
-		  href="https://cdn.datatables.net/select/1.1.2/css/select.bootstrap.css"></link>
-
-	</head>
-
-	<body>
-
-	  <!--CONTAINER-->
-	  <div class="container bg-container">
-
-	    <!-- HEADER -->
-	    <header role="banner">
-
-	      <!-- BANNER -->
+        <!-- BANNER -->
         <div class="bg-header">
           <div class="jumbotron bg-banner">
               <div class="container">
@@ -141,6 +141,23 @@
                 </li>
               </ul>
 
+              <!-- Language -->
+              <ul class="nav navbar-nav navbar-right upper-nav language">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Language</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" id="languageFlags">
+                   <li id="enFlag"><a href="?lang=en"><img class="flag"
+                   data-th-src="@{/public/img/en.png}" src="../../static/public/img/en.png"
+                   alt="English">&nbsp;<span>English</span></a> </li>
+                   <li id="esFlag"><a href="?lang=es"><img class="flag"
+                   data-th-src="@{/public/img/es.png}" src="../../static/public/img/es.png"
+                   alt="Spanish">&nbsp;<span>Spanish</span></a> </li>
+                 </ul>
+               </li>
+              </ul>
+
               <!-- User menu -->
               <ul class="nav navbar-nav navbar-right upper-nav session">
                 <li class="dropdown">
@@ -171,161 +188,161 @@
           </div>
         </nav>
 
-	    </header>
-	    <!--  /HEADER -->
+      </header>
+      <!--  /HEADER -->
 
-	    <!--CONTENT-->
-	    <section data-layout-fragment="content">
-	      <div data-th-unless="${customerOrderSearch.isEmpty()}">
+      <!--CONTENT-->
+      <section data-layout-fragment="content">
+        <div data-th-unless="${customerOrderSearch.isEmpty()}">
 
-	        <div class="alert alert-info" role="alert">
-	          <p data-th-text="|#{label_applied_filter}:|">Applied filter:</p>
-	          <ul data-th-object="${customerOrderSearch}">
-	            <li data-th-unless="${customer == null}"
-	              data-th-text="|#{label_customerorder_customer}: ${customer.companyName}|">Customer:
-	              Ramón Navarro Casaña</li>
-	            <li data-th-unless="${employee == null}"
-	              data-th-text="|#{label_customerorder_employee}: ${employee.firstName} ${employee.lastName}|">Employee:
-	              Ana Valero Román</li>
-	            <li data-th-unless="*{statuses == null}"
-	              data-th-text="|#{label_customerorder_status_plural}: *{#strings.arrayJoin(statuses,',')}|">Status:
-	              NEWLY</li>
-	            <li data-th-unless="*{orderDateStart == null}"
-	              data-th-text="|#{label_customerorder_orderdate_from}: *{{orderDateStart}}|">Order
-	               Date Start: 22/03/2015</li>
-	            <li data-th-unless="*{orderDateEnd == null}"
-	              data-th-text="|#{label_customerorder_orderdate_thru}: *{{orderDateEnd}}|">Order
-	              Date End: 22/03/2016</li>
-	          </ul>
-	        </div>
+          <div class="alert alert-info" role="alert">
+            <p data-th-text="|#{label_applied_filter}:|">Applied filter:</p>
+            <ul data-th-object="${customerOrderSearch}">
+              <li data-th-unless="${customer == null}"
+                data-th-text="|#{label_customerorder_customer}: ${customer.companyName}|">Customer:
+                Ramón Navarro Casaña</li>
+              <li data-th-unless="${employee == null}"
+                data-th-text="|#{label_customerorder_employee}: ${employee.firstName} ${employee.lastName}|">Employee:
+                Ana Valero Román</li>
+              <li data-th-unless="*{statuses == null}"
+                data-th-text="|#{label_customerorder_status_plural}: *{#strings.arrayJoin(statuses,',')}|">Status:
+                NEWLY</li>
+              <li data-th-unless="*{orderDateStart == null}"
+                data-th-text="|#{label_customerorder_orderdate_from}: *{{orderDateStart}}|">Order
+                 Date Start: 22/03/2015</li>
+              <li data-th-unless="*{orderDateEnd == null}"
+                data-th-text="|#{label_customerorder_orderdate_thru}: *{{orderDateEnd}}|">Order
+                Date End: 22/03/2016</li>
+            </ul>
+          </div>
 
-	      </div>
-	      <div class="container-fluid content">
-	        <!--
-	           Only the inner content of the following tag "section" is included
-	          within the template, in the section "content"
-	          -->
-	        <!--TABLE-->
-	        <div class="table-responsive">
-	          <table id="customerOrdersTable"
-	            class="table table-striped table-hover table-bordered"
-	            data-row-id="orderId" data-select="single"
-	            data-order="[[ 0, &quot;asc&quot; ]]"
-	            data-th-attr="data-create-url=@{/customerorders/create-form/}">
-	            <caption
-	              data-th-text="#{label_list_entity(#{label_customerorder_plural})}">
-	              Customer Orders List</caption>
-	            <thead>
-	              <tr>
-	                <th data-th-text="#{label_customerorder_orderdate}">Order Date</th>
-	                <th data-th-text="#{label_customerorder_status}">Status</th>
-	                <th data-th-text="#{label_customerorder_employee}">Employee</th>
-	                <th data-th-text="#{label_customerorder_customer}">Customer</th>
-	                <th data-th-text="#{label_customerorder_shippeddate}">Shipping
-	                Date</th>
-	                <th data-th-text="#{label_customerorder_freight}">Shipping</th>
-	                <th data-th-text="#{label_action}">Action</th>
-	              </tr>
-	            </thead>
-	            <tbody data-th-remove="all">
-	              <tr>
-	                <td>99/99/9999</td>
-	                <td>Active</td>
-	                <td>Alberto Giménez Giménez</td>
-	                <td>Vicente Pérez</td>
-	                <td>99/99/9999</td>
-	                <td>10.5€</td>
-	                <td><a role="button" class="btn-action show" href="show.html">Show</a>
-	                  <a role="button" class="btn-action edit" href="edit.html">Edit</a>
-	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a>
-	                </td>
-	              </tr>
-	            </tbody>
-	          </table>
-	        </div>
-	        <!-- /TABLE-->
+        </div>
+        <div class="container-fluid content">
+          <!--
+             Only the inner content of the following tag "section" is included
+            within the template, in the section "content"
+            -->
+          <!--TABLE-->
+          <div class="table-responsive">
+            <table id="customerOrdersTable"
+              class="table table-striped table-hover table-bordered"
+              data-row-id="orderId" data-select="single"
+              data-order="[[ 0, &quot;asc&quot; ]]"
+              data-th-attr="data-create-url=@{/customerorders/create-form/}">
+              <caption
+                data-th-text="#{label_list_entity(#{label_customerorder_plural})}">
+                Customer Orders List</caption>
+              <thead>
+                <tr>
+                  <th data-th-text="#{label_customerorder_orderdate}">Order Date</th>
+                  <th data-th-text="#{label_customerorder_status}">Status</th>
+                  <th data-th-text="#{label_customerorder_employee}">Employee</th>
+                  <th data-th-text="#{label_customerorder_customer}">Customer</th>
+                  <th data-th-text="#{label_customerorder_shippeddate}">Shipping
+                  Date</th>
+                  <th data-th-text="#{label_customerorder_freight}">Shipping</th>
+                  <th data-th-text="#{label_action}">Action</th>
+                </tr>
+              </thead>
+              <tbody data-th-remove="all">
+                <tr>
+                  <td>99/99/9999</td>
+                  <td>Active</td>
+                  <td>Alberto Giménez Giménez</td>
+                  <td>Vicente Pérez</td>
+                  <td>99/99/9999</td>
+                  <td>10.5€</td>
+                  <td><a role="button" class="btn-action showInfo" href="show.html">Show</a>
+                    <a role="button" class="btn-action edit" href="edit.html">Edit</a>
+                    <a role="button" class="btn-action delete" href="delete.html">Delete</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /TABLE-->
 
-	        <!--Order detail products list -->
-	        <div class="table-responsive">
-	          <table id="orderDetailTable"
-	            class="table table-striped table-hover table-bordered"
-	            data-row-id="orderDetailId" data-defer-loading="0"
-	            data-order="[[ 0, &quot;asc&quot; ]]"
-	            data-create-url-function="createOrderDetailUrl">
-	            <caption id="orderDetailTableCaption"
-	              data-th-text="#{label_list_entity(#{label_customerorder_orderdetails})}">
-	              Products List</caption>
-	            <thead>
-	              <tr>
-	                <th data-th-text="#{label_customerorder_orderdetail_product}">Product</th>
-	                <th data-th-text="#{label_customerorder_orderdetail_quantity}">Quantity</th>
-	                <th data-th-text="#{label_customerorder_orderdetail_unitprice}">Unit
-	                Price</th>
-	                <th data-th-text="#{label_customerorder_orderdetail_discount}">Discount
-	                  %</th>
-	                <th data-th-text="#{label_customerorder_orderdetail_total}">Total</th>
-	                <th data-th-text="#{label_action}">Action</th>
-	              </tr>
-	            </thead>
-	            <tbody data-th-remove="all">
-	              <tr>
-	                <td>Apricot</td>
-	                <td>2</td>
-	                <td>0,60</td>
-	                <td>0</td>
-	                <td>1,2</td>
-	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
-	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
-	              </tr>
-	              <tr>
-	                <td>Tomato</td>
-	                <td>4</td>
-	                <td>0,50</td>
-	                <td>20</td>
-	                <td>1,6</td>
-	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
-	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
-	              </tr>
-	              <tr>
-	                <td>Sardine</td>
-	                <td>5</td>
-	                <td>5,32</td>
-	                <td>3</td>
-	                <td>25,80</td>
-	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
-	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
-	              </tr>
-	              <tr>
-	                <td>White wine</td>
-	                <td>7</td>
-	                <td>5,65</td>
-	                <td>10</td>
-	                <td>35,60</td>
-	                <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
-	                  <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
-	              </tr>
-	            </tbody>
-	          </table>
-	        </div>
-	        <!-- /Order detail products list -->
+          <!--Order detail products list -->
+          <div class="table-responsive">
+            <table id="orderDetailTable"
+              class="table table-striped table-hover table-bordered"
+              data-row-id="orderDetailId" data-defer-loading="0"
+              data-order="[[ 0, &quot;asc&quot; ]]"
+              data-create-url-function="createOrderDetailUrl">
+              <caption id="orderDetailTableCaption"
+                data-th-text="#{label_list_entity(#{label_customerorder_orderdetails})}">
+                Products List</caption>
+              <thead>
+                <tr>
+                  <th data-th-text="#{label_customerorder_orderdetail_product}">Product</th>
+                  <th data-th-text="#{label_customerorder_orderdetail_quantity}">Quantity</th>
+                  <th data-th-text="#{label_customerorder_orderdetail_unitprice}">Unit
+                  Price</th>
+                  <th data-th-text="#{label_customerorder_orderdetail_discount}">Discount
+                    %</th>
+                  <th data-th-text="#{label_customerorder_orderdetail_total}">Total</th>
+                  <th data-th-text="#{label_action}">Action</th>
+                </tr>
+              </thead>
+              <tbody data-th-remove="all">
+                <tr>
+                  <td>Apricot</td>
+                  <td>2</td>
+                  <td>0,60</td>
+                  <td>0</td>
+                  <td>1,2</td>
+                  <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+                    <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
+                </tr>
+                <tr>
+                  <td>Tomato</td>
+                  <td>4</td>
+                  <td>0,50</td>
+                  <td>20</td>
+                  <td>1,6</td>
+                  <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+                    <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
+                </tr>
+                <tr>
+                  <td>Sardine</td>
+                  <td>5</td>
+                  <td>5,32</td>
+                  <td>3</td>
+                  <td>25,80</td>
+                  <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+                    <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
+                </tr>
+                <tr>
+                  <td>White wine</td>
+                  <td>7</td>
+                  <td>5,65</td>
+                  <td>10</td>
+                  <td>35,60</td>
+                  <td><a role="button" class="btn-action edit" href="edit.html">Edit</a>
+                    <a role="button" class="btn-action delete" href="delete.html">Delete</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /Order detail products list -->
 
-	        <div class="clearfix">
-	          <div class="pull-left">
-	            <a href="findAllForm.html" class="btn btn-default"
-	              data-th-href="@{/customerorders/findAll/search-form/}"> <span
-	              class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span
-	              data-th-text="#{label_back}">Back</span>
-	            </a>
-	          </div>
-	        </div>
+          <div class="clearfix">
+            <div class="pull-left">
+              <a href="findAllForm.html" class="btn btn-default"
+                data-th-href="@{/customerorders/findAll/search-form/}"> <span
+                class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span
+                data-th-text="#{label_back}">Back</span>
+              </a>
+            </div>
+          </div>
 
-	      </div>
-	      <!-- /CONTENT-->
+        </div>
+        <!-- /CONTENT-->
 
-	    </section>
+      </section>
 
-	  </div>
-	  <!-- /CONTAINER-->
+    </div>
+    <!-- /CONTAINER-->
 
     <footer class="container">
       <small class="clearfix">
@@ -338,129 +355,116 @@
       </small>
     </footer>
 
-	  <!-- JavaScript
-	    ================================================== -->
-	  <!-- Ubicado al final del documento para que las páginas carguen más rápido -->
-	  <!-- JQuery -->
-	  <script type="text/javascript" charset="utf8"
-	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
+    <!-- JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so that the pages load faster -->
+    <!-- JQuery -->
+    <script type="text/javascript" charset="utf8"
+      src="https://code.jquery.com/jquery-1.12.3.js"></script>
 
-	  <!-- Bootstrap -->
-	  <script type="text/javascript"
-	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <!-- Bootstrap -->
+    <script type="text/javascript"
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-	  <div data-layout-fragment="javascript">
-	    <div data-layout-include="fragments/js/datatables :: datatables"></div>
+    <div data-layout-fragment="javascript">
 
-	    <!-- Datatables page configs -->
-	    <script type="text/javascript" data-th-inline="javascript"
-	      data-th-object="${customerOrderSearch}">
-	      jQuery(document).ready( function () {
-	          var customerOrdersTable = jQuery('#customerOrdersTable').DataTable({
-	              'columns': [
-	                { 'data': 'orderDate' },
-	                { 'data': 'status' },
-	                { 'data': 'employeeName' },
-	                { 'data': 'customerCompanyName' },
-	                { 'data': 'shippedDate' },
-	                { 'data': 'freight' },
-	                {
-	                  'data': 'orderId',
-	                  'orderable': false,
-	                  'searchable': false,
-	                  'render': function ( data, type, full, meta ) {
-	                      var baseUrl = [[@{/customerorders/}]];
-	                      return '<a role="button" class="btn-action show" data-th-text="#{label_show}" href="' + baseUrl + data + '">Show</a>' +
-	                      '<a role="button" class="btn-action edit" data-th-text="#{label_edit}" href="' + baseUrl + data + '/' + jQuery.editUri + '/">Edit</a>' +
-	                      '<a role="button" class="btn-action delete" data-th-text="#{label_delete}" href="' + baseUrl + data + '/' + jQuery.deleteUri + '/">Delete</a>'
-	                  }
-	                }
-	              ],
-	              'ajax' : {
-	                'url': [[@{/customerorders/}]],
-	                'data' : {
-	                    'customerId': /*[[*{{customerId}}]]*/ '1',
-	                    'employeeId': /*[[*{{employeeId}}]]*/ '1',
-	                    'statuses': /*[[*{statuses != null}? *{#strings.arrayJoin(statuses,',')}]]*/ 'NEWLY,SENT',
-	                    'orderDateStart': /*[[*{{orderDateStart}}]]*/ '01/01/2016',
-	                    'orderDateEnd':/*[[*{{orderDateEnd}}]]*/ '01/01/2017'
-	                }
-	              }
-	          });
+      <!-- Progress bar -->
+      <script type="text/javascript">
+        function loading() {
+            jQuery('.progress').removeClass('hide');
+        }
+      </script>
 
-	          var orderDetailTable = jQuery('#orderDetailTable').DataTable({
-	              'columns': [
-	                { 'data': 'productName' },
-	                { 'data': 'quantity' },
-	                { 'data': 'unitPrice' },
-	                { 'data': 'discount' },
-	                { 'data': 'total' },
-	                {
-	                  'data': 'orderDetailId',
-	                  'orderable': false,
-	                  'searchable': false,
-	                  'render': function ( data, type, full, meta ) {
-	                      return '<a role="button" class="btn-action edit" data-th-text="#{label_edit}" href="' + jQuery.updateOrderDetailUrl(data) + '">Edit</a>' +
-	                             '<a role="button" class="btn-action delete" data-th-text="#{label_delete}" href="' + jQuery.deleteOrderDetailUrl(data) + '">Delete</a>'
-	                  }
-	                }
-	              ]
-	          });
+      <div data-layout-include="fragments/js/datatables :: datatables"></div>
 
-	          jQuery.extend({
-	            'currentCustomerOrderId': undefined,
-	            'orderDetailsBaseUrl': function() {
-	              if(jQuery.currentCustomerOrderId) {
-	                return [[@{/customerorders/}]] + jQuery.currentCustomerOrderId + '/orderdetails/';
-	              }
-	              return undefined;
-	            },
-	            'createOrderDetailUrl': function() {
-	              if(jQuery.currentCustomerOrderId) {
-	                return jQuery.orderDetailsBaseUrl() + jQuery.createUri + '/';
-	              }
-	              return undefined;
-	            },
-	            'updateOrderDetailUrl': function(orderDetailId) {
-	              if(jQuery.currentCustomerOrderId) {
-	                return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.editUri + '/';
-	              }
-	              return undefined;
-	            },
-	            'deleteOrderDetailUrl': function(orderDetailId) {
-	              if(jQuery.currentCustomerOrderId) {
-	                return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.deleteUri + '/';
-	              }
-	              return undefined;
-	            }
-	          });
+      <!-- Datatables fragment -->
+      <div data-layout-include="fragments/js/datatables :: datatables">
+        <!-- Datatables scripts ONLY for HTML templates -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"
+              data-th-src="@{/webjars/datatables/1.10.11/media/js/jquery.dataTables.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.js"
+              data-th-src="@{/webjars/datatables.net-bs/1.10.11/js/dataTables.bootstrap.js}"
+              data-th-remove="all"></script>
+            <!-- Datatables responsive plugin -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.js"
+              data-th-src="@{/webjars/datatables.net-responsive/2.0.2/js/dataTables.responsive.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.js"
+              data-th-src="@{/webjars/datatables.net-responsive-bs/2.0.2/js/responsive.bootstrap.js}"
+              data-th-remove="all"></script>
+            <!-- Datatables buttons plugins -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/dataTables.buttons.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.bootstrap.js"
+              data-th-src="@{/webjars/datatables.net-buttons-bs/1.1.2/js/buttons.bootstrap.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.colVis.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.flash.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.html5.js}"
+              data-th-remove="all"></script>
+            <!-- Datatables select plugin -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.js"
+              data-th-src="@{/webjars/datatables.net-select/1.1.2/js/dataTables.select.js}"
+              data-th-remove="all"></script>
+      </div>
 
-	          customerOrdersTable.on( 'select', function ( e, dt, type, indexes ) {
-	              if ( type === 'row' ) {
-	                var newCustomerOrderId = customerOrdersTable.rows( indexes ).ids()[0];
-	                if (jQuery.currentCustomerOrderId != newCustomerOrderId) {
-	                  jQuery.currentCustomerOrderId = newCustomerOrderId;
-	                  var url = jQuery.orderDetailsBaseUrl();
-	                  orderDetailTable.ajax.url( url ).load();
-	                  var customerOrder = customerOrdersTable.rows( indexes ).data()[0];
-	                  var customer = customerOrder['customerCompanyName'];
-	                  var orderDate = customerOrder['orderDate'];
-	                  jQuery('#orderDetailTableCaption').text('Order products for the customer ' + customer + ' with date ' + orderDate);
-	                }
-	              }
-	          } );
+       <!-- Datatables page configs ONLY for HTML templates -->
+       <script type="text/javascript" data-th-remove="all">
+        $(document).ready(function() {
+            $('.table').DataTable( {
+              'buttons' : {
+                  'dom': {
+                    'container': {
+                        'className': 'dt-buttons btn-group col-sm-6'
+                    }
+                  },
+                  'buttons' :[
+                           {
+                           'extend' : 'colvis',
+                           'className' : 'btn-accion',
+                           },
+                           {
+                           'extend' : 'pageLength',
+                           'className' : 'btn-accion',
+                           },
+                       ]
+              },
+              'dom': 'Bfrtip',
+            } );
+            jQuery('.dataTables_filter').addClass('col-sm-6');
+            jQuery('.dataTables_info').addClass('col-sm-6');
+            jQuery('.dataTables_paginate').addClass('col-sm-6');
+            jQuery('.dataTables_processing').addClass('progress-bar progress-bar-striped active');
+        } );
+        </script>
 
-	      });
-	      </script>
+    </div>
 
-	  </div>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script type="text/javascript" charset="utf8"
+      src="../../static/public/js/ie10-viewport-bug-workaround.js"></script>
 
-	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	  <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
 
-	  <!-- Application -->
-	  <script src="../../static/public/js/main.js"></script>
+    <!-- Application -->
+    <script src="../../static/public/js/main.js"></script>
 
-	</body>
+  </body>
 
 </html>

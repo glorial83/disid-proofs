@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorator="layouts/default-layout">
+	<head>
+		<meta charset="UTF-8" data-th-remove="all" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"
+		  data-th-remove="all" />
+		<meta name="description"
+		  content="A next-generation rapid application development tool for Java developers.
+		  With Roo you can easily build full Java applications in minutes."
+		  data-th-remove="all" />
+		<meta name="author"
+		  content="Spring Roo Team"
+		  data-th-remove="all" />
+
+    <link rel="shortcut icon" href="../../static/public/img/favicon.ico"
+      data-th-remove="all" />
+
+    <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
+      data-th-remove="all" />
+
+		<title data-th-text="#{label_create_entity(#{label_customeruserlogininfo})}">
+		Create Customer - Spring Roo application</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+      data-th-remove="all"></link>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
+      data-th-remove="all"></link>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
+    data-th-remove="all" />
+
+   <!-- Select2 -->
+    <link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.css"
+      data-th-href="@{/webjars/select2/4.0.2/dist/css/select2.css}" />
+    <link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css"
+      data-th-href="@{/webjars/select2-bootstrap-theme/0.1.0-beta.7/dist/select2-bootstrap.css}" />
+
+		<!-- DateTimePicker -->
+		<link rel="stylesheet" type="text/css"
+		  data-th-href="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.min.css}"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.min.css" />
+
+    <!-- Bootswatch CSS custom -->
+    <link rel="stylesheet" type="text/css"
+      href="../../static/public/css/theme.css"
+      data-th-remove="all" />
+
+    <!-- Roo CSS -->
+    <link rel="stylesheet" type="text/css"
+      href="../../static/public/css/springroo.css"
+      data-th-remove="all" />
+
+   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	</head>
+	<body>
+
+	  <!--CONTAINER-->
+	  <div class="container bg-container">
+
+	    <!-- HEADER -->
+	    <header role="banner">
+
+	      <!-- BANNER -->
+	      <div class="bg-header">
+	        <div class="jumbotron bg-banner">
+	            <div class="container">
+	              <h1 class="project-name">Hello, we are Spring Roo!</h1>
+	              <h2 class="project-tagline">Get start your next awesome project</h2>
+	            </div>
+	        </div>
+        </div>
+
+	      <!-- Main navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
+
+            <!-- navbar-header -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <!-- Brand logo -->
+              <div class="organization-logo navbar-brand">
+                <a title="Spring Roo Application" href="http://projects.spring.io/spring-roo/">
+                  <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
+                </a>
+              </div>
+              <!-- Name application -->
+              <div class="application-name navbar-brand hidden-xs"><a href="/" data-th-href="@{/}">Spring Roo Application</a></div>
+
+            </div>
+            <!-- /navbar-header -->
+
+            <!-- menu -->
+            <div id="mainnav" class="navbar-collapse collapse">
+
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Menu 1 active</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu 3 dropdown<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Submenu 1</a></li>
+                    <li><a href="#">Submenu 2</a></li>
+                    <li><a href="#">Submenu 3</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+              <!-- Language -->
+              <ul class="nav navbar-nav navbar-right upper-nav language">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Language</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" id="languageFlags">
+                   <li id="enFlag"><a href="?lang=en"><img class="flag"
+                   data-th-src="@{/public/img/en.png}" src="../../static/public/img/en.png"
+                   alt="English">&nbsp;<span>English</span></a> </li>
+                   <li id="esFlag"><a href="?lang=es"><img class="flag"
+                   data-th-src="@{/public/img/es.png}" src="../../static/public/img/es.png"
+                   alt="Spanish">&nbsp;<span>Spanish</span></a> </li>
+                 </ul>
+               </li>
+              </ul>
+
+              <!-- User menu -->
+              <ul class="nav navbar-nav navbar-right upper-nav session">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">User</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                   <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;<span>Admin Profile</span></a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;<span>Change password</span></a></li>
+                   <li><form action="/logout" method="post">
+                     <button type="button" class="btn btn-link">
+                      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                      <span>Log out</span>
+                     </button>
+                   </form></li>
+                 </ul>
+                </li>
+              </ul>
+
+              <!-- User menu links -->
+              <ul class="nav navbar-nav navbar-right upper-nav links">
+                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Contact</span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Help</span></a></li>
+              </ul>
+
+           </div>
+
+          </div>
+        </nav>
+
+	    </header>
+	    <!--  /HEADER -->
+
+	    <!--CONTENT-->
+	    <section data-layout-fragment="content">
+	      <div class="container-fluid content">
+	        <!--
+	          Only the inner content of the following tag "section" is included
+	          within the template, in the section "content"
+	        -->
+
+	        <h1 data-th-text="#{label_create_entity(#{label_customeruserlogininfo})}">
+	        Create Customer</h1>
+
+	        <!-- FORM -->
+	        <form class="form-horizontal validate" method="POST"
+          data-th-object="${customerUserLoginInfo}"
+          data-th-action="@{/customers}">
+
+          <div data-th-if="${#fields.hasErrors('${customerUserLoginInfo}')}"
+            id="cuserLoginPassword-error" class="alert alert-danger"
+            role="alert" data-th-errors="${customerUserLoginInfo}">Error message.
+            </div>
+
+          <fieldset>
+            <legend data-th-text="#{label_customeruserlogininfo_customerdata}">
+            Customer Data</legend>
+
+            <div class="form-group has-error has-feedback" id="companyName"
+              data-th-classappend="${#fields.hasErrors('companyName')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="companyName" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_companyname}">Company</label>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="companyName"
+                  name="companyName" data-th-field="*{companyName}"
+                  data-th-placeholder="#{label_customeruserlogininfo_companyname}"
+                  placeholder="Company" data-toggle="tooltip"
+                  data-th-title="#{info_required_field}"
+                  title="Required field" required="required" /> <span
+                  data-th-classappend="${#fields.hasErrors('companyName')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('companyName')}"
+                  aria-hidden="true"></span> <span id="companyName-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('companyName')}"
+                  data-th-errors="*{companyName}">Error message.</span>
+                  <div class="help-block alert alert-info"
+                  data-th-text="#{error_Pattern.userLoginPassword.password}">Info
+                  message.</div>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="contactName"
+              data-th-classappend="${#fields.hasErrors('contactName')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="contactName" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_contactname}">Contact
+                Name</label>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="contactName"
+                  name="contactName" data-th-field="*{contactName}"
+                  data-th-placeholder="#{label_customeruserlogininfo_contactname}"
+                  placeholder="Contact Name" data-toggle="tooltip"
+                  data-th-title="#{info_required_field}"
+                  title="Required field" required="required" /> <span
+                  data-th-classappend="${#fields.hasErrors('contactName')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('contactName')}"
+                  aria-hidden="true"></span> <span id="contactName-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('contactName')}"
+                  data-th-errors="*{contactName}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback"
+              data-th-classappend="${#fields.hasErrors('birthDate')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="birthDate" class="col-md-3 control-label"
+                data-th-text="#{label_employeeuserlogininfo_birthdate}">Birth
+                Date </label>
+              <div class="col-md-3">
+                <input type="text" class="form-control datetimepicker"
+                  id="birthDate" name="birthDate" data-th-field="*{birthDate}"
+                  data-th-placeholder="#{label_employeeuserlogininfo_birthdate}"
+                  placeholder="Birth Date" data-toggle="tooltip"
+                  data-th-title="#{info_required_field}" required="required"
+                  title="Required field" data-dateformat="dd/MM/yyyy" /> <span
+                  data-th-classappend="${#fields.hasErrors('birthDate')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('birthDate')}"
+                  aria-hidden="true"></span> <span id="birthdate-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('birthDate')}"
+                  data-th-errors="*{birthDate}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="contactTitle"
+              data-th-classappend="${#fields.hasErrors('contactTitle')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="contactTitle" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_contacttitle}">Job</label>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="contactTitle"
+                  name="contactTitle" data-th-field="*{contactTitle}"
+                  data-th-placeholder="#{label_customeruserlogininfo_contacttitle}"
+                  placeholder="Job" /> <span
+                  data-th-classappend="${#fields.hasErrors('contactTitle')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('contactTitle')}"
+                  aria-hidden="true"></span> <span id="contactTitle-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('contactTitle')}"
+                  data-th-errors="*{contactTitle}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="email"
+              data-th-classappend="${#fields.hasErrors('email')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="email" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_email}">Email</label>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="email" name="email"
+                  data-th-field="*{email}"
+                  data-th-placeholder="#{label_customeruserlogininfo_email}"
+                  placeholder="Email" data-toggle="tooltip"
+                  data-th-title="#{info_required_field}" required="required"
+                  title="Required field" /> <span
+                  data-th-classappend="${#fields.hasErrors('email')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('email')}" aria-hidden="true"></span>
+                <span id="email-error" class="help-block"
+                  data-th-if="${#fields.hasErrors('email')}"
+                  data-th-errors="*{email}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="address"
+              data-th-classappend="${#fields.hasErrors('address')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="address" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_address}">Address</label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="address"
+                  name="address" data-th-field="*{address}"
+                  data-th-placeholder="#{label_customeruserlogininfo_address}"
+                  placeholder="Address" data-toggle="tooltip"
+                  data-th-title="#{info_required_field}" required="required"
+                  title="Required field" /> <span
+                  data-th-classappend="${#fields.hasErrors('address')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('address')}"
+                  aria-hidden="true"></span> <span id="address-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('address')}"
+                  data-th-errors="*{address}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="country"
+              data-th-classappend="${#fields.hasErrors('country')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="country" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_country}">Country</label>
+              <div class="col-md-6">
+                <select id="country" name="country" required="required"
+                  class="form-control dropdown-select-ajax"
+                  data-th-attr="data-placeholder=#{info_select_an_option},data-ajax--url=@{/countries}"
+                  data-id-field="countryId" data-text-fields="description"
+                  data-ajax--url="/countries" data-ajax--cache="true"
+                  data-ajax--delay="250" data-ajax--data-type="json"
+                  data-th-remove="all-but-first">
+                  <option data-th-unless="*{country} == null"
+                    data-th-value="*{country.id}"
+                    data-th-text="*{country.description}" selected="selected"
+                    value="1">Portugal</option>
+                  <option value="2">Spain</option>
+                </select><span
+                  data-th-classappend="${#fields.hasErrors('country')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('country')}"
+                  aria-hidden="true"></span> <span id="country-error"
+                  class="help-block"
+                  data-th-if="${#fields.hasErrors('country')}"
+                  data-th-errors="*{country}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="region"
+              data-th-classappend="${#fields.hasErrors('region')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="region" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_region}">Region</label>
+              <div class="col-md-6">
+                <select id="region" name="region" required="required"
+                  class="form-control dropdown-select-ajax"
+                  data-th-attr="data-placeholder=#{info_select_an_option},data-ajax--url=@{/regions}"
+                  data-id-field="regionId" data-text-fields="description"
+                  data-ajax--url="/regions" data-ajax--cache="true"
+                  data-ajax--delay="250" data-ajax--data-type="json"
+                  data-th-remove="all-but-first">
+                  <option data-th-unless="*{region} == null"
+                    data-th-value="*{region.id}"
+                    data-th-text="*{region.description}" selected="selected"
+                    value="1">ALAVA/ARABA</option>
+                  <option value="2">ALBACETE</option>
+                  <option value="3">ALICANTE/ALACANT</option>
+                </select><span
+                  data-th-classappend="${#fields.hasErrors('region')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('region')}" aria-hidden="true"></span>
+                <span id="region-error" class="help-block"
+                  data-th-if="${#fields.hasErrors('region')}"
+                  data-th-errors="*{region}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="city"
+              data-th-classappend="${#fields.hasErrors('city')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="city" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_city}">City</label>
+              <div class="col-md-6">
+                <!-- select2 sample -->
+                <select id="city" name="city" required="required"
+                  class="form-control dropdown-select-ajax"
+                  data-th-attr="data-placeholder=#{info_select_an_option},data-ajax--url=@{/cities}"
+                  data-id-field="cityId" data-text-fields="description"
+                  data-ajax--url="/cities" data-ajax--cache="true"
+                  data-ajax--delay="250" data-ajax--data-type="json"
+                  data-th-remove="all-but-first">
+                  <option data-th-unless="*{city} == null"
+                    data-th-value="*{city.id}"
+                    data-th-text="*{city.description}" selected="selected"
+                    value="1">Alegría-Dulantzi</option>
+                  <option value="2">Amurrio</option>
+                  <option value="3">Añana</option>
+                  <option value="4">Aramaio</option>
+                  <option value="5">Armiñón</option>
+                </select><span
+                  data-th-classappend="${#fields.hasErrors('city')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('city')}" aria-hidden="true"></span>
+                <span id="city-error" class="help-block"
+                  data-th-if="${#fields.hasErrors('city')}"
+                  data-th-errors="*{city}">Error message.</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div
+                  data-th-classappend="${#fields.hasErrors('postalCode')}? 'has-error has-feedback'"
+                  data-th-class="form-group"
+                  class="form-group has-error has-feedback">
+                  <label for="postalCode"
+                    class="col-md-offset-3 col-md-3 control-label"
+                    data-th-text="#{label_customeruserlogininfo_postalcode}">Postal
+                    code</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" id="postalCode"
+                      name="postalCode" data-th-field="*{postalCode}"
+                      data-th-placeholder="#{label_customeruserlogininfo_postalcode}"
+                      placeholder="Postal Code" data-toggle="tooltip"
+                      data-th-title="#{info_required_field}" required="required"
+                      title="Required field" /> <span
+                      data-th-classappend="${#fields.hasErrors('postalCode')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                      class="glyphicon glyphicon-remove form-control-feedback"
+                      data-th-if="${#fields.hasErrors('postalCode')}"
+                      aria-hidden="true"></span> <span id="postalCode-error"
+                      class="help-block"
+                      data-th-if="${#fields.hasErrors('postalCode')}"
+                      data-th-errors="*{postalCode}">Error message.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div
+                  data-th-classappend="${#fields.hasErrors('phone')}? 'has-error has-feedback'"
+                  data-th-class="form-group"
+                  class="form-group has-error has-feedback">
+                  <label for="phone" class="col-md-2 control-label"
+                    data-th-text="#{label_customeruserlogininfo_phone}">Phone</label>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="phone"
+                      name="phone" data-th-field="*{phone}"
+                      data-th-placeholder="#{label_customeruserlogininfo_phone}"
+                      placeholder="Phone" /> <span
+                      data-th-classappend="${#fields.hasErrors('phone')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                      class="glyphicon glyphicon-remove form-control-feedback"
+                      data-th-if="${#fields.hasErrors('phone')}"
+                      aria-hidden="true"></span> <span id="phone-error"
+                      class="help-block"
+                      data-th-if="${#fields.hasErrors('phone')}"
+                      data-th-errors="*{phone}">Error message.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group has-error has-feedback" id="fax"
+              data-th-classappend="${#fields.hasErrors('fax')}? 'has-error has-feedback'"
+              data-th-class="form-group">
+              <label for="fax" class="col-md-3 control-label"
+                data-th-text="#{label_customeruserlogininfo_fax}">Fax</label>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="fax" name="fax"
+                  data-th-field="*{fax}"
+                  data-th-placeholder="#{label_customeruserlogininfo_fax}"
+                  placeholder="Fax" /> <span
+                  data-th-classappend="${#fields.hasErrors('fax')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+                  data-th-if="${#fields.hasErrors('fax')}" aria-hidden="true"></span>
+                <span id="fax-error" class="help-block"
+                  data-th-if="${#fields.hasErrors('fax')}"
+                  data-th-errors="*{fax}">Error message.</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- buttons form -->
+          <div class="form-group">
+            <div class="col-md-9 col-md-offset-3">
+              <button type="reset" class="btn btn-default"
+                onclick="location.href='list.html'"
+                data-th-onclick="'location.href=\'' + @{/customers} + '\''"
+                data-th-text="#{label_reset}">Cancel</button>
+              <button type="submit" class="btn btn-primary"
+                data-th-text="#{label_submit}">Save</button>
+            </div>
+          </div>
+
+        </form>
+        <!-- /FORM -->
+
+	      </div>
+	      <!-- /CONTENT-->
+
+	    </section>
+
+	  </div>
+	  <!-- /CONTAINER-->
+
+	  <footer class="container">
+      <small class="clearfix">
+        Made with
+        <a href="http://projects.spring.io/spring-roo/"
+        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+        Spring Roo &copy; 2016</a> •
+        We <span class="glyphicon glyphicon-heart"></span>
+        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
+      </small>
+    </footer>
+
+	  <!-- JavaScript
+	  ================================================== -->
+	  <!-- Placed at the end of the document so that the pages load faster -->
+	  <!-- JQuery -->
+	  <script type="text/javascript" charset="utf8"
+	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
+
+	  <!-- Bootstrap -->
+	  <script type="text/javascript"
+	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+
+	  <!-- MomentJS -->
+    <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+       data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
+      </script>
+    <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
+       data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
+       data-th-if="${#locale.language} != 'en'">
+      </script>
+    <script src="../../static/public/js/moment-defaults.js"
+      data-th-src="@{/public/js/moment-defaults.js}">
+      </script>
+
+    <!-- JQuery Validation -->
+    <script
+       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"
+       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/jquery.validate.min.js}">
+      </script>
+    <script
+       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.min.js"
+       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/additional-methods.min.js}">
+      </script>
+    <script
+       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/localization/messages_es.js"
+       data-th-src="@{/webjars/jquery-validation/1.15.0/src/localization/messages_}+ ${#locale.language}+'.js'"
+       data-th-if="${#locale.language} != 'en'">
+      </script>
+    <script src="../../static/public/js/validation-defaults.js"
+      data-th-src="@{/public/js/validation-defaults.js}">
+      </script>
+    <script type="text/javascript" data-th-inline="javascript">
+    (function(jQuery) {
+        jQuery(document).ready(function() {
+          jQuery.extend( jQuery.validator.messages, {
+            'dateformat' : /*[[#{error_invalidDate}]]*/ 'Please enter a correct date/time',
+            'inputmask': /*[[#{error_invalidMaskValue}]]*/ 'Please enter a valid value',
+          });
+        });
+      })(jQuery);
+    </script>
+
+	  <div data-layout-fragment="javascript">
+
+	    <!-- Select2 -->
+	    <div data-layout-include="fragments/js/select2 :: select2"></div>
+
+	    <!-- DateTimePicker -->
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"
+        data-th-src="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js}"></script>
+      <script src="../../static/public/js/datetimepicker-defaults.js"
+        data-th-src="@{/public/js/datetimepicker-defaults.js}"></script>
+
+	  </div>
+
+	  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script type="text/javascript" charset="utf8"
+      src="../../static/public/js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- Application -->
+	  <script type="text/javascript" charset="utf8"
+	   src="../../static/public/js/main.js"></script>
+
+	</body>
+</html>

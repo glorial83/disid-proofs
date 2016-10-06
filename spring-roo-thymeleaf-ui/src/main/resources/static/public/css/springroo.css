@@ -209,7 +209,7 @@ table a.btn-action {
 .btn-action.add:before {
 	content:"\f067";
 	}
-.btn-action.show:before {
+.btn-action.showInfo:before {
 	content:"\f06e";
 }
 
@@ -222,6 +222,12 @@ table a.btn-action {
 table caption {
     color: #333333;
     font-size: 1.2em;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-image: none;
 }
 
 /*--SHOW-------------*/
