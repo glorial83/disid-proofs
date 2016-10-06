@@ -21,7 +21,7 @@
 		<aspectj.plugin.version>1.8</aspectj.plugin.version>
 		<java.version>1.8</java.version>
 		<roo.version>2.0.0.M2</roo.version>
-		<springlets.version>1.0.0-SNAPSHOT</springlets.version>
+		<springlets.version>1.0.0.BUILD-SNAPSHOT</springlets.version>
 	</properties>
 
 	<dependencies>
