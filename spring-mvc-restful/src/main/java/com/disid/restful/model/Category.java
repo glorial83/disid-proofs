@@ -10,18 +10,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @RooJavaBean
 @RooToString
 @RooJpaEntity
+@Table(name="my_category")
 public class Category {
 
   @Size(min = 3, max = 30)
+  @Column(name="my_name")
   private String name;
 
+  @Column(name="my_description")
   private String description;
 
   /**
@@ -32,7 +37,7 @@ public class Category {
   private Set<Product> products = new HashSet<Product>();
 
   /**
-   * Adds a list of products to the category, taking care to update the 
+   * Adds a list of products to the category, taking care to update the
    * relationship from the {@link Product} to the
    * {@link Category} either.
    * @param productsToAdd products to add to the category (required)
@@ -47,7 +52,7 @@ public class Category {
   }
 
   /**
-   * Removes a list of products from this category, taking care to update the 
+   * Removes a list of products from this category, taking care to update the
    * relationship from the {@link Product} to the
    * {@link Category} either.
    * @param productsToRemove products to remove from the customer (required)
