@@ -141,6 +141,23 @@
                 </li>
               </ul>
 
+              <!-- Language -->
+              <ul class="nav navbar-nav navbar-right upper-nav language">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Language</span><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" id="languageFlags">
+                   <li id="enFlag"><a href="?lang=en"><img class="flag"
+                   data-th-src="@{/public/img/en.png}" src="../../static/public/img/en.png"
+                   alt="English">&nbsp;<span>English</span></a> </li>
+                   <li id="esFlag"><a href="?lang=es"><img class="flag"
+                   data-th-src="@{/public/img/es.png}" src="../../static/public/img/es.png"
+                   alt="Spanish">&nbsp;<span>Spanish</span></a> </li>
+                 </ul>
+               </li>
+              </ul>
+
               <!-- User menu -->
               <ul class="nav navbar-nav navbar-right upper-nav session">
                 <li class="dropdown">
@@ -360,80 +377,84 @@
 	    </script>
 
       <!-- Datatables fragment -->
-	    <div data-layout-include="fragments/js/datatables :: datatables"></div>
+	    <div data-layout-include="fragments/js/datatables :: datatables">
 
-	    <!-- Datatables page configs -->
-	    <script type="text/javascript" data-th-inline="javascript">
-	    jQuery(document).ready( function () {
-	       var customerTable = jQuery('#customersTable').DataTable({
-	            'ajax': function (data, callback, settings) {
-	               loadData(data, callback, settings, [[@{/customers/}]], this);
-	            },
-	            'columns': [
-	              { 'data': 'companyName' },
-	              { 'data': 'contactName' },
-	              { 'data': 'email' },
-	              { 'data': 'phone' },
-	              { 'data': 'fax' },
-	              {
-	                'data': 'customerId',
-	                'orderable': false,
-	                'searchable': false,
-	                'render': function ( data, type, full, meta ) {
-	                    var baseUrl = [[@{/customers/}]];
-	                    return '<a class="btn-action showInfo" data-th-text="#{label_show}" href="' + baseUrl + data + '">Show</a>' +
-	                    '<a class="btn-action edit" data-th-text="#{label_edit}" href="' + baseUrl + data + '/' + jQuery.editUri + '">Edit</a>' +
-	                    '<a class="btn-action delete" data-th-text="#{label_delete}" href="javascript:jQuery.deleteCustomerModal(' + data + ')">Delete</a>'
-	                }
-	              }
-	            ]
-	        });
+	         <!-- Datatables for HTML -->
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"
+				      data-th-src="@{/webjars/datatables/1.10.11/media/js/jquery.dataTables.js}"
+				      data-th-remove="all"></script>
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.js"
+				      data-th-src="@{/webjars/datatables.net-bs/1.10.11/js/dataTables.bootstrap.js}"
+				      data-th-remove="all"></script>
+				    <!-- Datatables responsive plugin -->
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.js"
+				      data-th-src="@{/webjars/datatables.net-responsive/2.0.2/js/dataTables.responsive.js}"
+				      data-th-remove="all"></script>
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.js"
+				      data-th-src="@{/webjars/datatables.net-responsive-bs/2.0.2/js/responsive.bootstrap.js}"
+				      data-th-remove="all"></script>
+				    <!-- Datatables buttons plugins -->
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.js"
+				      data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/dataTables.buttons.js}"
+				      data-th-remove="all"></script>
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.bootstrap.js"
+				      data-th-src="@{/webjars/datatables.net-buttons-bs/1.1.2/js/buttons.bootstrap.js}"
+				      data-th-remove="all"></script>
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.js"
+				      data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.colVis.js}"
+				      data-th-remove="all"></script>
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.js"
+				      data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.flash.js}"
+				      data-th-remove="all"></script>
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.js"
+				      data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.html5.js}"
+				      data-th-remove="all"></script>
+				    <!-- Datatables select plugin -->
+				    <script type="text/javascript" charset="utf8"
+				      src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.js"
+				      data-th-src="@{/webjars/datatables.net-select/1.1.2/js/dataTables.select.js}"
+				      data-th-remove="all"></script>
+	    </div>
 
-	       jQuery.extend({
-	           'currentCustomerId': undefined,
-	           'deleteCustomerModal': function(customerId) {
-	             jQuery.currentCustomerId = customerId;
-	             if (jQuery.currentCustomerId) {
-	               jQuery('#confirmDeleteModal').modal('show');
-	             }
-	           },
-	          /**
-	           * Function that removes the client-specified id, if no orders associated.
-	           * An information message is displayed at the end
-	           */
-	           'deleteCustomer': function() {
-	               var token = jQuery("meta[name='_csrf']").attr("content");
-	               var header = jQuery("meta[name='_csrf_header']").attr("content");
-	               jQuery.ajax({
-	                   url: [[@{/customers/}]] + jQuery.currentCustomerId,
-	                   type: 'DELETE',
-	                   beforeSend: function (request)
-	                   {
-	                       request.setRequestHeader(header, token);
-	                   },
-	                   success: function(result) {
-	                     jQuery('#confirmDeleteModal').modal('hide');
-	                     // Se refresca el Datatable.
-	                     customerTable.ajax.reload();
-	                     jQuery('#messageModalBody').empty();
-	                     jQuery('#messageModalBody').append('<p data-th-text="|#{info_deleted_items_number(1)}|" > 0 Deleted items </p>');
-	                     jQuery('#messageModal').modal('show');
-	                   },
-	                   error: function(jqXHR) {
-	                     jQuery('#confirmDeleteModal').modal('hide');
-	                     jQuery('#messageModalBody').empty();
-	                     if(jqXHR.status == 428){
-	                       jQuery('#messageModalBody').append('<p data-th-text="|#{error_deleting_item_with_relationships}|" >To be able to eliminate the selected element, you must eliminate before the elements that it has related.</p>');
-	                     } else {
-	                       jQuery('#messageModalBody').append('<p data-th-text="|#{error_deleting_item}|" >Error deleting item.</p>');
-	                     }
-	                     jQuery('#messageModal').modal('show');
-	                   }
-	                });
-	           }
-	         });
-	    });
-	    </script>
+
+	    <!-- Datatables page configs ONLY for HTML templates -->
+	    <script type="text/javascript">
+    $(document).ready(function() {
+        $('.table').DataTable( {
+          'buttons' : {
+              'dom': {
+                'container': {
+                    'className': 'dt-buttons btn-group col-sm-6'
+                }
+              },
+              'buttons' :[
+                       {
+                       'extend' : 'colvis',
+                       'className' : 'btn-accion',
+                       },
+                       {
+                       'extend' : 'pageLength',
+                       'className' : 'btn-accion',
+                       },
+                   ]
+          },
+          'dom': 'Bfrtip',
+        } );
+        jQuery('.dataTables_filter').addClass('col-sm-6');
+        jQuery('.dataTables_info').addClass('col-sm-6');
+        jQuery('.dataTables_paginate').addClass('col-sm-6');
+        jQuery('.dataTables_processing').addClass('progress-bar progress-bar-striped active');
+    } );
+    </script>
 
 	  </div>
 

@@ -224,6 +224,12 @@ table caption {
     font-size: 1.2em;
 }
 
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background-image: none;
+}
+
 /*--SHOW-------------*/
 
 dd, dt {
