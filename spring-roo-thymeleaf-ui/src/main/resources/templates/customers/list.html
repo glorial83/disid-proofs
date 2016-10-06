@@ -428,34 +428,33 @@
 
 	    <!-- Datatables page configs ONLY for HTML templates -->
 	    <script type="text/javascript" data-th-remove="all">
-    $(document).ready(function() {
-        $('.table').DataTable( {
-          'buttons' : {
-              'dom': {
-                'container': {
-                    'className': 'dt-buttons btn-group col-sm-6'
-                }
-              },
-              'buttons' :[
-                       {
-                       'extend' : 'colvis',
-                       'className' : 'btn-accion',
-                       },
-                       {
-                       'extend' : 'pageLength',
-                       'className' : 'btn-accion',
-                       },
-                   ]
-          },
-          'dom': 'Bfrtip',
-        } );
-        jQuery('.dataTables_filter').addClass('col-sm-6');
-        jQuery('.dataTables_info').addClass('col-sm-6');
-        jQuery('.dataTables_paginate').addClass('col-sm-6');
-        jQuery('.dataTables_processing').addClass('progress-bar progress-bar-striped active');
-    } );
-    </script>
-
+		    $(document).ready(function() {
+		        $('.table').DataTable( {
+		          'buttons' : {
+		              'dom': {
+		                'container': {
+		                    'className': 'dt-buttons btn-group col-sm-6'
+		                }
+		              },
+		              'buttons' :[
+		                       {
+		                       'extend' : 'colvis',
+		                       'className' : 'btn-accion',
+		                       },
+		                       {
+		                       'extend' : 'pageLength',
+		                       'className' : 'btn-accion',
+		                       },
+		                   ]
+		          },
+		          'dom': 'Bfrtip',
+		        } );
+		        jQuery('.dataTables_filter').addClass('col-sm-6');
+		        jQuery('.dataTables_info').addClass('col-sm-6');
+		        jQuery('.dataTables_paginate').addClass('col-sm-6');
+		        jQuery('.dataTables_processing').addClass('progress-bar progress-bar-striped active');
+		    } );
+		    </script>
 	  </div>
 
     <!-- Application -->

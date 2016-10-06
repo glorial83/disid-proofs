@@ -22,7 +22,7 @@
     <title data-th-text="#{label_list_entity(#{label_customer_plural})}">Customer
     Orders Search List - Spring Roo application</title>
 
-        <!-- Bootstrap -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
       data-th-remove="all"></link>
@@ -367,107 +367,92 @@
       src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
     <div data-layout-fragment="javascript">
+
+      <!-- Progress bar -->
+      <script type="text/javascript">
+        function loading() {
+            jQuery('.progress').removeClass('hide');
+        }
+      </script>
+
       <div data-layout-include="fragments/js/datatables :: datatables"></div>
 
-      <!-- Datatables page configs -->
-      <script type="text/javascript" data-th-inline="javascript"
-        data-th-object="${customerOrderSearch}">
-        jQuery(document).ready( function () {
-            var customerOrdersTable = jQuery('#customerOrdersTable').DataTable({
-                'columns': [
-                  { 'data': 'orderDate' },
-                  { 'data': 'status' },
-                  { 'data': 'employeeName' },
-                  { 'data': 'customerCompanyName' },
-                  { 'data': 'shippedDate' },
-                  { 'data': 'freight' },
-                  {
-                    'data': 'orderId',
-                    'orderable': false,
-                    'searchable': false,
-                    'render': function ( data, type, full, meta ) {
-                        var baseUrl = [[@{/customerorders/}]];
-                        return '<a role="button" class="btn-action showInfo" data-th-text="#{label_show}" href="' + baseUrl + data + '">Show</a>' +
-                        '<a role="button" class="btn-action edit" data-th-text="#{label_edit}" href="' + baseUrl + data + '/' + jQuery.editUri + '/">Edit</a>' +
-                        '<a role="button" class="btn-action delete" data-th-text="#{label_delete}" href="' + baseUrl + data + '/' + jQuery.deleteUri + '/">Delete</a>'
+      <!-- Datatables fragment -->
+      <div data-layout-include="fragments/js/datatables :: datatables">
+        <!-- Datatables scripts ONLY for HTML templates -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"
+              data-th-src="@{/webjars/datatables/1.10.11/media/js/jquery.dataTables.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.js"
+              data-th-src="@{/webjars/datatables.net-bs/1.10.11/js/dataTables.bootstrap.js}"
+              data-th-remove="all"></script>
+            <!-- Datatables responsive plugin -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.js"
+              data-th-src="@{/webjars/datatables.net-responsive/2.0.2/js/dataTables.responsive.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.js"
+              data-th-src="@{/webjars/datatables.net-responsive-bs/2.0.2/js/responsive.bootstrap.js}"
+              data-th-remove="all"></script>
+            <!-- Datatables buttons plugins -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/dataTables.buttons.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.bootstrap.js"
+              data-th-src="@{/webjars/datatables.net-buttons-bs/1.1.2/js/buttons.bootstrap.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.colVis.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.flash.js}"
+              data-th-remove="all"></script>
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.js"
+              data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.html5.js}"
+              data-th-remove="all"></script>
+            <!-- Datatables select plugin -->
+            <script type="text/javascript" charset="utf8"
+              src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.js"
+              data-th-src="@{/webjars/datatables.net-select/1.1.2/js/dataTables.select.js}"
+              data-th-remove="all"></script>
+      </div>
+
+       <!-- Datatables page configs ONLY for HTML templates -->
+       <script type="text/javascript" data-th-remove="all">
+        $(document).ready(function() {
+            $('.table').DataTable( {
+              'buttons' : {
+                  'dom': {
+                    'container': {
+                        'className': 'dt-buttons btn-group col-sm-6'
                     }
-                  }
-                ],
-                'ajax' : {
-                  'url': [[@{/customerorders/}]],
-                  'data' : {
-                      'customerId': /*[[*{{customerId}}]]*/ '1',
-                      'employeeId': /*[[*{{employeeId}}]]*/ '1',
-                      'statuses': /*[[*{statuses != null}? *{#strings.arrayJoin(statuses,',')}]]*/ 'NEWLY,SENT',
-                      'orderDateStart': /*[[*{{orderDateStart}}]]*/ '01/01/2016',
-                      'orderDateEnd':/*[[*{{orderDateEnd}}]]*/ '01/01/2017'
-                  }
-                }
-            });
-
-            var orderDetailTable = jQuery('#orderDetailTable').DataTable({
-                'columns': [
-                  { 'data': 'productName' },
-                  { 'data': 'quantity' },
-                  { 'data': 'unitPrice' },
-                  { 'data': 'discount' },
-                  { 'data': 'total' },
-                  {
-                    'data': 'orderDetailId',
-                    'orderable': false,
-                    'searchable': false,
-                    'render': function ( data, type, full, meta ) {
-                        return '<a role="button" class="btn-action edit" data-th-text="#{label_edit}" href="' + jQuery.updateOrderDetailUrl(data) + '">Edit</a>' +
-                               '<a role="button" class="btn-action delete" data-th-text="#{label_delete}" href="' + jQuery.deleteOrderDetailUrl(data) + '">Delete</a>'
-                    }
-                  }
-                ]
-            });
-
-            jQuery.extend({
-              'currentCustomerOrderId': undefined,
-              'orderDetailsBaseUrl': function() {
-                if(jQuery.currentCustomerOrderId) {
-                  return [[@{/customerorders/}]] + jQuery.currentCustomerOrderId + '/orderdetails/';
-                }
-                return undefined;
+                  },
+                  'buttons' :[
+                           {
+                           'extend' : 'colvis',
+                           'className' : 'btn-accion',
+                           },
+                           {
+                           'extend' : 'pageLength',
+                           'className' : 'btn-accion',
+                           },
+                       ]
               },
-              'createOrderDetailUrl': function() {
-                if(jQuery.currentCustomerOrderId) {
-                  return jQuery.orderDetailsBaseUrl() + jQuery.createUri + '/';
-                }
-                return undefined;
-              },
-              'updateOrderDetailUrl': function(orderDetailId) {
-                if(jQuery.currentCustomerOrderId) {
-                  return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.editUri + '/';
-                }
-                return undefined;
-              },
-              'deleteOrderDetailUrl': function(orderDetailId) {
-                if(jQuery.currentCustomerOrderId) {
-                  return jQuery.orderDetailsBaseUrl() + orderDetailId + '/'+ jQuery.deleteUri + '/';
-                }
-                return undefined;
-              }
-            });
-
-            customerOrdersTable.on( 'select', function ( e, dt, type, indexes ) {
-                if ( type === 'row' ) {
-                  var newCustomerOrderId = customerOrdersTable.rows( indexes ).ids()[0];
-                  if (jQuery.currentCustomerOrderId != newCustomerOrderId) {
-                    jQuery.currentCustomerOrderId = newCustomerOrderId;
-                    var url = jQuery.orderDetailsBaseUrl();
-                    orderDetailTable.ajax.url( url ).load();
-                    var customerOrder = customerOrdersTable.rows( indexes ).data()[0];
-                    var customer = customerOrder['customerCompanyName'];
-                    var orderDate = customerOrder['orderDate'];
-                    jQuery('#orderDetailTableCaption').text('Order products for the customer ' + customer + ' with date ' + orderDate);
-                  }
-                }
+              'dom': 'Bfrtip',
             } );
-
-        });
+            jQuery('.dataTables_filter').addClass('col-sm-6');
+            jQuery('.dataTables_info').addClass('col-sm-6');
+            jQuery('.dataTables_paginate').addClass('col-sm-6');
+            jQuery('.dataTables_processing').addClass('progress-bar progress-bar-striped active');
+        } );
         </script>
 
     </div>
