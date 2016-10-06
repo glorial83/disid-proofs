@@ -99,48 +99,6 @@
       data-th-src="@{/public/js/ie10-viewport-bug-workaround.js}">
       </script>
 
-    <!-- MomentJS -->
-    <script
-       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
-       data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
-      </script>
-    <script
-       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
-       data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
-       data-th-if="${#locale.language} != 'en'">
-      </script>
-    <script src="../../static/public/js/moment-defaults.js"
-      data-th-src="@{/public/js/moment-defaults.js}">
-      </script>
-
-    <!-- JQuery Validation -->
-    <script
-       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"
-       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/jquery.validate.min.js}">
-      </script>
-    <script
-       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.min.js"
-       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/additional-methods.min.js}">
-      </script>
-    <script
-       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/localization/messages_es.js"
-       data-th-src="@{/webjars/jquery-validation/1.15.0/src/localization/messages_}+ ${#locale.language}+'.js'"
-       data-th-if="${#locale.language} != 'en'">
-      </script>
-    <script src="../../static/public/js/validation-defaults.js"
-      data-th-src="@{/public/js/validation-defaults.js}">
-      </script>
-    <script type="text/javascript" data-th-inline="javascript">
-    (function(jQuery) {
-        jQuery(document).ready(function() {
-          jQuery.extend( jQuery.validator.messages, {
-            'dateformat' : /*[[#{error_invalidDate}]]*/ 'Please enter a correct date/time',
-            'inputmask': /*[[#{error_invalidMaskValue}]]*/ 'Please enter a valid value',
-          });
-        });
-      })(jQuery);
-    </script>
-
     <div data-layout-fragment="javascript">
       <!-- This includes javascript own code of each page -->
     </div>

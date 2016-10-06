@@ -379,7 +379,7 @@
       <!-- Datatables fragment -->
 	    <div data-layout-include="fragments/js/datatables :: datatables">
 
-	         <!-- Datatables for HTML -->
+           <!-- Datatables scripts ONLY for HTML templates -->
 				    <script type="text/javascript" charset="utf8"
 				      src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"
 				      data-th-src="@{/webjars/datatables/1.10.11/media/js/jquery.dataTables.js}"
@@ -427,7 +427,7 @@
 
 
 	    <!-- Datatables page configs ONLY for HTML templates -->
-	    <script type="text/javascript">
+	    <script type="text/javascript" data-th-remove="all">
     $(document).ready(function() {
         $('.table').DataTable( {
           'buttons' : {
