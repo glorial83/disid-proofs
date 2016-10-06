@@ -10,21 +10,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @RooJavaBean
 @RooToString
 @RooJpaEntity
+@Table(name= "my_customer")
 public class Customer {
 
   /**
    */
+  @Column(name= "my_firstName")
   private String firstName;
 
   /**
    */
+  @Column(name= "my_lastName")
   private String lastName;
 
   /**
@@ -45,7 +50,7 @@ public class Customer {
    * Sets the address for the customer, taking
    * care to update the relationship from the {@link Address} to the
    * {@link Customer} either.
-   * If address is null the {@link #removeFromAddress()} method is called 
+   * If address is null the {@link #removeFromAddress()} method is called
    * instead.
    * @param address for the customer
    */
@@ -71,7 +76,7 @@ public class Customer {
   }
 
   /**
-   * Adds a list of orders for the customer, taking care to update the 
+   * Adds a list of orders for the customer, taking care to update the
    * relationship from the {@link CustomerOrder} to the
    * {@link Customer} either.
    * @param ordersToAdd to add to the customer (required)
@@ -86,7 +91,7 @@ public class Customer {
   }
 
   /**
-   * Removes a list of ordesr from the customer, taking care to update the 
+   * Removes a list of ordesr from the customer, taking care to update the
    * relationship from the {@link CustomerOrder} to the
    * {@link Customer} either.
    * @param ordersToRemove to remove from the customer (required)
