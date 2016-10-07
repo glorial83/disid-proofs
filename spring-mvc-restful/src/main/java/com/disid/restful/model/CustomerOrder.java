@@ -12,36 +12,44 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @RooJavaBean
 @RooToString
 @RooJpaEntity
+@Table(name = "my_customerorder")
 public class CustomerOrder {
 
   /**
    */
   @Temporal(TemporalType.TIMESTAMP)
   @DateTimeFormat(pattern = "dd/MM/yyyy")
+  @Column(name = "my_orderdate")
   private Date orderDate;
 
   /**
    */
   @Temporal(TemporalType.TIMESTAMP)
   @DateTimeFormat(pattern = "dd/MM/yyyy")
+  @Column(name = "my_shippeddate")
   private Date shippedDate;
 
   /**
    */
+  @Column(name = "my_shipaddress")
   private String shipAddress;
 
   /**
   * Bidirectional composition one-to-many relationship. Parent side.
-  * TODO: convertir a List la propiedad details, tal y como está ahora el 
+  * TODO: convertir a List la propiedad details, tal y como está ahora el
   * remove de lineas y luego añadir no funcionará bien.
   */
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -51,10 +59,13 @@ public class CustomerOrder {
    * Bidirectional non-aggregation many-to-one relationship. Child side.
    */
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinTable(name = "my_customer_orders",
+      joinColumns = @JoinColumn(name = "my_order", referencedColumnName = "id") ,
+      inverseJoinColumns = @JoinColumn(name = "my_customer", referencedColumnName = "id") )
   private Customer customer;
 
   /**
-   * Adds a list of <b>new</b> details to the order, taking care to update the 
+   * Adds a list of <b>new</b> details to the order, taking care to update the
    * relationship from the {@link OrderDetail} to the
    * {@link CustomerOrder} either.
    * @param details to add to the order (required)
@@ -73,7 +84,7 @@ public class CustomerOrder {
   }
 
   /**
-   * Removes a detail from the order, taking care to update the 
+   * Removes a detail from the order, taking care to update the
    * relationship from the {@link OrderDetail} to the
    * {@link CustomerOrder} either.
    * As the {@link #details} property is configured with orphanRemoval

@@ -45,11 +45,6 @@
 		  href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css"
 		  data-th-href="@{/webjars/select2-bootstrap-theme/0.1.0-beta.7/dist/select2-bootstrap.css}" />
 
-		<!-- DateTimePicker -->
-		<link rel="stylesheet" type="text/css"
-		  data-th-href="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.min.css}"
-		  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.min.css" />
-
     <!-- Bootswatch CSS custom -->
     <link rel="stylesheet" type="text/css"
       href="../../static/public/css/theme.css"
@@ -239,29 +234,6 @@
                 data-th-errors="*{contactName}">Error message.</span>
             </div>
           </div>
-
-          <div class="form-group has-error has-feedback"
-              data-th-classappend="${#fields.hasErrors('birthDate')}? 'has-error has-feedback'"
-              data-th-class="form-group">
-              <label for="birthDate" class="col-md-3 control-label"
-                data-th-text="#{label_employeeuserlogininfo_birthdate}">Birth
-                Date </label>
-              <div class="col-md-3">
-                <input type="text" class="form-control datetimepicker"
-                  id="birthDate" name="birthDate" data-th-field="*{birthDate}"
-                  data-th-placeholder="#{label_employeeuserlogininfo_birthdate}"
-                  placeholder="Birth Date" data-toggle="tooltip"
-                  data-th-title="#{info_required_field}" required="required"
-                  title="Required field" data-dateformat="dd/MM/yyyy" /> <span
-                  data-th-classappend="${#fields.hasErrors('birthDate')}? 'glyphicon glyphicon-remove form-control-feedback'"
-                  class="glyphicon glyphicon-remove form-control-feedback"
-                  data-th-if="${#fields.hasErrors('birthDate')}"
-                  aria-hidden="true"></span> <span id="birthdate-error"
-                  class="help-block"
-                  data-th-if="${#fields.hasErrors('birthDate')}"
-                  data-th-errors="*{birthDate}">Error message.</span>
-              </div>
-            </div>
 
           <div class="form-group has-error has-feedback" id="contactTitle"
             data-th-classappend="${#fields.hasErrors('contactTitle')}? 'has-error has-feedback'"
@@ -534,60 +506,145 @@
 	  <script type="text/javascript"
 	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-    <!-- MomentJS -->
-    <script
-       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
-       data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
-      </script>
-    <script
-       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
-       data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
-       data-th-if="${#locale.language} != 'en'">
-      </script>
-    <script src="../../static/public/js/moment-defaults.js"
-      data-th-src="@{/public/js/moment-defaults.js}">
-      </script>
+	   <div data-layout-fragment="javascript">
 
-    <!-- JQuery Validation -->
-    <script
-       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"
-       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/jquery.validate.min.js}">
-      </script>
-    <script
-       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.min.js"
-       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/additional-methods.min.js}">
-      </script>
-    <script
-       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/localization/messages_es.js"
-       data-th-src="@{/webjars/jquery-validation/1.15.0/src/localization/messages_}+ ${#locale.language}+'.js'"
-       data-th-if="${#locale.language} != 'en'">
-      </script>
-    <script src="../../static/public/js/validation-defaults.js"
-      data-th-src="@{/public/js/validation-defaults.js}">
-      </script>
-    <script type="text/javascript" data-th-inline="javascript">
-    (function(jQuery) {
-        jQuery(document).ready(function() {
-          jQuery.extend( jQuery.validator.messages, {
-            'dateformat' : /*[[#{error_invalidDate}]]*/ 'Please enter a correct date/time',
-            'inputmask': /*[[#{error_invalidMaskValue}]]*/ 'Please enter a valid value',
-          });
-        });
-      })(jQuery);
-    </script>
 
-	 <div data-layout-fragment="javascript">
-      <!-- Select2 -->
-      <div data-layout-include="fragments/js/select2 :: select2"></div>
+		    <!-- JQuery Validation -->
+		    <script
+		       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"
+		       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/jquery.validate.min.js}">
+		      </script>
+		    <script
+		       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/additional-methods.min.js"
+		       data-th-src="@{/webjars/jquery-validation/1.15.0/dist/additional-methods.min.js}">
+		      </script>
+		    <script
+		       src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/localization/messages_es.js"
+		       data-th-src="@{/webjars/jquery-validation/1.15.0/src/localization/messages_}+ ${#locale.language}+'.js'"
+		       data-th-if="${#locale.language} != 'en'">
+		      </script>
+		    <script src="../../static/public/js/validation-defaults.js"
+		      data-th-src="@{/public/js/validation-defaults.js}">
+		      </script>
+		    <script type="text/javascript" data-th-inline="javascript">
+		    (function(jQuery) {
+		        jQuery(document).ready(function() {
+		          jQuery.extend( jQuery.validator.messages, {
+		            'dateformat' : /*[[#{error_invalidDate}]]*/ 'Please enter a correct date/time',
+		            'inputmask': /*[[#{error_invalidMaskValue}]]*/ 'Please enter a valid value',
+		          });
+		        });
+		      })(jQuery);
+		    </script>
 
-      <!-- DateTimePicker -->
-	    <script
-	      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"
-	      data-th-src="@{/webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js}"></script>
-	    <script src="../../static/public/js/datetimepicker-defaults.js"
-	      data-th-src="@{/public/js/datetimepicker-defaults.js}"></script>
+	      <!-- Select2 -->
+	      <div data-layout-include="fragments/js/select2 :: select2">
+		      <!-- Select2 scripts ONLY for HTML templates
+	          -- Content replaced by the select2 template fragment select2.html
+	        -->
+	        <script
+	          src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.full.js"
+	          data-th-src="@{/webjars/select2/4.0.2/dist/js/select2.full.js}"></script>
+	        <script
+	          src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/i18n/es.js"
+	          data-th-src="@{/webjars/select2/4.0.2/dist/js/i18n/}+ ${#locale.language}+'.js'"
+	          data-th-if="${#locale.language} != 'en'"></script>
 
-   </div>
+	        <script type="text/javascript" data-th-inline="javascript">
+	              /*<![CDATA[*/
+
+	              // Init select simple
+	              jQuery('.dropdown-select-simple').select2({
+	                debug : false,
+	                theme : 'bootstrap',
+	                allowClear : true,
+	              });
+
+	              // Init select with AJAX search
+	              jQuery('.dropdown-select-ajax').select2(
+	                  {
+	                    debug : false,
+	                    theme : 'bootstrap',
+	                    allowClear : true,
+	                    ajax : {
+	                      data : function(params) {
+	                        // set search params names to match with GlobalSearch and
+	                        // Pageable arguments
+	                        var query = {
+	                          'search[value]' : params.term,
+	                          'page' : params.page - 1,
+	                        }
+	                        return query;
+	                      },
+	                      // parse the results into the format expected by Select2.
+	                      processResults : function(data, page) {
+
+	                        // entity attribute names are specified using the Select2
+	                        // options
+	                        // feature that are setted using data-* attributes in each
+	                        // <select> element
+	                        var idField = this.options
+	                            .get('idField');
+	                        var txtFields = this.options
+	                            .get('textFields');
+	                        var fields = txtFields.split(',');
+
+	                        // parse the results into the format expected by Select2.
+	                        // The results are inside a Page object, so we have to iterate
+	                        // over the entities in the content attribute.
+	                        var results = [];
+	                        jQuery.each(data.content, function(i,
+	                            entity) {
+	                          var id = entity[idField];
+	                          var text = '';
+
+	                          // compose the text to be rendered from the specified
+	                          // entity fields
+	                          jQuery.each(fields, function(i,
+	                              fieldName) {
+	                            text = text.concat(' ',
+	                                entity[fieldName]);
+	                          });
+
+	                          // Select2 assumes the ID value is in the 'id' field and the
+	                          // shown text is in the 'text' field, so we have to put
+	                          // them in the results object
+	                          var obj = {
+	                            'id' : id,
+	                            'text' : jQuery.trim(text)
+	                          };
+
+	                          // Put the entity attribute-values in the response array to be able
+	                          // to process them in Select2 events
+	                          jQuery.each(entity, function(key,
+	                              val) {
+	                            var attribute = jQuery
+	                                .trim(key);
+	                            var value = jQuery.trim(val);
+	                            obj[attribute] = value;
+	                          });
+
+	                          // Set the processed object as the request results
+	                          results.push(obj);
+	                        });
+
+	                        // calc page info
+	                        var morePages = !data.last;
+
+	                        return {
+	                          results : results,
+	                          pagination : {
+	                            more : morePages
+	                          }
+	                        };
+	                      },
+	                    },
+	                  });
+	              /*]]>*/
+	            </script>
+	      </div>
+
+	   </div>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script type="text/javascript" charset="utf8"
