@@ -99,6 +99,20 @@
       data-th-src="@{/public/js/ie10-viewport-bug-workaround.js}">
       </script>
 
+    <!-- MomentJS - date format -->
+    <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+       data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
+      </script>
+    <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
+       data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
+       data-th-if="${#locale.language} != 'en'">
+      </script>
+    <script src="../../static/public/js/moment-defaults.js"
+      data-th-src="@{/public/js/moment-defaults.js}">
+      </script>
+
     <div data-layout-fragment="javascript">
       <!-- This includes javascript own code of each page -->
     </div>

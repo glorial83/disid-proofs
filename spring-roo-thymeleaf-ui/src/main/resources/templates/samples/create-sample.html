@@ -463,21 +463,21 @@
     <script type="text/javascript"
       src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
-    <div data-layout-fragment="javascript">
+    <!-- MomentJS -->
+    <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+       data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
+      </script>
+    <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
+       data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
+       data-th-if="${#locale.language} != 'en'">
+      </script>
+    <script src="../../static/public/js/moment-defaults.js"
+      data-th-src="@{/public/js/moment-defaults.js}">
+      </script>
 
-      <!-- MomentJS (needed by DateTimePicker) -->
-      <script
-         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
-         data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
-        </script>
-      <script
-         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
-         data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
-         data-th-if="${#locale.language} != 'en'">
-        </script>
-      <script src="../../static/public/js/moment-defaults.js"
-        data-th-src="@{/public/js/moment-defaults.js}">
-        </script>
+    <div data-layout-fragment="javascript">
 
       <!-- DateTimePicker -->
       <script
