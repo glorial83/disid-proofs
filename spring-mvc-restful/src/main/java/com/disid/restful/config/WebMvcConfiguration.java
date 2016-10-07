@@ -9,7 +9,6 @@ import org.springframework.data.geo.format.DistanceFormatter;
 import org.springframework.data.geo.format.PointFormatter;
 import org.springframework.data.web.config.SpringDataWebConfiguration;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.format.support.FormattingConversionService;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -41,10 +40,6 @@ public class WebMvcConfiguration extends SpringDataWebConfiguration {
   public void addFormatters(FormatterRegistry registry) {
     registry.addFormatter(DistanceFormatter.INSTANCE);
     registry.addFormatter(PointFormatter.INSTANCE);
-
-    if (!(registry instanceof FormattingConversionService)) {
-      return;
-    }
   }
 
   @Primary
