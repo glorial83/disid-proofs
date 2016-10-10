@@ -8,8 +8,10 @@ import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.OrderDetailService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Locale;
+
 @Controller
 @RequestMapping(value = "/customerorders/{customerorder}/details",
     produces = MediaType.TEXT_HTML_VALUE)
@@ -31,17 +35,24 @@ public class CustomerOrdersItemDetailsThymeleafController {
 
   public CustomerOrderService customerOrderService;
   public OrderDetailService orderDetailService;
+  private MessageSource messageSource;
 
   @Autowired
   public CustomerOrdersItemDetailsThymeleafController(CustomerOrderService customerOrderService,
-      OrderDetailService orderDetailService) {
+      OrderDetailService orderDetailService, MessageSource messageSource) {
     this.customerOrderService = customerOrderService;
     this.orderDetailService = orderDetailService;
+    this.messageSource = messageSource;
   }
 
-  @ModelAttribute("customerorder")
-  public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
-    return customerOrderService.findOne(id);
+  @ModelAttribute
+  public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id, Locale locale) {
+    CustomerOrder customerOrder = customerOrderService.findOne(id);
+    if (customerOrder == null) {
+      String message = messageSource.getMessage("error_customerOrderNotFound", null, locale);
+      throw new NotFoundException(message);
+    }
+    return customerOrder;
   }
 
   @GetMapping(produces = Datatables.MEDIA_TYPE)

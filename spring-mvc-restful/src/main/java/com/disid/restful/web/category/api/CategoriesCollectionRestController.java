@@ -1,8 +1,5 @@
 package com.disid.restful.web.category.api;
 
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
-
 import com.disid.restful.model.Category;
 import com.disid.restful.service.api.CategoryService;
 
@@ -23,8 +20,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
-import java.net.URI;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -53,16 +51,22 @@ public class CategoriesCollectionRestController {
     }
     Category newCategory = categoryService.save(category);
 
-    URI uri = fromMethodCall(on(CategoriesItemRestController.class).show(null))
-        .buildAndExpand(newCategory.getId()).encode().toUri();
-
-    return ResponseEntity.created(uri).build();
+    UriComponents showURI = CategoriesItemRestController.showURI(newCategory);
+    return ResponseEntity.created(showURI.toUri()).build();
   }
 
   @GetMapping
   public ResponseEntity<Page<Category>> list(GlobalSearch globalSearch, Pageable pageable) {
     Page<Category> category = categoryService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(category);
+  }
+
+  public static UriComponents listURI() {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(CategoriesCollectionRestController.class).list(null, null))
+        .build()
+        .encode();
   }
 
   // Batch operations with Categories
@@ -75,8 +79,7 @@ public class CategoriesCollectionRestController {
     }
     categoryService.save(categorys);
 
-    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
-    return ResponseEntity.created(uri).build();
+    return ResponseEntity.created(listURI().toUri()).build();
   }
 
   @PutMapping(value = "/batch")

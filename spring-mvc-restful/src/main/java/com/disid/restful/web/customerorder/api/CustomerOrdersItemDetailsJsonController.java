@@ -7,6 +7,7 @@ import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.OrderDetailService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,7 +43,11 @@ public class CustomerOrdersItemDetailsJsonController {
 
   @ModelAttribute
   public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
-    return customerOrderService.findOne(id);
+    CustomerOrder customerOrder = customerOrderService.findOne(id);
+    if (customerOrder == null) {
+      throw new NotFoundException("Order not found");
+    }
+    return customerOrder;
   }
 
   @GetMapping

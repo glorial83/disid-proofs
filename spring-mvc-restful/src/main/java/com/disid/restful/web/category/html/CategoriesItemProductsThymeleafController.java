@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/categories/{category}/products", produces = MediaType.TEXT_HTML_VALUE)
-public class CategoriesItemProductsController {
+public class CategoriesItemProductsThymeleafController {
 
   public CategoryService categoryService;
 
   public ProductService productService;
 
   @Autowired
-  public CategoriesItemProductsController(CategoryService categoryService,
+  public CategoriesItemProductsThymeleafController(CategoryService categoryService,
       ProductService productService) {
     this.categoryService = categoryService;
     this.productService = productService;

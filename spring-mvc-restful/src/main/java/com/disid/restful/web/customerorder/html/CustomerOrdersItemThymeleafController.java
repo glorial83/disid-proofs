@@ -4,7 +4,10 @@ import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 
+import io.springlets.web.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 @Controller
@@ -27,12 +32,14 @@ public class CustomerOrdersItemThymeleafController {
 
   public CustomerOrderService customerOrderService;
   public CustomerService customerService;
+  private MessageSource messageSource;
 
   @Autowired
   public CustomerOrdersItemThymeleafController(CustomerOrderService customerOrderService,
-      CustomerService customerService) {
+      CustomerService customerService, MessageSource messageSource) {
     this.customerOrderService = customerOrderService;
     this.customerService = customerService;
+    this.messageSource = messageSource;
   }
 
   @InitBinder("customerOrder")
@@ -41,8 +48,13 @@ public class CustomerOrdersItemThymeleafController {
   }
 
   @ModelAttribute
-  public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id) {
-    return customerOrderService.findOne(id);
+  public CustomerOrder getCustomerOrder(@PathVariable("customerorder") Long id, Locale locale) {
+    CustomerOrder customerOrder = customerOrderService.findOne(id);
+    if (customerOrder == null) {
+      String message = messageSource.getMessage("error_customerOrderNotFound", null, locale);
+      throw new NotFoundException(message);
+    }
+    return customerOrder;
   }
 
   @GetMapping("/edit-form")

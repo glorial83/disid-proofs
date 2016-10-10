@@ -6,7 +6,10 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 import com.disid.restful.model.Customer;
 import com.disid.restful.service.api.CustomerService;
 
+import io.springlets.web.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 @Controller
@@ -29,9 +34,13 @@ public class CustomersItemThymeleafController {
 
   public CustomerService customerService;
 
+  public MessageSource messageSource;
+
   @Autowired
-  public CustomersItemThymeleafController(CustomerService customerService) {
+  public CustomersItemThymeleafController(CustomerService customerService,
+      MessageSource messageSource) {
     this.customerService = customerService;
+    this.messageSource = messageSource;
   }
 
   @InitBinder("customer")
@@ -41,8 +50,12 @@ public class CustomersItemThymeleafController {
   }
 
   @ModelAttribute
-  public Customer getCustomer(@PathVariable("customer") Long id) {
+  public Customer getCustomer(@PathVariable("customer") Long id, Locale locale) {
     Customer customer = customerService.findOne(id);
+    if (customer == null) {
+      String message = messageSource.getMessage("error_customerNotFound", null, locale);
+      throw new NotFoundException(message);
+    }
     return customer;
   }
 
@@ -68,9 +81,8 @@ public class CustomersItemThymeleafController {
   @DeleteMapping
   public String delete(@ModelAttribute Customer customer, Model model) {
     customerService.delete(customer);
-    String uri =
-        fromMethodCall(on(CustomersCollectionThymeleafController.class).list(null)).build().encode()
-            .toUriString();
+    String uri = fromMethodCall(on(CustomersCollectionThymeleafController.class).list(null)).build()
+        .encode().toUriString();
     return "redirect:" + uri;
   }
 

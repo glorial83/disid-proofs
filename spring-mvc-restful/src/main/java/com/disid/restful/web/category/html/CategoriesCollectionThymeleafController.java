@@ -24,18 +24,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/categories", produces = MediaType.TEXT_HTML_VALUE)
-public class CategoriesCollectionController {
+public class CategoriesCollectionThymeleafController {
 
   public CategoryService categoryService;
 
   @Autowired
-  public CategoriesCollectionController(CategoryService categoryService) {
+  public CategoriesCollectionThymeleafController(CategoryService categoryService) {
     this.categoryService = categoryService;
   }
 
@@ -59,14 +61,22 @@ public class CategoriesCollectionController {
       return "categories/create";
     }
     Category newCategory = categoryService.save(category);
-    redirectAttrs.addAttribute("id", newCategory.getId());
-    return "redirect:/categories/{id}";
+
+    UriComponents showURI = CategoriesItemThymeleafController.showURI(newCategory);
+    return "redirect:" + showURI.toUriString();
   }
 
   // List Categories
   @GetMapping
   public String list(Model model) {
     return "categories/list";
+  }
+
+  public static UriComponents listURI() {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(CategoriesCollectionThymeleafController.class).list(null))
+        .build().encode();
   }
 
   @GetMapping(produces = Datatables.MEDIA_TYPE)

@@ -3,6 +3,8 @@ package com.disid.restful.web.product.api;
 import com.disid.restful.model.Product;
 import com.disid.restful.service.api.ProductService;
 
+import io.springlets.web.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +35,11 @@ public class ProductsItemJsonController {
 
   @ModelAttribute
   public Product getProduct(@PathVariable("product") Long id) {
-    return productService.findOne(id);
+    Product product = productService.findOne(id);
+    if (product == null) {
+      throw new NotFoundException("Product not found");
+    }
+    return product;
   }
 
   // Update Product

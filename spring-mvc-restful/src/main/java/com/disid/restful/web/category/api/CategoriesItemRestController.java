@@ -3,6 +3,8 @@ package com.disid.restful.web.category.api;
 import com.disid.restful.model.Category;
 import com.disid.restful.service.api.CategoryService;
 
+import io.springlets.web.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
 
@@ -33,7 +37,11 @@ public class CategoriesItemRestController {
 
   @ModelAttribute
   public Category getCategory(@PathVariable("category") Long id) {
-    return categoryService.findOne(id);
+    Category category = categoryService.findOne(id);
+    if (category == null) {
+      throw new NotFoundException("Category not found");
+    }
+    return category;
   }
 
   // Update Category
@@ -67,6 +75,13 @@ public class CategoriesItemRestController {
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.status(HttpStatus.FOUND).body(category);
+  }
+
+  public static UriComponents showURI(Category category) {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(CategoriesItemRestController.class).show(category))
+        .buildAndExpand(category.getId()).encode();
   }
 
 }

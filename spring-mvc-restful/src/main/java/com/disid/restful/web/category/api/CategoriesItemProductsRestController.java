@@ -6,6 +6,7 @@ import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.api.ProductService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,7 +41,11 @@ public class CategoriesItemProductsRestController {
 
   @ModelAttribute
   public Category getCategory(@PathVariable("category") Long id) {
-    return categoryService.findOne(id);
+    Category category = categoryService.findOne(id);
+    if (category == null) {
+      throw new NotFoundException("Category not found");
+    }
+    return category;
   }
 
   @GetMapping
