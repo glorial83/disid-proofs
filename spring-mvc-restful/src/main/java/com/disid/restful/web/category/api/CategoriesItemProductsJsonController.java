@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/categories/{category}/products",
     consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-public class CategoriesItemProductsRestController {
+public class CategoriesItemProductsJsonController {
 
   public CategoryService categoryService;
 
   public ProductService productService;
 
   @Autowired
-  public CategoriesItemProductsRestController(CategoryService categoryService,
+  public CategoriesItemProductsJsonController(CategoryService categoryService,
       ProductService productService) {
     this.categoryService = categoryService;
     this.productService = productService;

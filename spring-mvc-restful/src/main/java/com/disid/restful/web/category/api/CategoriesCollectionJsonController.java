@@ -30,12 +30,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-public class CategoriesCollectionRestController {
+public class CategoriesCollectionJsonController {
 
   public CategoryService categoryService;
 
   @Autowired
-  public CategoriesCollectionRestController(CategoryService categoryService) {
+  public CategoriesCollectionJsonController(CategoryService categoryService) {
     this.categoryService = categoryService;
   }
 
@@ -51,7 +51,7 @@ public class CategoriesCollectionRestController {
     }
     Category newCategory = categoryService.save(category);
 
-    UriComponents showURI = CategoriesItemRestController.showURI(newCategory);
+    UriComponents showURI = CategoriesItemJsonController.showURI(newCategory);
     return ResponseEntity.created(showURI.toUri()).build();
   }
 
@@ -64,7 +64,7 @@ public class CategoriesCollectionRestController {
   public static UriComponents listURI() {
     return MvcUriComponentsBuilder
         .fromMethodCall(
-            MvcUriComponentsBuilder.on(CategoriesCollectionRestController.class).list(null, null))
+            MvcUriComponentsBuilder.on(CategoriesCollectionJsonController.class).list(null, null))
         .build()
         .encode();
   }

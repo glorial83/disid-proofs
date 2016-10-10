@@ -26,12 +26,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/categories/{category}", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-public class CategoriesItemRestController {
+public class CategoriesItemJsonController {
 
   public CategoryService categoryService;
 
   @Autowired
-  public CategoriesItemRestController(CategoryService categoryService) {
+  public CategoriesItemJsonController(CategoryService categoryService) {
     this.categoryService = categoryService;
   }
 
@@ -80,7 +80,7 @@ public class CategoriesItemRestController {
   public static UriComponents showURI(Category category) {
     return MvcUriComponentsBuilder
         .fromMethodCall(
-            MvcUriComponentsBuilder.on(CategoriesItemRestController.class).show(category))
+            MvcUriComponentsBuilder.on(CategoriesItemJsonController.class).show(category))
         .buildAndExpand(category.getId()).encode();
   }
 
