@@ -1,8 +1,5 @@
 package com.disid.restful.web.customer.html;
 
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
-
 import com.disid.restful.model.Customer;
 import com.disid.restful.service.api.CustomerService;
 
@@ -22,7 +19,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponents;
 
 import java.util.Locale;
 
@@ -73,21 +72,26 @@ public class CustomersItemThymeleafController {
 
     Customer savedCustomer = customerService.save(customer);
 
-    String uri = fromMethodCall(on(CustomersItemThymeleafController.class).show(null, null))
-        .buildAndExpand(savedCustomer.getId()).encode().toUriString();
-    return "redirect:" + uri;
+    UriComponents showURI = CustomersItemThymeleafController.showURI(savedCustomer);
+    return "redirect:" + showURI.toUriString();
   }
 
   @DeleteMapping
   public String delete(@ModelAttribute Customer customer, Model model) {
     customerService.delete(customer);
-    String uri = fromMethodCall(on(CustomersCollectionThymeleafController.class).list(null)).build()
-        .encode().toUriString();
-    return "redirect:" + uri;
+    UriComponents listURI = CustomersCollectionThymeleafController.listURI();
+    return "redirect:" + listURI.toUriString();
   }
 
   @GetMapping
   public String show(@ModelAttribute Customer customer, Model model) {
     return "customers/show";
+  }
+
+  public static UriComponents showURI(Customer customer) {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(CustomersItemThymeleafController.class).show(customer, null))
+        .buildAndExpand(customer.getId()).encode();
   }
 }

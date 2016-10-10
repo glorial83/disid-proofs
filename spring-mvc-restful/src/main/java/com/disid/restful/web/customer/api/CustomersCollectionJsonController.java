@@ -1,8 +1,5 @@
 package com.disid.restful.web.customer.api;
 
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
-
 import com.disid.restful.model.Customer;
 import com.disid.restful.service.api.CustomerService;
 
@@ -23,8 +20,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
-import java.net.URI;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -55,10 +53,8 @@ public class CustomersCollectionJsonController {
     }
     Customer newCustomer = customerService.save(customer);
 
-    URI uri = fromMethodCall(on(CustomersItemJsonController.class).show(null))
-        .buildAndExpand(newCustomer.getId()).encode().toUri();
-
-    return ResponseEntity.created(uri).build();
+    UriComponents showURI = CustomersItemJsonController.showURI(newCustomer);
+    return ResponseEntity.created(showURI.toUri()).build();
   }
 
   // List Customers
@@ -67,6 +63,13 @@ public class CustomersCollectionJsonController {
   public ResponseEntity<Page<Customer>> list(GlobalSearch globalSearch, Pageable pageable) {
     Page<Customer> customers = customerService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(customers);
+  }
+
+  public static UriComponents listURI() {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(CustomersCollectionJsonController.class).list(null, null))
+        .build().encode();
   }
 
   // Batch operations with Customers
@@ -79,8 +82,7 @@ public class CustomersCollectionJsonController {
     }
     customerService.save(customers);
 
-    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
-    return ResponseEntity.created(uri).build();
+    return ResponseEntity.created(listURI().toUri()).build();
   }
 
   @PutMapping("/batch")

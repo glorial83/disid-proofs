@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
 
@@ -52,13 +54,20 @@ public class CustomerOrdersCollectionThymeleafController {
       return "customerorders/create";
     }
     CustomerOrder newCustomerOrder = customerOrderService.save(customerOrder);
-    redirectAttrs.addAttribute("id", newCustomerOrder.getId());
-    return "redirect:/customerorders/{id}";
+    UriComponents showURI = CustomerOrdersItemThymeleafController.showURI(newCustomerOrder);
+    return "redirect:" + showURI.toUriString();
   }
 
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
   public String list(Model model) {
     return "customerorders/list";
+  }
+
+  public static UriComponents listURI() {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(MvcUriComponentsBuilder
+            .on(CustomerOrdersCollectionThymeleafController.class).list(null))
+        .build().encode();
   }
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.datatables+json")

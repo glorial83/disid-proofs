@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
 
@@ -66,13 +68,19 @@ public class ProductsItemJsonController {
     return ResponseEntity.ok().build();
   }
 
-
   @GetMapping
   public ResponseEntity<?> show(@ModelAttribute Product product) {
     if (product == null) {
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.status(HttpStatus.FOUND).body(product);
+  }
+
+  public static UriComponents showURI(Product product) {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(ProductsItemJsonController.class).show(product))
+        .buildAndExpand(product.getId()).encode();
   }
 
 }

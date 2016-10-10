@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
 
@@ -78,5 +80,12 @@ public class CustomerOrdersItemJsonController {
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.status(HttpStatus.FOUND).body(customerOrder);
+  }
+
+  public static UriComponents showURI(CustomerOrder customerOrder) {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(CustomerOrdersItemJsonController.class).show(customerOrder))
+        .buildAndExpand(customerOrder.getId()).encode();
   }
 }

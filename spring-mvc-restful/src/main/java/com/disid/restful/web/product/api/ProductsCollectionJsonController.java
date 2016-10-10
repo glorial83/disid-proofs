@@ -1,8 +1,5 @@
 package com.disid.restful.web.product.api;
 
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
-
 import com.disid.restful.model.Product;
 import com.disid.restful.service.api.ProductService;
 
@@ -23,8 +20,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
-import java.net.URI;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -53,16 +51,21 @@ public class ProductsCollectionJsonController {
     }
     Product newProduct = productService.save(product);
 
-    URI uri = fromMethodCall(on(ProductsItemJsonController.class).show(null))
-        .buildAndExpand(newProduct.getId()).encode().toUri();
-
-    return ResponseEntity.created(uri).build();
+    UriComponents showURI = ProductsItemJsonController.showURI(newProduct);
+    return ResponseEntity.created(showURI.toUri()).build();
   }
 
   @GetMapping
   public ResponseEntity<Page<Product>> list(GlobalSearch globalSearch, Pageable pageable) {
     Page<Product> products = productService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
+  }
+
+  public static UriComponents listURI() {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(ProductsCollectionJsonController.class).list(null, null))
+        .build().encode();
   }
 
   // Batch operations with Products
@@ -75,8 +78,7 @@ public class ProductsCollectionJsonController {
     }
     productService.save(products);
 
-    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
-    return ResponseEntity.created(uri).build();
+    return ResponseEntity.created(listURI().toUri()).build();
   }
 
   @PutMapping("/batch")

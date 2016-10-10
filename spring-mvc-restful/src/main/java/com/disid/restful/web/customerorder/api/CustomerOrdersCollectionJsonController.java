@@ -1,8 +1,5 @@
 package com.disid.restful.web.customerorder.api;
 
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
-
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
@@ -24,8 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
-import java.net.URI;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -58,16 +56,20 @@ public class CustomerOrdersCollectionJsonController {
     }
     CustomerOrder newCustomerOrder = customerOrderService.save(customerOrder);
 
-    URI uri = fromMethodCall(on(CustomerOrdersItemJsonController.class).show(null))
-        .buildAndExpand(newCustomerOrder.getId()).encode().toUri();
-
-    return ResponseEntity.created(uri).build();
+    UriComponents showURI = CustomerOrdersItemJsonController.showURI(newCustomerOrder);
+    return ResponseEntity.created(showURI.toUri()).build();
   }
 
   @GetMapping
   public ResponseEntity<Page<CustomerOrder>> list(GlobalSearch globalSearch, Pageable pageable) {
     Page<CustomerOrder> customerOrders = customerOrderService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(customerOrders);
+  }
+
+  public static UriComponents listURI() {
+    return MvcUriComponentsBuilder.fromMethodCall(
+        MvcUriComponentsBuilder.on(CustomerOrdersCollectionJsonController.class).list(null, null))
+        .build().encode();
   }
 
   // Batch operations with Customers
@@ -80,8 +82,7 @@ public class CustomerOrdersCollectionJsonController {
     }
     customerOrderService.save(customerOrders);
 
-    URI uri = fromMethodCall(on(getClass()).list(null, null)).build().encode().toUri();
-    return ResponseEntity.created(uri).build();
+    return ResponseEntity.created(listURI().toUri()).build();
   }
 
   @PutMapping("/batch")

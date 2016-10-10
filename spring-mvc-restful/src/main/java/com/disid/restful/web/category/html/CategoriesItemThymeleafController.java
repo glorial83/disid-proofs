@@ -1,8 +1,5 @@
 package com.disid.restful.web.category.html;
 
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
-
 import com.disid.restful.model.Category;
 import com.disid.restful.service.api.CategoryService;
 
@@ -19,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 
@@ -68,12 +67,13 @@ public class CategoriesItemThymeleafController {
   }
 
   @GetMapping
-  public String show(@ModelAttribute Category category, Model model) {
-    return "categories/show";
+  public ModelAndView show(@ModelAttribute Category category, Model model) {
+    return new ModelAndView("categories/show");
   }
 
   public static UriComponents showURI(Category category) {
-    return fromMethodCall(on(CategoriesItemThymeleafController.class).show(category, null))
+    return MvcUriComponentsBuilder.fromMethodCall(
+        MvcUriComponentsBuilder.on(CategoriesItemThymeleafController.class).show(null, null))
         .buildAndExpand(category.getId()).encode();
   }
 }

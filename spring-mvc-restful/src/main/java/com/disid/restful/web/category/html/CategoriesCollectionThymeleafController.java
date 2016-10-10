@@ -10,7 +10,6 @@ import io.springlets.data.domain.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
@@ -49,27 +49,30 @@ public class CategoriesCollectionThymeleafController {
   // Create Categories
 
   @GetMapping("/create-form")
-  public String createForm(Model model) {
+  public ModelAndView createForm(Model model) {
     model.addAttribute(new Category());
-    return "categories/create";
+    return new ModelAndView("categories/create");
   }
 
   @PostMapping
-  public String create(@Valid @ModelAttribute Category category, BindingResult result,
+  public ModelAndView create(@Valid @ModelAttribute Category category, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
-      return "categories/create";
+      return new ModelAndView("categories/create");
     }
     Category newCategory = categoryService.save(category);
 
-    UriComponents showURI = CategoriesItemThymeleafController.showURI(newCategory);
-    return "redirect:" + showURI.toUriString();
+    UriComponents showURI = MvcUriComponentsBuilder
+        .fromMethodCall(
+            MvcUriComponentsBuilder.on(CategoriesItemThymeleafController.class).show(null, null))
+        .buildAndExpand(newCategory.getId()).encode();
+    return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
   // List Categories
   @GetMapping
-  public String list(Model model) {
-    return "categories/list";
+  public ModelAndView list(Model model) {
+    return new ModelAndView("categories/list");
   }
 
   public static UriComponents listURI() {
@@ -89,7 +92,7 @@ public class CategoriesCollectionThymeleafController {
     }
     DatatablesData<Category> datatablesData =
         new DatatablesData<Category>(categories, totalCategoriesCount, draw);
-    return ResponseEntity.status(HttpStatus.FOUND).body(datatablesData);
+    return ResponseEntity.ok(datatablesData);
   }
 
 }

@@ -2,6 +2,7 @@ package com.disid.restful.web.product.html;
 
 import com.disid.restful.model.Product;
 import com.disid.restful.service.api.ProductService;
+import com.disid.restful.web.product.api.ProductsItemJsonController;
 
 import io.springlets.web.NotFoundException;
 
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponents;
 
 import java.util.Locale;
 
@@ -59,19 +62,27 @@ public class ProductsItemThymeleafController {
       return "products/edit";
     }
     Product savedProduct = productService.save(product);
-    redirectAttrs.addAttribute("id", savedProduct.getId());
-    return "redirect:/products/{id}";
+
+    UriComponents showURI = ProductsItemThymeleafController.showURI(savedProduct);
+    return "redirect:" + showURI.toUriString();
   }
 
   @DeleteMapping
   public String delete(@ModelAttribute Product product, Model model) {
     productService.delete(product);
-    return "redirect:/products";
+    UriComponents listURI = ProductsCollectionThymeleafController.listURI();
+    return "redirect:" + listURI.toUriString();
   }
 
   @GetMapping
   public String show(@ModelAttribute Product product, Model model) {
     return "products/show";
+  }
+
+  public static UriComponents showURI(Product product) {
+    return MvcUriComponentsBuilder
+        .fromMethodCall(MvcUriComponentsBuilder.on(ProductsItemJsonController.class).show(product))
+        .buildAndExpand(product.getId()).encode();
   }
 
 }

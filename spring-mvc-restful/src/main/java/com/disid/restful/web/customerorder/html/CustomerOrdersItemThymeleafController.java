@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponents;
 
 import java.util.Locale;
 
@@ -69,18 +71,26 @@ public class CustomerOrdersItemThymeleafController {
       return "customerorders/edit";
     }
     CustomerOrder savedCustomerOrder = customerOrderService.save(customerOrder);
-    redirectAttrs.addAttribute("id", savedCustomerOrder.getId());
-    return "redirect:/customerorders/{id}";
+
+    UriComponents showURI = CustomerOrdersItemThymeleafController.showURI(savedCustomerOrder);
+    return "redirect:" + showURI.toUriString();
   }
 
   @DeleteMapping
   public String delete(@ModelAttribute CustomerOrder customerOrder, Model model) {
     customerOrderService.delete(customerOrder);
-    return "redirect:/customerorders";
+    UriComponents listURI = CustomerOrdersCollectionThymeleafController.listURI();
+    return "redirect:" + listURI.toUriString();
   }
 
   @GetMapping
   public String show(@ModelAttribute CustomerOrder customerOrder, Model model) {
     return "customerorders/show";
+  }
+
+  public static UriComponents showURI(CustomerOrder customerOrder) {
+    return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder
+        .on(CustomerOrdersItemThymeleafController.class).show(customerOrder, null))
+        .buildAndExpand(customerOrder.getId()).encode();
   }
 }
