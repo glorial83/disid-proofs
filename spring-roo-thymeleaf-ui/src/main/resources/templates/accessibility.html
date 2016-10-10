@@ -14,13 +14,13 @@
 
     <link data-th-remove="all" rel="icon" href="../static/public/img/favicon.ico" />
 
-    <link rel="shortcut icon" href="../../static/public/img/favicon.ico"
+    <link rel="shortcut icon" href="../static/public/img/favicon.ico"
        data-th-remove="all" />
 
-    <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
+    <link rel="apple-touch-icon" href="../static/public/img/apple-touch-icon.png"
        data-th-remove="all" />
 
-    <title>Login- Spring Roo application</title>
+    <title>Accessibility - Spring Roo application</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
@@ -55,7 +55,7 @@
     <![endif]-->
 
   </head>
-  <body>
+  <body class="home">
 
     <!--Main container-->
     <div class="bg-container">
@@ -169,61 +169,24 @@
 
         <div class="container content">
 
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h1 class="panel-title" data-th-text="#{label_login}">Login</h1>
-            </div>
-            <div class="panel-body">
-              <form class="form-horizontal" data-th-action="@{/login}" method="post">
+          <div class="box-center">
 
-                <fieldset>
-                  <legend class="sr-only">Enter your login and password</legend>
+          <h2 data-th-text="#{label_accessibility}">Accessibility</h2>
 
-                  <div data-th-if="${param.error}" class="alert alert-danger"
-                    role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span> <span
-                      data-th-text="#{error_login}">Invalid user and password</span>
-                  </div>
+          <p class="lead" data-th-text="#{label_accessibility_lead}">Accessibility policy application</p>
+          <p data-th-text="#{label_accessibility_text}">
+           Spring Roo Application is committed to ensuring the accessibility of
+           its web content to people with disabilities. All of the content on
+           our website will meet <a href="https://www.w3.org/TR/WCAG/" target="_blank"
+           title="Will open in a new window to the page https://www.w3.org/TR/WCAG/">
+           W3C WAI's Web Content Accessibility Guidelines</a> 2.0, Level AA
+           conformance. Any issues should be reported to
+           <a href="mailto:springroo@disid.com?Subject=Spring%20Roo%20Accessibility"
+           target="_top">springroo@disid.com</a>.
+           The technologies that is depended to access the accessible content are HTML, CSS and Javascript.
+          </p>
+          </div><!-- box-center -->
 
-                  <div data-th-if="${param.logout}" class="alert alert-success"
-                    role="alert">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <span
-                      data-th-text="#{info_session_closed}">Log out correctly</span>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="usuario" class="col-md-3 control-label"
-                      data-th-text="#{label_login_username}">User</label>
-                    <div class="col-md-6">
-                      <input type="text" class="form-control" id="username" name="username"
-                        placeholder="User" />
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="password" class="col-md-3 control-label"
-                      data-th-text="#{label_login_password}">Password</label>
-                    <div class="col-md-6">
-                      <input type="password" class="form-control" id="password"
-                        name="password" placeholder="Password" />
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="col-md-9 col-md-offset-3">
-                      <button type="reset" class="btn btn-default"
-                        data-th-text="#{label_reset}">Cancel</button>
-                      <button type="submit" class="btn btn-primary"
-                        data-th-text="#{label_submit}">Accept</button>
-                    </div>
-                  </div>
-                </fieldset>
-
-              </form>
-            </div>
-
-          </div>
 
         </div>
         <!--/content-->
@@ -233,46 +196,46 @@
     <!--container-->
 
     <footer class="container">
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-          <small class="clearfix">
-            Made with
-            <a href="http://projects.spring.io/spring-roo/"
-            target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
-            Spring Roo &copy; 2016</a> •
-            We <span class="glyphicon glyphicon-heart"></span>
-            <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
-          </small>
-        </div>
-      </div>
+	    <div class="row">
+	      <div class="col-sm-6 col-sm-offset-3">
+		      <small class="clearfix">
+		        Made with
+		        <a href="http://projects.spring.io/spring-roo/"
+		        target="_blank" data-th-text="Spring Roo © ${#calendars.format(#dates.createNow(),'yyyy')}|">
+		        Spring Roo &copy; 2016</a> •
+		        We <span class="glyphicon glyphicon-heart"></span>
+		        <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a>
+		      </small>
+	      </div>
+	    </div>
       <!-- certified logos -->
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-6 text-right">
+	    <div class="row">
+	      <div class="col-sm-6 col-sm-offset-6 text-right">
 
-         <a title="Explanation of WCAG 2.0 Level Double-A Conformance"
-            data-th-title="#{label_accessibility_title}"
-            target="_blank"
-            href="http://www.w3.org/WAI/WCAG2AA-Conformance">
-            <img height="32" width="88"
-                 src="http://www.w3.org/WAI/wcag2AA"
-                 data-th-alt="#{label_accessibility_alt}"
-                 alt="Level Double-A conformance, W3C WAI Web Content
-                 Accessibility Guidelines 2.0">
+	       <a title="Explanation of WCAG 2.0 Level Double-A Conformance"
+	          data-th-title="#{label_accessibility_title}"
+	          target="_blank"
+	          href="http://www.w3.org/WAI/WCAG2AA-Conformance">
+	          <img height="32" width="88"
+	               src="http://www.w3.org/WAI/wcag2AA"
+	               data-th-alt="#{label_accessibility_alt}"
+	               alt="Level Double-A conformance, W3C WAI Web Content
+	               Accessibility Guidelines 2.0">
          </a>
-         &nbsp;
-         <a title="Application developed and tested with OWASP -
-             Open Web Application Security Project"
-             data-th-title="#{label_owasp_title}"
-            target="_blank"
-            href="https://www.owasp.org">
-          <img height="32" width="90"
-               data-th-src="@{/public/img/owasp_logo.png}"
-               src="../static/public/img/owasp_logo.png"
-               data-th-alt="#{label_owasp_alt}"
-               alt="Application developed and tested with OWASP">
-         </a>
-        </div>
-      </div>
+	       &nbsp;
+			   <a title="Application developed and tested with OWASP -
+			       Open Web Application Security Project"
+			       data-th-title="#{label_owasp_title}"
+			      target="_blank"
+			      href="https://www.owasp.org">
+					<img height="32" width="90"
+					     data-th-src="@{/public/img/owasp_logo.png}"
+					     src="../static/public/img/owasp_logo.png"
+					     data-th-alt="#{label_owasp_alt}"
+					     alt="Application developed and tested with OWASP">
+				 </a>
+	      </div>
+	    </div>
     </footer>
 
 
