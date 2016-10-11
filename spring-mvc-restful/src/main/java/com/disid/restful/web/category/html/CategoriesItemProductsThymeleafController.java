@@ -1,13 +1,13 @@
 package com.disid.restful.web.category.html;
 
-import com.disid.restful.datatables.Datatables;
-import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
 import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.api.ProductService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.Datatables;
+import io.springlets.data.web.datatables.DatatablesData;
 import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class CategoriesItemProductsThymeleafController {
   @GetMapping(produces = Datatables.MEDIA_TYPE)
   @ResponseBody
   public DatatablesData<Product> listProduct(@ModelAttribute Category category, GlobalSearch search,
-      Pageable pageable, @RequestParam("draw") Integer draw) {
+      Pageable pageable, @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<Product> products = productService.findByCategoriesContains(category, search, pageable);
     long allAvailableProducts = productService.countByCategoriesContains(category);
     return new DatatablesData<Product>(products, allAvailableProducts, draw);

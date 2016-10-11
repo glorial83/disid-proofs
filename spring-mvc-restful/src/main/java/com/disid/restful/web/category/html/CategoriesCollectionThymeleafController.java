@@ -1,12 +1,12 @@
 package com.disid.restful.web.category.html;
 
-import com.disid.restful.datatables.Datatables;
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.datatables.DatatablesPageable;
 import com.disid.restful.model.Category;
 import com.disid.restful.service.api.CategoryService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.Datatables;
+import io.springlets.data.web.datatables.DatatablesData;
+import io.springlets.data.web.datatables.DatatablesPageable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -81,7 +81,7 @@ public class CategoriesCollectionThymeleafController {
 
   @GetMapping(produces = Datatables.MEDIA_TYPE)
   public ResponseEntity<DatatablesData<Category>> list(GlobalSearch search,
-      DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
+      DatatablesPageable pageable, @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<Category> categories = categoryService.findAll(search, pageable);
     long totalCategoriesCount = categories.getTotalElements();
     if (search != null && StringUtils.hasText(search.getText())) {

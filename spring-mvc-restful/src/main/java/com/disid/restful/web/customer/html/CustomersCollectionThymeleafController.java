@@ -1,12 +1,12 @@
 package com.disid.restful.web.customer.html;
 
-import com.disid.restful.datatables.Datatables;
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.datatables.DatatablesPageable;
 import com.disid.restful.model.Customer;
 import com.disid.restful.service.api.CustomerService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.Datatables;
+import io.springlets.data.web.datatables.DatatablesData;
+import io.springlets.data.web.datatables.DatatablesPageable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -83,7 +83,7 @@ public class CustomersCollectionThymeleafController {
   @GetMapping(produces = Datatables.MEDIA_TYPE)
   @ResponseBody
   public ResponseEntity<DatatablesData<Customer>> list(GlobalSearch search,
-      DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
+      DatatablesPageable pageable, @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<Customer> customers = customerService.findAll(search, pageable);
     long totalCustomersCount = customers.getTotalElements();
     if (search != null && StringUtils.hasText(search.getText())) {

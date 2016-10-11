@@ -1,12 +1,13 @@
 package com.disid.restful.web.customerorder.html;
 
-import com.disid.restful.datatables.DatatablesData;
-import com.disid.restful.datatables.DatatablesPageable;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.Datatables;
+import io.springlets.data.web.datatables.DatatablesData;
+import io.springlets.data.web.datatables.DatatablesPageable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -74,7 +75,7 @@ public class CustomerOrdersCollectionThymeleafController {
   @RequestMapping(method = RequestMethod.GET, produces = "application/vnd.datatables+json")
   @ResponseBody
   public DatatablesData<CustomerOrder> list(GlobalSearch search, DatatablesPageable pageable,
-      @RequestParam("draw") Integer draw) {
+      @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<CustomerOrder> customerOrders = customerOrderService.findAll(search, pageable);
     long allAvailableCustomerOrders = customerOrderService.count();
     return new DatatablesData<CustomerOrder>(customerOrders, allAvailableCustomerOrders, draw);

@@ -1,13 +1,13 @@
 package com.disid.restful.web.customerorder.html;
 
-import com.disid.restful.datatables.Datatables;
-import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.OrderDetailService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.Datatables;
+import io.springlets.data.web.datatables.DatatablesData;
 import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class CustomerOrdersItemDetailsThymeleafController {
   @ResponseBody
   public ResponseEntity<DatatablesData<OrderDetail>> listOrderDetails(
       @PathVariable("customerorder") CustomerOrder customerOrder, GlobalSearch search,
-      Pageable pageable, @RequestParam("draw") Integer draw) {
+      Pageable pageable, @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<OrderDetail> orderDetails =
         orderDetailService.findByCustomerOrder(customerOrder, search, pageable);
     long totalOrderDetailCount = orderDetails.getTotalElements();
