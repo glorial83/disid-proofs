@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
@@ -51,32 +52,32 @@ public class ProductsItemThymeleafController {
   }
 
   @GetMapping("/edit-form")
-  public String editForm(@ModelAttribute Product product, Model model) {
-    return "products/edit";
+  public ModelAndView editForm(@ModelAttribute Product product, Model model) {
+    return new ModelAndView("products/edit");
   }
 
   @PutMapping
-  public String update(@Valid @ModelAttribute Product product, BindingResult result,
+  public ModelAndView update(@Valid @ModelAttribute Product product, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
-      return "products/edit";
+      return new ModelAndView("products/edit");
     }
     Product savedProduct = productService.save(product);
 
     UriComponents showURI = ProductsItemThymeleafController.showURI(savedProduct);
-    return "redirect:" + showURI.toUriString();
+    return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
   @DeleteMapping
-  public String delete(@ModelAttribute Product product, Model model) {
+  public ModelAndView delete(@ModelAttribute Product product, Model model) {
     productService.delete(product);
     UriComponents listURI = ProductsCollectionThymeleafController.listURI();
-    return "redirect:" + listURI.toUriString();
+    return new ModelAndView("redirect:" + listURI.toUriString());
   }
 
   @GetMapping
-  public String show(@ModelAttribute Product product, Model model) {
-    return "products/show";
+  public ModelAndView show(@ModelAttribute Product product, Model model) {
+    return new ModelAndView("products/show");
   }
 
   public static UriComponents showURI(Product product) {

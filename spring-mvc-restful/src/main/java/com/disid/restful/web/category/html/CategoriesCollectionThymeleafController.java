@@ -62,10 +62,7 @@ public class CategoriesCollectionThymeleafController {
     }
     Category newCategory = categoryService.save(category);
 
-    UriComponents showURI = MvcUriComponentsBuilder
-        .fromMethodCall(
-            MvcUriComponentsBuilder.on(CategoriesItemThymeleafController.class).show(null, null))
-        .buildAndExpand(newCategory.getId()).encode();
+    UriComponents showURI = CategoriesItemThymeleafController.showURI(newCategory);
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
 

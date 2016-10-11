@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
@@ -47,25 +48,25 @@ public class ProductsCollectionThymeleafController {
   }
 
   @GetMapping("/create-form")
-  public String createForm(Model model) {
+  public ModelAndView createForm(Model model) {
     model.addAttribute(new Product());
-    return "products/create";
+    return new ModelAndView("products/create");
   }
 
   @PostMapping
-  public String create(@Valid @ModelAttribute Product product, BindingResult result,
+  public ModelAndView create(@Valid @ModelAttribute Product product, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
-      return "products/create";
+      return new ModelAndView("products/create");
     }
     Product newProduct = productService.save(product);
     UriComponents showURI = ProductsItemThymeleafController.showURI(newProduct);
-    return "redirect:" + showURI.toUriString();
+    return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
   @GetMapping
-  public String list(Model model) {
-    return "products/list";
+  public ModelAndView list(Model model) {
+    return new ModelAndView("products/list");
   }
 
   public static UriComponents listURI() {

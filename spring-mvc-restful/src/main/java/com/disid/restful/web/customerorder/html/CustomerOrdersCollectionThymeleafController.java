@@ -2,7 +2,6 @@ package com.disid.restful.web.customerorder.html;
 
 import com.disid.restful.datatables.DatatablesData;
 import com.disid.restful.datatables.DatatablesPageable;
-import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.CustomerService;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
@@ -42,25 +42,26 @@ public class CustomerOrdersCollectionThymeleafController {
 
   @RequestMapping(value = "/create-form", method = RequestMethod.GET,
       produces = MediaType.TEXT_HTML_VALUE)
-  public String createForm(Model model) {
-    model.addAttribute(new Customer());
-    return "customerorders/create";
+  public ModelAndView createForm(Model model) {
+    model.addAttribute(new CustomerOrder());
+    return new ModelAndView("customerorders/create");
   }
 
   @RequestMapping(method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
-  public String create(@Valid @ModelAttribute CustomerOrder customerOrder, BindingResult result,
+  public ModelAndView create(@Valid @ModelAttribute CustomerOrder customerOrder,
+      BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
-      return "customerorders/create";
+      return new ModelAndView("customerorders/create");
     }
     CustomerOrder newCustomerOrder = customerOrderService.save(customerOrder);
     UriComponents showURI = CustomerOrdersItemThymeleafController.showURI(newCustomerOrder);
-    return "redirect:" + showURI.toUriString();
+    return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-  public String list(Model model) {
-    return "customerorders/list";
+  public ModelAndView list(Model model) {
+    return new ModelAndView("customerorders/list");
   }
 
   public static UriComponents listURI() {

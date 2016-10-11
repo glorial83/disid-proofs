@@ -6,6 +6,7 @@ import com.disid.restful.service.api.CategoryService;
 import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 @Controller
@@ -28,42 +31,46 @@ import javax.validation.Valid;
 public class CategoriesItemThymeleafController {
 
   public CategoryService categoryService;
+  private MessageSource messageSource;
 
   @Autowired
-  public CategoriesItemThymeleafController(CategoryService categoryService) {
+  public CategoriesItemThymeleafController(CategoryService categoryService,
+      MessageSource messageSource) {
     this.categoryService = categoryService;
+    this.messageSource = messageSource;
   }
 
   @ModelAttribute
-  public Category getCategory(@PathVariable("category") Long id) {
+  public Category getCategory(@PathVariable("category") Long id, Locale locale) {
     Category category = categoryService.findOne(id);
     if (category == null) {
-      throw new NotFoundException("Category not found");
+      String message = messageSource.getMessage("error_categoryNotFound", null, locale);
+      throw new NotFoundException(message);
     }
     return category;
   }
 
   @GetMapping("/edit-form")
-  public String editForm(@ModelAttribute Category category, Model model) {
-    return "categories/edit";
+  public ModelAndView editForm(@ModelAttribute Category category, Model model) {
+    return new ModelAndView("categories/edit");
   }
 
   @PutMapping
-  public String update(@Valid @ModelAttribute Category category, BindingResult result,
+  public ModelAndView update(@Valid @ModelAttribute Category category, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
-      return "categories/edit";
+      return new ModelAndView("categories/edit");
     }
     Category savedCategory = categoryService.save(category);
     UriComponents showURI = CategoriesItemThymeleafController.showURI(savedCategory);
-    return "redirect:" + showURI.toUriString();
+    return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
   @DeleteMapping
-  public String delete(@ModelAttribute Category category, Model model) {
+  public ModelAndView delete(@ModelAttribute Category category, Model model) {
     categoryService.delete(category);
     UriComponents listURI = CategoriesCollectionThymeleafController.listURI();
-    return "redirect:" + listURI.toUriString();
+    return new ModelAndView("redirect:" + listURI.toUriString());
   }
 
   @GetMapping

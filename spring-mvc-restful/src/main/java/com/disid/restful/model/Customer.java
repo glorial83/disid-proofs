@@ -75,6 +75,10 @@ public class Customer {
     this.address = null;
   }
 
+  public void setAddress(Address address) {
+    this.address = address;
+  }
+
   /**
    * Adds a list of orders for the customer, taking care to update the
    * relationship from the {@link CustomerOrder} to the

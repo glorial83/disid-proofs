@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
@@ -50,27 +51,27 @@ public class CustomersCollectionThymeleafController {
 
   // Create Customers
   @GetMapping("/create-form")
-  public String createForm(Model model) {
+  public ModelAndView createForm(Model model) {
     model.addAttribute(new Customer());
-    return "customers/create";
+    return new ModelAndView("customers/create");
   }
 
   @PostMapping
-  public String create(@Valid @ModelAttribute Customer customer, BindingResult result,
+  public ModelAndView create(@Valid @ModelAttribute Customer customer, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
-      return "customers/create";
+      return new ModelAndView("customers/create");
     }
     Customer newCustomer = customerService.save(customer);
 
     UriComponents showURI = CustomersItemThymeleafController.showURI(newCustomer);
-    return "redirect:" + showURI.toUriString();
+    return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
   // List Customers
   @GetMapping
-  public String list(Model model) {
-    return "customers/list";
+  public ModelAndView list(Model model) {
+    return new ModelAndView("customers/list");
   }
 
   public static UriComponents listURI() {

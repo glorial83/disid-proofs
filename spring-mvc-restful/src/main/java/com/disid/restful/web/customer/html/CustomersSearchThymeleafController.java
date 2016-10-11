@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/customers/search", produces = MediaType.TEXT_HTML_VALUE)
@@ -33,8 +34,8 @@ public class CustomersSearchThymeleafController {
   }
 
   @GetMapping("/byFirstNameLastName")
-  public String findByFirstNameLastName(Model model) {
-    return "customers/findByFirstNameLastName";
+  public ModelAndView findByFirstNameLastName(Model model) {
+    return new ModelAndView("customers/findByFirstNameLastName");
   }
 
   @GetMapping(value = "/byFirstNameLastName", produces = Datatables.MEDIA_TYPE)
