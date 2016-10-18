@@ -5,7 +5,6 @@ import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import org.springframework.util.Assert;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,17 +18,17 @@ import javax.persistence.Table;
 @RooJavaBean
 @RooToString
 @RooJpaEntity
-@Table(name= "my_customer")
+@Table(name = "my_customer")
 public class Customer {
 
   /**
    */
-  @Column(name= "my_firstName")
+  @Column(name = "my_firstName")
   private String firstName;
 
   /**
    */
-  @Column(name= "my_lastName")
+  @Column(name = "my_lastName")
   private String lastName;
 
   /**
@@ -86,8 +85,8 @@ public class Customer {
    * @param ordersToAdd to add to the customer (required)
    * @throws IllegalArgumentException if ordersToAdd is null or emptu
    */
-  public void addToOrders(Collection<CustomerOrder> ordersToAdd) {
-    Assert.notEmpty(ordersToAdd, "At least one order to add is required");
+  public void addToOrders(Iterable<CustomerOrder> ordersToAdd) {
+    Assert.notNull(ordersToAdd, "The given Iterable of order to add can't be null!");
     for (CustomerOrder order : ordersToAdd) {
       this.orders.add(order);
       order.setCustomer(this);
@@ -102,8 +101,8 @@ public class Customer {
    * @throws IllegalArgumentException if order is null or it isn't
    * an order of this customer.
    */
-  public void removeFromOrders(Collection<CustomerOrder> ordersToRemove) {
-    Assert.notEmpty(ordersToRemove, "At least one order to remove is required");
+  public void removeFromOrders(Iterable<CustomerOrder> ordersToRemove) {
+    Assert.notNull(ordersToRemove, "The given Iterable of order to remove can't be null!");
     for (CustomerOrder order : ordersToRemove) {
       this.orders.remove(order);
       order.setCustomer(null);

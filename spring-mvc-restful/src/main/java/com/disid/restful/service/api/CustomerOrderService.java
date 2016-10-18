@@ -15,8 +15,6 @@ public interface CustomerOrderService {
 
   void delete(CustomerOrder customerOrder);
 
-  List<CustomerOrder> findAll(Long... orders);
-
   CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details);
 
   CustomerOrder removeFromDetails(CustomerOrder customerOrder, OrderDetail... details);

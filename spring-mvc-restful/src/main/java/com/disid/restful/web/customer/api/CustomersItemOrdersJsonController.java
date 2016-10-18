@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping(value = "/customers/{customer}/orders", consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,27 +60,27 @@ public class CustomersItemOrdersJsonController {
 
   @PostMapping
   public ResponseEntity<?> addToOrders(@ModelAttribute Customer customer, @RequestBody Long order) {
-    customerService.addToOrders(customer, order);
+    customerService.addToOrders(customer, Collections.singleton(order));
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping
   public ResponseEntity<?> deleteFromOrders(@ModelAttribute Customer customer,
       @RequestBody Long order) {
-    customerService.removeFromOrders(customer, order);
+    customerService.removeFromOrders(customer, Collections.singleton(order));
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/batch")
   public ResponseEntity<?> addToOrders(@ModelAttribute Customer customer,
-      @RequestBody Long[] orders) {
+      @RequestBody Iterable<Long> orders) {
     customerService.addToOrders(customer, orders);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/batch")
   public ResponseEntity<?> deleteFromOrders(@ModelAttribute Customer customer,
-      @RequestBody Long[] orders) {
+      @RequestBody Iterable<Long> orders) {
     customerService.removeFromOrders(customer, orders);
     return ResponseEntity.ok().build();
   }

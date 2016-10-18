@@ -21,7 +21,7 @@ public interface CustomerService {
    * @param orders to add
    * @return the updated {@link Customer}
    */
-  Customer addToOrders(Customer customer, Long... orders);
+  Customer addToOrders(Customer customer, Iterable<Long> orders);
 
   /**
    * Removes a list of {@link CustomerOrder} from the {@link Customer#getOrders()} attribute.
@@ -29,7 +29,7 @@ public interface CustomerService {
    * @param orders to remove
    * @return the updated {@link Customer}
    */
-  Customer removeFromOrders(Customer customer, Long... orders);
+  Customer removeFromOrders(Customer customer, Iterable<Long> orders);
 
   Page<Customer> findByFirstNameLastName(CustomerSearchForm formBean, GlobalSearch search,
       Pageable pageable);

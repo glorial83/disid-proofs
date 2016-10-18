@@ -42,14 +42,14 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Transactional
-  public Customer addToOrders(Customer customer, Long... orders) {
+  public Customer addToOrders(Customer customer, Iterable<Long> orders) {
     List<CustomerOrder> customerOrders = customerOrderService.findAll(orders);
     customer.addToOrders(customerOrders);
     return customerRepository.save(customer);
   }
 
   @Transactional
-  public Customer removeFromOrders(Customer customer, Long... orders) {
+  public Customer removeFromOrders(Customer customer, Iterable<Long> orders) {
     List<CustomerOrder> customerOrders = customerOrderService.findAll(orders);
     customer.removeFromOrders(customerOrders);
     return customerRepository.save(customer);

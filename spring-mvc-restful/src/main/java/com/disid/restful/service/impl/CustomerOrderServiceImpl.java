@@ -46,10 +46,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     return findOne(customerOrder.getId());
   }
 
-  public List<CustomerOrder> findAll(Long... ids) {
-    return customerOrderRepository.findAll(Arrays.asList(ids));
-  }
-
   @Transactional(readOnly = false)
   public CustomerOrder save(CustomerOrder entity) {
     return customerOrderRepository.save(entity);
