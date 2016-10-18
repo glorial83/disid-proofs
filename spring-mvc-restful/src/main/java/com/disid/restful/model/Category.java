@@ -5,7 +5,6 @@ import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import org.springframework.util.Assert;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,8 +42,8 @@ public class Category {
    * @param productsToAdd products to add to the category (required)
    * @throws IllegalArgumentException if products is null or empty
    */
-  public void addToProducts(Collection<Product> productsToAdd) {
-    Assert.notEmpty(productsToAdd, "At least one product to add is required");
+  public void addToProducts(Iterable<Product> productsToAdd) {
+    Assert.notNull(productsToAdd, "The given Iterable of products to add can't be null!");
     for (Product product : productsToAdd) {
       this.products.add(product);
       product.getCategories().add(this);
@@ -58,8 +57,8 @@ public class Category {
    * @param productsToRemove products to remove from the customer (required)
    * @throws IllegalArgumentException if products is empty
    */
-  public void removeFromProducts(Collection<Product> productsToRemove) {
-    Assert.notEmpty(productsToRemove, "At least one product to remove is required");
+  public void removeFromProducts(Iterable<Product> productsToRemove) {
+    Assert.notNull(productsToRemove, "The given Iterable of products to remove can't be null!");
     for (Product product : productsToRemove) {
       this.products.remove(product);
       product.getCategories().remove(this);

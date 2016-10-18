@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -45,53 +44,18 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Transactional
-  public Category addToProducts(Category category, Long... productIds) {
+  public Category addToProducts(Category category, Iterable<Long> productIds) {
     List<Product> products = productService.findAll(productIds);
     category.addToProducts(products);
     return categoryRepository.save(category);
   }
 
   @Transactional
-  public Category addToProducts(Category category, Product... products) {
-    category.addToProducts(Arrays.asList(products));
-    return categoryRepository.save(category);
-  }
-
-  @Transactional
-  public Category deleteFromProducts(Category category, Long... productIds) {
+  public Category removeFromProducts(Category category, Iterable<Long> productIds) {
     List<Product> products = productService.findAll(productIds);
     category.removeFromProducts(products);
     return categoryRepository.save(category);
   }
-
-  @Transactional
-  public Category deleteFromProducts(Category category, Product... products) {
-    category.removeFromProducts(Arrays.asList(products));
-    return categoryRepository.save(category);
-  }
-
-  @Transactional
-  public Product addToProducts(Product product, Long... categories) {
-    List<Category> categoryEntities = findAll(categories);
-    for (Category category : categoryEntities) {
-      addToProducts(category, product);
-    }
-    return product;
-  }
-
-  @Transactional
-  public Product deleteFromProducts(Product product, Long... categories) {
-    List<Category> categoryEntities = findAll(categories);
-    for (Category category : categoryEntities) {
-      deleteFromProducts(category, product);
-    }
-    return product;
-  }
-
-  public List<Category> findAll(Long... categories) {
-    return categoryRepository.findAll(Arrays.asList(categories));
-  }
-
 
   @Transactional(readOnly = false)
   public Category save(Category entity) {

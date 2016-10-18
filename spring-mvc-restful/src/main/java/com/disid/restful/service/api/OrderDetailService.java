@@ -11,10 +11,10 @@ import org.springframework.data.domain.Pageable;
 
 public interface OrderDetailService {
 
+  long countByCustomerOrder(CustomerOrder customerOrderField);
+
   Page<OrderDetail> findByCustomerOrder(CustomerOrder customerOrderField, GlobalSearch globalSearch,
       Pageable pageable);
-
-  long countByCustomerOrder(CustomerOrder customerOrderField);
 
   OrderDetail findOne(OrderDetailPK orderDetailPK);
 

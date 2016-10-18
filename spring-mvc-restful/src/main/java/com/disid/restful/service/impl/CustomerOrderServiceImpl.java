@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -33,15 +32,16 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
   }
 
   @Transactional
-  public CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details) {
-    customerOrder.addToDetails(Arrays.asList(details));
+  public CustomerOrder addToDetails(CustomerOrder customerOrder, Iterable<OrderDetail> details) {
+    customerOrder.addToDetails(details);
     customerOrderRepository.save(customerOrder);
     return findOne(customerOrder.getId());
   }
 
   @Transactional
-  public CustomerOrder removeFromDetails(CustomerOrder customerOrder, OrderDetail... details) {
-    customerOrder.removeFromDetails(Arrays.asList(details));
+  public CustomerOrder removeFromDetails(CustomerOrder customerOrder,
+      Iterable<OrderDetail> details) {
+    customerOrder.removeFromDetails(details);
     customerOrderRepository.save(customerOrder);
     return findOne(customerOrder.getId());
   }

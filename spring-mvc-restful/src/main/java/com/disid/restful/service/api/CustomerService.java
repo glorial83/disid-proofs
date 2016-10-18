@@ -13,8 +13,6 @@ import java.util.List;
 
 public interface CustomerService {
 
-  void delete(Customer customer);
-
   /**
    * Adds a list of {@link CustomerOrder} to the {@link Customer#getOrders()} attribute.
    * @param customer to add the orders to
@@ -22,6 +20,28 @@ public interface CustomerService {
    * @return the updated {@link Customer}
    */
   Customer addToOrders(Customer customer, Iterable<Long> orders);
+
+  long count();
+
+  long countByFirstNameLastName(CustomerSearchForm formBean);
+
+  void delete(Customer customer);
+
+  void delete(Iterable<Long> ids);
+
+
+  void delete(Long id);
+
+  List<Customer> findAll();
+
+  Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable);
+
+  List<Customer> findAll(Iterable<Long> ids);
+
+  Page<Customer> findByFirstNameLastName(CustomerSearchForm formBean, GlobalSearch search,
+      Pageable pageable);
+
+  Customer findOne(Long id);
 
   /**
    * Removes a list of {@link CustomerOrder} from the {@link Customer#getOrders()} attribute.
@@ -31,28 +51,8 @@ public interface CustomerService {
    */
   Customer removeFromOrders(Customer customer, Iterable<Long> orders);
 
-  Page<Customer> findByFirstNameLastName(CustomerSearchForm formBean, GlobalSearch search,
-      Pageable pageable);
-
-  long countByFirstNameLastName(CustomerSearchForm formBean);
-
-
   Customer save(Customer entity);
 
-  void delete(Long id);
-
   List<Customer> save(Iterable<Customer> entities);
-
-  void delete(Iterable<Long> ids);
-
-  List<Customer> findAll();
-
-  List<Customer> findAll(Iterable<Long> ids);
-
-  Customer findOne(Long id);
-
-  long count();
-
-  Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable);
 
 }

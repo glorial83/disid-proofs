@@ -13,32 +13,32 @@ import java.util.List;
 
 public interface CustomerOrderService {
 
-  void delete(CustomerOrder customerOrder);
-
-  CustomerOrder addToDetails(CustomerOrder customerOrder, OrderDetail... details);
-
-  CustomerOrder removeFromDetails(CustomerOrder customerOrder, OrderDetail... details);
-
-  CustomerOrder save(CustomerOrder entity);
-
-  void delete(Long id);
-
-  List<CustomerOrder> save(Iterable<CustomerOrder> entities);
-
-  void delete(Iterable<Long> ids);
-
-  List<CustomerOrder> findAll();
-
-  List<CustomerOrder> findAll(Iterable<Long> ids);
-
-  CustomerOrder findOne(Long id);
+  CustomerOrder addToDetails(CustomerOrder customerOrder, Iterable<OrderDetail> details);
 
   long count();
 
+  Long countByCustomer(Customer customer);
+
+  void delete(CustomerOrder customerOrder);
+
+  void delete(Iterable<Long> ids);
+
+  void delete(Long id);
+
+  List<CustomerOrder> findAll();
+
   Page<CustomerOrder> findAll(GlobalSearch globalSearch, Pageable pageable);
+
+  List<CustomerOrder> findAll(Iterable<Long> ids);
 
   Page<CustomerOrder> findByCustomer(Customer customer, GlobalSearch globalSearch,
       Pageable pageable);
 
-  Long countByCustomer(Customer customer);
+  CustomerOrder findOne(Long id);
+
+  CustomerOrder removeFromDetails(CustomerOrder customerOrder, Iterable<OrderDetail> details);
+
+  CustomerOrder save(CustomerOrder entity);
+
+  List<CustomerOrder> save(Iterable<CustomerOrder> entities);
 }

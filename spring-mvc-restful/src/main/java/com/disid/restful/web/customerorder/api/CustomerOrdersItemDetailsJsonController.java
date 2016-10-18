@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+
 import javax.validation.Valid;
 
 @RestController
@@ -62,27 +64,27 @@ public class CustomerOrdersItemDetailsJsonController {
   @PostMapping
   public ResponseEntity<?> addToDetails(@ModelAttribute CustomerOrder customerOrder,
       @Valid @RequestBody OrderDetail detail) {
-    customerOrderService.addToDetails(customerOrder, detail);
+    customerOrderService.addToDetails(customerOrder, Collections.singleton(detail));
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping
   public ResponseEntity<?> deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
       @Valid @RequestBody OrderDetail detail) {
-    customerOrderService.removeFromDetails(customerOrder, detail);
+    customerOrderService.removeFromDetails(customerOrder, Collections.singleton(detail));
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/batch")
   public ResponseEntity<?> addToDetails(@ModelAttribute CustomerOrder customerOrder,
-      @Valid @RequestBody OrderDetail[] details) {
+      @Valid @RequestBody Iterable<OrderDetail> details) {
     customerOrderService.addToDetails(customerOrder, details);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/batch")
   public ResponseEntity<?> deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
-      @Valid @RequestBody OrderDetail[] details) {
+      @Valid @RequestBody Iterable<OrderDetail> details) {
     customerOrderService.removeFromDetails(customerOrder, details);
     return ResponseEntity.ok().build();
   }

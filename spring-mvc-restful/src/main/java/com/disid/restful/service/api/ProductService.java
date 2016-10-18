@@ -12,29 +12,27 @@ import java.util.List;
 
 public interface ProductService {
 
-  void delete(Product product);
-
-  Page<Product> findByCategoriesContains(Category category, GlobalSearch search, Pageable pageable);
+  long count();
 
   long countByCategoriesContains(Category category);
 
-  List<Product> findAll(Long[] productIds);
-
-  Product save(Product entity);
+  void delete(Iterable<Long> ids);
 
   void delete(Long id);
 
-  List<Product> save(Iterable<Product> entities);
-
-  void delete(Iterable<Long> ids);
+  void delete(Product product);
 
   List<Product> findAll();
 
+  Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable);
+
   List<Product> findAll(Iterable<Long> ids);
+
+  Page<Product> findByCategoriesContains(Category category, GlobalSearch search, Pageable pageable);
 
   Product findOne(Long id);
 
-  long count();
+  List<Product> save(Iterable<Product> entities);
 
-  Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable);
+  Product save(Product entity);
 }

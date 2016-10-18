@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping(value = "/categories/{category}/products",
     consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,28 +61,28 @@ public class CategoriesItemProductsJsonController {
   @PostMapping
   public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
       @RequestBody Long product) {
-    categoryService.addToProducts(category, product);
+    categoryService.addToProducts(category, Collections.singleton(product));
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping
   public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
       @RequestBody Long product) {
-    categoryService.deleteFromProducts(category, product);
+    categoryService.removeFromProducts(category, Collections.singleton(product));
     return ResponseEntity.ok().build();
   }
 
   @PostMapping(value = "/batch")
   public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
-      @RequestBody Long[] products) {
+      @RequestBody Iterable<Long> products) {
     categoryService.addToProducts(category, products);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping(value = "/batch")
   public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
-      @RequestBody Long[] products) {
-    categoryService.deleteFromProducts(category, products);
+      @RequestBody Iterable<Long> products) {
+    categoryService.removeFromProducts(category, products);
     return ResponseEntity.ok().build();
   }
 

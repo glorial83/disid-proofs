@@ -6,7 +6,6 @@ import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import org.springframework.util.Assert;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -71,8 +70,8 @@ public class CustomerOrder {
    * @param details to add to the order (required)
    * @throws IllegalArgumentException if the detail is null or empty
    */
-  public void addToDetails(Collection<OrderDetail> detailsToAdd) {
-    Assert.notEmpty(detailsToAdd, "At least one order detail to add is required");
+  public void addToDetails(Iterable<OrderDetail> detailsToAdd) {
+    Assert.notNull(detailsToAdd, "The given Iterable of order details to add can't be null!");
     int lastDetail = getDetails().size();
     for (OrderDetail detail : detailsToAdd) {
       OrderDetailPK detailPK = new OrderDetailPK(getId(), lastDetail);
@@ -93,8 +92,8 @@ public class CustomerOrder {
    * @throws IllegalArgumentException if the detail is null or it isn't
    * a detail of this customer.
    */
-  public void removeFromDetails(Collection<OrderDetail> detailsToRemove) {
-    Assert.notEmpty(detailsToRemove, "At least one order detail to remove is required");
+  public void removeFromDetails(Iterable<OrderDetail> detailsToRemove) {
+    Assert.notNull(detailsToRemove, "The given Iterable of order details to remove can't be null!");
     for (OrderDetail detail : detailsToRemove) {
       details.remove(detail);
       detail.setCustomerOrder(null);

@@ -1,7 +1,6 @@
 package com.disid.restful.service.api;
 
 import com.disid.restful.model.Category;
-import com.disid.restful.model.Product;
 
 import io.springlets.data.domain.GlobalSearch;
 
@@ -12,38 +11,28 @@ import java.util.List;
 
 public interface CategoryService {
 
+  Category addToProducts(Category category, Iterable<Long> products);
+
+  long count();
+
   void delete(Category category);
 
-  Category addToProducts(Category category, Long... products);
+  void delete(Iterable<Long> ids);
 
-  Category addToProducts(Category category, Product... products);
-
-  Category deleteFromProducts(Category category, Long... products);
-
-  Category deleteFromProducts(Category category, Product... products);
-
-  Product addToProducts(Product product, Long... categories);
-
-  Product deleteFromProducts(Product product, Long... categories);
-
-  List<Category> findAll(Long... categories);
+  void delete(Long id);
 
   List<Category> findAll();
+
+  Page<Category> findAll(GlobalSearch globalSearch, Pageable pageable);
 
   List<Category> findAll(Iterable<Long> ids);
 
   Category findOne(Long id);
 
-  long count();
-
-  Page<Category> findAll(GlobalSearch globalSearch, Pageable pageable);
+  Category removeFromProducts(Category category, Iterable<Long> products);
 
   Category save(Category entity);
 
-  void delete(Long id);
-
   List<Category> save(Iterable<Category> entities);
-
-  void delete(Iterable<Long> ids);
 
 }
