@@ -1,15 +1,22 @@
 package com.disid.restful.model;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import org.springframework.util.Assert;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -18,8 +25,21 @@ import javax.validation.constraints.Size;
 @RooJavaBean
 @RooToString
 @RooJpaEntity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="my_category")
 public class Category {
+
+  @CreatedBy
+  private String createdBy;
+
+  @CreatedDate
+  private Date createdDate;
+
+  @LastModifiedBy
+  private String lastModifiedBy;
+
+  @LastModifiedDate
+  private Date lastModifiedDate;
 
   @Size(min = 3, max = 30)
   @Column(name="my_name")

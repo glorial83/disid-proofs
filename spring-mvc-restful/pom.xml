@@ -79,6 +79,20 @@
 			<artifactId>org.springframework.roo.querydsl.processor</artifactId>
 			<version>2.0.0.RELEASE</version>
 		</dependency>
+		
+		<!-- Spring dependencies -->
+
+		<dependency>
+			<groupId>io.springlets</groupId>
+			<artifactId>springlets-boot-starter-data-jpa</artifactId>
+			<version>${springlets.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springlets</groupId>
+			<artifactId>springlets-boot-starter-web</artifactId>
+			<version>${springlets.version}</version>
+		</dependency>
 
         <!-- Other dependencies -->
 
@@ -90,30 +104,6 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>io.springlets</groupId>
-			<artifactId>springlets-data-commons</artifactId>
-			<version>${springlets.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.springlets</groupId>
-			<artifactId>springlets-data-jpa</artifactId>
-			<version>${springlets.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.springlets</groupId>
-			<artifactId>springlets-boot-starter-web</artifactId>
-			<version>${springlets.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.springlets</groupId>
-			<artifactId>springlets-web</artifactId>
-			<version>${springlets.version}</version>
 		</dependency>
 
 		<dependency>
