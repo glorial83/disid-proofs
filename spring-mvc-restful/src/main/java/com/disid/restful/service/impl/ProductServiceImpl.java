@@ -25,15 +25,33 @@ public class ProductServiceImpl implements ProductService {
 
   private CategoryService categoryService;
 
-  private ProductServiceImpl(ProductRepository productRepository) {
-    this.productRepository = productRepository;
-  }
+  public ProductRepository productRepository;
 
   @Autowired
   public ProductServiceImpl(ProductRepository productRepository,
       @Lazy CategoryService categoryService) {
-    this(productRepository);
+    this.productRepository = productRepository;
     this.categoryService = categoryService;
+  }
+
+  public long count() {
+    return productRepository.count();
+  }
+
+  public long countByCategoriesContains(Category category) {
+    return productRepository.countByCategoriesContains(category);
+  }
+
+  @Transactional(readOnly = false)
+  public void delete(Iterable<Long> ids) {
+    List<Product> toDelete = productRepository.findAll(ids);
+    productRepository.deleteInBatch(toDelete);
+  }
+
+
+  @Transactional(readOnly = false)
+  public void delete(Long id) {
+    productRepository.delete(id);
   }
 
   @Transactional
@@ -45,30 +63,29 @@ public class ProductServiceImpl implements ProductService {
     productRepository.delete(product);
   }
 
-  public Page<Product> findByCategoriesContains(Category category, GlobalSearch search,
-      Pageable pageable) {
-    return productRepository.findByCategoriesContains(category, search, pageable);
+  public List<Product> findAll() {
+    return productRepository.findAll();
   }
 
-  public long countByCategoriesContains(Category category) {
-    return productRepository.countByCategoriesContains(category);
+  public Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable) {
+    return productRepository.findAll(globalSearch, pageable);
+  }
+
+  public List<Product> findAll(Iterable<Long> ids) {
+    return productRepository.findAll(ids);
   }
 
   public List<Product> findAll(Long[] productIds) {
     return productRepository.findAll(Arrays.asList(productIds));
   }
 
-
-  public ProductRepository productRepository;
-
-  @Transactional(readOnly = false)
-  public Product save(Product entity) {
-    return productRepository.save(entity);
+  public Page<Product> findByCategoriesContains(Category category, GlobalSearch search,
+      Pageable pageable) {
+    return productRepository.findByCategoriesContains(category, search, pageable);
   }
 
-  @Transactional(readOnly = false)
-  public void delete(Long id) {
-    productRepository.delete(id);
+  public Product findOne(Long id) {
+    return productRepository.findOne(id);
   }
 
   @Transactional(readOnly = false)
@@ -77,28 +94,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Transactional(readOnly = false)
-  public void delete(Iterable<Long> ids) {
-    List<Product> toDelete = productRepository.findAll(ids);
-    productRepository.deleteInBatch(toDelete);
-  }
-
-  public List<Product> findAll() {
-    return productRepository.findAll();
-  }
-
-  public List<Product> findAll(Iterable<Long> ids) {
-    return productRepository.findAll(ids);
-  }
-
-  public Product findOne(Long id) {
-    return productRepository.findOne(id);
-  }
-
-  public long count() {
-    return productRepository.count();
-  }
-
-  public Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable) {
-    return productRepository.findAll(globalSearch, pageable);
+  public Product save(Product entity) {
+    return productRepository.save(entity);
   }
 }
