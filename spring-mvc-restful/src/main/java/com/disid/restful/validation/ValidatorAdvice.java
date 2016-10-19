@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 @ControllerAdvice
 public class ValidatorAdvice {
 
+  private CollectionValidator collectionValidator;
+
   @Autowired
-  protected CollectionValidator collectionValidator;
+  public ValidatorAdvice(CollectionValidator collectionValidator) {
+    this.collectionValidator = collectionValidator;
+  }
 
   /**
    * Adds the {@link CollectionValidator} to the supplied {@link WebDataBinder}
