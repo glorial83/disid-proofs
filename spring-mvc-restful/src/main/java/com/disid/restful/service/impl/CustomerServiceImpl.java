@@ -1,6 +1,5 @@
 package com.disid.restful.service.impl;
 
-import com.disid.restful.model.Address;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.CustomerSearchForm;
@@ -49,21 +48,10 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Transactional
+  @Override
   public Customer removeFromOrders(Customer customer, Iterable<Long> orders) {
     List<CustomerOrder> customerOrders = customerOrderService.findAll(orders);
     customer.removeFromOrders(customerOrders);
-    return customerRepository.save(customer);
-  }
-
-  @Transactional
-  public Customer setAddress(Customer customer, Address address) {
-    customer.addToAddress(address);
-    return customerRepository.save(customer);
-  }
-
-  @Transactional
-  public Customer removeAddress(Customer customer) {
-    customer.removeFromAddress();
     return customerRepository.save(customer);
   }
 
