@@ -1,7 +1,6 @@
 package com.disid.restful.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.roo.addon.web.mvc.controller.annotations.RooCollectionValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -17,7 +16,6 @@ import java.util.Collection;
  * 
  */
 @Component
-@RooCollectionValidator
 public class CollectionValidator implements Validator {
 
   private final Validator validator;
@@ -41,9 +39,8 @@ public class CollectionValidator implements Validator {
    * @param errors contextual state about the validation process
    */
   @Override
-  @SuppressWarnings("rawtypes")
   public void validate(Object target, Errors errors) {
-    Collection collection = (Collection) target;
+    Collection<?> collection = (Collection<?>) target;
     int index = 0;
 
     for (Object object : collection) {
