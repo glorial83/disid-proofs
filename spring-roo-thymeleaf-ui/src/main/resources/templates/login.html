@@ -79,13 +79,6 @@
 
             <!-- navbar-header -->
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
-                <span class="sr-only">Menu</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-
               <!-- Brand logo -->
               <div class="organization-logo navbar-brand">
                 <a title="Spring Roo Application" href="http://projects.spring.io/spring-roo/">
@@ -100,19 +93,6 @@
 
             <!-- menu -->
             <div id="mainnav" class="navbar-collapse collapse">
-
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Menu 1 active</a></li>
-                <li><a href="#">Menu 2</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu 3 dropdown<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Submenu 1</a></li>
-                    <li><a href="#">Submenu 2</a></li>
-                    <li><a href="#">Submenu 3</a></li>
-                  </ul>
-                </li>
-              </ul>
 
               <!-- Language -->
               <ul class="nav navbar-nav navbar-right upper-nav language">
@@ -129,31 +109,6 @@
                    alt="Spanish">&nbsp;<span>Spanish</span></a> </li>
                  </ul>
                </li>
-              </ul>
-
-              <!-- User menu -->
-              <ul class="nav navbar-nav navbar-right upper-nav session">
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">User</span><span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                   <li><a href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;<span>Admin Profile</span></a></li>
-                   <li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;<span>Change password</span></a></li>
-                   <li><form action="/logout" method="post">
-                     <button type="button" class="btn btn-link">
-                      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                      <span>Log out</span>
-                     </button>
-                   </form></li>
-                 </ul>
-                </li>
-              </ul>
-
-              <!-- User menu links -->
-              <ul class="nav navbar-nav navbar-right upper-nav links">
-                <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Contact</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Help</span></a></li>
               </ul>
 
            </div>
@@ -183,14 +138,22 @@
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error:</span> <span
-                      data-th-text="#{error_login}">Invalid user and password</span>
+                      data-th-text="#{error_login}">Username or password are invalid</span>
                   </div>
 
                   <div data-th-if="${param.logout}" class="alert alert-success"
                     role="alert">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <span
-                      data-th-text="#{info_session_closed}">Log out correctly</span>
+                      data-th-text="#{info_session_closed}"> Session has been closed successfully!</span>
                   </div>
+
+                  <div data-th-if="${param.expired}" class="alert alert-danger"
+    								role="alert">
+    								<span class="glyphicon glyphicon-exclamation-sign"
+    									aria-hidden="true"></span> <span class="sr-only"
+    									data-th-text="|#{info_error}:|">Error:</span> <span
+    									data-th-text="#{error_expired_session}"> Your session has been expired.</span>
+    							</div>
 
                   <div class="form-group">
                     <label for="usuario" class="col-md-3 control-label"
