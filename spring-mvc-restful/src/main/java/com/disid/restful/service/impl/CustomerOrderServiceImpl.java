@@ -28,6 +28,14 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
   }
 
   public void delete(CustomerOrder customerOrder) {
+    // Clear bidirectional many-to-one child relationship with Customer
+    if (customerOrder.getCustomer() != null) {
+      customerOrder.getCustomer().getOrders().remove(customerOrder);
+    }
+    // Clear bidirectional one-to-many parent relationship with OrderDetails
+    for (OrderDetail detail : customerOrder.getDetails()) {
+      detail.setCustomerOrder(null);
+    }
     customerOrderRepository.delete(customerOrder);
   }
 
@@ -49,11 +57,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
   @Transactional(readOnly = false)
   public CustomerOrder save(CustomerOrder entity) {
     return customerOrderRepository.save(entity);
-  }
-
-  @Transactional(readOnly = false)
-  public void delete(Long id) {
-    customerOrderRepository.delete(id);
   }
 
   @Transactional(readOnly = false)

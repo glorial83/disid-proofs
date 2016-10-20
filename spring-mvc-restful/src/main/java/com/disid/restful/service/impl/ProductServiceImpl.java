@@ -3,35 +3,28 @@ package com.disid.restful.service.impl;
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
 import com.disid.restful.repository.ProductRepository;
-import com.disid.restful.service.api.CategoryService;
 import com.disid.restful.service.api.ProductService;
 
 import io.springlets.data.domain.GlobalSearch;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
-  private CategoryService categoryService;
-
   public ProductRepository productRepository;
 
   @Autowired
-  public ProductServiceImpl(ProductRepository productRepository,
-      @Lazy CategoryService categoryService) {
+  public ProductServiceImpl(ProductRepository productRepository) {
     this.productRepository = productRepository;
-    this.categoryService = categoryService;
   }
 
   public long count() {
@@ -48,17 +41,11 @@ public class ProductServiceImpl implements ProductService {
     productRepository.deleteInBatch(toDelete);
   }
 
-
-  @Transactional(readOnly = false)
-  public void delete(Long id) {
-    productRepository.delete(id);
-  }
-
   @Transactional
   public void delete(Product product) {
+    // Clear bidirectional many-to-many child relationship with categories        
     for (Category category : product.getCategories()) {
-      categoryService.removeFromProducts(category, Collections.singleton(product.getId()));
-      categoryService.save(category);
+      category.getProducts().remove(product);
     }
     productRepository.delete(product);
   }

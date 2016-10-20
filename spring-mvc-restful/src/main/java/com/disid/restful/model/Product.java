@@ -17,26 +17,26 @@ import javax.persistence.Table;
 @RooJavaBean
 @RooToString
 @RooJpaEntity
-@Table(name="my_product")
+@Table(name = "my_product")
 public class Product {
 
   /**
    */
-  @Column(name="my_name")
+  @Column(name = "my_name")
   private String name;
 
   /**
    */
-  @Column(name="my_description")
+  @Column(name = "my_description")
   private String description;
 
   /**
    * Bidirectional aggregation many-to-many relationship. Child side.
    */
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name="my_products_categories",
-    joinColumns=@JoinColumn(name="my_product",referencedColumnName="id"),
-    inverseJoinColumns=@JoinColumn(name="my_category", referencedColumnName="id")
-  )
+  @JoinTable(name = "my_products_categories",
+      joinColumns = @JoinColumn(name = "my_product", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "my_category", referencedColumnName = "id"))
   private Set<Category> categories = new HashSet<Category>();
+
 }

@@ -24,19 +24,21 @@ public class CustomerServiceImpl implements CustomerService {
 
   private CustomerOrderService customerOrderService;
 
-  private CustomerServiceImpl(CustomerRepository customerRepository) {
-    this.customerRepository = customerRepository;
-  }
-
   @Autowired
   public CustomerServiceImpl(CustomerRepository customerRepository,
       @Lazy CustomerOrderService customerOrderService) {
-    this(customerRepository);
+    this.customerRepository = customerRepository;
     this.customerOrderService = customerOrderService;
   }
 
   @Transactional
   public void delete(Customer customer) {
+    // Clear bidirectional one-to-many parent relationship with CustomerOrders
+    for (CustomerOrder order : customer.getOrders()) {
+      order.setCustomer(null);
+    }
+    // Clear bidirectional one-to-one parent relationship with Address
+    customer.removeFromAddress();
     customerRepository.delete(customer);
   }
 
@@ -72,11 +74,6 @@ public class CustomerServiceImpl implements CustomerService {
     // Ensure the relationship is maintained
     entity.addToAddress(entity.getAddress());
     return customerRepository.save(entity);
-  }
-
-  @Transactional(readOnly = false)
-  public void delete(Long id) {
-    customerRepository.delete(id);
   }
 
   @Transactional(readOnly = false)

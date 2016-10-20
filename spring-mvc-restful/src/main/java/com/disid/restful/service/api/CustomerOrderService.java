@@ -23,8 +23,6 @@ public interface CustomerOrderService {
 
   void delete(Iterable<Long> ids);
 
-  void delete(Long id);
-
   List<CustomerOrder> findAll();
 
   Page<CustomerOrder> findAll(GlobalSearch globalSearch, Pageable pageable);

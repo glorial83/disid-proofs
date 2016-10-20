@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 @RooToString
 @RooJpaEntity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="my_category")
+@Table(name = "my_category")
 public class Category {
 
   @CreatedBy
@@ -42,10 +42,10 @@ public class Category {
   private Date lastModifiedDate;
 
   @Size(min = 3, max = 30)
-  @Column(name="my_name")
+  @Column(name = "my_name")
   private String name;
 
-  @Column(name="my_description")
+  @Column(name = "my_description")
   private String description;
 
   /**
@@ -84,4 +84,5 @@ public class Category {
       product.getCategories().remove(this);
     }
   }
+
 }

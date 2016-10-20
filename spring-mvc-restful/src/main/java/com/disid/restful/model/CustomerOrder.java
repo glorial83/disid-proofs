@@ -55,12 +55,12 @@ public class CustomerOrder {
   private Set<OrderDetail> details = new HashSet<OrderDetail>();
 
   /**
-   * Bidirectional non-aggregation many-to-one relationship. Child side.
+   * Bidirectional aggregation many-to-one relationship. Child side.
    */
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinTable(name = "my_customer_orders",
-      joinColumns = @JoinColumn(name = "my_order", referencedColumnName = "id") ,
-      inverseJoinColumns = @JoinColumn(name = "my_customer", referencedColumnName = "id") )
+      joinColumns = @JoinColumn(name = "my_order", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "my_customer", referencedColumnName = "id"))
   private Customer customer;
 
   /**
@@ -99,4 +99,5 @@ public class CustomerOrder {
       detail.setCustomerOrder(null);
     }
   }
+
 }

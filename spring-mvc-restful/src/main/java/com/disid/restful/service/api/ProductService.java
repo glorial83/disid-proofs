@@ -18,8 +18,6 @@ public interface ProductService {
 
   void delete(Iterable<Long> ids);
 
-  void delete(Long id);
-
   void delete(Product product);
 
   List<Product> findAll();

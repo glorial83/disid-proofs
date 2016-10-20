@@ -29,9 +29,6 @@ public interface CustomerService {
 
   void delete(Iterable<Long> ids);
 
-
-  void delete(Long id);
-
   List<Customer> findAll();
 
   Page<Customer> findAll(GlobalSearch globalSearch, Pageable pageable);

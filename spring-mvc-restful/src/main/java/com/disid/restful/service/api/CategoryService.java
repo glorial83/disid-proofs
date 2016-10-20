@@ -19,8 +19,6 @@ public interface CategoryService {
 
   void delete(Iterable<Long> ids);
 
-  void delete(Long id);
-
   List<Category> findAll();
 
   Page<Category> findAll(GlobalSearch globalSearch, Pageable pageable);

@@ -24,19 +24,16 @@ public class CategoryServiceImpl implements CategoryService {
   private ProductService productService;
   private CategoryRepository categoryRepository;
 
-  private CategoryServiceImpl(CategoryRepository categoryRepository) {
-    this.categoryRepository = categoryRepository;
-  }
-
   @Autowired
   public CategoryServiceImpl(CategoryRepository categoryRepository,
       @Lazy ProductService productService) {
-    this(categoryRepository);
+    this.categoryRepository = categoryRepository;
     this.productService = productService;
   }
 
   @Transactional
   public void delete(Category category) {
+    // Clear bidirectional many-to-many parent relationship with products    
     for (Product product : category.getProducts()) {
       product.getCategories().remove(category);
     }
@@ -60,11 +57,6 @@ public class CategoryServiceImpl implements CategoryService {
   @Transactional(readOnly = false)
   public Category save(Category entity) {
     return categoryRepository.save(entity);
-  }
-
-  @Transactional(readOnly = false)
-  public void delete(Long id) {
-    categoryRepository.delete(id);
   }
 
   @Transactional(readOnly = false)
