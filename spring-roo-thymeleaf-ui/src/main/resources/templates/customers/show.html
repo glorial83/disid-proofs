@@ -286,8 +286,8 @@
     </footer>
 
 	  <!-- JavaScript
-	    ================================================== -->
-	   <!-- Placed at the end of the document so that the pages load faster -->
+	  ================================================== -->
+	  <!-- Placed at the end of the document so that the pages load faster -->
 	  <!-- JQuery -->
 	  <script type="text/javascript" charset="utf8"
 	    src="https://code.jquery.com/jquery-1.12.3.js"></script>
@@ -299,6 +299,20 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script type="text/javascript" charset="utf8"
       src="../../static/public/js/ie10-viewport-bug-workaround.js"></script>
+
+		<!-- MomentJS - date format -->
+		<script
+		  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+			data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
+			</script>
+	  <script
+		  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
+			data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
+			data-th-if="${#locale.language} != 'en'">
+			</script>
+		<script src="../../static/public/js/moment-defaults.js"
+		  data-th-src="@{/public/js/moment-defaults.js}">
+			</script>
 
 	  <!-- Application -->
 	  <script src="../../static/public/js/main.js"></script>
