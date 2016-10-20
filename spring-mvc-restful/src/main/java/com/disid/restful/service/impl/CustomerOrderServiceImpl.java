@@ -32,10 +32,14 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     if (customerOrder.getCustomer() != null) {
       customerOrder.getCustomer().getOrders().remove(customerOrder);
     }
+    customerOrder.setCustomer(null);
+
     // Clear bidirectional one-to-many parent relationship with OrderDetails
     for (OrderDetail detail : customerOrder.getDetails()) {
       detail.setCustomerOrder(null);
     }
+    customerOrder.setDetails(null);
+
     customerOrderRepository.delete(customerOrder);
   }
 

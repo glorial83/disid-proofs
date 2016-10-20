@@ -47,6 +47,8 @@ public class ProductServiceImpl implements ProductService {
     for (Category category : product.getCategories()) {
       category.getProducts().remove(product);
     }
+    product.setCategories(null);
+
     productRepository.delete(product);
   }
 

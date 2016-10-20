@@ -37,6 +37,8 @@ public class CategoryServiceImpl implements CategoryService {
     for (Product product : category.getProducts()) {
       product.getCategories().remove(category);
     }
+    category.setProducts(null);
+
     categoryRepository.delete(category);
   }
 

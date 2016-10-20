@@ -37,6 +37,8 @@ public class CustomerServiceImpl implements CustomerService {
     for (CustomerOrder order : customer.getOrders()) {
       order.setCustomer(null);
     }
+    customer.setOrders(null);
+
     // Clear bidirectional one-to-one parent relationship with Address
     customer.removeFromAddress();
     customerRepository.delete(customer);
