@@ -67,8 +67,8 @@
         <div class="bg-header">
           <div class="jumbotron bg-banner">
               <div class="container">
-                <h1 class="project-name">Hello, we are Spring Roo!</h1>
-                <p class="project-tagline">Get start your next awesome project</p>
+                <h1 class="project-name">Spring Roo Application</h1>
+                <p class="project-tagline">Hello, this is your home page.</p>
               </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
 
               <!-- Brand logo -->
               <div class="organization-logo navbar-brand">
-                <a title="Spring Roo Application" href="http://projects.spring.io/spring-roo/">
+                <a title="Spring Roo Application" href="/">
                   <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
                 </a>
               </div>
@@ -117,16 +117,19 @@
               <!-- Language -->
               <ul class="nav navbar-nav navbar-right upper-nav language">
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;<span class="hidden-sm">Language</span><span class="caret"></span>
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-globe" aria-hidden="true">
+                    </span>&nbsp;<span class="hidden-sm"
+                    data-th-text="#{language_label}">Language</span><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu" id="languageFlags">
                    <li id="enFlag"><a href="?lang=en"><img class="flag"
-                   data-th-src="@{/public/img/en.png}" src="../../static/public/img/en.png"
-                   alt="English">&nbsp;<span>English</span></a> </li>
+                    data-th-src="@{/public/img/en.png}" src="../static/public/img/en.png"
+                    alt="English">&nbsp;<span data-th-text="#{language_label_en}">English</span></a> </li>
                    <li id="esFlag"><a href="?lang=es"><img class="flag"
-                   data-th-src="@{/public/img/es.png}" src="../../static/public/img/es.png"
-                   alt="Spanish">&nbsp;<span>Spanish</span></a> </li>
+                    data-th-src="@{/public/img/es.png}" src="../static/public/img/es.png"
+                    alt="Spanish">&nbsp;<span data-th-text="language_label_es">Spanish</span></a> </li>
                  </ul>
                </li>
               </ul>
