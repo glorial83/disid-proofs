@@ -41,9 +41,6 @@
 
   </head>
 
-<#if userManagedComponents?has_content && userManagedComponents["body"]??>
-  ${userManagedComponents["body"]}
-<#else>
   <body id="body">
 
      <header role="banner">
@@ -101,8 +98,8 @@
       </script>
     <script
        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
-       data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${r"${#"}locale.language${r"}"}+'.js'"
-       data-th-if="${r"${#"}locale.language${r"}"} != 'en'">
+       data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
+       data-th-if="${#locale.language} != 'en'">
       </script>
     <script src="../../static/public/js/moment-defaults.js"
       data-th-src="@{/public/js/moment-defaults.js}">
@@ -117,5 +114,4 @@
       data-th-src="@{/public/js/main.js}">
       </script>
   </body>
-</#if>
 </html>
