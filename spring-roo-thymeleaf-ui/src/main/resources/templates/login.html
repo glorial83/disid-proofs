@@ -9,7 +9,7 @@
     <meta name="author" content="Spring Roo development team" data-th-remove="all">
     <link rel="shortcut icon" href="../static/public/img/favicon.ico" data-th-remove="all">
     <link rel="apple-touch-icon" href="../static/public/img/apple-touch-icon.png" data-th-remove="all">
-    <title data-th-text="|#{label_login}- petclinic|">Login-petclinic</title>
+    <title data-th-text="|#{label_login}- ${projectName}|">Login - Spring Roo Application</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
@@ -135,10 +135,10 @@
                       data-th-classappend="${param.error}? 'has-error has-feedback'"
                       data-th-class="form-group">
                     <label for="username" class="col-md-3 control-label"
-                      data-th-text="#{label_login_username}">username</label>
+                      data-th-text="#{label_login_username}">Username</label>
                     <div class="col-md-6">
                       <input id="username" name="username" type="text"
-                        class="form-control" placeholder="username"
+                        class="form-control" placeholder="Username"
                         data-th-placeholder="#{label_login_username}" data-toggle="tooltip"
                         aria-describedby="usernameStatus" />
                       <span data-th-classappend="${param.error}? 'glyphicon glyphicon-remove form-control-feedback'"
