@@ -97,7 +97,6 @@
            </div>
           </div>
         </nav>
-
       </header>
 
       <!--Content-->
@@ -111,49 +110,59 @@
             </div>
             <div class="panel-body">
               <form class="form-horizontal" data-th-action="@{/login}" method="post">
-
                 <fieldset>
-                  <legend class="sr-only">Enter your login and password</legend>
-
+                  <legend class="sr-only" data-th-text="#{help_login}">Enter your login and password</legend>
                   <div data-th-if="${param.error}" class="alert alert-danger"
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span> <span
+                    <span class="sr-only" data-th-text="|#{label_error}:|">Error:</span> <span
                       data-th-text="#{error_login}">Username or password are invalid</span>
                   </div>
-
                   <div data-th-if="${param.logout}" class="alert alert-success"
                     role="alert">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <span
-                      data-th-text="#{info_session_closed}"> Session has been closed successfully!</span>
+                      data-th-text="#{info_closed_session}">Log out correctly</span>
                   </div>
-
                   <div data-th-if="${param.expired}" class="alert alert-danger"
     								role="alert">
     								<span class="glyphicon glyphicon-exclamation-sign"
     									aria-hidden="true"></span> <span class="sr-only"
-    									data-th-text="|#{info_error}:|">Error:</span> <span
-    									data-th-text="#{error_expired_session}"> Your session has been expired.</span>
+    									data-th-text="|#{label_error}:|">Error:</span> <span
+    									data-th-text="#{error_expired_session}">Your session has been expired</span>
     							</div>
 
-                  <div class="form-group">
-                    <label for="usuario" class="col-md-3 control-label"
-                      data-th-text="#{label_login_username}">User</label>
+                  <div class="form-group has-error has-feedback" data-z="z" id="username"
+                      data-th-classappend="${param.error}? 'has-error has-feedback'"
+                      data-th-class="form-group">
+                    <label for="username" class="col-md-3 control-label"
+                      data-th-text="#{label_login_username}">username</label>
                     <div class="col-md-6">
-                      <input type="text" class="form-control" id="username" name="username"
-                        placeholder="User" />
+                      <input id="username" name="username" type="text"
+                        class="form-control" placeholder="username"
+                        data-th-placeholder="#{label_login_username}" data-toggle="tooltip"
+                        aria-describedby="usernameStatus" />
+                      <span data-th-classappend="${param.error}? 'glyphicon glyphicon-remove form-control-feedback'"
+                        class="glyphicon glyphicon-remove form-control-feedback"
+                        data-th-if="${param.error}" aria-hidden="true"></span>
+	                    <span id="username-error" class="help-block" data-th-if="${param.error}"
+	                        data-th-text="#{error_login}">Error message.</span>
                     </div>
                   </div>
-
-                  <div class="form-group">
+                  <div class="form-group has-error has-feedback" data-z="z" id="password"
+                      data-th-classappend="${param.error}? 'has-error has-feedback'" data-th-class="form-group">
                     <label for="password" class="col-md-3 control-label"
                       data-th-text="#{label_login_password}">Password</label>
                     <div class="col-md-6">
-                      <input type="password" class="form-control" id="password"
-                        name="password" placeholder="Password" />
+                      <input id="password" name="password" type="password"
+                        class="form-control" placeholder="Password" data-th-placeholder="#{label_login_password}"
+                        data-toggle="tooltip" aria-describedby="passwordStatus" />
+                      <span data-th-classappend="${param.error}? 'glyphicon glyphicon-remove form-control-feedback'"
+                        class="glyphicon glyphicon-remove form-control-feedback" data-th-if="${param.error}"
+                        aria-hidden="true"></span>
+                      <span id="password-error" class="help-block" data-th-if="${param.error}"
+                        data-th-text="#{error_login}">Error message.</span>
                     </div>
                   </div>
-
                   <div class="form-group">
                     <div class="col-md-9 col-md-offset-3">
                       <button type="reset" class="btn btn-default"
@@ -163,10 +172,8 @@
                     </div>
                   </div>
                 </fieldset>
-
               </form>
             </div>
-
           </div>
 
         </div>
@@ -193,7 +200,6 @@
       <!-- certified logos -->
       <div class="row">
         <div class="col-sm-6 col-sm-offset-6 text-right">
-
          <a title="Explanation of WCAG 2.0 Level Double-A Conformance"
             data-th-title="#{label_accessibility_title}"
             target="_blank"
@@ -224,16 +230,11 @@
     <!-- JavaScript
     ================================================== -->
     <!-- JQuery -->
-    <script type="text/javascript" charset="utf8"
-      src="https://code.jquery.com/jquery-1.12.3.js"></script>
-
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.3.js"></script>
     <!-- Bootstrap -->
-    <script type="text/javascript"
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
-
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
-
     <!-- Application -->
     <script src="../static/public/js/main.js"></script>
 
