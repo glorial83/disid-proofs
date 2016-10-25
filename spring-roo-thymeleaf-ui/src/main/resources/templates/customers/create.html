@@ -564,17 +564,14 @@
 
 		<!-- MomentJS - date format -->
 		<script
-			 src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
-			 data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
+			src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+			data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
 			</script>
-		<script
-			 src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
-			 data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
-			 data-th-if="${#locale.language} != 'en'">
+		<script src="../../static/public/js/moment-locale-es.js">
+      </script>
+		<script src="../../static/public/js/moment-defaults.js"
+			data-th-src="@{/public/js/moment-defaults.js}">
 			</script>
-			<script src="../../static/public/js/moment-defaults.js"
-				data-th-src="@{/public/js/moment-defaults.js}">
-				</script>
 
 	  <div data-layout-fragment="javascript">
 
@@ -599,8 +596,8 @@
 	    (function(jQuery) {
 	        jQuery(document).ready(function() {
 	          jQuery.extend( jQuery.validator.messages, {
-	            'dateformat' : /*[[#{error_invalidDate}]]*/ 'Please enter a correct date/time',
-	            'inputmask': /*[[#{error_invalidMaskValue}]]*/ 'Please enter a valid value',
+	            'dateformat' : /*[[#{error_invalid_date}]]*/ 'Please enter a correct date/time',
+	            'inputmask': /*[[#{error_invalid_maskValue}]]*/ 'Please enter a valid value',
 	          });
 	        });
 	      })(jQuery);
