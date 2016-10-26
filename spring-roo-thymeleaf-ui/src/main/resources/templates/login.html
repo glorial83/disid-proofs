@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" data-th-remove="all"/>
     <meta name="description" content="Spring Roo, a next-generation rapid application development tool for Java developers.
-      	With Roo you can easily build full Java applications in minutes." data-th-remove="all"/>
+      With Roo you can easily build full Java applications in minutes." data-th-remove="all"/>
     <meta name="author" content="Spring Roo development team" data-th-remove="all"/>
+
     <link rel="shortcut icon" href="../static/public/img/favicon.ico" data-th-remove="all"/>
     <link rel="apple-touch-icon" href="../static/public/img/apple-touch-icon.png" data-th-remove="all"/>
 
@@ -14,8 +15,8 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
-	    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-	    data-th-remove="all"></link>
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+	  data-th-remove="all"></link>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" type="text/css"
@@ -120,6 +121,8 @@
               <form class="form-horizontal" data-th-action="@{/login}" method="post">
                 <fieldset>
                   <legend class="sr-only" data-th-text="#{help_login}">Enter your login and password</legend>
+
+                  <!-- Alerts messages -->
                   <div data-th-if="${param.error}" class="alert alert-danger"
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -132,11 +135,11 @@
                       data-th-text="#{info_closed_session}">Log out correctly</span>
                   </div>
                   <div data-th-if="${param.expired}" class="alert alert-danger"
-    								role="alert">
-    								<span class="glyphicon glyphicon-exclamation-sign"
-    									aria-hidden="true"></span> <span class="sr-only"
-    									data-th-text="|#{label_error}:|">Error:</span> <span
-    									data-th-text="#{error_expired_session}">Your session has been expired</span>
+                    role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign"
+                      aria-hidden="true"></span> <span class="sr-only"
+                      data-th-text="|#{label_error}:|">Error:</span> <span
+                      data-th-text="#{error_expired_session}">Your session has been expired</span>
     							</div>
 
                   <div class="form-group has-error has-feedback" data-z="z" id="username"
