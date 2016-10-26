@@ -13,6 +13,9 @@
       content="Spring Roo Team"
       data-th-remove="all">
 
+		<meta data-th-if="${_csrf != null}" name="_csrf" data-th-content="${_csrf.token}" />
+		<meta data-th-if="${_csrf != null}" name="_csrf_header" data-th-content="${_csrf.headerName}" />
+
     <link rel="shortcut icon" href="../../static/public/img/favicon.ico"
       data-th-remove="all">
 
@@ -472,11 +475,11 @@
                         'buttons' :[
                                  {
                                  'extend' : 'colvis',
-                                 'className' : 'btn-accion',
+                                 'className' : 'btn-action',
                                  },
                                  {
                                  'extend' : 'pageLength',
-                                 'className' : 'btn-accion',
+                                 'className' : 'btn-action',
                                  },
                              ]
                     },
