@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta charset="UTF-8"></meta>
+  <title>Modal</title> 
+ </head> 
+ <body id="body"> 
+  <!--
+    Only the inner content of the following div is included within the
+    template, in the section modal
+    --> 
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmRemovalModalTitle" data-th-fragment="modalConfirm(title, message, onclickCallback)"> 
+   <div class="modal-dialog" role="document"> 
+    <div class="modal-content"> 
+     <div class="modal-header"> 
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button> 
+      <h2 class="modal-title" id="confirmRemovalModalTitle" data-th-text="${title}">Delete Entity</h2> 
+     </div> 
+     <div class="modal-body" id="confirmRemovalModalBody"> 
+      <p data-th-text="${message}">The element is going to be deleted</p> 
+      <form class="form-horizontal"> 
+       <div class="form-group"> 
+        <div class="col-md-12"> 
+         <div class="pull-left"> 
+          <button type="reset" class="btn btn-default" data-th-onclick="'jQuery($(this).closest(\'.modal\')).modal(\'hide\');'" data-th-text="#{label_reset}">Cancel</button> 
+         </div> 
+         <div class="pull-right"> 
+          <button type="button" class="btn btn-primary" data-th-text="#{label_submit}" data-th-onclick="${onclickCallback}">Submit</button> 
+         </div> 
+        </div> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+ </body>
+</html>

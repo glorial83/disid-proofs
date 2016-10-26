@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"></meta>
+<title>Session info</title>
+</head>
+<body>
+	<!--
+    Only the inner content of the following div is included
+    within the template, in the section "datatables"
+    -->
+	<div data-layout-fragment="datatables">
+
+		<!-- Modal to show loading errors -->
+		<div
+			data-layout-include="fragments/modal :: modal(id='datatablesError',
+          title=#{info_error}, message=#{error_datatables_loading})">
+		</div>
+
+		<!-- Datatables -->
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"
+			data-th-src="@{/webjars/datatables/1.10.11/media/js/jquery.dataTables.js}"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.js"
+			data-th-src="@{/webjars/datatables.net-bs/1.10.11/js/dataTables.bootstrap.js}"></script>
+		<!-- Datatables responsive plugin -->
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.js"
+			data-th-src="@{/webjars/datatables.net-responsive/2.0.2/js/dataTables.responsive.js}"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.js"
+			data-th-src="@{/webjars/datatables.net-responsive-bs/2.0.2/js/responsive.bootstrap.js}"></script>
+		<!-- Datatables buttons plugins -->
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.js"
+			data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/dataTables.buttons.js}"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.bootstrap.js"
+			data-th-src="@{/webjars/datatables.net-buttons-bs/1.1.2/js/buttons.bootstrap.js}"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.js"
+			data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.colVis.js}"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.js"
+			data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.flash.js}"></script>
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.js"
+			data-th-src="@{/webjars/datatables.net-buttons/1.1.2/js/buttons.html5.js}"></script>
+		<!-- Datatables select plugin -->
+		<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.js"
+			data-th-src="@{/webjars/datatables.net-select/1.1.2/js/dataTables.select.js}"></script>
+
+		<script type="text/javascript" data-th-inline="javascript">
+
+	  // TODO:  remove
+      jQuery.extend({
+        'createUri': 'create-form',
+        'editUri': 'edit-form',
+        'deleteUri': 'delete-form'
+      });
+       
+      // IIFE - Immediately Invoked Function Expression
+      (function(extendDatatables) {
+
+        // The global jQuery object is passed as a parameter
+      	extendDatatables(window.jQuery, window, document);
+
+      }(function($, window, document) {
+
+       // The $ is now locally scoped, it won't collide with other libraries 
+
+       // Listen for the jQuery ready event on the document
+       // READY EVENT BEGIN
+       $(function() {
+         
+         // The DOM is ready!
+         //console.log('The DOM is ready');
+         
+         // Configure the datatables rendering
+		 $.extend( $.fn.dataTable.ext.classes, {
+		   "sFilter": "dataTables_filter col-sm-6",
+ 		   "sInfo": "dataTables_info col-sm-6",
+		   "sPaging": "dataTables_paginate col-sm-6 paging_", /* Note that the type is postfixed */
+		   "sProcessing": "dataTables_processing progress-bar progress-bar-striped active"
+		 });
+         
+         // Add a create row button 
+  	     $.extend($.fn.dataTable.ext.buttons, {
+           'add': createButton
+   	     });
+         
+         // Set datatables defaults
+   	     $.extend($.fn.dataTable.defaults, {
+          'ajax': function (data, callback, settings) {
+              this.api().loadData(data, callback, settings);
+          },
+   	      'fnInitComplete': saveSelectedRowToState,
+   	      'stateSaveParams': loadSelectedRowFromState,
+   	      'buttons': {
+   	        'dom': {
+   	          'container': {
+   	            'className': 'dt-buttons btn-group col-sm-6'
+   	          }
+   	        },
+   	        'buttons': [
+   	          'add', {
+   	            'extend': 'colvis',
+   	            'className': 'btn-action',
+   	          }, {
+   	            'extend': 'pageLength',
+   	            'className': 'btn-action',
+   	          },
+   	        ]
+   	      },
+   	      'columnDefs': [{
+   	        'targets': '_all',
+   	        'render': {
+   	          'display': $.fn.dataTable.render.text()
+   	        }
+   	      }],
+   	      'deferRender': true,
+   	      'dom': 'Bfrtip',
+   	      'processing': true,
+   	      'responsive': true,
+   	      'serverSide': true,
+   	      'stateSave': true,
+   	      // multilingual texts definitions, adding some to those already provided
+   	      // default by Datatables
+   	      'language': {
+   	        'buttons': {
+   	          'add': /*[[#{label_datatables_add}]]*/ 'Add',
+   	          'colvis': /*[[#{label_datatables_columns}]]*/ 'Columns',
+   	          'pageLength': /*[[#{label_datatables_showRows}]]*/ 'Show %d rows'
+   	        },
+   	        'select': {
+   	          'rows': {
+   	            _: /*[[#{label_datatables_selectedRows}]]*/ '%d selected rows',
+   	            0: "",
+   	            1: /*[[#{label_datatables_selectedRow}]]*/ '1 selected row'
+   	          }
+   	        },
+   	        'decimal': /*[[#{label_datatables_decimal}]]*/ '.',
+   	        'emptyTable': /*[[#{label_datatables_emptyTable}]]*/ 'No data available in table',
+   	        'info': /*[[#{label_datatables_info}]]*/ 'Showing _START_ to _END_ of _TOTAL_ entries',
+   	        'infoEmpty': /*[[#{label_datatables_infoEmpty}]]*/ 'Showing 0 to 0 of 0 entries',
+   	        'infoFiltered': /*[[#{label_datatables_infoFiltered}]]*/ '(filtered from _MAX_ total entries)',
+   	        'infoPostFix': /*[[#{label_datatables_infoPostFix}]]*/ '',
+   	        'thousands': /*[[#{label_datatables_thousands}]]*/ '',
+   	        'lengthMenu': /*[[#{label_datatables_lengthMenu}]]*/ 'Show _MENU_ entries',
+   	        'loadingRecords': /*[[#{label_datatables_loadingRecords}]]*/ 'Loading...',
+   	        'processing': /*[[#{label_datatables_processing}]]*/ 'Processing...',
+   	        'search': /*[[#{label_datatables_search}]]*/ 'Search:',
+   	        'zeroRecords': /*[[#{label_datatables_zeroRecords}]]*/ ' No matching records found',
+   	        'paginate': {
+   	          'first': /*[[#{label_datatables_first}]]*/ 'First',
+   	          'last': /*[[#{label_datatables_last}]]*/ 'Last',
+   	          'next': /*[[#{label_datatables_next}]]*/ 'Next',
+   	          'previous': /*[[#{label_datatables_previous}]]*/ 'Previous'
+   	        },
+   	        'aria': {
+   	          'sortAscending': /*[[#{label_datatables_sortAscending}]]*/ ': activate to sort column ascending',
+   	          'sortDescending': /*[[#{label_datatables_sortDescending}]]*/ ': activate to sort column descending'
+   	        }
+   	      },
+   	    });
+         
+	   	$.fn.dataTable.Api.register('loadData()', loadData);
+        
+	   	///////////////////////
+   	    // Private functions
+	   	///////////////////////
+
+   	    /**
+   	     * Creates a new button in the buttons plugin toolbar to create a new
+   	     * row using the value of the table tag attribute 
+   	     * 'data-create-url-function' as a function which returns the URL
+   	     * or, if it is not defined, the value of the table tag attribute
+   	     * 'data-create-url' to be used as the URL.
+   	     */
+   	    function createButton(dt, conf) {
+	      return {
+	        'action': function(e, dt, node, config) {
+	          var $jQueryTable = $(dt.table().node());
+	          var urlFunction = $jQueryTable.data('create-url-function');
+	          var url = urlFunction ? $[urlFunction]() : $jQueryTable.data('create-url');
+	          if (url) {
+	            location.href = url;
+              }
+	        },
+	        'className': 'btn-action add',
+	        'text': dt.i18n('buttons.add', 'Add')
+	      };
+	    };
+
+		/**
+		 * Generates and executes an ajax request whose goal is to load data from a 
+		 * DataTable element.
+		 *
+		 * @param data DataTable object data
+		 * @param callback Name of the function to call with the server data obtained 
+		 * 			once the ajax request has been completed
+		 * @param settings DataTable object options
+		 * @param url Url to use for ajax request
+		 * @param oDatatable DataTable on which the calling should act upon
+		 *
+		 */
+		function loadData(data, callback, settings) {
+		  var $jQueryTable = $(this.table().node());
+	      var url = $jQueryTable.data('load-url');
+		  if (url) {
+			var $token = $("meta[name='_csrf']");
+			var $header = $("meta[name='_csrf_header']");
+		    $.ajax({
+		      url : url,
+		      type : 'GET',
+		      data : data,
+		      dataType : 'json',
+		      headers : {
+		        Accept : /*[[${T(io.springlets.data.web.datatables.Datatables).MEDIA_TYPE}]]*/ ,
+		      },
+		      beforeSend: function (request) {
+		      	  if($token != null && $token.length > 0 && $header != null && $header.length > 0) {
+			          request.setRequestHeader($header.attr("content"), $token.attr("content"));
+		      	  }
+		      },
+		      success : $.proxy(function(dataReceived) {
+		        callback(dataReceived);
+		        if(this.state.loaded()){
+		          var rowSelectedId = this.state.loaded().rowSelectedId;
+		          if(rowSelectedId){
+		            var rowSelected = this.row('#' + rowSelectedId);
+		            if(rowSelected.length > 0){
+		              rowSelected.select();
+		            }
+		          }
+		        }
+		      }, this),
+		      error : function(dataReceived) {
+		        $('#datatablesErrorModal').modal('show');
+		        callback(emptyData(data.draw));
+		      }
+		    });
+		  } else {
+		    callback(emptyData(data.draw));
+		  }
+		}
+	    
+		/**
+		 * Generates a JSON object with the necessary data for indicating a 
+		 * DataTables object that 0 elements have been found.
+		 * This is used for details related tables, when a parent table
+		 * row is not selected.
+		 *
+		 * @param draw DataTables request counter
+		 * @returns {json} JSON object with empty data 
+		 */
+		function emptyData(draw) {
+		  return {
+		    'data' : new Array(),
+		    'draw' : draw,
+		    'error' : null,
+		    'recordsFiltered' : '0',
+		    'recordsTotal' : '0'
+		  };
+		}
+		
+		/**
+		 * If a row is selected, store it in the persisted table state
+		 * so if the user goes to another page and returns, the current
+		 * selected row is still selected.
+		 * @param oSettings DataTable object options
+		 * @param json
+		 */
+		function saveSelectedRowToState(oSettings, json) {
+	      this.DataTable().on('select', function(e, dt, type, indexes) {
+			if (type === 'row') {
+			  var rowSelectedId = $(this).DataTable().rows(indexes).ids()[0];
+			  $(this).DataTable().state.loaded().rowSelectedId = rowSelectedId;
+			  $(this).DataTable().state.save();
+			}
+		  });
+		  if (!$(this).DataTable().state.loaded()) {
+		    oSettings.oLoadedState = $(this).DataTable().state();
+		  }
+        }
+		
+		/**
+		 * Loads a previously selected row id from the persisted state.
+		 * @param settings DataTable object options
+		 * @param data DataTable object data
+		 */
+		function loadSelectedRowFromState(settings, data) {
+          if (this.DataTable().state.loaded()) {
+            var rowSelectedId = this.DataTable().state.loaded().rowSelectedId;
+            if (rowSelectedId) {
+              data.rowSelectedId = rowSelectedId;
+            }
+          }
+        }
+
+       });
+       // READY EVENT END
+        
+       //console.log('The DOM may not be ready');
+       
+       // The rest of code goes here!
+
+      }));
+
+    </script>
+	</div>
+</body>
+</html>

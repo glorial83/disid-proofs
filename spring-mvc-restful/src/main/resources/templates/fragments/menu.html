@@ -1,10 +1,10 @@
-<!DOCTYPE html> 
-<html> 
+<!doctype html>
+<html>
  <head> 
-  <meta charset="UTF-8" /> 
+  <meta charset="UTF-8"></meta> 
   <title>Page menu</title> 
  </head> 
- <body> 
+ <body id="body"> 
   <!--
     Only the internal content of the following div is included within
     the template, in menu fragment
@@ -14,20 +14,20 @@
    <nav class="navbar navbar-inverse navbar-fixed-top"> 
     <div class="container"> 
      <div class="navbar-header"> 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Menu</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false"> <span class="sr-only">Menu</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
       <!-- Brand logo --> 
       <div class="organization-logo navbar-brand"> 
-       <a title="Spring MVC RESTful" href="/"> <img alt="Spring MVC RESTful" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" /> </a> 
+       <a title="petclinic" href="/" data-th-href="@{/}"> <img alt="petclinic" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png"></img> </a> 
       </div> 
       <!-- Name application --> 
       <div class="application-name navbar-brand hidden-xs">
-       <a href="/" data-th-href="@{/}">Spring MVC RESTful</a>
+       <a href="/" data-th-href="@{/}">petclinic</a>
       </div> 
      </div>
      <!-- /navbar-header --> 
-     <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse"> 
-      <ul class="nav navbar-nav"> 
-       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_category})}">Category<span class="caret"></span></a> 
+     <div id="mainnav" class="navbar-collapse collapse"> 
+      <ul class="nav navbar-nav" id="entitiesMenuEntries"> 
+       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_category})}">Category<span class="caret"></span></a>
         <ul class="dropdown-menu"> 
          <li><a href="/categories/create-form" data-th-text="#{label_create_entity(#{label_category})}">Create Category</a></li> 
          <li><a href="/categories" data-th-text="#{label_list_entity(#{label_category_plural})}">List Category</a></li> 
@@ -48,18 +48,51 @@
          <li><a href="/products" data-th-text="#{label_list_entity(#{label_product_plural})}">List Product</a></li> 
         </ul> </li> 
       </ul> 
-      <!-- Languages --> 
+      <!-- Language select --> 
       <div data-layout-include="fragments/languages :: languages"> 
-       <span>Languages</span> 
+       <!-- Content replaced by the session template fragment language.html
+                --> 
+       <span>Language data</span> 
       </div> 
-      <!-- Menu --> 
+      <!-- User menu --> 
       <div data-layout-include="fragments/session-links :: session"> 
-       <!-- Content replaced by languages and session template fragment session-links.html --> 
+       <!-- Content replaced by the session template fragment session-links.html
+                --> 
        <span>User session data</span> 
       </div> 
      </div> 
     </div> 
    </nav> 
   </div> 
- </body> 
+  <!--
+    Only the internal content of the following div is included within
+    the template, in menu-languages fragment
+    --> 
+  <div data-layout-fragment="menu-languages"> 
+   <!-- Main navbar --> 
+   <nav class="navbar navbar-inverse navbar-fixed-top"> 
+    <div class="container"> 
+     <div class="navbar-header"> 
+      <!-- Brand logo --> 
+      <div class="organization-logo navbar-brand"> 
+       <a title="petclinic" href="/" data-th-href="@{/}"> <img alt="petclinic" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png"></img> </a> 
+      </div> 
+      <!-- Name application --> 
+      <div class="application-name navbar-brand hidden-xs">
+       <a href="/" data-th-href="@{/}">petclinic</a>
+      </div> 
+     </div>
+     <!-- /navbar-header --> 
+     <div id="mainnav" class="navbar-collapse collapse"> 
+      <!-- Language select --> 
+      <div data-layout-include="fragments/languages :: languages"> 
+       <!-- Content replaced by the session template fragment language.html
+                --> 
+       <span>Language data</span> 
+      </div> 
+     </div> 
+    </div> 
+   </nav> 
+  </div>   
+ </body>
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Modal</title>
+</head>
+<body>
+  <div data-th-fragment="modalConfirmDelete(id, title, message, baseUrl)">
+    <div
+      data-th-replace="fragments/modal :: modal(id = ${id} + 'Confirm', title = ${title}, body = ~{::modalConfirmBody})">
+
+      <div class="modal-body" data-th-fragment="modalConfirmBody" data-row-id="" data-th-id="${id} + RowId">
+
+        <p data-th-text="${message}">Going to remove the selected
+          element</p>
+
+        <div class="progress hide">
+          <div class="progress-bar progress-bar-striped active"
+            role="progressbar" aria-valuenow="45" aria-valuemin="0"
+            aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">100% Complete</span>
+          </div>
+        </div>
+
+        <form class="form-horizontal">
+          <div class="form-group">
+            <div class="col-md-12">
+              <div class="pull-left">
+                <button type="button" class="btn btn-default"
+                  data-dismiss="modal" aria-label="Close"
+                  data-th-text="#{label_reset}">Cancel</button>
+              </div>
+              <div class="pull-right">
+                <button type="button" class="btn btn-primary"
+                  data-dismiss="modal" aria-label="Confirm"
+                  data-th-text="#{label_submit}"
+                  onclick="javascript:jQuery.loading();javascript:jQuery.deleteElement();">Accept</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      data-th-replace="fragments/modal :: modal(id = ${id} + 'Success', title = ${title}, body = ~{::modalSuccessBody})">
+      <p data-th-text="|#{info_deleted_items_number(1)}|" data-th-fragment="modalSuccessBody">1 Removed item</p>
+    </div>
+
+    <div
+      data-th-replace="fragments/modal :: modal(id = ${id} + 'Error', title = ${title}, body = ~{::modalErrorBody})">
+      <p data-th-text="|#{error_deleting_item}|" data-th-fragment="modalErrorBody">Error deleting selected item.</p>
+    </div>
+
+    <script type="text/javascript" data-th-inline="javascript">
+    jQuery(document).ready( function () {
+
+    }
+ 	 
+ 	 
+
+      </script>
+  </div>
+</body>
+</html>

@@ -2,29 +2,23 @@
 //! locale : spanish (es)
 //! author : Julio Napurí : https://github.com/julionc
 
-(function (global, factory) {
-   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
+// ROO-3814 Remove var "monthsShortDot" and "if" that assigns it.
+
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
    typeof define === 'function' && define.amd ? define(['moment'], factory) :
    factory(global.moment)
 }(this, function (moment) { 'use strict';
 
-
-    var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_'),
-        monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
-
     var es = moment.defineLocale('es', {
         months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
-        /*monthsShort : function (m, format) {
-            if (/[-\/]MMM[-\/]/.test(format)) {
-                return monthsShort[m.month()];
-            } else {
-                return monthsShortDot[m.month()];
-            }
-        },*/
-        monthsShort : monthsShort,
+        monthsShort : 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_'),
+        monthsParseExact : true,
         weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
         weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
-        weekdaysMin : 'Do_Lu_Ma_Mi_Ju_Vi_Sá'.split('_'),
+        weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
+        weekdaysParseExact : true,
         longDateFormat : {
             LT : 'H:mm',
             LTS : 'H:mm:ss',
