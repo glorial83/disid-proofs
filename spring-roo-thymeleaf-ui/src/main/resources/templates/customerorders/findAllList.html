@@ -209,25 +209,34 @@
       <section data-layout-fragment="content">
         <div data-th-unless="${customerOrderSearch.isEmpty()}">
 
-          <div class="alert alert-info" role="alert">
-            <p data-th-text="|#{label_applied_filter}:|">Applied filter:</p>
-            <ul data-th-object="${customerOrderSearch}">
-              <li data-th-unless="${customer == null}"
-                data-th-text="|#{label_customerorder_customer}: ${customer.companyName}|">Customer:
-                Ramón Navarro Casaña</li>
-              <li data-th-unless="${employee == null}"
-                data-th-text="|#{label_customerorder_employee}: ${employee.firstName} ${employee.lastName}|">Employee:
-                Ana Valero Román</li>
-              <li data-th-unless="*{statuses == null}"
-                data-th-text="|#{label_customerorder_status_plural}: *{#strings.arrayJoin(statuses,',')}|">Status:
-                NEWLY</li>
-              <li data-th-unless="*{orderDateStart == null}"
-                data-th-text="|#{label_customerorder_orderdate_from}: *{{orderDateStart}}|">Order
-                 Date Start: 22/03/2015</li>
-              <li data-th-unless="*{orderDateEnd == null}"
-                data-th-text="|#{label_customerorder_orderdate_thru}: *{{orderDateEnd}}|">Order
-                Date End: 22/03/2016</li>
-            </ul>
+          <div class="col-md-12 alert alert-info" role="alert">
+            <div class="col-md-10">
+	            <p data-th-text="|#{label_applied_filter}:|">Applied filter:</p>
+	            <ul data-th-object="${customerOrderSearch}">
+	              <li data-th-unless="${customer == null}"
+	                data-th-text="|#{label_customerorder_customer}: ${customer.companyName}|">Customer:
+	                Ramón Navarro Casaña</li>
+	              <li data-th-unless="${employee == null}"
+	                data-th-text="|#{label_customerorder_employee}: ${employee.firstName} ${employee.lastName}|">Employee:
+	                Ana Valero Román</li>
+	              <li data-th-unless="*{statuses == null}"
+	                data-th-text="|#{label_customerorder_status_plural}: *{#strings.arrayJoin(statuses,',')}|">Status:
+	                NEWLY</li>
+	              <li data-th-unless="*{orderDateStart == null}"
+	                data-th-text="|#{label_customerorder_orderdate_from}: *{{orderDateStart}}|">Order
+	                 Date Start: 22/03/2015</li>
+	              <li data-th-unless="*{orderDateEnd == null}"
+	                data-th-text="|#{label_customerorder_orderdate_thru}: *{{orderDateEnd}}|">Order
+	                Date End: 22/03/2016</li>
+	            </ul>
+	          </div>
+	          <div class="col-md-2">
+	            <a id="share-button" href="#" class="btn btn-default">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                <span data-th-text="#{label_customerorder_share}">Save Search</span>
+              </a>
+	          </div>
+
           </div>
 
         </div>
