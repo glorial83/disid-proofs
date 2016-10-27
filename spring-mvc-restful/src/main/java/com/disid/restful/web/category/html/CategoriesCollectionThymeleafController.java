@@ -56,7 +56,7 @@ public class CategoriesCollectionThymeleafController {
 
   @PostMapping
   public ModelAndView create(@Valid @ModelAttribute Category category, BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("categories/create");
     }

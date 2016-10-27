@@ -58,7 +58,7 @@ public class ProductsItemThymeleafController {
 
   @PutMapping
   public ModelAndView update(@Valid @ModelAttribute Product product, BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("products/edit");
     }

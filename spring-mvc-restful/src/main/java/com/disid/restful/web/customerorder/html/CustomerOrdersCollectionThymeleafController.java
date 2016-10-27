@@ -50,8 +50,7 @@ public class CustomerOrdersCollectionThymeleafController {
 
   @RequestMapping(method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
   public ModelAndView create(@Valid @ModelAttribute CustomerOrder customerOrder,
-      BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      BindingResult result, Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("customerorders/create");
     }

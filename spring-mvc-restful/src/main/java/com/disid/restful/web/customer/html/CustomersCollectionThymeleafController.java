@@ -44,7 +44,7 @@ public class CustomersCollectionThymeleafController {
   }
 
   @InitBinder("customer")
-  public void initOwnerBinder(WebDataBinder dataBinder) {
+  public void initCustomerBinder(WebDataBinder dataBinder) {
     dataBinder.setDisallowedFields("id");
     dataBinder.setDisallowedFields("address.id");
   }
@@ -58,7 +58,7 @@ public class CustomersCollectionThymeleafController {
 
   @PostMapping
   public ModelAndView create(@Valid @ModelAttribute Customer customer, BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("customers/create");
     }

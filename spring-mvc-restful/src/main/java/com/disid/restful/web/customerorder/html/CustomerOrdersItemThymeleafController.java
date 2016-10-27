@@ -67,7 +67,7 @@ public class CustomerOrdersItemThymeleafController {
 
   @PutMapping
   public ModelAndView update(@Valid @ModelAttribute CustomerOrder customerOrder,
-      BindingResult result, RedirectAttributes redirectAttrs, Model model) {
+      BindingResult result, Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("customerorders/edit");
     }
