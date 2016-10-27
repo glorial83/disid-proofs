@@ -28,7 +28,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/categories", consumes = MediaType.APPLICATION_JSON_VALUE,
+@RequestMapping(value = "/api/categories",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoriesCollectionJsonController {
 

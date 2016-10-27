@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 
 @RestController
-@RequestMapping(value = "/customers/{customer}/orders", consumes = MediaType.APPLICATION_JSON_VALUE,
+@RequestMapping(value = "/api/customers/{customer}/orders",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomersItemOrdersJsonController {
 

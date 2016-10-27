@@ -29,7 +29,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/customerorders", consumes = MediaType.APPLICATION_JSON_VALUE,
+@RequestMapping(value = "/api/customerorders",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerOrdersCollectionJsonController {
 

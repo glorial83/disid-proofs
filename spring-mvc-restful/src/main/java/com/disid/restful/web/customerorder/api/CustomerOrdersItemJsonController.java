@@ -25,8 +25,8 @@ import org.springframework.web.util.UriComponents;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/customerorders/{customerorder}",
-    consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/customerorders/{customerorder}",
+    produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerOrdersItemJsonController {
 
   public CustomerOrderService customerOrderService;

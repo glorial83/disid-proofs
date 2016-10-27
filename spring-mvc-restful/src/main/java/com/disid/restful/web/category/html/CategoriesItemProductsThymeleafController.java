@@ -8,7 +8,6 @@ import com.disid.restful.service.api.ProductService;
 import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.web.datatables.Datatables;
 import io.springlets.data.web.datatables.DatatablesData;
-import io.springlets.web.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -46,10 +45,10 @@ public class CategoriesItemProductsThymeleafController {
   @ModelAttribute
   public Category getCategory(@PathVariable("category") Long id, Locale locale) {
     Category category = categoryService.findOne(id);
-    if (category == null) {
-      String message = messageSource.getMessage("error_categoryNotFound", null, locale);
-      throw new NotFoundException(message);
-    }
+    //    if (category == null) {
+    //      String message = messageSource.getMessage("error_categoryNotFound", null, locale);
+    //      throw new NotFoundException(message);
+    //    }
     return category;
   }
 

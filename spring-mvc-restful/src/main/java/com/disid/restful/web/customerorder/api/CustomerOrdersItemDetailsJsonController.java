@@ -29,8 +29,8 @@ import java.util.Collections;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/customerorders/{customerorder}/details",
-    consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/customerorders/{customerorder}/details",
+    produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerOrdersItemDetailsJsonController {
 
   public CustomerOrderService customerOrderService;
