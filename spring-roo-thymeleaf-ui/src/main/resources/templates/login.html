@@ -127,7 +127,7 @@
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only" data-th-text="|#{label_error}:|">Error:</span> <span
-                      data-th-text="#{error_login}">Username or password are invalid</span>
+                      data-th-text="#{error_login}">Invalid user and password</span>
                   </div>
                   <div data-th-if="${param.logout}" class="alert alert-success"
                     role="alert">
@@ -155,8 +155,6 @@
                       <span data-th-classappend="${param.error}? 'glyphicon glyphicon-remove form-control-feedback'"
                         class="glyphicon glyphicon-remove form-control-feedback"
                         data-th-if="${param.error}" aria-hidden="true"></span>
-	                    <span id="username-error" class="help-block" data-th-if="${param.error}"
-	                        data-th-text="#{error_login}">Error message.</span>
                     </div>
                   </div>
                   <div class="form-group has-error has-feedback" data-z="z" id="password"
@@ -170,8 +168,6 @@
                       <span data-th-classappend="${param.error}? 'glyphicon glyphicon-remove form-control-feedback'"
                         class="glyphicon glyphicon-remove form-control-feedback" data-th-if="${param.error}"
                         aria-hidden="true"></span>
-                      <span id="password-error" class="help-block" data-th-if="${param.error}"
-                        data-th-text="#{error_login}">Error message.</span>
                     </div>
                   </div>
                   <div class="form-group">
