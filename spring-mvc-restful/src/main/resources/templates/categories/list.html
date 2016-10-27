@@ -111,7 +111,7 @@
      <h1 data-th-text="#{label_category_plural}">Categories</h1> 
      <!--TABLE--> 
      <div class="table-responsive" id="categories-list"> 
-      <table id="categories-list-table" 
+      <table id="categoryTable" 
              class="table table-striped table-hover table-bordered"
              data-row-id="id"
              data-select="single"
@@ -124,9 +124,10 @@
        </caption> 
        <thead> 
         <tr> 
-         <th data-th-text="#{label_category_name}">name</th> 
-         <th data-th-text="#{label_category_description}">description</th> 
-         <th data-th-text="#{label_tools}">Tools</th> 
+         <th data-data="name" data-th-text="#{label_category_name}">name</th> 
+         <th data-data="description" data-th-text="#{label_category_description}">description</th> 
+         <th data-data="id" data-orderable="false" data-searchable="false" 
+             data-th-text="#{label_tools}">Tools</th> 
         </tr> 
        </thead> 
        <tbody data-th-remove="all"> 
@@ -138,7 +139,7 @@
        </tbody> 
       </table> 
       <!-- content replaced by modal-confirm fragment of modal-confirm.html --> 
-      <div data-th-replace="fragments/modal-confirm-delete :: modalConfirmDelete(id='deleteCategory',
+      <div data-th-replace="fragments/modal-confirm-delete :: modalConfirmDelete(tableId='categoryTable',
           title=#{label_delete_entity(#{label_category})}, message=#{info_delete_item_confirm}, baseUrl = @{/categories/})">
       </div> 
      </div>
@@ -202,88 +203,22 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.js" data-th-src="@{/webjars/datatables.net-select/1.1.2/js/dataTables.select.js}"></script> 
    </div> 
    <!-- Datatables page configs --> 
-   <script type="text/javascript" data-th-inline="javascript" id="categories-list-table-javascript" data-z="-329.647.283">
+   <script type="text/javascript" data-th-inline="javascript" id="categoryTable-javascript" data-z="-329.647.283">
        jQuery(document).ready( function () {
-   	     var $table = jQuery('#categories-list-table');
-         var $deleteConfirm = jQuery('#deleteCategoryConfirm');
-
-    	 var CategoryTable = $table.DataTable({
-              'columns': [
-                { 'data': 'name' },
-                { 'data': 'description' },
-                {
-                  'data': 'id',
-                  'orderable': false,
-                  'searchable': false,
-                  'render': function ( data, type, full, meta ) {
-                      var baseUrl = [[@{/categories/}]];
-                      return '<a role="button" class="btn-action showInfo" href="' + baseUrl + data + '" data-th-text="#{label_show}">Show</a>' +
-                      '<a role="button" class="btn-action edit" href="' + baseUrl + data + '/edit-form" data-th-text="#{label_edit}">Edit</a>' +
-                      '<a role="button" class="btn-action delete" data-th-text="#{label_delete}" data-toggle="modal" data-target="#deleteCategoryConfirm" data-row-id="'+ data +'" data-kkonclick="javascript:jQuery.deleteCategoryModal(' + data + ')"/>'
-                  }
-                }
-              ]
-          });
-    	 
-    	 $deleteConfirm.on('show.bs.modal', function(e) {
-
-  		    //get data-row-id attribute of the clicked element
-  		    var rowId = jQuery(e.relatedTarget).data('row-id');
-  		    alert('id1 ' + rowId);
-  		    
-  		    //populate the textbox
-  		    //jQuery("deleteCategoryConfirmRowId").data('row-id', rowId)
-  		    $deleteConfirm.rowId = rowId;
-  		    var rowId2 =  $deleteConfirm.rowId;
-  		    alert('id2 ' + rowId2);
-  		    //$(e.currentTarget).find('input[name="bookId"]').val(bookId);
-  		  });
-
-          jQuery.extend({
-             'currentCategoryId': undefined,
-             'deleteCategoryModal' : function(id) {
-                   jQuery.currentCategoryId = id;
-                   if (jQuery.currentCategoryId) {
-                     $deleteConfirm.modal('show');
-                   };
-             },
-             'loading': loading,
-             'deleteElement': deleteElement
-          });
-          
-          function loading() {
-              jQuery('.progress').removeClass('hide');
-            }
-            
-          function deleteElement() {
-              var baseUrl = [[@{/categories/}]];
-              var $deleteSuccess = jQuery('#deleteCategorySuccess');
-              var $deleteError = jQuery('#deleteCategoryError');
-              //var $deleteConfirm = jQuery('#deleteCategoryConfirm');
-      	    var rowId = $deleteConfirm.rowId;
-              
-              alert('RowId: ' + rowId);
-              
-              jQuery.ajax({
-                 url: baseUrl + rowId,
-                 type: 'DELETE',
-                 dataType : 'json',
-                 success: function(result) {
-                   jQuery('.progress').addClass('hide');
-                   /** Refresh Datatables */
-                   CategoryTable.ajax.reload();
-                   $deleteSuccess.modal();
-                 },
-                 error: function(jqXHR) {
-                   jQuery('.progress').addClass('hide');
-                   if(jqXHR.status == 428){
-                     //jQuery('#deleteCategoryModalBody').append('<p data-th-text="|#{error_deleting_item_with_relationships}|" >To delete the selected item, must delete its related elements before.</p>');
-                   } else {
-                   }
-                   $deleteError.modal();
-                 }
-              });
-            }
+         var categoryTable = jQuery('#categoryTable').DataTable({
+           'columnDefs': [
+             {
+               'targets': 2,
+               'render': function ( data, type, full, meta ) {
+                 var baseUrl = [[@{/categories/}]];
+                 return '<a role="button" class="btn-action showInfo" href="' + baseUrl + data + '" ></a>' +
+                 '<a role="button" class="btn-action edit" href="' + baseUrl + data + '/edit-form""></a>' +
+                 '<a role="button" class="btn-action delete" data-toggle="modal" data-target="#categoryTableDeleteConfirm" data-row-id="'+ data +'"/>'
+               }
+             }
+          ]
+         });
+  	 	   
         });
         </script> 
    <script type="text/javascript" data-th-inline="javascript" id="pets-detail-table-javascript" data-z="1.317.122.769">
@@ -346,7 +281,7 @@
          	});
    */
           </script> 
-   <script type="text/javascript" data-th-inline="javascript" id="categories-list-table-javascript-firstdetail" data-z="-329.647.283">
+   <script type="text/javascript" data-th-inline="javascript" id="categoryTable-javascript-firstdetail" data-z="-329.647.283">
    /*
        jQuery(document).ready( function () {
          CategoryTable.on( 'select', function ( e, dt, type, indexes ) {

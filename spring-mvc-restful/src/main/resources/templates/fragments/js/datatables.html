@@ -93,9 +93,7 @@
          
          // Set datatables defaults
    	     $.extend($.fn.dataTable.defaults, {
-          'ajax': function (data, callback, settings) {
-              this.api().loadData(data, callback, settings);
-          },
+          'ajax': loadData,
    	      'fnInitComplete': saveSelectedRowToState,
    	      'stateSaveParams': loadSelectedRowFromState,
    	      'buttons': {
@@ -164,10 +162,52 @@
    	          'sortDescending': /*[[#{label_datatables_sortDescending}]]*/ ': activate to sort column descending'
    	        }
    	      },
+   	      'initComplete': registerDeleteModalEvents
    	    });
-         
-	   	$.fn.dataTable.Api.register('loadData()', loadData);
         
+	   	$.fn.dataTable.Api.register('deleteElement()', function () {
+	   	    return this.iterator('table', function ( context, index ) {
+	   	        deleteElement(this);
+	   	    });
+	   	});
+		
+		/**
+		 * Deletes the element whose id is the one in the datatables
+		 * row whose _delete_ button has been selected, and the
+		 * the opened modal confirmacion has been accepted
+		 * (see modal-confirm-delete.html)
+		 * @param datatables DataTable on which the calling should act upon
+		 */
+	    function deleteElement(datatables) {
+	      var tableId = getTableId(datatables);
+          var $deleteConfirm = $('#' + tableId + 'DeleteConfirm');
+	      var $deleteProgress = $('#' + tableId + 'DeleteConfirm');
+	      $deleteProgress.removeClass('hide');
+
+	      var baseUrl = getLoadUrl(datatables);
+  	      var rowId = $('#' + tableId + 'DeleteRowId').data('row-id');
+  	      var url = '/api' + baseUrl + rowId;
+            	    
+          jQuery.ajax({
+             url: url,
+             type: 'DELETE'
+          })
+          .done(function(result) {
+            var $deleteSuccess = $('#' + tableId + 'DeleteSuccess');
+        	$deleteProgress.addClass('hide');
+        	datatables.ajax.reload(); // Refresh Datatables
+            $deleteConfirm.modal('hide');
+            $deleteSuccess.modal();
+  	 	  })
+  	 	  .fail(function(jqXHR, status) {
+  	 		alert("Error: " + status);
+            var $deleteError = $('#' + tableId + 'DeleteError');
+  	 		$deleteProgress.addClass('hide');
+            $deleteConfirm.modal('hide');
+            $deleteError.modal();
+          });
+        }
+	   	
 	   	///////////////////////
    	    // Private functions
 	   	///////////////////////
@@ -179,18 +219,16 @@
    	     * or, if it is not defined, the value of the table tag attribute
    	     * 'data-create-url' to be used as the URL.
    	     */
-   	    function createButton(dt, conf) {
+   	    function createButton(datatables, conf) {
 	      return {
-	        'action': function(e, dt, node, config) {
-	          var $jQueryTable = $(dt.table().node());
-	          var urlFunction = $jQueryTable.data('create-url-function');
-	          var url = urlFunction ? $[urlFunction]() : $jQueryTable.data('create-url');
+	        'action': function(e, datatables, node, config) {
+	          var url = getCreateUrl(datatables);
 	          if (url) {
 	            location.href = url;
               }
 	        },
 	        'className': 'btn-action add',
-	        'text': dt.i18n('buttons.add', 'Add')
+	        'text': datatables.i18n('buttons.add', 'Add')
 	      };
 	    };
 
@@ -198,17 +236,17 @@
 		 * Generates and executes an ajax request whose goal is to load data from a 
 		 * DataTable element.
 		 *
+		 * @param datatables DataTable on which the calling should act upon
 		 * @param data DataTable object data
 		 * @param callback Name of the function to call with the server data obtained 
 		 * 			once the ajax request has been completed
 		 * @param settings DataTable object options
 		 * @param url Url to use for ajax request
-		 * @param oDatatable DataTable on which the calling should act upon
 		 *
 		 */
-		function loadData(data, callback, settings) {
-		  var $jQueryTable = $(this.table().node());
-	      var url = $jQueryTable.data('load-url');
+		function loadData( data, callback, settings) {
+	      var datatables = this.DataTable();
+	      var url = getLoadUrl(datatables);
 		  if (url) {
 			var $token = $("meta[name='_csrf']");
 			var $header = $("meta[name='_csrf_header']");
@@ -227,16 +265,16 @@
 		      },
 		      success : $.proxy(function(dataReceived) {
 		        callback(dataReceived);
-		        if(this.state.loaded()){
-		          var rowSelectedId = this.state.loaded().rowSelectedId;
+		        if(datatables.state.loaded()){
+		          var rowSelectedId = datatables.state.loaded().rowSelectedId;
 		          if(rowSelectedId){
-		            var rowSelected = this.row('#' + rowSelectedId);
+		            var rowSelected = datatables.row('#' + rowSelectedId);
 		            if(rowSelected.length > 0){
 		              rowSelected.select();
 		            }
 		          }
 		        }
-		      }, this),
+		      }, datatables),
 		      error : function(dataReceived) {
 		        $('#datatablesErrorModal').modal('show');
 		        callback(emptyData(data.draw));
@@ -246,7 +284,49 @@
 		    callback(emptyData(data.draw));
 		  }
 		}
-	    
+		
+		/**
+		 * Returns the URL to load the data for a Datatables. The value
+		 * is defined through a 'data-load-url' attribute in the 
+		 * Datatables table tag.
+		 * @param datatables DataTable on which the calling should act upon
+		 */
+		function getLoadUrl(datatables) {
+		  return getDataValue(datatables, 'load-url');
+		}
+		
+		/**
+		 * Returns the URL to create a new element for the Datatables.
+		 * The value is defined in the Datatables table tag with a 
+		 * 'data-create-url-function' as a function which returns the URL
+   	     * or, if it is not defined, the value of the attribute
+   	     * 'data-create-url' to be used as the URL.
+		 * @param datatables DataTable on which the calling should act upon
+		 */
+		function getCreateUrl(datatables) {
+   	      var urlFunction = getDataValue(datatables, 'create-url-function');
+          return urlFunction ? $[urlFunction]() : getDataValue(datatables, 'create-url');
+		}
+		
+		/**
+		 * Returns the 'data-name' attribute value of a datatables.
+		 * @param datatables DataTable on which the calling should act upon
+		 * @param name the name of the data attribute to return the value of
+		 */
+		function getDataValue(datatables, name) {
+		  var $dt = jQueryTable(datatables);
+	      return $dt.data(name);
+		}
+		
+		function jQueryTable(datatables) {
+		  return $(datatables.table().node());
+		}
+		
+		function getTableId(datatables) {
+		  var $jQueryTable = jQueryTable(datatables);
+		  return $jQueryTable.attr('id');
+        }
+		
 		/**
 		 * Generates a JSON object with the necessary data for indicating a 
 		 * DataTables object that 0 elements have been found.
@@ -300,6 +380,26 @@
           }
         }
 
+		function registerDeleteModalEvents() {
+	      var datatables = this.DataTable();
+	      var tableId = getTableId(datatables);
+	      var $deleteConfirm = $('#' + tableId + 'DeleteConfirm');
+	      
+	      // When the delete element modal is opened, copy the current
+	      // element id to be deleted to the 'TABLE_ID + DeleteRowId'
+	      // element
+	      $deleteConfirm.on('show.bs.modal', function(e) {
+            // Get data-row-id attribute of the clicked element
+            var rowId = jQuery(e.relatedTarget).data('row-id');
+            // Populate the row-id data attribute in the modal 
+            $('#' + tableId + 'DeleteRowId').data('row-id', rowId)
+	      });
+
+          $('#' + tableId + 'DeleteButton').on('click', function() {
+    	 	datatables.deleteElement();
+          });
+		}
+		
        });
        // READY EVENT END
         
