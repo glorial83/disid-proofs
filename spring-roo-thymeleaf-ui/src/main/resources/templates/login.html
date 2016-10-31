@@ -123,6 +123,13 @@
                   <legend class="sr-only" data-th-text="#{help_login}">Enter your login and password</legend>
 
                   <!-- Alerts messages -->
+                  <div class="alert alert-info"
+                    role="alert">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{info_security_login}">You tried to access a
+                    restricted area of our application. By default, you can log in with </span>
+                    <span>"admin/pass".</span>
+                  </div>
                   <div data-th-if="${param.error}" class="alert alert-danger"
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
