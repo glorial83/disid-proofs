@@ -127,6 +127,7 @@
    	      'dom': 'Bfrtip',
    	      'processing': true,
    	      'responsive': true,
+   	      'retrieve': true,
    	      'serverSide': true,
    	      'stateSave': true,
    	      // multilingual texts definitions, adding some to those already provided
@@ -219,8 +220,8 @@
 	      console.log('Loading data for datatables: ' + datatables);
 	      
 	      var url = getLoadUrl(datatables);
+	      var validUrl = false;
 	      if (url) {
-	        var validUrl = true;
 	        
 	        // If it is a detail table, we have to get the parent id from 
 	        // the selected row in the parent table, and replace the
@@ -232,11 +233,16 @@
               if (selected.any()) {
                 var parentId = selected.data().id;
                 if (parentId) {
-                  url.replace('_PARENT_ID_', id);
+                  url = url.replace('_PARENT_ID_', parentId);
+                  validUrl = true;
                 }
-              }            
+              }        
+	        } else {
+	          validUrl = true;	
 	        }
-
+	      }
+	        
+	      if (validUrl) {
             loadDataFromUrl(datatables, data, callback, url);
 		  } else {
 			callback(emptyData(data.draw));
@@ -252,7 +258,7 @@
 	        data : data,
 	        dataType : 'json',
 	        headers : {
-		          Accept : /*[[${T(io.springlets.data.web.datatables.Datatables).MEDIA_TYPE}]]*/ ,
+		      Accept : /*[[${T(io.springlets.data.web.datatables.Datatables).MEDIA_TYPE}]]*/ ,
 	        },
 	        beforeSend: function (request) {
 	      	  if($token != null && $token.length > 0 && $header != null && $header.length > 0) {
@@ -282,14 +288,14 @@
           var parentTableId = getParentTableId(datatables);
           console.log('parentTableId = ' + parentTableId)
           if (parentTableId) {
-            return $(parentTableId).DataTable({'retrieve':true});
+            return $(parentTableId).DataTable();
           }
 	    }
 		
 		/**
 		 * Deletes the element whose id is the one in the datatables
 		 * row whose _delete_ button has been selected, and the
-		 * the opened modal confirmacion has been accepted
+		 * the opened modal confirmacion has been accepted 
 		 * (see modal-confirm-delete.html)
 		 * @param datatables DataTable on which the calling should act upon
 		 */
@@ -412,7 +418,10 @@
 		 */
 		function getParentTableId(datatables) {
 		  var $jQueryTable = jQueryTable(datatables);
-		  return getDataValue(datatables, 'parent-table');
+		  var parentTableId = getDataValue(datatables, 'parent-table');
+		  if (parentTableId) {
+			return "#" + parentTableId;
+		  }
         }		
 		
 		/**
