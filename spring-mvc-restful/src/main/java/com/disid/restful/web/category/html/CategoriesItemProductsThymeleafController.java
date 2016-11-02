@@ -25,36 +25,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Locale;
 
 @Controller
-@RequestMapping(value = "/categories/{category}/products", produces = MediaType.TEXT_HTML_VALUE)
+@RequestMapping(value = "/categories/{category}/products",
+    name = "CategoriesItemProductsThymeleafController",
+    produces = MediaType.TEXT_HTML_VALUE)
 public class CategoriesItemProductsThymeleafController {
 
   public CategoryService categoryService;
 
   public ProductService productService;
 
-  private MessageSource messageSource;
-
   @Autowired
   public CategoriesItemProductsThymeleafController(CategoryService categoryService,
       ProductService productService, MessageSource messageSource) {
     this.categoryService = categoryService;
     this.productService = productService;
-    this.messageSource = messageSource;
   }
 
   @ModelAttribute
   public Category getCategory(@PathVariable("category") Long id, Locale locale) {
     Category category = categoryService.findOne(id);
-    //    if (category == null) {
-    //      String message = messageSource.getMessage("error_categoryNotFound", null, locale);
-    //      throw new NotFoundException(message);
-    //    }
     return category;
   }
 
-  @GetMapping(produces = Datatables.MEDIA_TYPE)
+  @GetMapping(produces = Datatables.MEDIA_TYPE, name = "datatables")
   @ResponseBody
-  public DatatablesData<Product> listProduct(@ModelAttribute Category category, GlobalSearch search,
+  public DatatablesData<Product> datatables(@ModelAttribute Category category,
+      GlobalSearch search,
       Pageable pageable, @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<Product> products = productService.findByCategoriesContains(category, search, pageable);
     long allAvailableProducts = productService.countByCategoriesContains(category);

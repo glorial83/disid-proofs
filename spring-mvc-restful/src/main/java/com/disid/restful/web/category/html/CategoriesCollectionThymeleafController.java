@@ -31,7 +31,8 @@ import org.springframework.web.util.UriComponents;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/categories", produces = MediaType.TEXT_HTML_VALUE)
+@RequestMapping(value = "/categories", name = "CategoriesCollectionThymeleafController",
+    produces = MediaType.TEXT_HTML_VALUE)
 public class CategoriesCollectionThymeleafController {
 
   public CategoryService categoryService;
@@ -48,13 +49,13 @@ public class CategoriesCollectionThymeleafController {
 
   // Create Categories
 
-  @GetMapping("/create-form")
+  @GetMapping(value = "/create-form", name = "createForm")
   public ModelAndView createForm(Model model) {
     model.addAttribute(new Category());
     return new ModelAndView("categories/create");
   }
 
-  @PostMapping
+  @PostMapping(name = "create")
   public ModelAndView create(@Valid @ModelAttribute Category category, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
@@ -67,7 +68,7 @@ public class CategoriesCollectionThymeleafController {
   }
 
   // List Categories
-  @GetMapping
+  @GetMapping(name = "list")
   public ModelAndView list(Model model) {
     return new ModelAndView("categories/list");
   }
@@ -79,8 +80,8 @@ public class CategoriesCollectionThymeleafController {
         .build().encode();
   }
 
-  @GetMapping(produces = Datatables.MEDIA_TYPE)
-  public ResponseEntity<DatatablesData<Category>> list(GlobalSearch search,
+  @GetMapping(value = "/dt", name = "datatables", produces = Datatables.MEDIA_TYPE)
+  public ResponseEntity<DatatablesData<Category>> datatables(GlobalSearch search,
       DatatablesPageable pageable, @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<Category> categories = categoryService.findAll(search, pageable);
     long totalCategoriesCount = categories.getTotalElements();

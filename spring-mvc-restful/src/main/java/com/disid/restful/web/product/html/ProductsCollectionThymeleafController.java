@@ -32,7 +32,8 @@ import org.springframework.web.util.UriComponents;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/products", produces = MediaType.TEXT_HTML_VALUE)
+@RequestMapping(value = "/products", name = "ProductsCollectionThymeleafController",
+    produces = MediaType.TEXT_HTML_VALUE)
 public class ProductsCollectionThymeleafController {
 
   public ProductService productService;
@@ -47,13 +48,13 @@ public class ProductsCollectionThymeleafController {
     dataBinder.setDisallowedFields("id");
   }
 
-  @GetMapping("/create-form")
+  @GetMapping(value = "/create-form", name = "createForm")
   public ModelAndView createForm(Model model) {
     model.addAttribute(new Product());
     return new ModelAndView("products/create");
   }
 
-  @PostMapping
+  @PostMapping(name = "create")
   public ModelAndView create(@Valid @ModelAttribute Product product, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
@@ -64,7 +65,7 @@ public class ProductsCollectionThymeleafController {
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
-  @GetMapping
+  @GetMapping(name = "list")
   public ModelAndView list(Model model) {
     return new ModelAndView("products/list");
   }
@@ -76,9 +77,9 @@ public class ProductsCollectionThymeleafController {
         .build().encode();
   }
 
-  @GetMapping(produces = Datatables.MEDIA_TYPE)
+  @GetMapping(value = "/dt", name = "datatables", produces = Datatables.MEDIA_TYPE)
   @ResponseBody
-  public ResponseEntity<DatatablesData<Product>> list(GlobalSearch search,
+  public ResponseEntity<DatatablesData<Product>> datatables(GlobalSearch search,
       DatatablesPageable pageable, @RequestParam(Datatables.PARAMETER_DRAW) Integer draw) {
     Page<Product> products = productService.findAll(search, pageable);
     long totalProductsCount = products.getTotalElements();

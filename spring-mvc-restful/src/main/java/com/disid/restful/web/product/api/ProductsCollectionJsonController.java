@@ -28,7 +28,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/products", consumes = MediaType.APPLICATION_JSON_VALUE,
+@RequestMapping(value = "/api/products", name = "ProductsCollectionJsonController",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductsCollectionJsonController {
 
@@ -41,7 +41,7 @@ public class ProductsCollectionJsonController {
 
   // Create Products
 
-  @PostMapping
+  @PostMapping(name = "create")
   public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result) {
     if (product.getId() != null) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -55,7 +55,7 @@ public class ProductsCollectionJsonController {
     return ResponseEntity.created(showURI.toUri()).build();
   }
 
-  @GetMapping
+  @GetMapping(name = "list")
   public ResponseEntity<Page<Product>> list(GlobalSearch globalSearch, Pageable pageable) {
     Page<Product> products = productService.findAll(globalSearch, pageable);
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
@@ -70,7 +70,7 @@ public class ProductsCollectionJsonController {
 
   // Batch operations with Products
 
-  @PostMapping("/batch")
+  @PostMapping(value = "/batch", name = "createBatch")
   public ResponseEntity<?> createBatch(@Valid @RequestBody Collection<Product> products,
       BindingResult result) {
     if (result.hasErrors()) {
@@ -81,7 +81,7 @@ public class ProductsCollectionJsonController {
     return ResponseEntity.created(listURI().toUri()).build();
   }
 
-  @PutMapping("/batch")
+  @PutMapping(value = "/batch", name = "updateBatch")
   public ResponseEntity<?> updateBatch(@Valid @RequestBody Collection<Product> products,
       BindingResult result) {
     if (result.hasErrors()) {
@@ -91,7 +91,7 @@ public class ProductsCollectionJsonController {
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping("/batch/{ids}")
+  @DeleteMapping(value = "/batch/{ids}", name = "deleteBatch")
   public ResponseEntity<?> deleteBatch(@PathVariable("ids") Collection<Long> ids) {
     productService.delete(ids);
     return ResponseEntity.ok().build();

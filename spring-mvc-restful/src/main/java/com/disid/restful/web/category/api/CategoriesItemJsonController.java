@@ -24,7 +24,7 @@ import org.springframework.web.util.UriComponents;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/categories/{category}",
+@RequestMapping(value = "/api/categories/{category}", name = "CategoriesItemJsonController",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoriesItemJsonController {
 
@@ -35,7 +35,7 @@ public class CategoriesItemJsonController {
     this.categoryService = categoryService;
   }
 
-  @ModelAttribute
+  @ModelAttribute(name = "")
   public Category getCategory(@PathVariable("category") Long id) {
     Category category = categoryService.findOne(id);
     if (category == null) {
@@ -46,7 +46,7 @@ public class CategoriesItemJsonController {
 
   // Update Category
 
-  @PutMapping
+  @PutMapping(name = "update")
   public ResponseEntity<?> update(@ModelAttribute Category storedCategory,
       @Valid @RequestBody Category category, BindingResult result) {
     if (result.hasErrors()) {
@@ -62,13 +62,13 @@ public class CategoriesItemJsonController {
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping
+  @DeleteMapping(name = "delete")
   public ResponseEntity<?> delete(@ModelAttribute Category category) {
     categoryService.delete(category);
     return ResponseEntity.ok().build();
   }
 
-  @GetMapping
+  @GetMapping(name = "show")
   public ResponseEntity<?> show(@ModelAttribute Category category) {
     if (category == null) {
       return ResponseEntity.notFound().build();

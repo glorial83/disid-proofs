@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +26,8 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/categories/{category}", produces = MediaType.TEXT_HTML_VALUE)
+@RequestMapping(value = "/categories/{category}", name = "CategoriesItemThymeleafController",
+    produces = MediaType.TEXT_HTML_VALUE)
 public class CategoriesItemThymeleafController {
 
   public CategoryService categoryService;
@@ -50,12 +50,12 @@ public class CategoriesItemThymeleafController {
     return category;
   }
 
-  @GetMapping("/edit-form")
+  @GetMapping(value = "/edit-form", name = "editForm")
   public ModelAndView editForm(@ModelAttribute Category category, Model model) {
     return new ModelAndView("categories/edit");
   }
 
-  @PutMapping
+  @PutMapping(name = "update")
   public ModelAndView update(@Valid @ModelAttribute Category category, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
@@ -66,14 +66,17 @@ public class CategoriesItemThymeleafController {
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
-  @DeleteMapping
+  // TODO: indicar que ya no se emplea por lo que no hace falta generarlo
+  /*
+  @DeleteMapping(name = "delete")
   public ModelAndView delete(@ModelAttribute Category category, Model model) {
     categoryService.delete(category);
     UriComponents listURI = CategoriesCollectionThymeleafController.listURI();
     return new ModelAndView("redirect:" + listURI.toUriString());
   }
+  */
 
-  @GetMapping
+  @GetMapping(name = "show")
   public ModelAndView show(@ModelAttribute Category category, Model model) {
     return new ModelAndView("categories/show");
   }

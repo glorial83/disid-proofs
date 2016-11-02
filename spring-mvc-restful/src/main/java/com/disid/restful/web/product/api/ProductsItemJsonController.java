@@ -24,7 +24,7 @@ import org.springframework.web.util.UriComponents;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/products/{product}", consumes = MediaType.APPLICATION_JSON_VALUE,
+@RequestMapping(value = "/api/products/{product}", name = "ProductsItemJsonController",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductsItemJsonController {
 
@@ -46,7 +46,7 @@ public class ProductsItemJsonController {
 
   // Update Product
 
-  @PutMapping
+  @PutMapping(name = "update")
   public ResponseEntity<?> update(@ModelAttribute Product storedProduct,
       @Valid @RequestBody Product product, BindingResult result) {
     if (result.hasErrors()) {
@@ -62,13 +62,13 @@ public class ProductsItemJsonController {
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping
+  @DeleteMapping(name = "delete")
   public ResponseEntity<?> delete(@ModelAttribute Product product) {
     productService.delete(product);
     return ResponseEntity.ok().build();
   }
 
-  @GetMapping
+  @GetMapping(name = "show")
   public ResponseEntity<?> show(@ModelAttribute Product product) {
     if (product == null) {
       return ResponseEntity.notFound().build();

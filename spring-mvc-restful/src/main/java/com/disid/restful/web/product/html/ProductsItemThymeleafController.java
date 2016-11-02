@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,8 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/products/{product}", produces = MediaType.TEXT_HTML_VALUE)
+@RequestMapping(value = "/products/{product}", name = "ProductsItemThymeleafController",
+    produces = MediaType.TEXT_HTML_VALUE)
 public class ProductsItemThymeleafController {
 
   public ProductService productService;
@@ -51,12 +51,12 @@ public class ProductsItemThymeleafController {
     return product;
   }
 
-  @GetMapping("/edit-form")
+  @GetMapping(value = "/edit-form", name = "editForm")
   public ModelAndView editForm(@ModelAttribute Product product, Model model) {
     return new ModelAndView("products/edit");
   }
 
-  @PutMapping
+  @PutMapping(name = "update")
   public ModelAndView update(@Valid @ModelAttribute Product product, BindingResult result,
       RedirectAttributes redirectAttrs, Model model) {
     if (result.hasErrors()) {
@@ -68,14 +68,7 @@ public class ProductsItemThymeleafController {
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
-  @DeleteMapping
-  public ModelAndView delete(@ModelAttribute Product product, Model model) {
-    productService.delete(product);
-    UriComponents listURI = ProductsCollectionThymeleafController.listURI();
-    return new ModelAndView("redirect:" + listURI.toUriString());
-  }
-
-  @GetMapping
+  @GetMapping(name = "show")
   public ModelAndView show(@ModelAttribute Product product, Model model) {
     return new ModelAndView("products/show");
   }

@@ -27,6 +27,7 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping(value = "/api/categories/{category}/products",
+    name = "CategoriesItemProductsJsonController",
     produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoriesItemProductsJsonController {
 
@@ -50,7 +51,7 @@ public class CategoriesItemProductsJsonController {
     return category;
   }
 
-  @GetMapping
+  @GetMapping(name = "listProducts")
   public ResponseEntity<Page<Product>> listProducts(@ModelAttribute Category category,
       GlobalSearch globalSearch, Pageable pageable) {
     Page<Product> products =
@@ -58,29 +59,29 @@ public class CategoriesItemProductsJsonController {
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
   }
 
-  @PostMapping
+  @PostMapping(name = "addToProducts")
   public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
       @RequestBody Long product) {
     categoryService.addToProducts(category, Collections.singleton(product));
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping
+  @DeleteMapping(name = "removeFromProducts")
   public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
       @RequestBody Long product) {
     categoryService.removeFromProducts(category, Collections.singleton(product));
     return ResponseEntity.ok().build();
   }
 
-  @PostMapping(value = "/batch")
-  public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
+  @PostMapping(value = "/batch", name = "addToProductsBatch")
+  public ResponseEntity<?> addToProductsBatch(@ModelAttribute Category category,
       @RequestBody Iterable<Long> products) {
     categoryService.addToProducts(category, products);
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping(value = "/batch")
-  public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
+  @DeleteMapping(value = "/batch", name = "removeFromProductsBatch")
+  public ResponseEntity<?> removeFromProductsBatch(@ModelAttribute Category category,
       @RequestBody Iterable<Long> products) {
     categoryService.removeFromProducts(category, products);
     return ResponseEntity.ok().build();

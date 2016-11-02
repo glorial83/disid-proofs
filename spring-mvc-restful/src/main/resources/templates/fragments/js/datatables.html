@@ -54,13 +54,6 @@
 
 		<script type="text/javascript" data-th-inline="javascript">
 
-	  // TODO:  remove
-      jQuery.extend({
-        'createUri': 'create-form',
-        'editUri': 'edit-form',
-        'deleteUri': 'delete-form'
-      });
-       
       // IIFE - Immediately Invoked Function Expression
       (function(extendDatatables) {
 
@@ -90,7 +83,11 @@
   	     $.extend($.fn.dataTable.ext.buttons, {
            'add': createButton
    	     });
-         
+                  
+    	 $.extend(  $.fn.dataTable, {
+ 		   'renderTools': renderTools
+ 		 });
+
          // Set datatables defaults
    	     $.extend($.fn.dataTable.defaults, {
           'ajax': loadData,
@@ -112,12 +109,20 @@
    	          },
    	        ]
    	      },
-   	      'columnDefs': [{
-   	        'targets': '_all',
-   	        'render': {
-   	          'display': $.fn.dataTable.render.text()
+   	      'columnDefs': [
+	        {
+ 	          'targets': 'dttools', // First column from the right
+              'render': {
+           	    'display': $.fn.dataTable.renderTools
+              }
+            },
+   	        {
+   	          'targets': '_all',
+   	          'render': {
+   	            'display': $.fn.dataTable.render.text()
+   	          }
    	        }
-   	      }],
+   	      ],
    	      'deferRender': true,
    	      'dom': 'Bfrtip',
    	      'processing': true,
@@ -161,52 +166,16 @@
    	          'sortAscending': /*[[#{label_datatables_sortAscending}]]*/ ': activate to sort column ascending',
    	          'sortDescending': /*[[#{label_datatables_sortDescending}]]*/ ': activate to sort column descending'
    	        }
-   	      },
-   	      'initComplete': registerDeleteModalEvents
+   	      }
    	    });
         
-	   	$.fn.dataTable.Api.register('deleteElement()', function () {
-	   	    return this.iterator('table', function ( context, index ) {
-	   	        deleteElement(this);
-	   	    });
-	   	});
-		
-		/**
-		 * Deletes the element whose id is the one in the datatables
-		 * row whose _delete_ button has been selected, and the
-		 * the opened modal confirmacion has been accepted
-		 * (see modal-confirm-delete.html)
-		 * @param datatables DataTable on which the calling should act upon
-		 */
-	    function deleteElement(datatables) {
-	      var tableId = getTableId(datatables);
-          var $deleteConfirm = $('#' + tableId + 'DeleteConfirm');
-	      var $deleteProgress = $('#' + tableId + 'DeleteConfirm');
-	      $deleteProgress.removeClass('hide');
-
-	      var baseUrl = getLoadUrl(datatables);
-  	      var rowId = $('#' + tableId + 'DeleteRowId').data('row-id');
-  	      var url = '/api' + baseUrl + rowId;
-            	    
-          jQuery.ajax({
-             url: url,
-             type: 'DELETE'
-          })
-          .done(function(result) {
-            var $deleteSuccess = $('#' + tableId + 'DeleteSuccess');
-        	$deleteProgress.addClass('hide');
-        	datatables.ajax.reload(); // Refresh Datatables
-            $deleteConfirm.modal('hide');
-            $deleteSuccess.modal();
-  	 	  })
-  	 	  .fail(function(jqXHR, status) {
-  	 		alert("Error: " + status);
-            var $deleteError = $('#' + tableId + 'DeleteError');
-  	 		$deleteProgress.addClass('hide');
-            $deleteConfirm.modal('hide');
-            $deleteError.modal();
-          });
-        }
+		// Initialize all datatables in current page
+		$('table[data-datatables="true"]').each(function(initializedDatatables){
+		  var tableId = $(this).attr('id');
+		  console.log('Initializing datatables with id ' + tableId);
+    	  var datatables = $(this).DataTable();
+    	  registerEvents(datatables);
+        });
 	   	
 	   	///////////////////////
    	    // Private functions
@@ -244,46 +213,105 @@
 		 * @param url Url to use for ajax request
 		 *
 		 */
-		function loadData( data, callback, settings) {
+		function loadData(data, callback, settings) {
 	      var datatables = this.DataTable();
+	      
+	      console.log('Loading data for datatables: ' + datatables);
+	      
 	      var url = getLoadUrl(datatables);
-		  if (url) {
-			var $token = $("meta[name='_csrf']");
-			var $header = $("meta[name='_csrf_header']");
-		    $.ajax({
-		      url : url,
-		      type : 'GET',
-		      data : data,
-		      dataType : 'json',
-		      headers : {
-		        Accept : /*[[${T(io.springlets.data.web.datatables.Datatables).MEDIA_TYPE}]]*/ ,
-		      },
-		      beforeSend: function (request) {
-		      	  if($token != null && $token.length > 0 && $header != null && $header.length > 0) {
-			          request.setRequestHeader($header.attr("content"), $token.attr("content"));
-		      	  }
-		      },
-		      success : $.proxy(function(dataReceived) {
-		        callback(dataReceived);
-		        if(datatables.state.loaded()){
-		          var rowSelectedId = datatables.state.loaded().rowSelectedId;
-		          if(rowSelectedId){
-		            var rowSelected = datatables.row('#' + rowSelectedId);
-		            if(rowSelected.length > 0){
-		              rowSelected.select();
-		            }
-		          }
-		        }
-		      }, datatables),
-		      error : function(dataReceived) {
-		        $('#datatablesErrorModal').modal('show');
-		        callback(emptyData(data.draw));
-		      }
-		    });
+	      if (url) {
+	        var validUrl = true;
+	        
+	        // If it is a detail table, we have to get the parent id from 
+	        // the selected row in the parent table, and replace the
+	        // _PARENT_ID_ variable in the given URL. 
+	        var parentDatatables = getParentDatatables(datatables);
+	        if (parentDatatables) {
+	          var selected = parentDatatables.row({selected: true});
+	        
+              if (selected.any()) {
+                var parentId = selected.data().id;
+                if (parentId) {
+                  url.replace('_PARENT_ID_', id);
+                }
+              }            
+	        }
+
+            loadDataFromUrl(datatables, data, callback, url);
 		  } else {
-		    callback(emptyData(data.draw));
+			callback(emptyData(data.draw));
 		  }
 		}
+		
+		function loadDataFromUrl(datatables, data, callback, url) {
+		  var $token = $("meta[name='_csrf']");
+		  var $header = $("meta[name='_csrf_header']");
+	      $.ajax({
+	        url : url,
+	        type : 'GET',
+	        data : data,
+	        dataType : 'json',
+	        headers : {
+		          Accept : /*[[${T(io.springlets.data.web.datatables.Datatables).MEDIA_TYPE}]]*/ ,
+	        },
+	        beforeSend: function (request) {
+	      	  if($token != null && $token.length > 0 && $header != null && $header.length > 0) {
+		        request.setRequestHeader($header.attr("content"), $token.attr("content"));
+	      	  }
+	        },
+	        success : $.proxy(function(dataReceived) {
+	          callback(dataReceived);
+	          if(datatables.state.loaded()){
+		            var rowSelectedId = datatables.state.loaded().rowSelectedId;
+	            if(rowSelectedId){
+	              var rowSelected = datatables.row('#' + rowSelectedId);
+	              if(rowSelected.length > 0){
+	                rowSelected.select();
+	              }
+	            }
+	          }
+	        }, datatables),
+	        error : function(dataReceived) {
+	          $('#datatablesErrorModal').modal('show');
+	          callback(emptyData(data.draw));
+	        }
+	      });
+	    }
+		
+		function getParentDatatables(datatables) {
+          var parentTableId = getParentTableId(datatables);
+          console.log('parentTableId = ' + parentTableId)
+          if (parentTableId) {
+            return $(parentTableId).DataTable({'retrieve':true});
+          }
+	    }
+		
+		/**
+		 * Deletes the element whose id is the one in the datatables
+		 * row whose _delete_ button has been selected, and the
+		 * the opened modal confirmacion has been accepted
+		 * (see modal-confirm-delete.html)
+		 * @param datatables DataTable on which the calling should act upon
+		 */
+	    function deleteElement(datatables) {
+	      var tableId = getTableId(datatables);
+  	      var rowId = $('#' + tableId + 'DeleteRowId').data('row-id');
+  	      var url = getDeleteUrl(datatables, rowId);
+            	    
+          jQuery.ajax({
+             url: url,
+             type: 'DELETE'
+          })
+          .done(function(result) {
+            var $deleteSuccess = $('#' + tableId + 'DeleteSuccess');
+            $deleteSuccess.modal();
+        	datatables.ajax.reload(); // Refresh Datatables
+  	 	  })
+  	 	  .fail(function(jqXHR, status) {
+            var $deleteError = $('#' + tableId + 'DeleteError');
+            $deleteError.modal();
+          });
+        }
 		
 		/**
 		 * Returns the URL to load the data for a Datatables. The value
@@ -301,11 +329,57 @@
 		 * 'data-create-url-function' as a function which returns the URL
    	     * or, if it is not defined, the value of the attribute
    	     * 'data-create-url' to be used as the URL.
+   	     *
 		 * @param datatables DataTable on which the calling should act upon
 		 */
 		function getCreateUrl(datatables) {
    	      var urlFunction = getDataValue(datatables, 'create-url-function');
           return urlFunction ? $[urlFunction]() : getDataValue(datatables, 'create-url');
+		}
+				
+		/**
+		 * Returns the URL to show the details of an element of the Datatables.
+		 * The value is defined in the Datatables table tag with a 
+		 * 'data-show-url' as the URL to use. 
+		 * The URL contains the text *_ID_* in the place where
+		 * the selected element Id has to be inserted.
+   	     *
+		 * @param datatables DataTable on which the calling should act upon
+		 * @param id identifier of the element to edit
+		 */
+		function getShowUrl(datatables, id) {
+   	      var url = getDataValue(datatables, 'show-url');
+          return url.replace('_ID_', id);
+		}
+		
+		/**
+		 * Returns the URL to edit an element of the Datatables.
+		 * The value is defined in the Datatables table tag with a 
+		 * 'data-edit-url' as the URL to use. 
+		 * The URL contains the text *_ID_* in the place where
+		 * the selected element Id has to be inserted.
+   	     *
+		 * @param datatables DataTable on which the calling should act upon
+		 * @param id identifier of the element to edit
+		 */
+		function getEditUrl(datatables, id) {
+   	      var url = getDataValue(datatables, 'edit-url');
+          return url.replace('_ID_', id);
+		}
+		
+		/**
+		 * Returns the URL to remove an element of the Datatables.
+		 * The value is defined in the Datatables table tag with a 
+		 * 'data-delete-url' as the URL to use. 
+		 * The URL contains the text *_ID_* in the place where
+		 * the selected element Id has to be inserted.
+   	     *
+		 * @param datatables DataTable on which the calling should act upon
+		 * @param id identifier of the element to remove
+		 */
+		function getDeleteUrl(datatables, id) {
+   	      var url = getDataValue(datatables, 'delete-url');
+          return url.replace('_ID_', id);
 		}
 		
 		/**
@@ -318,14 +392,28 @@
 	      return $dt.data(name);
 		}
 		
+		/**
+		 * Returns the jQuery object for the given datatables element.
+		 */
 		function jQueryTable(datatables) {
 		  return $(datatables.table().node());
 		}
 		
+		/**
+		 * Returns the table id attribute for the given datatables element.
+		 */
 		function getTableId(datatables) {
 		  var $jQueryTable = jQueryTable(datatables);
 		  return $jQueryTable.attr('id');
         }
+		
+		/**
+		 * Returns the parent table id when this datatables is a detail.
+		 */
+		function getParentTableId(datatables) {
+		  var $jQueryTable = jQueryTable(datatables);
+		  return getDataValue(datatables, 'parent-table');
+        }		
 		
 		/**
 		 * Generates a JSON object with the necessary data for indicating a 
@@ -379,9 +467,19 @@
             }
           }
         }
+		
+		function registerEvents(datatables) {
+	      //var datatables = this.DataTable();
+	      console.log("Registering events for datatables: " + datatables);
+		  registerDeleteModalEvents(datatables);
+		  registerParentSelectEvents(datatables);
+		}
 
-		function registerDeleteModalEvents() {
-	      var datatables = this.DataTable();
+		/**
+		 * Registers the events related to the delete modals, so the
+		 * modal knows the id of the row to delete.
+		 */
+		function registerDeleteModalEvents(datatables) {
 	      var tableId = getTableId(datatables);
 	      var $deleteConfirm = $('#' + tableId + 'DeleteConfirm');
 	      
@@ -396,10 +494,36 @@
 	      });
 
           $('#' + tableId + 'DeleteButton').on('click', function() {
-    	 	datatables.deleteElement();
+    	 	deleteElement(datatables);
           });
 		}
 		
+		function registerParentSelectEvents(datatables) {
+		  var parentDatatables = getParentDatatables(datatables);
+			
+		  if (parentDatatables) {
+	      	parentDatatables.on('select', function () {
+	          datatables.ajax.reload();
+		  	});
+		 
+  	        parentDatatables.on('deselect', function () {
+              datatables.ajax.reload();
+		    });
+		  }
+		}
+		
+		/**
+		 * Renders the tools column, with the buttons to perform operations
+		 * on the table rows.
+		 */
+        function renderTools( data, type, full, meta ) {
+    	  var datatables = new $.fn.dataTable.Api(meta.settings);
+    	  var tableId = getTableId(datatables);
+          return '<a role="button" class="btn-action showInfo" href="' + getShowUrl(datatables, data) + '" ></a>' +
+            '<a role="button" class="btn-action edit" href="' + getEditUrl(datatables, data) + '"></a>' +
+            '<a role="button" class="btn-action delete" data-toggle="modal" data-target="#' + tableId + 'DeleteConfirm" data-row-id="'+ data +'"/>'
+  	    }
+        
        });
        // READY EVENT END
         
