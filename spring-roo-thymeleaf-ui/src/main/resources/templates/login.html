@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" data-layout-decorator="layouts/default-layout-no-menu">
   <head>
-    <meta charset="UTF-8" data-th-remove="all">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all">
-    <meta name="viewport" content="width=device-width, initial-scale=1" data-th-remove="all">
+    <meta charset="UTF-8" data-th-remove="all"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" data-th-remove="all"/>
     <meta name="description" content="Spring Roo, a next-generation rapid application development tool for Java developers.
-      	With Roo you can easily build full Java applications in minutes." data-th-remove="all">
-    <meta name="author" content="Spring Roo development team" data-th-remove="all">
-    <link rel="shortcut icon" href="../static/public/img/favicon.ico" data-th-remove="all">
-    <link rel="apple-touch-icon" href="../static/public/img/apple-touch-icon.png" data-th-remove="all">
+      With Roo you can easily build full Java applications in minutes." data-th-remove="all"/>
+    <meta name="author" content="Spring Roo development team" data-th-remove="all"/>
+
+    <link rel="shortcut icon" href="../static/public/img/favicon.ico" data-th-remove="all"/>
+    <link rel="apple-touch-icon" href="../static/public/img/apple-touch-icon.png" data-th-remove="all"/>
+
     <title data-th-text="|#{label_login}- ${projectName}|">Login - Spring Roo Application</title>
+
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-    data-th-remove="all">
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
+	  data-th-remove="all"></link>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" type="text/css"
       href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
-      data-th-remove="all">
+      data-th-remove="all"></link>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
-      data-th-remove="all">
+      data-th-remove="all"/>
+
     <!-- Bootswatch CSS custom -->
     <link rel="stylesheet" type="text/css"
       href="../static/public/css/theme.css"
-      data-th-remove="all">
+      data-th-remove="all"/>
+
     <!-- Roo CSS -->
     <link rel="stylesheet" type="text/css"
       href="../static/public/css/springroo.css"
-      data-th-remove="all">
+      data-th-remove="all"/>
+
    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,10 +45,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body id="body">
 
-    <!--Main container-->
-    <div class="container bg-container">
+  <body id="body">
 
       <!-- HEADER -->
       <header role="banner">
@@ -50,7 +56,7 @@
           <div class="jumbotron bg-banner">
               <div class="container">
                 <h1 class="project-name">Spring Roo Application</h1>
-                <p class="project-tagline">Hello, this is your home page.</p>
+                <p class="project-tagline" data-th-text="#{info_homepage_project}">Hello, this is your home page.</p>
               </div>
           </div>
         </div>
@@ -76,7 +82,7 @@
             <!-- menu -->
             <div id="mainnav" class="navbar-collapse collapse">
               <!-- Language -->
-              <ul class="nav navbar-nav navbar-right upper-nav language">
+              <ul class="nav navbar-nav navbar-right upper-nav languages">
                 <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                     aria-haspopup="true" aria-expanded="false">
@@ -99,6 +105,9 @@
         </nav>
       </header>
 
+    <!--Main container-->
+    <div class="container bg-container">
+
       <!--Content-->
       <section data-layout-fragment="content">
 
@@ -112,11 +121,20 @@
               <form class="form-horizontal" data-th-action="@{/login}" method="post">
                 <fieldset>
                   <legend class="sr-only" data-th-text="#{help_login}">Enter your login and password</legend>
+
+                  <!-- Alerts messages -->
+                  <div class="alert alert-info"
+                    role="alert">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{info_security_login}">You tried to access a
+                    restricted area of our application. By default, you can log in with </span>
+                    <span>"admin/pass".</span>
+                  </div>
                   <div data-th-if="${param.error}" class="alert alert-danger"
                     role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only" data-th-text="|#{label_error}:|">Error:</span> <span
-                      data-th-text="#{error_login}">Username or password are invalid</span>
+                      data-th-text="#{error_login}">Invalid user and password</span>
                   </div>
                   <div data-th-if="${param.logout}" class="alert alert-success"
                     role="alert">
@@ -124,11 +142,11 @@
                       data-th-text="#{info_closed_session}">Log out correctly</span>
                   </div>
                   <div data-th-if="${param.expired}" class="alert alert-danger"
-    								role="alert">
-    								<span class="glyphicon glyphicon-exclamation-sign"
-    									aria-hidden="true"></span> <span class="sr-only"
-    									data-th-text="|#{label_error}:|">Error:</span> <span
-    									data-th-text="#{error_expired_session}">Your session has been expired</span>
+                    role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign"
+                      aria-hidden="true"></span> <span class="sr-only"
+                      data-th-text="|#{label_error}:|">Error:</span> <span
+                      data-th-text="#{error_expired_session}">Your session has been expired</span>
     							</div>
 
                   <div class="form-group has-error has-feedback" data-z="z" id="username"
@@ -144,8 +162,6 @@
                       <span data-th-classappend="${param.error}? 'glyphicon glyphicon-remove form-control-feedback'"
                         class="glyphicon glyphicon-remove form-control-feedback"
                         data-th-if="${param.error}" aria-hidden="true"></span>
-	                    <span id="username-error" class="help-block" data-th-if="${param.error}"
-	                        data-th-text="#{error_login}">Error message.</span>
                     </div>
                   </div>
                   <div class="form-group has-error has-feedback" data-z="z" id="password"
@@ -159,8 +175,6 @@
                       <span data-th-classappend="${param.error}? 'glyphicon glyphicon-remove form-control-feedback'"
                         class="glyphicon glyphicon-remove form-control-feedback" data-th-if="${param.error}"
                         aria-hidden="true"></span>
-                      <span id="password-error" class="help-block" data-th-if="${param.error}"
-                        data-th-text="#{error_login}">Error message.</span>
                     </div>
                   </div>
                   <div class="form-group">

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
@@ -50,8 +49,7 @@ public class CustomerOrdersCollectionThymeleafController {
 
   @RequestMapping(method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
   public ModelAndView create(@Valid @ModelAttribute CustomerOrder customerOrder,
-      BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      BindingResult result, Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("customerorders/create");
     }

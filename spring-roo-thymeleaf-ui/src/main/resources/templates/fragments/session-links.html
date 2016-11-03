@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Session info</title>
   </head>
   <body id="body">
@@ -9,15 +9,12 @@
     Only the internal content of the following div is included within
     the template, in session fragment
   -->
-    <div data-layout-fragment="session">
-      <!-- User menu -->
-      <ul class="nav navbar-nav navbar-right upper-nav session">
+    <ul data-layout-fragment="session">
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown"
             role="button" aria-haspopup="true" aria-expanded="false">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
-            <span class="hidden-sm" data-sec-authentication="principal.username"
-              data-th-text="#{label_user}">User</span>
+            <span class="hidden-sm" data-sec-authentication="principal.username">User</span>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
@@ -35,16 +32,16 @@
             </li>
          </ul>
         </li>
-      </ul>
-      <!-- User menu links -->
-      <ul class="nav navbar-nav navbar-right upper-nav links">
+    </ul>
+
+    <ul data-layout-fragment="links">
         <li><a href="#"><span class="glyphicon glyphicon-envelope"
             aria-hidden="true"></span>&nbsp;<span class="hidden-sm"
             data-th-text="#{label_contact}">Contact</span></a></li>
         <li><a href="#"><span class="glyphicon glyphicon-question-sign"
             aria-hidden="true"></span>&nbsp;<span class="hidden-sm"
             data-th-text="#{label_help}">Help</span></a></li>
-      </ul>
+    </ul>
 	  </div>
   </body>
 </html>

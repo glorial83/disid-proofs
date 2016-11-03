@@ -68,7 +68,7 @@ public class CategoriesItemThymeleafController {
 
   @PutMapping(name = "update")
   public ModelAndView update(@Valid @ModelAttribute Category category, BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("categories/edit");
     }

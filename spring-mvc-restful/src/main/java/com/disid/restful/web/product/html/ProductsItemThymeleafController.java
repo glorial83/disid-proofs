@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 
 import java.util.Locale;
@@ -58,7 +57,7 @@ public class ProductsItemThymeleafController {
 
   @PutMapping(name = "update")
   public ModelAndView update(@Valid @ModelAttribute Product product, BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("products/edit");
     }

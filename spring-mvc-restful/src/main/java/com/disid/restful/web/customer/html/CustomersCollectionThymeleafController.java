@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
@@ -44,7 +43,7 @@ public class CustomersCollectionThymeleafController {
   }
 
   @InitBinder("customer")
-  public void initOwnerBinder(WebDataBinder dataBinder) {
+  public void initCustomerBinder(WebDataBinder dataBinder) {
     dataBinder.setDisallowedFields("id");
     dataBinder.setDisallowedFields("address.id");
   }
@@ -58,7 +57,7 @@ public class CustomersCollectionThymeleafController {
 
   @PostMapping
   public ModelAndView create(@Valid @ModelAttribute Customer customer, BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("customers/create");
     }

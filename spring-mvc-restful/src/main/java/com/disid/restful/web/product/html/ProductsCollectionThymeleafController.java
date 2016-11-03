@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
@@ -56,7 +55,7 @@ public class ProductsCollectionThymeleafController {
 
   @PostMapping(name = "create")
   public ModelAndView create(@Valid @ModelAttribute Product product, BindingResult result,
-      RedirectAttributes redirectAttrs, Model model) {
+      Model model) {
     if (result.hasErrors()) {
       return new ModelAndView("products/create");
     }
