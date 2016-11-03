@@ -17,11 +17,31 @@
 	<name>Spring MVC RESTful</name>
 
 	<properties>
-		<aspectj.version>1.8.8</aspectj.version>
-		<aspectj.plugin.version>1.8</aspectj.plugin.version>
+		<roo.version>2.0.0.BUILD-SNAPSHOT</roo.version>
 		<java.version>1.8</java.version>
-		<roo.version>2.0.0.M2</roo.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<aspectj.plugin.version>1.8</aspectj.plugin.version>
 		<springlets.version>1.0.0.BUILD-SNAPSHOT</springlets.version>
+		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
+		<thymeleaf-data-dialect.version>2.0.1</thymeleaf-data-dialect.version>
+		<bootstrap.version>3.3.6</bootstrap.version>
+		<datatables.version>1.10.11</datatables.version>
+		<datatables-bs.version>1.10.11</datatables-bs.version>
+		<datatables-buttons.version>1.1.2</datatables-buttons.version>
+		<datatables-buttons-bs.version>1.1.2</datatables-buttons-bs.version>
+		<datatables-responsive.version>2.0.2</datatables-responsive.version>
+		<datatables-responsive-bs.version>2.0.2</datatables-responsive-bs.version>
+		<datatables-select.version>1.1.2</datatables-select.version>
+		<datatables-select-bs.version>1.1.2</datatables-select-bs.version>
+		<datetimepicker.version>2.5.4</datetimepicker.version>
+		<fontawesome.version>4.6.2</fontawesome.version>
+		<jquery.version>1.12.3</jquery.version>
+		<jquery-inputmask.version>3.3.1</jquery-inputmask.version>
+		<jquery-validation.version>1.15.0</jquery-validation.version>
+		<momentjs.version>2.13.0</momentjs.version>
+		<select2.version>4.0.2</select2.version>
+		<select2-bootstrap-theme.version>0.1.0-beta.7</select2-bootstrap-theme.version>
 	</properties>
 
 	<dependencies>
@@ -46,10 +66,10 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
-		<dependency>
+		<!--dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+		</dependency-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -100,6 +120,12 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.github.mxab.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-data-attribute</artifactId>
+		    <version>${thymeleaf-data-dialect.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.querydsl</groupId>
@@ -125,6 +151,93 @@
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 		</dependency>
+		
+		    <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables</artifactId>
+            <version>${datatables.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables.net-bs</artifactId>
+            <version>${datatables-bs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables.net-buttons</artifactId>
+            <version>${datatables-buttons.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables.net-buttons-bs</artifactId>
+            <version>${datatables-buttons-bs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables.net-responsive</artifactId>
+            <version>${datatables-responsive.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables.net-responsive-bs</artifactId>
+            <version>${datatables-responsive-bs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables.net-select</artifactId>
+            <version>${datatables-select.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datatables.net-select-bs</artifactId>
+            <version>${datatables-select-bs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>datetimepicker</artifactId>
+            <version>${datetimepicker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${fontawesome.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery.inputmask</artifactId>
+            <version>${jquery-inputmask.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery-validation</artifactId>
+            <version>${jquery-validation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>momentjs</artifactId>
+            <version>${momentjs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>select2</artifactId>
+            <version>${select2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>select2-bootstrap-theme</artifactId>
+            <version>${select2-bootstrap-theme.version}</version>
+        </dependency>
+		
 
 	</dependencies>
 
