@@ -92,7 +92,7 @@
    	     $.extend($.fn.dataTable.defaults, {
           'ajax': loadData,
    	      'fnInitComplete': saveSelectedRowToState,
-   	      'stateSaveParams': loadSelectedRowFromState,
+   	      'stateSaveParams': loadFromState,
    	      'buttons': {
    	        'dom': {
    	          'container': {
@@ -203,16 +203,13 @@
 	    };
 
 		/**
-		 * Generates and executes an ajax request whose goal is to load data from a 
+		 * Generates and executes an ajax request whose goal is to load data for a 
 		 * DataTable element.
 		 *
-		 * @param datatables DataTable on which the calling should act upon
 		 * @param data DataTable object data
 		 * @param callback Name of the function to call with the server data obtained 
 		 * 			once the ajax request has been completed
 		 * @param settings DataTable object options
-		 * @param url Url to use for ajax request
-		 *
 		 */
 		function loadData(data, callback, settings) {
 	      var datatables = this.DataTable();
@@ -249,11 +246,22 @@
 		  }
 		}
 		
+		/**
+		 * Generates and executes an ajax request whose goal is to load data for a 
+		 * DataTable element.
+		 *
+		 * @param datatables DataTable on which the calling should act upon
+		 * @param data DataTable object data
+		 * @param callback Name of the function to call with the server data obtained 
+		 * 			once the ajax request has been completed
+		 * @param url Url to use for ajax request
+		 */
 		function loadDataFromUrl(datatables, data, callback, url) {
 		  var $token = $("meta[name='_csrf']");
 		  var $header = $("meta[name='_csrf_header']");
+		  
 	      $.ajax({
-	        url : url,
+  	        url : url,
 	        type : 'GET',
 	        data : data,
 	        dataType : 'json',
@@ -264,24 +272,24 @@
 	      	  if($token != null && $token.length > 0 && $header != null && $header.length > 0) {
 		        request.setRequestHeader($header.attr("content"), $token.attr("content"));
 	      	  }
-	        },
-	        success : $.proxy(function(dataReceived) {
-	          callback(dataReceived);
-	          if(datatables.state.loaded()){
-		            var rowSelectedId = datatables.state.loaded().rowSelectedId;
-	            if(rowSelectedId){
-	              var rowSelected = datatables.row('#' + rowSelectedId);
-	              if(rowSelected.length > 0){
-	                rowSelected.select();
-	              }
-	            }
-	          }
-	        }, datatables),
-	        error : function(dataReceived) {
-	          $('#datatablesErrorModal').modal('show');
-	          callback(emptyData(data.draw));
 	        }
-	      });
+          })
+          .done(function(result) {
+        	callback(result);
+            if(datatables.state.loaded()){
+  	            var rowSelectedId = datatables.state.loaded().rowSelectedId;
+              if(rowSelectedId){
+                var rowSelected = datatables.row('#' + rowSelectedId);
+                if(rowSelected.length > 0){
+                  rowSelected.select();
+                }
+              }
+            }
+          })
+   	 	  .fail(function(jqXHR, status) {
+	        $('#datatablesErrorModal').modal('show');
+	        callback(emptyData(data.draw));
+          });
 	    }
 		
 		function getParentDatatables(datatables) {
@@ -304,7 +312,7 @@
   	      var rowId = $('#' + tableId + 'DeleteRowId').data('row-id');
   	      var url = getDeleteUrl(datatables, rowId);
             	    
-          jQuery.ajax({
+          $.ajax({
              url: url,
              type: 'DELETE'
           })
@@ -451,34 +459,49 @@
 		 * @param json
 		 */
 		function saveSelectedRowToState(oSettings, json) {
-	      this.DataTable().on('select', function(e, dt, type, indexes) {
+		  var datatables = this.DataTable();
+		  var state = datatables.state;
+	      datatables.on('select', function(e, dt, type, indexes) {
 			if (type === 'row') {
-			  var rowSelectedId = $(this).DataTable().rows(indexes).ids()[0];
-			  $(this).DataTable().state.loaded().rowSelectedId = rowSelectedId;
-			  $(this).DataTable().state.save();
+			  var rowSelectedId = datatables.rows(indexes).ids()[0];
+			  state.loaded().rowSelectedId = rowSelectedId;
+			  state.save();
 			}
 		  });
-		  if (!$(this).DataTable().state.loaded()) {
-		    oSettings.oLoadedState = $(this).DataTable().state();
+		  if (!state.loaded()) {
+		    oSettings.oLoadedState = datatables.state();
 		  }
         }
 		
+		/**
+		 * Loads a previously persisted datatables state.
+		 * @param settings DataTable object options
+		 * @param data DataTable object data
+		 */
+		function loadFromState(settings, data) {
+		  var datatables = this.DataTable();
+		  loadSelectedRowFromState(datatables, data);
+        }
+
 		/**
 		 * Loads a previously selected row id from the persisted state.
 		 * @param settings DataTable object options
 		 * @param data DataTable object data
 		 */
-		function loadSelectedRowFromState(settings, data) {
-          if (this.DataTable().state.loaded()) {
-            var rowSelectedId = this.DataTable().state.loaded().rowSelectedId;
+		function loadSelectedRowFromState(datatables, data) {
+          var state = datatables.state;
+          if (state.loaded()) {
+            var rowSelectedId = state.loaded().rowSelectedId;
             if (rowSelectedId) {
               data.rowSelectedId = rowSelectedId;
             }
           }
-        }
+		}
 		
+		/**
+		 * Registers events for the given datatables
+		 */
 		function registerEvents(datatables) {
-	      //var datatables = this.DataTable();
 	      console.log("Registering events for datatables: " + datatables);
 		  registerDeleteModalEvents(datatables);
 		  registerParentSelectEvents(datatables);
@@ -507,6 +530,11 @@
           });
 		}
 		
+		/**
+		 * When a table is linked to parent table, for a master detail list
+		 * for example, it registers the row selection events in the parent
+		 * table to update the data in the child table.
+		 */
 		function registerParentSelectEvents(datatables) {
 		  var parentDatatables = getParentDatatables(datatables);
 			
