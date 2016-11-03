@@ -162,7 +162,7 @@
              data-datatables="true"
              data-parent-table="categoryTable"
              data-order="[[ 0, &quot;asc&quot; ]]"
-             data-data-load-url="${(#mvc.url('CategoriesItemProductsThymeleafController#datatables')).buildAndExpand('_PARENT_ID_')}"
+             data-data-load-url="${(#mvc.url('CategoriesItemThymeleafController#productsdt')).buildAndExpand('_PARENT_ID_')}"
              data-data-create-url="${(#mvc.url('ProductsCollectionThymeleafController#createForm')).build()}"
              data-data-show-url="${(#mvc.url('ProductsItemThymeleafController#show')).buildAndExpand('_ID_')}"
              data-data-edit-url="${(#mvc.url('ProductsItemThymeleafController#editForm')).buildAndExpand('_ID_')}"

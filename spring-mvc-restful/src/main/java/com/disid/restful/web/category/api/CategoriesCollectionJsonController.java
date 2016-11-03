@@ -61,6 +61,11 @@ public class CategoriesCollectionJsonController {
     return ResponseEntity.status(HttpStatus.FOUND).body(category);
   }
 
+  /**
+   * Returns the {@link UriComponents} to build the URI linked to this
+   * controller's {@link #list(GlobalSearch, Pageable)} method.
+   * @return the {@link UriComponents} for the URI to the list method 
+   */
   public static UriComponents listURI() {
     return MvcUriComponentsBuilder
         .fromMethodCall(
