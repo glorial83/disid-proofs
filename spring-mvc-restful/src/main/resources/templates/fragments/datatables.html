@@ -52,7 +52,12 @@
 			src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.js"
 			data-th-src="@{/webjars/datatables.net-select/1.1.2/js/dataTables.select.js}"></script>
 
-        <script type="text/javascript" charset="utf8" data-th-src="@{/js/datatables.js}"></script>
+  <script type="text/javascript" charset="utf8" 
+    src="../js/datatables-locale.js" 
+    data-th-src="@{/js/datatables-locale.js}"></script>
+  <script type="text/javascript" charset="utf8" 
+    src="../../static/public/js/datatables-ext.js"
+    data-th-src="@{/public/js/datatables-ext.js}"></script>
 	</div>
 </body>
 </html>

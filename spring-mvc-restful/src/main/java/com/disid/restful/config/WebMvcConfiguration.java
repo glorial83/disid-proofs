@@ -21,7 +21,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 import java.util.Locale;
 
 @Configuration
-//@EnableSpringletsDataWebSupport
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter
     implements ApplicationContextAware {
 
@@ -65,31 +64,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter
     registry.addInterceptor(localeChangeInterceptor());
   }
 
-  /*
-  @Bean
-  public SpringResourceTemplateResolver defaultTemplateResolver() {
-    SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-    resolver.setApplicationContext(this.applicationContext);
-    resolver.setPrefix(this.properties.getPrefix());
-    resolver.setSuffix(this.properties.getSuffix());
-    resolver.setTemplateMode(this.properties.getMode());
-    if (this.properties.getEncoding() != null) {
-      resolver.setCharacterEncoding(this.properties.getEncoding().name());
-    }
-    resolver.setCacheable(this.properties.isCache());
-    resolver.setCheckExistence(this.properties.isCheckTemplate());
-  
-    resolver.setJavaScriptTemplateModePatterns(Collections.singleton("js/*"));
-  
-    Integer order = this.properties.getTemplateResolverOrder();
-    if (order != null) {
-      resolver.setOrder(order);
-    }
-    return resolver;
-  }
-  */
-
-
   @Bean
   public ThymeleafViewResolver javascriptThymeleafViewResolver() {
     ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -106,7 +80,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter
     SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
     resolver.setApplicationContext(this.applicationContext);
     resolver.setPrefix("classpath:/templates/js/");
-    //resolver.setSuffix(".js");
     resolver.setTemplateMode(TemplateMode.JAVASCRIPT);
     resolver.setCharacterEncoding(UTF8);
     resolver.setCheckExistence(true);
