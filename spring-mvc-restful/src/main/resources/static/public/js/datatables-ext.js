@@ -239,7 +239,7 @@
   	  .done(function(result) {
   	    var $deleteSuccess = $('#' + tableId + 'DeleteSuccess');
   	    $deleteSuccess.modal();
-  		datatables.ajax.reload(); // Refresh Datatables
+  		  datatables.ajax.reload(); // Refresh Datatables
   	  })
   	  .fail(function(jqXHR, status) {
   	    var $deleteError = $('#' + tableId + 'DeleteError');
@@ -413,7 +413,7 @@
   	function registerEvents(datatables) {
   	  console.log("Registering events for datatables: " + datatables);
   	  registerDeleteModalEvents(datatables);
-  	  registerParentSelectEvents(datatables);
+  	  registerToParentEvents(datatables);
   	}
   	
   	/**
@@ -444,10 +444,11 @@
   	 * for example, it registers the row selection events in the parent
   	 * table to update the data in the child table.
   	 */
-  	function registerParentSelectEvents(datatables) {
+  	function registerToParentEvents(datatables) {
   	  var parentDatatables = getParentDatatables(datatables);
   		
   	  if (parentDatatables) {
+  	    // Register to de/select events
   	  	parentDatatables.on('select', function () {
   	      datatables.ajax.reload();
   	  	});
@@ -455,9 +456,15 @@
   	    parentDatatables.on('deselect', function () {
   	      datatables.ajax.reload();
   	    });
+  	    
+  	    // Register to reload finished event, needed when the selected row has
+  	    // been deleted in the parent table or any other change
+        parentDatatables.on('xhr.dt', function () {
+          datatables.ajax.reload();
+        });  	    
   	  }
   	}
-  	
+    
   	/**
   	 * Renders the tools column, with the buttons to perform operations
   	 * on the table rows.
