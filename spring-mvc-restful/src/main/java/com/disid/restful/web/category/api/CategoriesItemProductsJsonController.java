@@ -59,14 +59,14 @@ public class CategoriesItemProductsJsonController {
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
   }
 
-  @PostMapping(path = "/{product}", name = "addToProducts")
+  @PostMapping(value = "/{product}", name = "addToProducts")
   public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
       @PathVariable("product") Long product) {
     categoryService.addToProducts(category, Collections.singleton(product));
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping(path = "/{product}", name = "removeFromProducts")
+  @DeleteMapping(value = "/{product}", name = "removeFromProducts")
   public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
       @PathVariable("product") Long product) {
     categoryService.removeFromProducts(category, Collections.singleton(product));

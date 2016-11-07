@@ -79,7 +79,7 @@
     // Initialize all datatables in current page
     $('table[data-datatables="true"]').each(function(){
       var tableId = $(this).attr('id');
-      console.log('Initializing datatables with id ' + tableId);
+      console.log('Initializing datatables: ' + tableId);
       var datatables = $(this).DataTable();
       registerEvents(datatables);
     });
@@ -119,35 +119,13 @@
   	function loadData(data, callback, settings) {
   	  var datatables = this.DataTable();
   	  
-  	  console.log('Loading data for datatables: ' + datatables);
+  	  console.log('Loading data for datatables: ' + getTableId(datatables));
   	  
-  	  var url = getLoadUrl(datatables);
-  	  var validUrl = false;
-  	  if (url) {
-  	    
-  	    // If it is a detail table, we have to get the parent id from 
-  	    // the selected row in the parent table, and replace the
-  	    // _PARENT_ID_ variable in the given URL. 
-  	    var parentDatatables = getParentDatatables(datatables);
-  	    if (parentDatatables) {
-  	      var selected = parentDatatables.row({selected: true});
-  	    
-  	      if (selected.any()) {
-  	        var parentId = selected.data().id;
-  	        if (parentId) {
-  	          url = url.replace('_PARENT_ID_', parentId);
-  	          validUrl = true;
-  	        }
-  	      }        
-  	    } else {
-  	      validUrl = true;	
-  	    }
-  	  }
-  	    
-  	  if (validUrl) {
+  	  var url = getLoadUrl(datatables);  	  
+  	  if (url) {  	    
   	    loadDataFromUrl(datatables, data, callback, url);
   	  } else {
-  		callback(emptyData(data.draw));
+  		  callback(emptyData(data.draw));
   	  }
   	}
   	
@@ -180,7 +158,7 @@
   	    }
   	  })
   	  .done(function(result) {
-  		callback(result);
+  		  callback(result);
   	    if(datatables.state.loaded()){
   	        var rowSelectedId = datatables.state.loaded().rowSelectedId;
   	      if(rowSelectedId){
@@ -203,7 +181,7 @@
   	 */
   	function getParentDatatables(datatables) {
   	  var parentTableId = getParentTableId(datatables);
-  	  console.log('parentTableId = ' + parentTableId)
+  	  // console.log('parentTableId = ' + parentTableId)
   	  if (parentTableId) {
   	    return $(parentTableId).DataTable();
   	  }
@@ -216,9 +194,75 @@
   	  var $jQueryTable = jQueryTable(datatables);
   	  var parentTableId = getDataValue(datatables, 'parent-table');
   	  if (parentTableId) {
-  		return "#" + parentTableId;
+  		  return "#" + parentTableId;
   	  }
-  	}		
+  	}
+  	
+  	/**
+  	 * Returns the id of the selected row in the parent table, if any.
+  	 * @param datatables child datatables
+  	 * @returns the id of the parent datatables selected row
+  	 */
+  	function getParentSelectedRowId(datatables) {
+      var parentDatatables = getParentDatatables(datatables);
+      if (parentDatatables) {
+        var selected = parentDatatables.row({selected: true});
+      
+        if (selected.any()) {
+          return selected.data().id;
+        }        
+      }  	  
+  	}
+    
+  	/**
+  	 * Returns if the datatables has a related parent datatables
+  	 * @param datatables to find if it has a parent datatables
+  	 * @returns if there is a parent datatables
+  	 */
+    function hasParentTable(datatables) {
+      var parentTableId = getParentTableId(datatables);
+      if (parentTableId) {
+        return true;
+      }
+      return false;
+    }
+    
+    /**
+     * Process the given Url to perform the following actions*
+     * - If the given datatables is not related to a parent one, it 
+     *   returns the given url as is.
+     * - If the url contains the '_PARENTID_' valuea and there is a related
+     *   parent table, if the parent table has a selected row, its identifier
+     *   is used to replace the '_PARENTID_' value in the given url. 
+     *   Otherwise no url is returned because it is considered as an invalid
+     *   url.
+     * If the processed url is valid, the given id value is used to replace
+     * the '_ID_' parameter in the url
+     * @param datatables DataTable on which the calling should act upon
+     * @param url to process
+     * @param id (optional) identifier of the datatables row to act upon
+     * @returns the processed url
+     */
+    function processUrl(datatables, url, id) {
+      var processedUrl = url;
+      // If it is a detail table, we have to get the parent id from 
+      // the selected row in the parent table, and replace the
+      // _PARENTID_ variable in the given URL.
+      if (url && url.indexOf('_PARENTID_') > -1 && hasParentTable(datatables)) {        
+        var parentRowId = getParentSelectedRowId(datatables);
+        if (parentRowId) {
+          processedUrl = url.replace('_PARENTID_', parentRowId);
+        } else {
+          processedUrl = undefined;
+        }
+      }
+      
+      if (id && processedUrl) {
+        processedUrl = processedUrl.replace('_ID_', id);
+      }
+      
+      return processedUrl;
+    }
   	
   	/**
   	 * Deletes the element whose id is the one in the datatables
@@ -254,7 +298,8 @@
   	 * @param datatables DataTable on which the calling should act upon
   	 */
   	function getLoadUrl(datatables) {
-  	  return getDataValue(datatables, 'load-url');
+  	  var url = getDataValue(datatables, 'load-url');
+      return processUrl(datatables, url);
   	}
   	
   	/**
@@ -268,7 +313,8 @@
   	 */
   	function getCreateUrl(datatables) {
   	  var urlFunction = getDataValue(datatables, 'create-url-function');
-  	  return urlFunction ? $[urlFunction]() : getDataValue(datatables, 'create-url');
+  	  var url = urlFunction ? $[urlFunction]() : getDataValue(datatables, 'create-url');
+  	  return processUrl(datatables, url);
   	}
   			
   	/**
@@ -283,7 +329,7 @@
   	 */
   	function getShowUrl(datatables, id) {
   	  var url = getDataValue(datatables, 'show-url');
-  	  return url.replace('_ID_', id);
+  	  return processUrl(datatables, url, id);
   	}
   	
   	/**
@@ -298,7 +344,7 @@
   	 */
   	function getEditUrl(datatables, id) {
   	  var url = getDataValue(datatables, 'edit-url');
-  	  return url.replace('_ID_', id);
+  	  return processUrl(datatables, url, id);
   	}
   	
   	/**
@@ -313,7 +359,7 @@
   	 */
   	function getDeleteUrl(datatables, id) {
   	  var url = getDataValue(datatables, 'delete-url');
-  	  return url.replace('_ID_', id);
+  	  return processUrl(datatables, url, id);
   	}
   	
   	/**
@@ -371,12 +417,18 @@
   	  var datatables = this.DataTable();
   	  var state = datatables.state;
   	  datatables.on('select', function(e, dt, type, indexes) {
-  		if (type === 'row') {
-  		  var rowSelectedId = datatables.rows(indexes).ids()[0];
-  		  state.loaded().rowSelectedId = rowSelectedId;
-  		  state.save();
-  		}
+  		  if (type === 'row') {
+  		    var rowSelectedId = datatables.rows(indexes).ids()[0];
+  		    state.loaded().rowSelectedId = rowSelectedId;
+  		    state.save();
+  		  }
   	  });
+      datatables.on('deselect', function(e, dt, type, indexes) {
+        if (type === 'row') {
+          state.loaded().rowSelectedId = undefined;
+          state.save();
+        }
+      });
   	  if (!state.loaded()) {
   	    oSettings.oLoadedState = datatables.state();
   	  }
@@ -411,7 +463,7 @@
   	 * Registers events for the given datatables
   	 */
   	function registerEvents(datatables) {
-  	  console.log("Registering events for datatables: " + datatables);
+  	  console.log("Registering events for datatables: " + getTableId(datatables));
   	  registerDeleteModalEvents(datatables);
   	  registerToParentEvents(datatables);
   	}
@@ -435,7 +487,7 @@
   	  });
   	
   	  $('#' + tableId + 'DeleteButton').on('click', function() {
-  	 	deleteElement(datatables);
+  	 	  deleteElement(datatables);
   	  });
   	}
   	
