@@ -79,7 +79,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter
   public SpringResourceTemplateResolver javascriptTemplateResolver() {
     SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
     resolver.setApplicationContext(this.applicationContext);
-    resolver.setPrefix("classpath:/templates/js/");
+    resolver.setPrefix("classpath:/templates/fragments/js/");
     resolver.setTemplateMode(TemplateMode.JAVASCRIPT);
     resolver.setCharacterEncoding(UTF8);
     resolver.setCheckExistence(true);
