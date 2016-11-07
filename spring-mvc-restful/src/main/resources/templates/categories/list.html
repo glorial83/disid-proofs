@@ -166,7 +166,7 @@
              data-data-create-url="${(#mvc.url('ProductsCollectionThymeleafController#createForm')).build()}"
              data-data-show-url="${(#mvc.url('ProductsItemThymeleafController#show')).buildAndExpand('_ID_')}"
              data-data-edit-url="${(#mvc.url('ProductsItemThymeleafController#editForm')).buildAndExpand('_ID_')}"
-             data-data-delete-url="${(#mvc.url('ProductsItemJsonController#delete')).buildAndExpand('_ID_')}">
+             data-data-delete-url="${(#mvc.url('CategoriesItemProductsJsonController#removeFromProducts')).buildAndExpand('_PARENT_ID_', '_ID_')}">
          <caption data-th-text="#{label_list_entity(#{label_product_plural})}">
           Product List
          </caption> 

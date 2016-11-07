@@ -35,8 +35,6 @@
     // Set datatables defaults
     $.extend($.fn.dataTable.defaults, {
       'ajax': loadData,
-      'fnInitComplete': saveSelectedRowToState,
-      'stateSaveParams': loadFromState,
       'buttons': {
         'dom': {
           'container': {
@@ -69,11 +67,13 @@
       ],
       'deferRender': true,
       'dom': 'Bfrtip',
+      'fnInitComplete': saveSelectedRowToState,
       'processing': true,
       'responsive': true,
       'retrieve': true,
       'serverSide': true,
-      'stateSave': true
+      'stateSave': true,
+      'stateSaveParams': loadFromState
     });
    
     // Initialize all datatables in current page

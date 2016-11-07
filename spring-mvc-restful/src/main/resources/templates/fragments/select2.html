@@ -16,7 +16,9 @@
       data-th-src="@{/webjars/select2/4.0.2/dist/js/i18n/}+ ${#locale.language}+'.js'"
       data-th-if="${#locale.language} != 'en'"></script>
 
-    <script type="text/javascript" charset="utf8" data-th-src="@{/js/select2.js}"></script>
+    <script type="text/javascript" charset="utf8" 
+            src="../../static/public/js/select2-defaults.js"
+            data-th-src="@{/public/js/select2-defaults.js}"></script>
   </div>
 </body>
 </html>

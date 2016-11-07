@@ -59,16 +59,16 @@ public class CategoriesItemProductsJsonController {
     return ResponseEntity.status(HttpStatus.FOUND).body(products);
   }
 
-  @PostMapping(name = "addToProducts")
+  @PostMapping(path = "/{product}", name = "addToProducts")
   public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
-      @RequestBody Long product) {
+      @PathVariable("product") Long product) {
     categoryService.addToProducts(category, Collections.singleton(product));
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping(name = "removeFromProducts")
+  @DeleteMapping(path = "/{product}", name = "removeFromProducts")
   public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
-      @RequestBody Long product) {
+      @PathVariable("product") Long product) {
     categoryService.removeFromProducts(category, Collections.singleton(product));
     return ResponseEntity.ok().build();
   }
