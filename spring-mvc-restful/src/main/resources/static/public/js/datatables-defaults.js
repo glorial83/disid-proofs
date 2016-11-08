@@ -95,18 +95,30 @@
   	 * the table tag attribute 'data-create-url' to be used as the URL.
   	 */
   	function createButton(datatables, conf) {
-  	  return {
-  	    'action': function(e, datatables, node, config) {
-  	      var url = getCreateUrl(datatables);
-  	      if (url) {
-  	        location.href = url;
-  	      }
-  	    },
-  	    'className': 'btn-action add',
-  	    'text': datatables.i18n('buttons.add', 'Add')
-  	  };
+  	  if (hasParentTable(datatables)) {
+        return {
+          'action': function(e, datatables, node, config) {
+            $('#categoryProductsTableAdd').modal('show');            
+          },
+          'className': 'btn-action add',
+          'text': datatables.i18n('buttons.add', 'Add')
+        };
+  	    
+  	  } else {
+
+  	    return {
+    	    'action': function(e, datatables, node, config) {
+    	      var url = getCreateUrl(datatables);
+    	      if (url) {
+    	        location.href = url;
+    	      }
+    	    },
+    	    'className': 'btn-action add',
+    	    'text': datatables.i18n('buttons.add', 'Add')
+    	  };
+  	  }
   	};
-  
+    
   	/**
   	 * Generates and executes an ajax request whose goal is to load data for a 
   	 * DataTable element.

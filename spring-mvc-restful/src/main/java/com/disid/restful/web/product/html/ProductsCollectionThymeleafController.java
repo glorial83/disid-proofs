@@ -2,14 +2,18 @@ package com.disid.restful.web.product.html;
 
 import com.disid.restful.model.Product;
 import com.disid.restful.service.api.ProductService;
+import com.disid.restful.web.product.Select2ProductData;
 
 import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.web.datatables.Datatables;
 import io.springlets.data.web.datatables.DatatablesData;
 import io.springlets.data.web.datatables.DatatablesPageable;
+import io.springlets.data.web.select2.Select2Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,6 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 @Controller
@@ -36,10 +42,13 @@ import javax.validation.Valid;
 public class ProductsCollectionThymeleafController {
 
   public ProductService productService;
+  private MessageSource messageSource;
 
   @Autowired
-  public ProductsCollectionThymeleafController(ProductService productService) {
+  public ProductsCollectionThymeleafController(ProductService productService,
+      MessageSource messageSource) {
     this.productService = productService;
+    this.messageSource = messageSource;
   }
 
   @InitBinder("product")
@@ -90,4 +99,37 @@ public class ProductsCollectionThymeleafController {
     return ResponseEntity.ok(datatablesData);
   }
 
+  /**
+   * Generic select2 method which provides only the 'id' and 'text' properties needed by select2.
+   */
+  @GetMapping(value = "/s2gen", name = "select2Generic",
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public ResponseEntity<Select2Data<Product>> select2Generic(GlobalSearch search, Pageable pageable,
+      Locale locale) {
+    Page<Product> products = productService.findAll(search, pageable);
+    String textExpression = messageSource.getMessage("expression_product", null, "#{name}", locale);
+    String idExpression = "#{id}";
+
+    Select2Data<Product> select2Data =
+        new Select2Data<Product>(products, idExpression, textExpression);
+    return ResponseEntity.ok(select2Data);
+  }
+
+  /**
+   * Product specific select2 method which adds the 'description' property to the default
+   * ones.
+   */
+  @GetMapping(value = "/s2", name = "select2", produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public ResponseEntity<Select2ProductData> select2(GlobalSearch search, Pageable pageable,
+      Locale locale) {
+    Page<Product> products = productService.findAll(search, pageable);
+    String textExpression = messageSource.getMessage("expression_product", null, "#{name}", locale);
+    String idExpression = "#{id}";
+
+    Select2ProductData select2Data = new Select2ProductData(products, idExpression, textExpression);
+
+    return ResponseEntity.ok(select2Data);
+  }
 }

@@ -14,7 +14,10 @@
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css" data-th-remove="all"></link>
   <!-- Font Awesome --> 
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" data-th-remove="all"></link> 
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" data-th-remove="all"></link>
+  <!-- Select2 --> 
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.css" data-th-href="@{/webjars/select2/dist/css/select2.css}"> 
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css" data-th-href="@{/webjars/select2-bootstrap-theme/dist/select2-bootstrap.css}">   
   <!-- Datatables --> 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css" data-th-remove="all"></link> 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css" data-th-remove="all"></link> 
@@ -199,18 +202,17 @@
             <form class="form-horizontal">
               <fieldset> 
                 <div class="form-group"> 
-                  <div class="col-md-3"> 
-                    <select id="productIds" 
+                  <div class="col-md-12"> 
+                    <select id="productIds"
                       name="product"
-                      class="form-control dropdown-select-ajax"
+                      multiple="multiple"
+                      class="githform-control dropdown-select-ajax"
                       data-data-placeholder="#{info_select_an_option}"
-                      data-id-field="id"
-                      data-text-fields="name"
-                      data-data-ajax--url="${(#mvc.url('ProductsCollectionThymeleafController#datatables')).build()}"
+                      data-data-ajax--url="${(#mvc.url('ProductsCollectionThymeleafController#select2')).build()}"
                       data-ajax--cache="true"
                       data-ajax--delay="250"
                       data-ajax--data-type="json">
-                      <option data-th-remove="all" value="1">Test</option>
+                      <option data-th-remove="all" value="1">One product to select</option>
                     </select>
                   </div> 
                 </div> 
