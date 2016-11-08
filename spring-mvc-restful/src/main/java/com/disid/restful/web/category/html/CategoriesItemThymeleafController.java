@@ -8,14 +8,17 @@ import io.springlets.web.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
@@ -65,15 +68,12 @@ public class CategoriesItemThymeleafController {
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
-  // TODO: indicar que ya no se emplea por lo que no hace falta generarlo
-  /*
   @DeleteMapping(name = "delete")
-  public ModelAndView delete(@ModelAttribute Category category, Model model) {
+  @ResponseBody
+  public ResponseEntity<?> delete(@ModelAttribute Category category) {
     categoryService.delete(category);
-    UriComponents listURI = CategoriesCollectionThymeleafController.listURI();
-    return new ModelAndView("redirect:" + listURI.toUriString());
+    return ResponseEntity.ok().build();
   }
-  */
 
   @GetMapping(name = "show")
   public ModelAndView show(@ModelAttribute Category category, Model model) {

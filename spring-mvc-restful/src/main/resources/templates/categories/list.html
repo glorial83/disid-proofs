@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-layout-decorator="layouts/default-layout">
+<html lang="en" data-layout-decorator="layouts/list-layout">
  <head> 
   <meta charset="UTF-8" data-th-remove="all"></meta>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all"></meta> 
@@ -16,10 +16,10 @@
   <!-- Font Awesome --> 
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" data-th-remove="all"></link> 
   <!-- Datatables --> 
-  <link data-th-href="@{/webjars/datatables.net-bs/1.10.11/css/dataTables.bootstrap.css}" rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css"></link> 
-  <link data-th-href="@{/webjars/datatables.net-responsive-bs/2.0.2/css/responsive.bootstrap.css}" rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css"></link> 
-  <link data-th-href="@{/webjars/datatables.net-buttons-bs/1.1.2/css/buttons.bootstrap.css}" rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.css"></link>
-  <link data-th-href="@{/webjars/datatables.net-select-bs/1.1.2/css/select.bootstrap.css}" rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.1.2/css/select.bootstrap.css"></link>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css" data-th-remove="all"></link> 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css" data-th-remove="all"></link> 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.css" data-th-remove="all"></link>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.1.2/css/select.bootstrap.css" data-th-remove="all"></link>
   <!-- Bootswatch CSS custom --> 
   <link rel="stylesheet" type="text/css" href="../../static/public/css/theme.css" data-th-remove="all"></link> 
   <!-- Roo CSS --> 
@@ -121,7 +121,7 @@
              data-data-create-url="${(#mvc.url('CategoriesCollectionThymeleafController#createForm')).build()}"
              data-data-show-url="${(#mvc.url('CategoriesItemThymeleafController#show')).buildAndExpand('_ID_')}"
              data-data-edit-url="${(#mvc.url('CategoriesItemThymeleafController#editForm')).buildAndExpand('_ID_')}"
-             data-data-delete-url="${(#mvc.url('CategoriesItemJsonController#delete')).buildAndExpand('_ID_')}">
+             data-data-delete-url="${(#mvc.url('CategoriesItemThymeleafController#delete')).buildAndExpand('_ID_')}">
        <caption data-th-text="#{label_list_entity(#{label_category_plural})}">
         Category List
        </caption> 
@@ -166,62 +166,104 @@
              data-data-create-url="${(#mvc.url('ProductsCollectionThymeleafController#createForm')).build()}"
              data-data-show-url="${(#mvc.url('ProductsItemThymeleafController#show')).buildAndExpand('_ID_')}"
              data-data-edit-url="${(#mvc.url('ProductsItemThymeleafController#editForm')).buildAndExpand('_ID_')}"
-             data-data-delete-url="${(#mvc.url('CategoriesItemProductsJsonController#removeFromProducts')).buildAndExpand('_PARENTID_', '_ID_')}">
+             data-data-delete-url="${(#mvc.url('CategoriesItemProductsJsonController#removeFromProducts')).arg(1,'_ID_').buildAndExpand('_PARENTID_')}">
          <caption data-th-text="#{label_list_entity(#{label_product_plural})}">
           Product List
          </caption> 
          <thead> 
-          <tr> 
-           <th data-data="name" data-th-text="#{label_product_name}">name</th> 
+          <tr>
+           <th data-data="name" data-th-text="#{label_product_name}">name</th>
            <th data-data="description" data-th-text="#{label_product_description}">description</th> 
            <th data-data="id" data-orderable="false" data-searchable="false" class="dttools"
                data-th-text="#{label_tools}">Tools</th> 
-          </tr> 
-         </thead> 
+          </tr>
+         </thead>
          <tbody data-th-remove="all"> 
-          <tr> 
-           <td>name</td> 
+          <tr>
+           <td>name</td>
            <td>description</td>
            <td data-th-text="#{label_tools}">Tools</td> 
-          </tr> 
+          </tr>
          </tbody> 
         </table> 
         <!-- content replaced by modal-confirm fragment of modal-confirm.html --> 
         <div data-th-replace="fragments/modal-confirm-delete :: modalConfirmDelete(tableId='categoryProductsTable',
             title=#{label_delete_entity(#{label_product})}, message=#{info_delete_item_confirm}, baseUrl = @{/categories/})">
-        </div> 
+        </div>
+
+        <div
+          data-th-replace="fragments/modal :: modal(tableId = 'categoryProductsTable', id = 'categoryProductsTableAdd', title = #{label_add_entity(#{label_product})}, body = ~{::modalAddBody})">
+          
+          <div class="modal-body" data-th-fragment="modalAddBody">
+    
+            <form class="form-horizontal">
+              <fieldset> 
+                <div class="form-group"> 
+                  <div class="col-md-3"> 
+                    <select id="productIds" 
+                      name="product"
+                      class="form-control dropdown-select-ajax"
+                      data-data-placeholder="#{info_select_an_option}"
+                      data-id-field="id"
+                      data-text-fields="name"
+                      data-data-ajax--url="${(#mvc.url('ProductsCollectionThymeleafController#datatables')).build()}"
+                      data-ajax--cache="true"
+                      data-ajax--delay="250"
+                      data-ajax--data-type="json">
+                      <option data-th-remove="all" value="1">Test</option>
+                    </select>
+                  </div> 
+                </div> 
+
+                <div class="form-group">                
+                  <div class="col-md-12">
+                    <div class="pull-left">
+                      <button type="button" class="btn btn-default"
+                        data-dismiss="modal" aria-label="Close"
+                        data-th-text="#{label_reset}">Cancel</button>
+                    </div>
+                    <div class="pull-right">
+                      <button type="button" class="btn btn-primary" data-th-id="${tableId} + AddButton"
+                        data-dismiss="modal" aria-label="Confirm"
+                        data-th-text="#{label_submit}">Accept</button>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+
+          </div>
+        </div>
+
        </div> 
        <!--END TABLE--> 
       </div> 
      </div> 
-     <!-- /CHILD TABLES -->      
-    </div> 
-    <!-- /CONTENT--> 
-   </section> 
-  </div> 
+     <!-- /CHILD TABLES -->
+    </div>
+    <!-- /CONTENT-->
+   </section>
+  </div>
   <!-- /CONTAINER--> 
   <footer class="container"> 
-   <div class="row"> 
+   <div class="row">
     <div class="col-sm-6 col-sm-offset-3"> 
      <small class="clearfix"> Made with <a href="http://projects.spring.io/spring-roo/" target="_blank"> Spring Roo © 2016</a> • We <span class="glyphicon glyphicon-heart"></span> <a href="https://github.com/spring-projects/spring-roo/" target="_blank">Open source</a> • <a data-th-href="@{/accessibility}" href="../accessibility.html"><span data-th-text="#{label_accessibility}">Accessibility</span></a> </small> 
     </div> 
-   </div> 
+   </div>
    <!-- certified logos --> 
-   <div class="row"> 
+   <div class="row">
     <div class="col-sm-6 col-sm-offset-6 text-right"> 
      <a title="Explanation of WCAG 2.0 Level Double-A Conformance" target="_blank" href="http://www.w3.org/WAI/WCAG2AA-Conformance"> <img height="32" width="88" src="http://www.w3.org/WAI/wcag2AA" alt="Level Double-A conformance, W3C WAI Web Content
                  Accessibility Guidelines 2.0"></img> </a> &nbsp; 
      <a title="Application developed and tested with OWASP -
              Open Web Application Security Project" target="_blank" href="https://www.owasp.org"> <img height="32" width="90" src="../../static/public/img/owasp_logo.png" alt="Application developed and tested with OWASP"></img> </a> 
-    </div> 
-   </div> 
-  </footer> 
+    </div>
+   </div>
+  </footer>
 
-  <!-- Javascript fragment --> 
-  <div data-layout-fragment="javascript"> 
-   <!-- Datatables fragment --> 
-   <div data-layout-include="fragments/js/datatables :: datatables"></div> 
-  </div> 
+  <!-- Javascript fragment for this page --> 
+  <div data-layout-fragment="javascript"></div>
   <!-- Application --> 
   <script src="../../static/public/js/main.js"></script>   
  </body>
