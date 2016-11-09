@@ -98,7 +98,9 @@
   	  if (hasParentTable(datatables)) {
         return {
           'action': function(e, datatables, node, config) {
-            $('#categoryProductsTableAdd').modal('show');            
+            if (getParentSelectedRowId(datatables)) {
+              $('#categoryProductsTableAdd').modal('show');
+            }
           },
           'className': 'btn-action add',
           'text': datatables.i18n('buttons.add', 'Add')
@@ -477,6 +479,7 @@
   	function registerEvents(datatables) {
   	  console.log("Registering events for datatables: " + getTableId(datatables));
   	  registerDeleteModalEvents(datatables);
+  	  registerAddModalEvents(datatables);
   	  registerToParentEvents(datatables);
   	}
   	
@@ -528,6 +531,34 @@
         });  	    
   	  }
   	}
+    
+    /**
+     * Registers the events related to the delete modals, so the
+     * modal knows the id of the row to delete.
+     */
+    function registerAddModalEvents(datatables) {
+      var parentDatatables = getParentDatatables(datatables);
+      
+      // The add modal dialog is only used in child datatables
+      if (parentDatatables) {
+    	  var tableId = getTableId(datatables);
+    
+        $('#' + tableId + 'AddButton').on('click', function() {
+          var url = getCreateUrl(datatables);
+          $addForm = $('#' + tableId + 'AddForm');
+          var params = $addForm.serialize();
+          console.log('Form ' + tableId + ' parameters: ' + params);
+          $.ajax({
+            type: $addForm.attr('method'),
+            url: url,
+            data: params,
+            success: function (data) {
+              datatables.ajax.reload();
+            }
+          });
+        });
+      }
+    }
     
   	/**
   	 * Renders the tools column, with the buttons to perform operations

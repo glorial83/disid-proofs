@@ -166,7 +166,7 @@
              data-parent-table="categoryTable"
              data-order="[[ 0, &quot;asc&quot; ]]"
              data-data-load-url="${(#mvc.url('CategoriesItemProductsThymeleafController#datatables')).buildAndExpand('_PARENTID_')}"
-             data-data-create-url="${(#mvc.url('ProductsCollectionThymeleafController#createForm')).build()}"
+             data-data-create-url="${(#mvc.url('CategoriesItemProductsThymeleafController#addToProducts')).buildAndExpand('_PARENTID_')}"
              data-data-show-url="${(#mvc.url('ProductsItemThymeleafController#show')).buildAndExpand('_ID_')}"
              data-data-edit-url="${(#mvc.url('ProductsItemThymeleafController#editForm')).buildAndExpand('_ID_')}"
              data-data-delete-url="${(#mvc.url('CategoriesItemProductsJsonController#removeFromProducts')).arg(1,'_ID_').buildAndExpand('_PARENTID_')}">
@@ -199,12 +199,12 @@
           
           <div class="modal-body" data-th-fragment="modalAddBody">
     
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="POST" data-th-id="${tableId} + AddForm">
               <fieldset> 
                 <div class="form-group"> 
                   <div class="col-md-12"> 
-                    <select id="productIds"
-                      name="product"
+                    <select id="products"
+                      name="products"
                       multiple="multiple"
                       class="githform-control dropdown-select-ajax"
                       data-data-placeholder="#{info_select_an_option}"
@@ -265,7 +265,30 @@
   </footer>
 
   <!-- Javascript fragment for this page --> 
-  <div data-layout-fragment="javascript"></div>
+  <div data-layout-fragment="javascript">
+    <script type="text/javascript" data-th-inline="javascript">
+      // IIFE - Immediately Invoked Function Expression
+      (function(list) {
+      
+        // The global jQuery object is passed as a parameter
+        list(window.jQuery, window, document);
+      
+      }(function($, window, document) {
+      
+        // The $ is now locally scoped, it won't collide with other libraries 
+      
+        // Listen for the jQuery ready event on the document
+        // READY EVENT BEGIN
+        $(function() {
+        
+          // Put this page local javascript here!
+          
+        });
+         
+        // READY EVENT END
+      }));
+    </script>
+  </div>
   <!-- Application --> 
   <script src="../../static/public/js/main.js"></script>   
  </body>

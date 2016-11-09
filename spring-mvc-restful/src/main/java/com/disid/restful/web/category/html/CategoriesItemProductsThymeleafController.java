@@ -14,14 +14,18 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -56,4 +60,17 @@ public class CategoriesItemProductsThymeleafController {
     return new DatatablesData<Product>(products, allAvailableProducts, draw);
   }
 
+  @PostMapping(name = "addToProducts")
+  @ResponseBody
+  public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
+      @RequestParam("products") List<Long> products) {
+    for (Iterator<Long> iterator = products.iterator(); iterator.hasNext();) {
+      if (iterator.next() == null) {
+        iterator.remove();
+      }
+    }
+
+    categoryService.addToProducts(category, products);
+    return ResponseEntity.ok().build();
+  }
 }
