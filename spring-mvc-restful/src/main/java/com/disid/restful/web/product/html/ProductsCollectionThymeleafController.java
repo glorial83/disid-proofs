@@ -102,10 +102,10 @@ public class ProductsCollectionThymeleafController {
   /**
    * Generic select2 method which provides only the 'id' and 'text' properties needed by select2.
    */
-  @GetMapping(value = "/s2gen", name = "select2Generic",
+  @GetMapping(value = "/s2", name = "select2",
       produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public ResponseEntity<Select2Data<Product>> select2Generic(GlobalSearch search, Pageable pageable,
+  public ResponseEntity<Select2Data<Product>> select2(GlobalSearch search, Pageable pageable,
       Locale locale) {
     Page<Product> products = productService.findAll(search, pageable);
     String textExpression = messageSource.getMessage("expression_product", null, "#{name}", locale);
@@ -118,11 +118,13 @@ public class ProductsCollectionThymeleafController {
 
   /**
    * Product specific select2 method which adds the 'description' property to the default
-   * ones.
+   * ones. This a sample method on how to add additional properties to the data sent
+   * to a select2 component, just in case it is needed in another component.
    */
-  @GetMapping(value = "/s2", name = "select2", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/s2desc", name = "select2withDesc",
+      produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public ResponseEntity<Select2ProductData> select2(GlobalSearch search, Pageable pageable,
+  public ResponseEntity<Select2ProductData> select2WithDesc(GlobalSearch search, Pageable pageable,
       Locale locale) {
     Page<Product> products = productService.findAll(search, pageable);
     String textExpression = messageSource.getMessage("expression_product", null, "#{name}", locale);
