@@ -95,29 +95,32 @@
   	 * the table tag attribute 'data-create-url' to be used as the URL.
   	 */
   	function createButton(datatables, conf) {
-  	  if (hasParentTable(datatables)) {
-        return {
-          'action': function(e, datatables, node, config) {
-            if (getParentSelectedRowId(datatables)) {
-              $('#categoryProductsTableAdd').modal('show');
-            }
-          },
-          'className': 'btn-action add',
-          'text': datatables.i18n('buttons.add', 'Add')
-        };
-  	    
-  	  } else {
-
-  	    return {
-    	    'action': function(e, datatables, node, config) {
-    	      var url = getCreateUrl(datatables);
-    	      if (url) {
-    	        location.href = url;
-    	      }
-    	    },
-    	    'className': 'btn-action add',
-    	    'text': datatables.i18n('buttons.add', 'Add')
-    	  };
+  	  var dataCreateUrl = getDataCreateUrl(datatables);
+  	  
+  	  if (dataCreateUrl) {
+    	  if (hasParentTable(datatables)) {
+          return {
+            'action': function(e, datatables, node, config) {
+              if (getParentSelectedRowId(datatables)) {
+                $('#categoryProductsTableAdd').modal('show');
+              }
+            },
+            'className': 'btn-action add',
+            'text': datatables.i18n('buttons.add', 'Add')
+          };
+    	    
+    	  } else {
+    	    return {
+      	    'action': function(e, datatables, node, config) {
+      	      var createUrl = getCreateUrl(datatables);
+      	      if (createUrl) {
+      	        location.href = createUrl;
+      	      }
+      	    },
+      	    'className': 'btn-action add',
+      	    'text': datatables.i18n('buttons.add', 'Add')
+      	  };
+    	  }
   	  }
   	};
     
@@ -318,19 +321,31 @@
   	
   	/**
   	 * Returns the URL to create a new element for the Datatables.
-  	 * The value is defined in the Datatables table tag with a 
-  	 * 'data-create-url-function' as a function which returns the URL
-  	 * or, if it is not defined, the value of the attribute
-  	 * 'data-create-url' to be used as the URL.
+     * The URL is processed to replace any parameters.
   	 *
   	 * @param datatables DataTable on which the calling should act upon
   	 */
   	function getCreateUrl(datatables) {
-  	  var urlFunction = getDataValue(datatables, 'create-url-function');
-  	  var url = urlFunction ? $[urlFunction]() : getDataValue(datatables, 'create-url');
+  	  var url = getDataCreateUrl(datatables);
   	  return processUrl(datatables, url);
   	}
-  			
+
+    /**
+     * Returns the URL to create a new element for the Datatables
+     * as defined in the table data attributes.
+     * The value is defined in the Datatables table tag with a 
+     * 'data-create-url-function' as a function which returns the URL
+     * or, if it is not defined, the value of the attribute
+     * 'data-create-url' to be used as the URL.
+     *
+     * @param datatables DataTable on which the calling should act upon
+     */  	
+    function getDataCreateUrl(datatables) {
+      var urlFunction = getDataValue(datatables, 'create-url-function');
+      var url = urlFunction ? $[urlFunction]() : getDataValue(datatables, 'create-url');
+      return url;
+    }
+  	
   	/**
   	 * Returns the URL to show the details of an element of the Datatables.
   	 * The value is defined in the Datatables table tag with a 
@@ -567,9 +582,30 @@
     function renderTools( data, type, full, meta ) {
       var datatables = new $.fn.dataTable.Api(meta.settings);
       var tableId = getTableId(datatables);
-      return '<a role="button" class="btn-action showInfo" href="' + getShowUrl(datatables, data) + '" ></a>' +
-             '<a role="button" class="btn-action edit" href="' + getEditUrl(datatables, data) + '"></a>' +
-             '<a role="button" class="btn-action delete" data-toggle="modal" data-target="#' + tableId + 'DeleteConfirm" data-row-id="'+ data +'"/>'
+      var rowId = data;
+      
+      var buttons = '';
+      
+      var showUrl = getShowUrl(datatables, rowId);
+      if (showUrl) {
+        buttons = buttons.concat('<a role="button" class="btn-action showInfo" href="')
+                         .concat(showUrl).concat('" ></a>');
+      }
+            
+      var editUrl = getEditUrl(datatables, rowId);
+      if (editUrl) {
+        buttons = buttons.concat('<a role="button" class="btn-action edit" href="')
+                         .concat(editUrl).concat('"></a>');
+      }
+      
+      var deleteUrl = getDeleteUrl(datatables, rowId);
+      if (deleteUrl) {
+        buttons = buttons.concat('<a role="button" class="btn-action delete" data-toggle="modal" data-target="#')
+                         .concat(tableId).concat('DeleteConfirm" data-row-id="')
+                         .concat(data).concat('"/>');
+      }
+      
+      return buttons;
     }
     
   });
