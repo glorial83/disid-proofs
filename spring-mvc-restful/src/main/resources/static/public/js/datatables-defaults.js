@@ -108,6 +108,7 @@
               }
             },
             'className': 'btn-action add',
+            'name': 'add',
             'text': datatables.i18n('buttons.add', 'Add')
           };
 
@@ -120,6 +121,7 @@
               }
             },
             'className': 'btn-action add',
+            'name': 'add',
             'text': datatables.i18n('buttons.add', 'Add')
           };
         }
@@ -534,10 +536,12 @@
       if (parentDatatables) {
         // Register to de/select events
         parentDatatables.on('select', function () {
+          datatables.button('add:name').enable();
           datatables.ajax.reload();
         });
 
         parentDatatables.on('deselect', function () {
+          datatables.button('add:name').disable();
           datatables.ajax.reload();
         });
 
@@ -546,6 +550,8 @@
         parentDatatables.on('xhr.dt', function () {
           datatables.ajax.reload();
         });
+        
+        datatables.button('add:name').disable();
       }
     }
 
