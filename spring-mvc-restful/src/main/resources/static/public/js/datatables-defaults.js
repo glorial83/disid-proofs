@@ -100,6 +100,11 @@
       var dataCreateUrl = getDataCreateUrl(datatables);
 
       if (dataCreateUrl) {
+        /* This code uses a modal dialog to show the creation
+         * form. This will be the default option in a future
+         * version.
+         */
+        /*
         if (hasParentTable(datatables)) {
           return {
             'action': function(e, datatables, node, config) {
@@ -109,10 +114,11 @@
             },
             'className': 'btn-action add',
             'name': 'add',
-            'text': datatables.i18n('buttons.add', 'Add')
+            'text': datatables.i18n('buttons.add', 'Add')catego
           };
 
         } else {
+        */
           return {
             'action': function(e, datatables, node, config) {
               var createUrl = getCreateUrl(datatables);
@@ -124,7 +130,7 @@
             'name': 'add',
             'text': datatables.i18n('buttons.add', 'Add')
           };
-        }
+        //}
       }
     };
 
@@ -591,27 +597,28 @@
       var datatables = new $.fn.dataTable.Api(meta.settings);
       var tableId = getTableId(datatables);
       var rowId = data;
-      var buttons = '';
+      var buttons = '<div class="btn-group" role="group">';
 
       var showUrl = getShowUrl(datatables, rowId);
       if (showUrl) {
-        buttons = buttons.concat('<a role="button" class="btn-action showInfo" href="')
+        buttons = buttons.concat('<a role="button" class="btn btn-action showInfo" href="')
                          .concat(showUrl).concat('" ></a>');
       }
 
       var editUrl = getEditUrl(datatables, rowId);
       if (editUrl) {
-        buttons = buttons.concat('<a role="button" class="btn-action edit" href="')
+        buttons = buttons.concat('<a role="button" class="btn btn-action edit" href="')
                          .concat(editUrl).concat('"></a>');
       }
 
       var deleteUrl = getDeleteUrl(datatables, rowId);
       if (deleteUrl) {
-        buttons = buttons.concat('<a role="button" class="btn-action delete" data-toggle="modal" data-target="#')
+        buttons = buttons.concat('<a role="button" class="btn btn-action delete" data-toggle="modal" data-target="#')
                          .concat(tableId).concat('DeleteConfirm" data-row-id="')
                          .concat(data).concat('"/>');
       }
 
+      buttons = buttons.concat('</div>');
       return buttons;
     }
 

@@ -61,9 +61,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js" data-th-src="@{/webjars/momentjs/moment.min.js}">
       </script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js" data-th-src="@{/webjars/momentjs/locale/}+ ${#locale.language}+'.js'" data-th-if="${#locale.language} != 'en'">
-      </script> 
+      </script>
   <script src="../../static/public/js/moment-defaults.js" data-th-src="@{/public/js/moment-defaults.js}">
       </script> 
+  <div data-th-replace="fragments/js/select2 :: select2-js"></div> 
   <div data-layout-fragment="javascript"> 
    <!-- This includes javascript own code of each page --> 
   </div> 

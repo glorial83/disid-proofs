@@ -15,7 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -40,6 +42,14 @@ public class CategoryServiceImpl implements CategoryService {
     category.setProducts(null);
 
     categoryRepository.delete(category);
+  }
+
+  @Transactional
+  public Category setProducts(Category category, Iterable<Long> productIds) {
+    List<Product> products = productService.findAll(productIds);
+    Set<Product> productSet = new HashSet<Product>(products);
+    category.setProducts(productSet);
+    return categoryRepository.save(category);
   }
 
   @Transactional

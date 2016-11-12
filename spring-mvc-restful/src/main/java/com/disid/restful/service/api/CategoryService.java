@@ -13,6 +13,8 @@ public interface CategoryService {
 
   Category addToProducts(Category category, Iterable<Long> products);
 
+  Category setProducts(Category category, Iterable<Long> productIds);
+
   long count();
 
   void delete(Category category);
