@@ -1,94 +1,27 @@
 <!DOCTYPE html> 
 <html data-layout-decorator="layouts/default-layout"> 
  <head> 
-  <meta charset="UTF-8" data-th-remove="all" /> 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all" /> 
-  <meta name="viewport" content="width=device-width, initial-scale=1" data-th-remove="all" /> 
-  <meta name="description" content="Spring MVC RESTful" data-th-remove="all" /> 
-  <meta name="author" content="Spring Roo" data-th-remove="all" /> 
-  <link data-th-href="@{/public/img/favicon.ico}" data-th-remove="all" rel="icon" href="../../static/public/img/favicon.ico" /> 
-  <link rel="shortcut icon" href="../../static/public/img/favicon.ico" data-th-remove="all" /> 
-  <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png" data-th-remove="all" /> 
   <title data-th-text="#{label_edit_entity(#{label_orderdetail})}">Spring MVC RESTful
   - Edit OrderDetail</title> 
-  <!-- Bootstrap --> 
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" data-th-remove="all" /> 
-  <!-- Font Awesome --> 
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" /> 
-  <!-- Bootswatch CSS custom --> 
-  <link rel="stylesheet" type="text/css" href="../static/public/css/theme.css" data-th-remove="all" /> 
-  <!-- Roo CSS --> 
-  <link rel="stylesheet" type="text/css" href="../static/public/css/springroo.css" data-th-remove="all" /> 
-  <!--[if lt IE 9]>
-       <script src="/public/js/html5shiv.min.js"></script>
-        <script src="/public/js/respond.min.js"></script>
-    <![endif]--> 
   <!-- Select2 --> 
-  <link rel="stylesheet" type="text/css" data-th-href="@{/public/css/select2.css}" href="../../static/public/css/select2.css" /> 
-  <link rel="stylesheet" type="text/css" data-th-href="@{/public/css/select2-bootstrap.css}" href="../../static/public/css/select2-bootstrap.css" /> 
+  <link rel="stylesheet" type="text/css" data-th-href="@{/webjars/select2/dist/css/select2.css}"> 
+  <link rel="stylesheet" type="text/css" data-th-href="@{/webjars/select2-bootstrap-theme/dist/select2-bootstrap.css}">   
   <!-- DateTimePicker --> 
-  <link rel="stylesheet" type="text/css" data-th-href="@{/public/css/jquery.datetimepicker.css}" href="../../static/public/css/jquery.datetimepicker.css" /> 
-  <script data-th-src="@{/public/js/jquery.min.js}" src="../../static/public/js/jquery.min.js"></script> 
+  <link rel="stylesheet" type="text/css" data-th-href="@{/webjars/datetimepicker/build/jquery.datetimepicker.min.css}"> 
  </head> 
  <body> 
   <!--START CONTAINER--> 
   <div class="container bg-container"> 
-   <!-- HEADER --> 
-   <header role="banner"> 
-    <div class="bg-header"> 
-     <div class="organization-logo"> 
-      <a title="Spring MVC RESTful" href="/"><img alt="Spring MVC RESTful" src="../../static/public/img/logo_spring_roo.png" /></a> 
-     </div> 
-     <div class="application-name"> 
-      <a href="/" data-th-href="@{/}">Spring MVC RESTful</a> 
-     </div> 
-    </div> 
-    <!-- MAIN MENU --> 
-    <nav class="navbar navbar-default"> 
-     <div class="container-fluid"> 
-      <!-- collapsed menu button --> 
-      <div class="navbar-header"> 
-       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Dropdown</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
-       <a class="navbar-brand" href="#">Main Menu</a> 
-      </div> 
-      <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse"> 
-       <!-- Main menu --> 
-       <div class="row"> 
-        <ul class="nav navbar-nav"> 
-         <li class="active"><a href="#">Active Menu 1</a></li> 
-         <li><a href="#">Menu 2</a></li> 
-         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown Menu 3<span class="caret"></span></a> 
-          <ul class="dropdown-menu"> 
-           <li><a href="#">Submenu 1</a></li> 
-           <li><a href="#">Submenu 2</a></li> 
-           <li><a href="#">Submenu 3</a></li> 
-          </ul></li> 
-        </ul> 
-       </div> 
-       <!-- User Menu --> 
-       <div class="container upper-nav"> 
-        <ul class="nav navbar-nav navbar-right session"> 
-         <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>User</li> 
-         <li><button type="submit" class="exit"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span><span>Exit</span> </button></li> 
-        </ul> 
-        <ul class="nav navbar-nav navbar-right links"> 
-         <li><a href="#"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <span data-th-text="#{label_contact}">Contact</span></a></li> 
-         <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <span data-th-text="#{label_help}">Help</span></a></li> 
-        </ul> 
-       </div> 
-      </div> 
-     </div> 
-    </nav> 
-   </header> 
-   <!-- END HEADER --> 
    <!--START CONTENT--> 
    <section data-layout-fragment="content"> 
     <div class="container-fluid content"> 
      <h1 data-th-text="#{label_edit_entity(#{label_orderdetail})}">Edit OrderDetail</h1> 
      <!--START FORM--> 
-     <form class="form-horizontal" method="POST" data-th-object="${orderDetail}" data-th-action="@{/details/{id}(id=*{id})}"> 
-      <input type="hidden" name="_method" value="PUT" /> 
+     <form class="form-horizontal" method="POST" data-th-object="${orderDetail}" 
+           data-th-action="${(#mvc.url('CustomerOrdersItemDetailsThymeleafController#update')).arg(1,orderDetail.getId().getId()).buildAndExpand(customerOrder.getId())}">
+      <input type="hidden" name="_method" value="PUT" />             
       <fieldset> 
+       <legend data-th-text="#{label_data_entity(#{label_orderdetail})}">OrderDetail data </legend> 
        <div class="form-group" data-th-classappend="${#fields.hasErrors('quantity')}? 'has-error has-feedback'"> 
         <label for="quantity" class="col-md-3 control-label" data-th-text="#{label_orderdetail_quantity}">quantity</label> 
         <div class="col-md-3"> 
@@ -99,32 +32,31 @@
        <div class="form-group" data-th-classappend="${#fields.hasErrors('product')}? 'has-error has-feedback'"> 
         <label for="product" class="col-md-3 control-label" data-th-text="#{label_orderdetail_product}">Product</label> 
         <div class="col-md-6"> 
-         <!-- Select2 --> 
-         <select data-th-field="*{product}" class="dropdown-select-ajax" style="width: 50%" data-placeholder="Select an option" data-allow-clear="true" data-id-field="id" data-text-fields="name,description" data-ajax--url="/products" data-ajax--cache="true" data-ajax--delay="250" data-ajax--data-type="json"> <option data-th-unless="*{product} == null" data-th-value="*{product.id}" data-th-text="|*{product.name} *{product.description}|" selected="selected">Product</option> </select> 
+         <!-- Select2 -->
+         <select data-th-field="*{product}" 
+                 class="form-control dropdown-select-ajax"
+                 style="width: 50%"
+                 data-placeholder="Select an option"
+                 data-allow-clear="true"
+                 data-ajax--cache="true"
+                 data-ajax--data-type="json"      
+                 data-ajax--delay="250"
+                 data-data-ajax--url="${(#mvc.url('ProductsCollectionThymeleafController#select2')).build()}"
+                 data-data-placeholder="#{info_select_an_option}"
+                 data-id-field="id">
+           <option data-th-unless="*{product} == null" data-th-value="*{product.id}" 
+                   data-th-text="*{product.name}" selected="selected">Product</option>
+         </select> 
          <span id="name-help" class="help-block alert" data-th-if="${#fields.hasErrors('product')}" data-th-errors="*{product}">Help message.</span> 
-        </div> 
-       </div> 
-       <div class="form-group" data-th-classappend="${#fields.hasErrors('customerOrder')}? 'has-error has-feedback'"> 
-        <label for="customerOrder" class="col-md-3 control-label" data-th-text="#{label_orderdetail_customerorder}">CustomerOrder</label> 
-        <div class="col-md-6"> 
-         <!-- Select2 --> 
-         <select data-th-field="*{customerOrder}" class="dropdown-select-ajax" style="width: 50%" data-placeholder="Select an option" data-allow-clear="true" data-id-field="id" data-text-fields="orderDate,shippedDate" data-ajax--url="/customerorders" data-ajax--cache="true" data-ajax--delay="250" data-ajax--data-type="json"> <option data-th-unless="*{customerOrder} == null" data-th-value="*{customerOrder.id}" data-th-text="|*{customerOrder.orderDate} *{customerOrder.shippedDate}|" selected="selected">CustomerOrder</option> </select> 
-         <span id="name-help" class="help-block alert" data-th-if="${#fields.hasErrors('customerOrder')}" data-th-errors="*{customerOrder}">Help message.</span> 
-        </div> 
-       </div> 
-       <div class="form-group" data-th-classappend="${#fields.hasErrors('id')}? 'has-error has-feedback'"> 
-        <label for="id" class="col-md-3 control-label" data-th-text="#{label_orderdetail_id}">id</label> 
-        <div class="col-md-3"> 
-         <input id="id" name="id" data-th-value="*{{id}}" type="text" class="form-control" placeholder="id" data-th-placeholder="#{label_orderdetail_id}" data-toggle="tooltip" /> 
-         <span id="name-help" class="help-block alert" data-th-if="${#fields.hasErrors('id')}" data-th-errors="*{id}">Help message.</span> 
         </div> 
        </div> 
        <!-- FORM BUTTONS --> 
        <div class="form-group"> 
         <div class="col-md-12"> 
          <div class="pull-left"> 
-          <!-- TODO IE8 --> 
-          <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{/details} + '\''" data-th-text="#{label_reset}">Cancel</button> 
+          <a class="btn btn-default" 
+             data-th-href="${(#mvc.url('CustomerOrdersCollectionThymeleafController#list')).build()}" 
+             data-th-text="#{label_reset}">Cancel</a> 
          </div> 
          <div class="pull-right"> 
           <input type="submit" value="Accept" data-th-value="#{label_submit}" class="btn btn-primary" /> 
@@ -139,30 +71,51 @@
    </section> 
   </div> 
   <!--END CONTAINER--> 
-  <footer class="container"> 
-   <p class="text-right">© Powered By Spring Roo</p> 
-  </footer> 
-  <!-- Bootstrap core JavaScript
-    ================================================== --> 
-  <!-- JQuery --> 
-  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.12.3.js"></script> 
-  <!-- Bootstrap --> 
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script> 
-  <!-- Application --> 
-  <script src="../../static/public/js/main.js"></script> 
   <div data-layout-fragment="javascript"> 
-   <!-- Moment.js --> 
-   <script data-th-src="@{/public/js/moment.js}" src="../../static/public/js/moment.js"></script> 
-   <script data-th-src="@{/public/js/moment-} + ${application_locale} + .js" src="../../static/public/js/moment-en.js"></script> 
-   <!-- Select2 --> 
-   <script src="../../static/public/js/select2.full.js" data-th-src="@{/public/js/select2.full.js}"></script> 
-   <script src="../../static/public/js/select2.full-es.js" data-th-src="@{/public/js/select2.full-es.js}"></script> 
-   <script src="../../static/public/js/select2-defaults.js" data-th-src="@{/public/js/select2-defaults.js}"></script> 
-   <!-- DateTime Picker --> 
-   <script src="../../static/public/js/jquery.datetimepicker.full.min.js" data-th-src="@{/public/js/jquery.datetimepicker.full.min.js}"></script> 
-   <script src="../../static/public/js/datetimepicker-defaults.js" data-th-src="@{/public/js/datetimepicker-defaults.js}"></script> 
+
+    <!-- DateTimePicker --> 
+    <script data-th-src="@{/webjars/datetimepicker/build/jquery.datetimepicker.full.min.js}"></script> 
+    <script data-th-src="@{/public/js/datetimepicker-defaults.js}"></script> 
+    <!-- jquery.inputmask --> 
+    <script data-th-src="@{/webjars/jquery.inputmask/min/jquery.inputmask.bundle.min.js}"></script> 
+    <script type="text/javascript" data-th-inline="javascript">
+      (function(jQuery) {
+        jQuery(document).ready(
+          function() {
+            Inputmask.extendAliases({
+              'numeric' : {
+                 'groupSeparator' : /*[[#{label_inputmask_groupSeparator}]]*/'.',
+                 'radixPoint' : /*[[#{label_inputmask_radixPoint}]]*/','
+               },
+               'currency' : {
+                  'prefix' : /*[[#{label_inputmask_prefix}]]*/'',
+                  'suffix' : /*[[#{label_inputmask_suffix}]]*/' €'
+                }
+            });
+          });
+       })(jQuery);
+    </script> 
+    <script data-th-src="@{/public/js/inputmask-defaults.js}"></script> 
+    <!-- JQuery Validation --> 
+    <script data-th-src="@{/webjars/jquery-validation/dist/jquery.validate.min.js}">
+    </script> 
+    <script data-th-src="@{/webjars/jquery-validation/dist/additional-methods.min.js}">
+    </script> 
+    <script data-th-src="@{/webjars/jquery-validation/src/localization/messages_}+${#locale.language}+'.js'"
+            data-th-if="${#locale.language} != 'en'">
+    </script> 
+    <script data-th-src="@{/public/js/validation-defaults.js}">
+    </script> 
+    <script type="text/javascript" data-th-inline="javascript">
+      (function(jQuery) {
+         jQuery(document).ready(function() {
+           jQuery.extend( jQuery.validator.messages, {
+             'dateformat' : /*[[#{error_invalidDate}]]*/ 'Please enter a correct date/time',
+             'inputmask': /*[[#{lerror_invalidMaskValue}]]*/ 'Please enter a valid value',
+           });
+         });
+      })(jQuery);
+    </script>
   </div> 
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
-  <script src="../../static/public/js/ie10-viewport-bug-workaround.js"></script> 
  </body> 
 </html>

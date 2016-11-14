@@ -135,7 +135,9 @@
           <div class="form-group"> 
             <div class="col-md-12"> 
               <div class="pull-left"> 
-                <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{/categories} + '\''" data-th-text="#{label_reset}">Cancel</button> 
+                <a href="../list.html" class="btn btn-default" 
+                   data-th-href="${(#mvc.url('CategoriesCollectionThymeleafController#list')).build()}" 
+                   data-th-text="#{label_reset}">Cancel</a> 
               </div> 
               <div class="pull-right"> 
                 <input type="submit" value="Accept" data-th-value="#{label_submit}" class="btn btn-primary" /> 

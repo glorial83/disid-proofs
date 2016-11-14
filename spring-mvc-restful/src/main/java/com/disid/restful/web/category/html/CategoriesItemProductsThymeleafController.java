@@ -91,14 +91,6 @@ public class CategoriesItemProductsThymeleafController {
     return new ModelAndView("redirect:" + listURI.toUriString());
   }
 
-  @PostMapping(value = "/{product}", name = "addToProducts")
-  @ResponseBody
-  public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
-      @PathVariable("product") Long product) {
-    categoryService.addToProducts(category, Collections.singleton(product));
-    return ResponseEntity.ok().build();
-  }
-
   @DeleteMapping(value = "/{product}", name = "removeFromProducts")
   @ResponseBody
   public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
@@ -108,6 +100,15 @@ public class CategoriesItemProductsThymeleafController {
   }
 
   /* TO BE USED WHEN WE CHANGE TO MODAL DIALOGS
+  
+  @PostMapping(value = "/{product}", name = "addToProducts")
+  @ResponseBody
+  public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
+      @PathVariable("product") Long product) {
+    categoryService.addToProducts(category, Collections.singleton(product));
+    return ResponseEntity.ok().build();
+  }
+  
   @PostMapping(name = "addToProducts")
   @ResponseBody
   public ResponseEntity<?> addToProducts(@ModelAttribute Category category,

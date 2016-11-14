@@ -277,14 +277,14 @@
       // _PARENTID_ variable in the given URL.
       if (url && url.indexOf('_PARENTID_') > -1 && hasParentTable(datatables)) {
         var parentRowId = getParentSelectedRowId(datatables);
-        if (parentRowId) {
+        if (parentRowId !== undefined) {
           processedUrl = url.replace('_PARENTID_', parentRowId);
         } else {
           processedUrl = undefined;
         }
       }
 
-      if (id && processedUrl) {
+      if (id !== undefined && processedUrl) {
         processedUrl = processedUrl.replace('_ID_', id);
       }
 

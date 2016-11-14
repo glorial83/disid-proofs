@@ -3,8 +3,10 @@ package com.disid.restful.service.impl;
 import com.disid.restful.model.Customer;
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
+import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.repository.CustomerOrderRepository;
 import com.disid.restful.service.api.CustomerOrderService;
+import com.disid.restful.service.api.OrderDetailService;
 
 import io.springlets.data.domain.GlobalSearch;
 
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,10 +24,13 @@ import java.util.List;
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
   private CustomerOrderRepository customerOrderRepository;
+  private OrderDetailService orderDetailService;
 
   @Autowired
-  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository) {
+  public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository,
+      OrderDetailService orderDetailService) {
     this.customerOrderRepository = customerOrderRepository;
+    this.orderDetailService = orderDetailService;
   }
 
   @Transactional
@@ -52,10 +58,17 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
   @Transactional
   public CustomerOrder removeFromDetails(CustomerOrder customerOrder,
-      Iterable<OrderDetail> details) {
-    customerOrder.removeFromDetails(details);
-    customerOrderRepository.save(customerOrder);
-    return findOne(customerOrder.getId());
+      Iterable<Integer> details) {
+
+    List<OrderDetailPK> detailPks = new ArrayList<OrderDetailPK>();
+    for (Integer detailId : details) {
+      detailPks.add(new OrderDetailPK(customerOrder.getId(), detailId));
+    }
+
+    List<OrderDetail> detailList = orderDetailService.findAll(detailPks);
+
+    customerOrder.removeFromDetails(detailList);
+    return customerOrderRepository.save(customerOrder);
   }
 
   @Transactional(readOnly = false)

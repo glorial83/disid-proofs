@@ -9,6 +9,8 @@ import io.springlets.data.domain.GlobalSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface OrderDetailService {
 
   long countByCustomerOrder(CustomerOrder customerOrderField);
@@ -17,5 +19,9 @@ public interface OrderDetailService {
       Pageable pageable);
 
   OrderDetail findOne(OrderDetailPK orderDetailPK);
+
+  List<OrderDetail> findAll(Iterable<OrderDetailPK> detailPks);
+
+  OrderDetail save(OrderDetail orderDetail);
 
 }

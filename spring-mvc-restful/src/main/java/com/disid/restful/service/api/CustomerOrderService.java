@@ -34,7 +34,7 @@ public interface CustomerOrderService {
 
   CustomerOrder findOne(Long id);
 
-  CustomerOrder removeFromDetails(CustomerOrder customerOrder, Iterable<OrderDetail> details);
+  CustomerOrder removeFromDetails(CustomerOrder customerOrder, Iterable<Integer> details);
 
   CustomerOrder save(CustomerOrder entity);
 

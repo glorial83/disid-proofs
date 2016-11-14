@@ -70,7 +70,7 @@ public class CustomerOrdersItemDetailsJsonController {
 
   @DeleteMapping
   public ResponseEntity<?> deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
-      @Valid @RequestBody OrderDetail detail) {
+      @Valid @RequestBody Integer detail) {
     customerOrderService.removeFromDetails(customerOrder, Collections.singleton(detail));
     return ResponseEntity.ok().build();
   }
@@ -84,7 +84,7 @@ public class CustomerOrdersItemDetailsJsonController {
 
   @DeleteMapping("/batch")
   public ResponseEntity<?> deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
-      @Valid @RequestBody Iterable<OrderDetail> details) {
+      @Valid @RequestBody Iterable<Integer> details) {
     customerOrderService.removeFromDetails(customerOrder, details);
     return ResponseEntity.ok().build();
   }

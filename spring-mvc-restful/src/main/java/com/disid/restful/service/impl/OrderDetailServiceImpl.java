@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class OrderDetailServiceImpl implements OrderDetailService {
@@ -39,4 +41,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     return orderDetailRepository.findOne(orderDetailPK);
   }
 
+  @Override
+  public List<OrderDetail> findAll(Iterable<OrderDetailPK> detailPks) {
+    return orderDetailRepository.findAll(detailPks);
+  }
+
+  @Override
+  @Transactional
+  public OrderDetail save(OrderDetail orderDetail) {
+    return orderDetailRepository.save(orderDetail);
+  }
 }
