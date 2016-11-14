@@ -15,8 +15,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponents;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -86,6 +89,22 @@ public class CategoriesItemProductsThymeleafController {
 
     UriComponents listURI = CategoriesCollectionThymeleafController.listURI();
     return new ModelAndView("redirect:" + listURI.toUriString());
+  }
+
+  @PostMapping(value = "/{product}", name = "addToProducts")
+  @ResponseBody
+  public ResponseEntity<?> addToProducts(@ModelAttribute Category category,
+      @PathVariable("product") Long product) {
+    categoryService.addToProducts(category, Collections.singleton(product));
+    return ResponseEntity.ok().build();
+  }
+
+  @DeleteMapping(value = "/{product}", name = "removeFromProducts")
+  @ResponseBody
+  public ResponseEntity<?> removeFromProducts(@ModelAttribute Category category,
+      @PathVariable("product") Long product) {
+    categoryService.removeFromProducts(category, Collections.singleton(product));
+    return ResponseEntity.ok().build();
   }
 
   /* TO BE USED WHEN WE CHANGE TO MODAL DIALOGS
