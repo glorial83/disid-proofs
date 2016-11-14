@@ -5,7 +5,7 @@
 <title>Modal</title>
 </head>
 <body>
-  <div data-th-fragment="modalConfirmDelete(tableId, title, message, baseUrl)">
+  <div data-th-fragment="modalConfirmDelete(tableId, title, message)">
     <div
       data-th-replace="fragments/modal :: modal(tableId = ${tableId}, id = ${tableId} + 'DeleteConfirm', title = ${title}, body = ~{::modalConfirmBody})">
 
