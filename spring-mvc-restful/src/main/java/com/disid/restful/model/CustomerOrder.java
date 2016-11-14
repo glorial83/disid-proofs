@@ -51,7 +51,8 @@ public class CustomerOrder {
   * TODO: convertir a List la propiedad details, tal y como está ahora el
   * remove de lineas y luego añadir no funcionará bien.
   */
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY,
+      mappedBy = "customerOrder")
   private Set<OrderDetail> details = new HashSet<OrderDetail>();
 
   /**

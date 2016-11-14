@@ -27,6 +27,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     this.customerOrderRepository = customerOrderRepository;
   }
 
+  @Transactional
   public void delete(CustomerOrder customerOrder) {
     // Clear bidirectional many-to-one child relationship with Customer
     if (customerOrder.getCustomer() != null) {
@@ -38,7 +39,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     for (OrderDetail detail : customerOrder.getDetails()) {
       detail.setCustomerOrder(null);
     }
-    customerOrder.setDetails(null);
 
     customerOrderRepository.delete(customerOrder);
   }
