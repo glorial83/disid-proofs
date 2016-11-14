@@ -108,7 +108,7 @@ public class ProductsCollectionThymeleafController {
   public ResponseEntity<Select2Data<Product>> select2(GlobalSearch search, Pageable pageable,
       Locale locale) {
     Page<Product> products = productService.findAll(search, pageable);
-    String textExpression = messageSource.getMessage("expression_product", null, "#{name}", locale);
+    String textExpression = messageSource.getMessage("expression_product", null, "#{toString()}", locale);
     String idExpression = "#{id}";
 
     Select2Data<Product> select2Data =
