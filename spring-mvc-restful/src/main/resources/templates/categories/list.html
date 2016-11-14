@@ -16,8 +16,8 @@
   <!-- Font Awesome --> 
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" data-th-remove="all"></link>
   <!-- Select2 --> 
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.css" data-th-href="@{/webjars/select2/dist/css/select2.css}"> 
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css" data-th-href="@{/webjars/select2-bootstrap-theme/dist/select2-bootstrap.css}">   
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.css" data-th-remove="all"> 
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css" data-th-remove="all">   
   <!-- Datatables --> 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css" data-th-remove="all"></link> 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css" data-th-remove="all"></link> 
@@ -146,7 +146,7 @@
       </table> 
       <!-- content replaced by modal-confirm fragment of modal-confirm.html --> 
       <div data-th-replace="fragments/modal-confirm-delete :: modalConfirmDelete(tableId='categoryTable',
-          title=#{label_delete_entity(#{label_category})}, message=#{info_delete_item_confirm}, baseUrl = @{/categories/})">
+          title=#{label_delete_entity(#{label_category})}, message=#{info_delete_item_confirm}">
       </div> 
      </div>
      <!-- /TABLE --> 
@@ -191,7 +191,7 @@
         </table> 
         <!-- content replaced by modal-confirm fragment of modal-confirm.html --> 
         <div data-th-replace="fragments/modal-confirm-delete :: modalConfirmDelete(tableId='categoryProductsTable',
-            title=#{label_delete_entity(#{label_product})}, message=#{info_delete_item_confirm}, baseUrl = @{/categories/})">
+            title=#{label_delete_entity(#{label_product})}, message=#{info_delete_item_confirm})">
         </div>
 
         <div
