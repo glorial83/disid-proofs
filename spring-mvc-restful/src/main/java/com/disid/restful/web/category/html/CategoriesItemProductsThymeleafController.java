@@ -79,7 +79,7 @@ public class CategoriesItemProductsThymeleafController {
 
   @PostMapping(name = "create")
   public ModelAndView create(@ModelAttribute Category category,
-      @RequestParam("products") List<Long> products, Model model) {
+      @RequestParam("productIds") List<Long> products, Model model) {
     for (Iterator<Long> iterator = products.iterator(); iterator.hasNext();) {
       if (iterator.next() == null) {
         iterator.remove();

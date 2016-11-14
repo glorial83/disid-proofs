@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -47,8 +48,20 @@ public class CategoryServiceImpl implements CategoryService {
   @Transactional
   public Category setProducts(Category category, Iterable<Long> productIds) {
     List<Product> products = productService.findAll(productIds);
-    Set<Product> productSet = new HashSet<Product>(products);
-    category.setProducts(productSet);
+    Set<Product> currentProductSet = category.getProducts();
+    Set<Product> toRemove = new HashSet<Product>();
+    for (Iterator<Product> iterator = currentProductSet.iterator(); iterator.hasNext();) {
+      Product product = iterator.next();
+      if (product != null) {
+        if (products.contains(product)) {
+          products.remove(product);
+        } else {
+          toRemove.add(product);
+        }
+      }
+    }
+    category.removeFromProducts(toRemove);
+    category.addToProducts(products);
     return categoryRepository.save(category);
   }
 

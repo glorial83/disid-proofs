@@ -114,7 +114,7 @@
             <div class="col-md-6"> 
              <!-- Select2 --> 
              <select id="products"
-                     name="products"
+                     name="productIds"
                      class="form-control dropdown-select-ajax" 
                      data-allow-clear="true"
                      data-ajax--cache="true"
@@ -126,7 +126,7 @@
                      multiple="multiple">
                 <option selected="selected" value="1" data-th-remove="all">Value</option>
                 <option data-th-each="product: *{products}" selected="selected"
-                 data-th-text="${product.name}" data-th-value="${product.id}">Another product to select</option>
+                 data-th-text="${product}" data-th-value="${product.id}">Another product to select</option>
              </select>
             </div> 
            </div> 
@@ -135,7 +135,7 @@
           <div class="form-group"> 
             <div class="col-md-12"> 
               <div class="pull-left"> 
-                <a href="../list.html" class="btn btn-default" 
+                <a href="../list.html" class="btn btn-default"
                    data-th-href="${(#mvc.url('CategoriesCollectionThymeleafController#list')).build()}" 
                    data-th-text="#{label_reset}">Cancel</a> 
               </div> 
