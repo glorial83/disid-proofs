@@ -104,11 +104,13 @@
       </dd> 
      </dl> 
      <div class="clearfix"> 
-      <div class="pull-left"> 
-       <button onclick="location.href='list'" data-th-onclick="'location.href=\'' + @{/details} + '\''" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span data-th-text="#{label_back}">Back</span> </button> 
+      <div class="pull-left">
+        <a class="btn btn-default" 
+           data-th-href="${(#mvc.url('CustomerOrdersCollectionThymeleafController#list')).build()}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span data-th-text="#{label_back}">Back</span></a>       
       </div> 
       <div class="pull-right"> 
-       <button data-th-onclick="'location.href=\'' + @{/details/{id_}/edit-form(id_=*{id})} + '\''" data-sec-authorize="hasAnyRole('ROLE_ADMIN','ROLE_EMPLEADO')" type="button" class="btn btn-primary" onclick="location.href='edit'" data-th-text="#{label_edit}">Edit</button> 
+        <a class="btn btn-primary" 
+           data-th-href="${(#mvc.url('CustomerOrdersItemDetailsItemThymeleafController#editForm')).buildAndExpand(orderDetail.getId().getCustomerOrderId(), orderDetail.getId().getId())}" data-th-text="#{label_edit}">Edit</a>       
       </div> 
      </div> 
     </div> 

@@ -18,7 +18,7 @@
      <h1 data-th-text="#{label_edit_entity(#{label_orderdetail})}">Edit OrderDetail</h1> 
      <!--START FORM--> 
      <form class="form-horizontal" method="POST" data-th-object="${orderDetail}" 
-           data-th-action="${(#mvc.url('CustomerOrdersItemDetailsThymeleafController#update')).arg(1,orderDetail.getId().getId()).buildAndExpand(customerOrder.getId())}">
+           data-th-action="${(#mvc.url('CustomerOrdersItemDetailsItemThymeleafController#update')).buildAndExpand(customerOrder.getId(), orderDetail.getId().getId())}">
       <input type="hidden" name="_method" value="PUT" />             
       <fieldset> 
        <legend data-th-text="#{label_data_entity(#{label_orderdetail})}">OrderDetail data </legend> 

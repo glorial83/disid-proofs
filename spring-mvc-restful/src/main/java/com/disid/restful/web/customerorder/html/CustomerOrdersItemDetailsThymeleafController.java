@@ -2,7 +2,6 @@ package com.disid.restful.web.customerorder.html;
 
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
-import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.OrderDetailService;
 
@@ -21,12 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -81,18 +78,6 @@ public class CustomerOrdersItemDetailsThymeleafController {
     return ResponseEntity.ok(datatablesData);
   }
 
-  @GetMapping(value = "/{orderdetail}/show", name = "show")
-  public ModelAndView show(@ModelAttribute CustomerOrder customerOrder,
-      @PathVariable("orderdetail") Integer id, Model model, Locale locale) {
-    OrderDetailPK detailPk = new OrderDetailPK(customerOrder.getId(), id);
-    OrderDetail orderDetail = orderDetailService.findOne(detailPk);
-    if (orderDetail == null) {
-      String message = messageSource.getMessage("error_orderDetailNotFound", null, locale);
-      throw new NotFoundException(message);
-    }
-    return new ModelAndView("orderdetails/show");
-  }
-
   @GetMapping(value = "/create-form", name = "createForm")
   public ModelAndView createForm(@ModelAttribute CustomerOrder customerOrder, Model model) {
     model.addAttribute(new OrderDetail());
@@ -111,46 +96,6 @@ public class CustomerOrdersItemDetailsThymeleafController {
 
     UriComponents listURI = CustomerOrdersCollectionThymeleafController.listURI();
     return new ModelAndView("redirect:" + listURI.toUriString());
-  }
-
-  @GetMapping(value = "/{orderdetail}/edit-form", name = "editForm")
-  public ModelAndView editForm(@ModelAttribute CustomerOrder customerOrder,
-      @PathVariable("orderdetail") Integer detailId, Model model) {
-
-    OrderDetailPK detailPK = new OrderDetailPK(customerOrder.getId(), detailId);
-    OrderDetail detail = orderDetailService.findOne(detailPK);
-    model.addAttribute(detail);
-    
-    return new ModelAndView("orderdetails/edit");
-  }
-
-  @PutMapping(value = "/{orderdetail}", name = "update")
-  public ModelAndView update(@ModelAttribute CustomerOrder customerOrder,
-      @PathVariable("orderdetail") Integer detailId, @Valid @ModelAttribute OrderDetail orderDetail,
-      BindingResult result, Model model) {
-
-    if (result.hasErrors()) {
-      return new ModelAndView("orderdetails/edit");
-    }
-
-    OrderDetailPK detailPK = new OrderDetailPK(customerOrder.getId(), detailId);
-    orderDetail.setId(detailPK);
-
-    OrderDetail storedDetail = orderDetailService.findOne(detailPK);
-    storedDetail.setQuantity(orderDetail.getQuantity());
-    storedDetail.setProduct(orderDetail.getProduct());
-    orderDetailService.save(storedDetail);
-
-    UriComponents listURI = CustomerOrdersCollectionThymeleafController.listURI();
-    return new ModelAndView("redirect:" + listURI.toUriString());
-  }
-
-  @DeleteMapping(value = "/{orderdetail}", name = "removeFromDetails")
-  @ResponseBody
-  public ResponseEntity<?> removeFromDetails(@ModelAttribute CustomerOrder customerOrder,
-      @PathVariable("orderdetail") Integer detail) {
-    customerOrderService.removeFromDetails(customerOrder, Collections.singleton(detail));
-    return ResponseEntity.ok().build();
   }
 
 }
