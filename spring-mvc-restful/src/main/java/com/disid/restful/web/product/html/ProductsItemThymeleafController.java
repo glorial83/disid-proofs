@@ -9,14 +9,19 @@ import io.springlets.web.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
@@ -38,6 +43,11 @@ public class ProductsItemThymeleafController {
       MessageSource messageSource) {
     this.productService = productService;
     this.messageSource = messageSource;
+  }
+
+  @InitBinder("product")
+  public void initCustomerBinder(WebDataBinder dataBinder) {
+    dataBinder.setDisallowedFields("id");
   }
 
   @ModelAttribute
@@ -66,6 +76,14 @@ public class ProductsItemThymeleafController {
     UriComponents showURI = ProductsItemThymeleafController.showURI(savedProduct);
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
+
+  @DeleteMapping(name = "delete")
+  @ResponseBody
+  public ResponseEntity<?> delete(@ModelAttribute Product product) {
+    productService.delete(product);
+    return ResponseEntity.ok().build();
+  }
+
 
   @GetMapping(name = "show")
   public ModelAndView show(@ModelAttribute Product product, Model model) {
