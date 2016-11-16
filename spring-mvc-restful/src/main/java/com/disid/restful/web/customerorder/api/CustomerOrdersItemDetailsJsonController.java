@@ -2,7 +2,6 @@ package com.disid.restful.web.customerorder.api;
 
 import com.disid.restful.model.CustomerOrder;
 import com.disid.restful.model.OrderDetail;
-import com.disid.restful.model.OrderDetailPK;
 import com.disid.restful.service.api.CustomerOrderService;
 import com.disid.restful.service.api.OrderDetailService;
 
@@ -68,13 +67,6 @@ public class CustomerOrdersItemDetailsJsonController {
     return ResponseEntity.ok().build();
   }
 
-  @DeleteMapping
-  public ResponseEntity<?> deleteFromDetails(@ModelAttribute CustomerOrder customerOrder,
-      @Valid @RequestBody Integer detail) {
-    customerOrderService.removeFromDetails(customerOrder, Collections.singleton(detail));
-    return ResponseEntity.ok().build();
-  }
-
   @PostMapping("/batch")
   public ResponseEntity<?> addToDetails(@ModelAttribute CustomerOrder customerOrder,
       @Valid @RequestBody Iterable<OrderDetail> details) {
@@ -87,22 +79,6 @@ public class CustomerOrdersItemDetailsJsonController {
       @Valid @RequestBody Iterable<Integer> details) {
     customerOrderService.removeFromDetails(customerOrder, details);
     return ResponseEntity.ok().build();
-  }
-
-  @GetMapping("/{orderDetail}")
-  public ResponseEntity<?> show(@ModelAttribute CustomerOrder customerOrder,
-      @PathVariable("orderDetail") Integer orderDetailId) {
-
-    OrderDetail orderDetail = null;
-    if (orderDetailId != null) {
-      orderDetail =
-          orderDetailService.findOne(new OrderDetailPK(customerOrder.getId(), orderDetailId));
-    }
-    if (orderDetail == null) {
-      return ResponseEntity.notFound().build();
-    }
-
-    return ResponseEntity.status(HttpStatus.FOUND).body(orderDetail);
   }
 
 }
