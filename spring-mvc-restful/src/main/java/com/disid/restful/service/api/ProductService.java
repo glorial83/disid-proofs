@@ -2,8 +2,10 @@ package com.disid.restful.service.api;
 
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
+import com.disid.restful.model.ProductByNameAndDescriptionSearchForm;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.DatatablesPageable;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,4 +35,9 @@ public interface ProductService {
   List<Product> save(Iterable<Product> entities);
 
   Product save(Product entity);
+
+  Page<Product> findByNameAndDescription(ProductByNameAndDescriptionSearchForm formBean,
+      GlobalSearch search, DatatablesPageable pageable);
+
+  long countByNameAndDescription(ProductByNameAndDescriptionSearchForm formBean);
 }

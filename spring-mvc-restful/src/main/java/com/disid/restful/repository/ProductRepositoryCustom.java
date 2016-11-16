@@ -2,6 +2,7 @@ package com.disid.restful.repository;
 
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
+import com.disid.restful.model.ProductByNameAndDescriptionSearchForm;
 
 import io.springlets.data.domain.GlobalSearch;
 
@@ -12,5 +13,11 @@ public interface ProductRepositoryCustom {
 
   Page<Product> findByCategoriesContains(Category category, GlobalSearch search, Pageable pageable);
 
-  public abstract Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable);
+  Page<Product> findAll(GlobalSearch globalSearch, Pageable pageable);
+
+  long countByNameAndDescription(ProductByNameAndDescriptionSearchForm formBean);
+
+  Page<Product> findByNameAndDescription(ProductByNameAndDescriptionSearchForm formBean,
+      GlobalSearch search, Pageable pageable);
+
 }

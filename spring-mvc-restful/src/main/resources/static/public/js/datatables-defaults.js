@@ -169,6 +169,18 @@
     function loadDataFromUrl(datatables, data, callback, url) {
       var $token = $("meta[name='_csrf']");
       var $header = $("meta[name='_csrf_header']");
+      
+      var prefix = 'loadUrlParam';
+      var dataAttrs = getAllDataValues(datatables);
+      $.each(dataAttrs, function(property, value) {        
+        if (property.length > prefix.length && property.lastIndexOf(prefix, 0) === 0) {
+          var param = toLowerCaseFirst(property.substring(prefix.length));
+          data[param] = value;
+        }
+      });
+      
+      //data['name'] = getDataValue(datatables, 'load-param-name');
+      //data['description'] = getDataValue(datatables, 'load-param-description');
 
       $.ajax({
         url : url,
@@ -200,6 +212,21 @@
         $('#datatablesErrorModal').modal('show');
         callback(emptyData(data.draw));
       });
+    }
+    
+    /**
+     * Converts the first char of the given string to lower case.
+     * @param str the string to convert
+     * @returns the converted string
+     */
+    function toLowerCaseFirst(str) {
+      if (str.length > 0) {
+        var value = str.charAt(0).toLowerCase();
+        if (str.length > 1) {
+          value = value.concat(str.slice(1));
+        }
+        return value;
+      }
     }
 
     /**
@@ -411,6 +438,15 @@
       return $dt.data(name);
     }
 
+    /**
+     * Returns all the 'data-*' attributes of a datatables.
+     * @param datatables DataTable on which the calling should act upon
+     */
+    function getAllDataValues(datatables) {
+      var $dt = jQueryTable(datatables);
+      return $dt.data();
+    }
+    
     /**
      * Returns the jQuery object for the given datatables element.
      */

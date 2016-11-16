@@ -2,10 +2,12 @@ package com.disid.restful.service.impl;
 
 import com.disid.restful.model.Category;
 import com.disid.restful.model.Product;
+import com.disid.restful.model.ProductByNameAndDescriptionSearchForm;
 import com.disid.restful.repository.ProductRepository;
 import com.disid.restful.service.api.ProductService;
 
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.DatatablesPageable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -85,5 +87,16 @@ public class ProductServiceImpl implements ProductService {
   @Transactional(readOnly = false)
   public Product save(Product entity) {
     return productRepository.save(entity);
+  }
+
+  @Override
+  public Page<Product> findByNameAndDescription(ProductByNameAndDescriptionSearchForm formBean,
+      GlobalSearch search, DatatablesPageable pageable) {
+    return productRepository.findByNameAndDescription(formBean, search, pageable);
+  }
+
+  @Override
+  public long countByNameAndDescription(ProductByNameAndDescriptionSearchForm formBean) {
+    return productRepository.countByNameAndDescription(formBean);
   }
 }
