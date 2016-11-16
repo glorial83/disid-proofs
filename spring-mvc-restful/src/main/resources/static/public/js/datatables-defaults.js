@@ -56,6 +56,7 @@
       'columnDefs': [
         {
           'targets': 'dttools', // First column from the right
+          'width': 100,
           'render': {
             'display': $.fn.dataTable.renderTools
           }
@@ -637,21 +638,21 @@
 
       var showUrl = getShowUrl(datatables, rowId);
       if (showUrl) {
-        buttons = buttons.concat('<a role="button" class="btn btn-action showInfo" href="')
-                         .concat(showUrl).concat('" ></a>');
+        buttons = buttons.concat('<a class="btn btn-action btn-sm" href="')
+                         .concat(showUrl).concat('" ><span class="glyphicon glyphicon-eye-open"></span></a>');
       }
 
       var editUrl = getEditUrl(datatables, rowId);
       if (editUrl) {
-        buttons = buttons.concat('<a role="button" class="btn btn-action edit" href="')
-                         .concat(editUrl).concat('"></a>');
+        buttons = buttons.concat('<a class="btn btn-action btn-sm" href="')
+                         .concat(editUrl).concat('"><span class="glyphicon glyphicon-pencil"></span></a>');
       }
 
       var deleteUrl = getDeleteUrl(datatables, rowId);
       if (deleteUrl) {
-        buttons = buttons.concat('<a role="button" class="btn btn-action delete" data-toggle="modal" data-target="#')
+        buttons = buttons.concat('<a role="button" class="btn btn-action btn-sm" data-toggle="modal" data-target="#')
                          .concat(tableId).concat('DeleteConfirm" data-row-id="')
-                         .concat(data).concat('"/>');
+                         .concat(data).concat('"><span class="glyphicon glyphicon-trash"></span></a>');
       }
 
       buttons = buttons.concat('</div>');
