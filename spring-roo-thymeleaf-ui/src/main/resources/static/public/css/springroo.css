@@ -21,7 +21,6 @@ a:focus, a:hover{
 	color: #3f6824;
 	}
 .content a:hover {text-decoration: underline}
-
 .content a.btn-action:hover,
 .content .paginate_button a:hover,
 .content a.btn:hover {text-decoration: none;}
@@ -145,6 +144,24 @@ body.home .box-center{
   background: #fff;
   box-shadow: 0 0 0 0,0 6px 12px rgba(34,34,34,.1);
 	}
+
+/*--SHOW-------------*/
+
+.content>ul.list-unstyled li{
+  margin: 1em 0;
+}
+.content>ul.list-unstyled li{
+  padding: 0.5em 0;
+}
+.content>ul.list-unstyled li strong{
+  min-width: 15%;
+    display: inline-block;
+ }
+.content>ul.list-unstyled li span{
+  display: inline-block;
+  padding-left: 1em;
+}
+
 
 
 /*--BTN-------------*/
