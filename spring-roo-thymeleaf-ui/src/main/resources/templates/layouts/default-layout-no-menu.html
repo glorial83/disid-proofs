@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content="#{info_description}"/>
-    <meta name="author" content="#{info_author}"/>
+    <meta name="description" data-th-attr="content=${r"#{info_description}"}"/>
+    <meta name="author" data-th-attr="content=${r"#{info_author}"}"/>
 
     <link rel="shortcut icon" href="../../static/public/img/favicon.ico"
       data-th-href="@{/public/img/favicon.ico}"/>
+
     <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
       data-th-href="@{/public/img/apple-touch-icon.png}"/>
 
@@ -30,7 +31,8 @@
       data-th-href="@{/webjars/font-awesome/4.6.2/css/font-awesome.min.css}"/>
 
     <!-- Bootswatch CSS custom -->
-    <link rel="stylesheet" type="text/css" href="../../static/public/css/theme.css"
+    <link rel="stylesheet" type="text/css"
+      href="../../static/public/css/theme.css"
       data-th-href="@{/public/css/theme.css}"/>
 
     <!-- Roo CSS -->
@@ -47,19 +49,24 @@
 
   </head>
 
+<#if userManagedComponents?has_content && userManagedComponents["body"]??>
+  ${userManagedComponents["body"]}
+<#else>
   <body id="body">
-    <header role="banner">
-      <nav class="navbar navbar-inverse navbar-static-top" data-layout-include="fragments/menu :: menu-languages">
-        <!-- Content replaced by the menu template fragment menu.html -->
-        <span>Application menu</span>
-      </nav>
-      <div class="bg-header" data-layout-include="fragments/header :: header">
-        <!-- Content replaced by the header template fragment header.html -->
-        <h1>Sample page header for direct display of the template</h1>
-      </div>
+
+     <header role="banner">
+        <nav class="navbar navbar-inverse navbar-static-top" data-layout-include="fragments/menu :: menu-languages">
+          <!-- Content replaced by the menu template fragment menu.html -->
+          <span>Application menu</span>
+        </nav>
+        <div class="bg-header" data-layout-include="fragments/header :: header">
+          <!-- Content replaced by the header template fragment header.html -->
+          <h1>Sample page header for direct display of the template</h1>
+        </div>
     </header>
 
     <div class="container bg-container">
+      <!-- content -->
       <section data-layout-fragment="content">
         <!-- Content replaced by the content fragment of the page displayed -->
         <h2>Sample static body for direct display of the template</h2>
@@ -69,6 +76,7 @@
           Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
           Phasellus et placerat elit.</p>
       </section>
+      <!-- /content -->
     </div>
 
     <footer class="container" data-layout-include="fragments/footer :: footer">
@@ -96,19 +104,17 @@
 
     <!-- MomentJS - date format -->
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
-      data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
+       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
+       data-th-src="@{/webjars/momentjs/2.13.0/moment.js}">
       </script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
-      data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${#locale.language}+'.js'"
-      data-th-if="${#locale.language} != 'en' and ${#locale.language} != 'es'">
+      data-th-src="@{/webjars/momentjs/2.13.0/locale/}+ ${r"${#"}locale.language${r"}"}+'.js'"
+      data-th-if="${r"${#"}locale.language${r"}"} != 'en' and ${r"${#"}locale.language${r"}"} != 'es'">
       </script>
     <script src="../../static/public/js/moment-locale-es.js"
       data-th-src="@{/public/js/moment-locale-es.js}"
-      data-th-if="${#locale.language} == 'es'">
+      data-th-if="${r"${#"}locale.language${r"}"} == 'es'">
       </script>
-
     <script src="../../static/public/js/moment-defaults.js"
       data-th-src="@{/public/js/moment-defaults.js}">
       </script>
@@ -122,4 +128,5 @@
       data-th-src="@{/public/js/main.js}">
       </script>
   </body>
+</#if>
 </html>
