@@ -87,12 +87,4 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter
     return resolver;
   }
 
-  //  @Override
-  //  public void addViewControllers(ViewControllerRegistry registry) {
-  //    // Forward the request for "/js/{template}.js" to a thymeleaf javascrip
-  //    // template view called "template.js"
-  //    registry.addViewController("/js/{template:*}.js").setViewName("login");
-  //  }
-
-
 }

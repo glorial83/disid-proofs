@@ -84,10 +84,10 @@
    <!-- END HEADER --> 
    <!--START CONTENT--> 
    <section data-layout-fragment="content"> 
-    <div class="container-fluid content"> 
+    <div class="container-fluid content" data-th-with="collectionLink=${@linkBuilder.of('CategoriesCollectionThymeleafController')}"> 
      <h1 data-th-text="#{label_create_entity(#{label_category})}">Create Category</h1> 
      <!--START FORM--> 
-     <form class="form-horizontal" method="POST" data-th-object="${category}" data-th-action="${(#mvc.url('CategoriesItemProductsThymeleafController#create')).buildAndExpand(category.id)}"> 
+     <form class="form-horizontal" method="POST" data-th-object="${category}" data-th-action="${collectionLink.to('create').with('category', category.id)}"> 
       <fieldset> 
        <legend data-th-text="#{label_data_entity(#{label_category})}">Category data </legend> 
        <div class="form-group" data-th-classappend="${#fields.hasErrors('name')}? 'has-error has-feedback'"> 
@@ -109,7 +109,7 @@
         <div class="col-md-12"> 
          <div class="pull-left"> 
           <a href="../list.html" class="btn btn-default" 
-             data-th-href="${(#mvc.url('CategoriesCollectionThymeleafController#list')).build()}" 
+             data-th-href="${collectionLink.to('list')}" 
              data-th-text="#{label_reset}">Cancel</a> 
          </div> 
          <div class="pull-right"> 

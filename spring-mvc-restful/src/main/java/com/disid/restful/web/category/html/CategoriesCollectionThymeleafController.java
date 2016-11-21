@@ -7,6 +7,8 @@ import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.web.datatables.Datatables;
 import io.springlets.data.web.datatables.DatatablesData;
 import io.springlets.data.web.datatables.DatatablesPageable;
+import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
+import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 import javax.validation.Valid;
@@ -34,11 +35,14 @@ import javax.validation.Valid;
     produces = MediaType.TEXT_HTML_VALUE)
 public class CategoriesCollectionThymeleafController {
 
-  public CategoryService categoryService;
+  private CategoryService categoryService;
+  private MethodLinkBuilderFactory<CategoriesItemThymeleafController> itemLink;
 
   @Autowired
-  public CategoriesCollectionThymeleafController(CategoryService categoryService) {
+  public CategoriesCollectionThymeleafController(CategoryService categoryService,
+      ControllerMethodLinkBuilderFactory linkBuilder) {
     this.categoryService = categoryService;
+    this.itemLink = linkBuilder.of(CategoriesItemThymeleafController.class);
   }
 
   @InitBinder("category")
@@ -62,7 +66,7 @@ public class CategoriesCollectionThymeleafController {
     }
     Category newCategory = categoryService.save(category);
 
-    UriComponents showURI = CategoriesItemThymeleafController.showURI(newCategory);
+    UriComponents showURI = itemLink.to("show").with("category", newCategory.getId()).toUri();
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
@@ -70,13 +74,6 @@ public class CategoriesCollectionThymeleafController {
   @GetMapping(name = "list")
   public ModelAndView list(Model model) {
     return new ModelAndView("categories/list");
-  }
-
-  public static UriComponents listURI() {
-    return MvcUriComponentsBuilder
-        .fromMethodCall(
-            MvcUriComponentsBuilder.on(CategoriesCollectionThymeleafController.class).list(null))
-        .build().encode();
   }
 
   @GetMapping(value = "/dt", name = "datatables", produces = Datatables.MEDIA_TYPE)

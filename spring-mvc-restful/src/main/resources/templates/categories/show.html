@@ -124,11 +124,17 @@
       </hr>
      </dl> 
      <div class="clearfix"> 
-      <div class="pull-left"> 
-       <button onclick="location.href='list'" data-th-onclick="'location.href=\'' + @{/categories} + '\''" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span data-th-text="#{label_back}">Back</span> </button> 
+      <div class="pull-left">
+        <a href="../list.html" class="btn btn-default" 
+           data-th-href="${@linkBuilder.of('CategoriesCollectionThymeleafController').to('list')}">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span data-th-text="#{label_back}">Back</span>           
+        </a> 
       </div> 
       <div class="pull-right"> 
-       <button data-th-onclick="'location.href=\'' + @{/categories/{id}/edit-form(id=*{id})} + '\''" data-sec-authorize="hasAnyRole('ROLE_ADMIN','ROLE_EMPLEADO')" type="button" class="btn btn-primary" onclick="location.href='edit'" data-th-text="#{label_edit}">Edit</button> 
+        <a href="../list.html" class="btn btn-default" 
+           data-th-href="${@linkBuilder.of('CategoriesItemThymeleafController').to('editForm').with('category', category.id)}"
+           data-th-text="#{label_edit}">Edit</a> 
       </div> 
      </div> 
     </div> 
