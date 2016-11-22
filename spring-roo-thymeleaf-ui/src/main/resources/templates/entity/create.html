@@ -172,7 +172,7 @@
       <!-- CONTENT -->
       <section data-layout-fragment="content">
 
-        <div class="container content">
+        <div class="container-fluid content">
         <!--
 	  	  Only the inner content of the following tag "section" is included
   		  within the template, in the section "content"
@@ -398,20 +398,30 @@
 
           </form>
 
-          <!-- Modal -->
-			    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <!-- Modal Confirm -->
+			    <div data-th-fragment="modal(tableId, id, title, body)" class="modal fade" tabindex="-1"
+			     role="dialog" aria-labelledby="myModalLabel"
+			     data-th-id="${id}" id="myModal"
+			     data-th-attr="aria-labelledby=${id} + 'Label'">
 			      <div class="modal-dialog" role="document">
 			        <div class="modal-content">
-			        <div class="modal-header alert-info">
-			          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			          <h2 class="modal-title" id="myModalLabel">Modal Title</h2>
+			        <!-- classes available: alert-info -->
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span></button>
+			          <h2 class="modal-title" id="myModalLabel" data-th-id="${id} + 'Label'" data-th-text="${title}">Modal Title</h2>
 			        </div>
-			        <div class="modal-body">
-			          <p>Modal message.</p>
+			        <div class="modal-body" data-th-id="${id} + 'Body'">
+			          <p data-th-replace="${body}">Modal message.</p>
+			          <div class="progress hide">
+					        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+					          <span class="sr-only">100% Complete</span>
+					        </div>
+					      </div>
 			        </div>
 			        <div class="modal-footer">
-			          <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-			          <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Accept</button>
+			          <button type="reset" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close" data-th-text="#{label_reset}">Cancel</button>
+      <button type="button" class="btn btn-primary pull-right" data-th-text="#{label_submit}" data-th-onclick="${onclickCallback}">Accept</button>
 			        </div>
 			        </div>
 			      </div>
