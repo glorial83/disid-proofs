@@ -4,6 +4,8 @@ import com.disid.restful.model.Category;
 import com.disid.restful.service.api.CategoryService;
 
 import io.springlets.web.NotFoundException;
+import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
+import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 import java.util.Locale;
@@ -36,12 +37,14 @@ public class CategoriesItemThymeleafController {
 
   public CategoryService categoryService;
   private MessageSource messageSource;
+  private MethodLinkBuilderFactory<CategoriesItemThymeleafController> itemLink;
 
   @Autowired
   public CategoriesItemThymeleafController(CategoryService categoryService,
-      MessageSource messageSource) {
+      MessageSource messageSource, ControllerMethodLinkBuilderFactory linkBuilder) {
     this.categoryService = categoryService;
     this.messageSource = messageSource;
+    this.itemLink = linkBuilder.of(CategoriesItemThymeleafController.class);
   }
 
   @InitBinder("category")
@@ -71,7 +74,7 @@ public class CategoriesItemThymeleafController {
       return new ModelAndView("categories/edit");
     }
     Category savedCategory = categoryService.save(category);
-    UriComponents showURI = CategoriesItemThymeleafController.showURI(savedCategory);
+    UriComponents showURI = itemLink.to("show").with("category", savedCategory.getId()).toUri();
     return new ModelAndView("redirect:" + showURI.toUriString());
   }
 
@@ -85,12 +88,5 @@ public class CategoriesItemThymeleafController {
   @GetMapping(name = "show")
   public ModelAndView show(@ModelAttribute Category category, Model model) {
     return new ModelAndView("categories/show");
-  }
-
-  public static UriComponents showURI(Category category) {
-    return MvcUriComponentsBuilder
-        .fromMethodCall(
-            MvcUriComponentsBuilder.on(CategoriesItemThymeleafController.class).show(null, null))
-        .buildAndExpand(category.getId()).encode();
   }
 }

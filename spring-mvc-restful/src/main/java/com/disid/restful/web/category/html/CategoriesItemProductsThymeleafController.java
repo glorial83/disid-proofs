@@ -9,6 +9,8 @@ import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.web.datatables.Datatables;
 import io.springlets.data.web.datatables.DatatablesData;
 import io.springlets.web.NotFoundException;
+import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
+import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -27,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriComponents;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -45,12 +46,16 @@ public class CategoriesItemProductsThymeleafController {
 
   private MessageSource messageSource;
 
+  private MethodLinkBuilderFactory<CategoriesCollectionThymeleafController> collectionLink;
+
   @Autowired
   public CategoriesItemProductsThymeleafController(CategoryService categoryService,
-      ProductService productService, MessageSource messageSource) {
+      ProductService productService, MessageSource messageSource,
+      ControllerMethodLinkBuilderFactory linkBuilder) {
     this.categoryService = categoryService;
     this.productService = productService;
     this.messageSource = messageSource;
+    this.collectionLink = linkBuilder.of(CategoriesCollectionThymeleafController.class);
   }
 
   @ModelAttribute
@@ -87,8 +92,7 @@ public class CategoriesItemProductsThymeleafController {
     }
     categoryService.setProducts(category, products);
 
-    UriComponents listURI = CategoriesCollectionThymeleafController.listURI();
-    return new ModelAndView("redirect:" + listURI.toUriString());
+    return new ModelAndView("redirect:" + collectionLink.to("list").toUriString());
   }
 
   @DeleteMapping(value = "/{product}", name = "removeFromProducts")

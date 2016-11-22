@@ -82,12 +82,12 @@
    </header> 
    <!-- END HEADER --> 
    <!--START CONTENT--> 
-   <section data-layout-fragment="content"> 
-    <div class="container-fluid content"> 
+   <section data-layout-fragment="content">
+    <div class="container-fluid content" data-th-with="collectionLink=${@linkBuilder.of('CategoriesCollectionThymeleafController')},itemLink=${@linkBuilder.of('CategoriesItemThymeleafController')}"> 
      <h1 data-th-text="#{label_edit_entity(#{label_category})}">Edit Category</h1> 
      <!--START FORM--> 
-     <form class="form-horizontal" method="POST" data-th-object="${category}" data-th-action="@{/categories/{id}(id=*{id})}"> 
-      <input type="hidden" name="_method" value="PUT" /> 
+     <form class="form-horizontal" method="POST" data-th-object="${category}" data-th-action="${itemLink.to('update').with('category', category.id)}">
+      <input type="hidden" name="_method" value="PUT" />
       <fieldset> 
        <div class="form-group" data-th-classappend="${#fields.hasErrors('name')}? 'has-error has-feedback'"> 
         <label for="name" class="col-md-3 control-label" data-th-text="#{label_category_name}">name</label> 
@@ -108,7 +108,9 @@
         <div class="col-md-12"> 
          <div class="pull-left"> 
           <!-- TODO IE8 --> 
-          <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{/categories} + '\''" data-th-text="#{label_reset}">Cancel</button> 
+          <a href="../list.html" class="btn btn-default" 
+             data-th-href="${collectionLink.to('list')}" 
+             data-th-text="#{label_reset}">Cancel</a> 
          </div> 
          <div class="pull-right"> 
           <input type="submit" value="Accept" data-th-value="#{label_submit}" class="btn btn-primary" /> 
