@@ -52,8 +52,8 @@
 	</head>
 	<body id="body">
 
-	    <!-- HEADER -->
-	    <header role="banner">
+	  <!-- HEADER -->
+	  <header role="banner">
 
         <!-- Main navbar -->
         <nav class="navbar navbar-inverse navbar-static-top">
@@ -171,132 +171,119 @@
 
       <!-- CONTENT -->
 	    <section data-layout-fragment="content">
-	      <div class="container-fluid content">
-	        <!--
-	          Only the inner content of the following tag "section" is included
-	          within the template, in the section "content"
-	          -->
+	     <div class="container-fluid content">
+	     <!--
+	       Only the inner content of the following tag "section" is included
+	       within the template, in the section "content"
+	       -->
 
 	        <h1 data-th-text="#{label_find_entity(#{label_customerorder})}">Customer
 	        Order Search</h1>
 
-	        <div class="panel panel-default">
-	          <div class="panel-body">
+	        <!--FORM-->
+	        <form class="form-horizontal validate" method="GET" data-th-object="${formBean}"
+	        data-th-action="${(#mvc.url('CustomersSearchThymeleafController#byFirstNameAndLastName')).build()}">
 
-	            <!--FORM-->
-	            <form id="search-form" class="form-horizontal" method="POST"
-              data-th-object="${customerOrderSearch}"
-              data-th-action="@{/customerorders/findAll/}" action="findAllList.html">
+		        <fieldset id="containerFields">
+		          <legend data-th-text="#{label_data_entity(#{label_customer})}">Customer data </legend>
 
-              <input data-th-unless="${customer} == null" type="hidden" name="customerId" data-th-value="${customer.id}" />
-              <input data-th-unless="${employee} == null" type="hidden" name="employeeId" data-th-value="${employee.id}" />
+			        <div class="form-group" id="">
+			          <label for="customerId" class="col-md-3 control-label"
+			            data-th-text="#{label_customerorder_customer}">Customer</label>
+			          <div class="col-md-6">
+			            <!-- Select2 -->
+			            <select id="customerId" name="customerId"
+			              class="form-control dropdown-select-ajax"
+			              data-allow-clear="true"
+			              data-th-attr="data-placeholder=#{info_select_an_option}, disabled=${customer == null ? null : 'disabled'},data-ajax--url=@{/customers}"
+			              data-id-field="customerId" data-text-fields="companyName"
+			              data-ajax--url="/customers" data-ajax--cache="true"
+			              data-ajax--delay="250" data-ajax--data-type="json">
+			              <option data-th-unless="${customer} == null"
+			                data-th-value="${customer.id}" selected="selected"
+			                data-th-text="${customer.companyName}">Company A</option>
+			            </select>
+			          </div>
+			        </div>
 
-              <div class="form-group">
-                <label for="customerId" class="col-md-3 control-label"
-                  data-th-text="#{label_customerorder_customer}">Customer</label>
-                <div class="col-md-6">
-                  <!-- Select2 -->
-                  <select id="customerId" name="customerId"
-                    class="form-control dropdown-select-ajax"
-                    data-allow-clear="true"
-                    data-th-attr="data-placeholder=#{info_select_an_option}, disabled=${customer == null ? null : 'disabled'},data-ajax--url=@{/customers}"
-                    data-id-field="customerId" data-text-fields="companyName"
-                    data-ajax--url="/customers" data-ajax--cache="true"
-                    data-ajax--delay="250" data-ajax--data-type="json">
-                    <option data-th-unless="${customer} == null"
-                      data-th-value="${customer.id}" selected="selected"
-                      data-th-text="${customer.companyName}">Company A</option>
-                  </select>
-                </div>
-              </div>
+			        <div class="form-group" >
+			          <label for="employeeId" class="col-md-3 control-label"
+			            data-th-text="#{label_customerorder_employee}">Employee</label>
+			          <div class="col-md-6">
+			            <!-- Select2 -->
+			            <select id="employeeId" name="employeeId"
+			              class="form-control dropdown-select-ajax"
+			              data-allow-clear="true"
+			              data-th-attr="data-placeholder=#{info_select_an_option}, disabled=${employee == null ? null : 'disabled'},data-ajax--url=@{/employees}"
+			              data-id-field="employeeId"
+			              data-text-fields="firstName,lastName"
+			              data-ajax--url="/employees" data-ajax--cache="true"
+			              data-ajax--delay="250" data-ajax--data-type="json">
+			              <option data-th-unless="${employee} == null"
+			                data-th-value="${employee.id}" selected="selected"
+			                data-th-text="|${employee.firstName} ${employee.lastName}|">David Navarro Ruíz</option>
+			            </select>
+			          </div>
+			        </div>
 
-              <div class="form-group" >
-                <label for="employeeId" class="col-md-3 control-label"
-                  data-th-text="#{label_customerorder_employee}">Employee</label>
-                <div class="col-md-6">
-                  <!-- Select2 -->
-                  <select id="employeeId" name="employeeId"
-                    class="form-control dropdown-select-ajax"
-                    data-allow-clear="true"
-                    data-th-attr="data-placeholder=#{info_select_an_option}, disabled=${employee == null ? null : 'disabled'},data-ajax--url=@{/employees}"
-                    data-id-field="employeeId"
-                    data-text-fields="firstName,lastName"
-                    data-ajax--url="/employees" data-ajax--cache="true"
-                    data-ajax--delay="250" data-ajax--data-type="json">
-                    <option data-th-unless="${employee} == null"
-                      data-th-value="${employee.id}" selected="selected"
-                      data-th-text="|${employee.firstName} ${employee.lastName}|">David Navarro Ruíz</option>
-                  </select>
-                </div>
-              </div>
+			        <div class="form-group">
+			          <label class="col-md-3 control-label" for="status"
+			            data-th-text="#{label_customerorder_status}">Status</label>
+			          <div class="col-md-6">
+			            <div class="input-group">
+			              <select class="form-control dropdown-select-simple"
+			                id="status" name="statuses" data-th-field="*{statuses}"
+			                multiple="multiple" data-allow-clear="true"
+			                data-th-attr="data-placeholder=#{info_select_multiple_options}">
+			                <option data-th-each="status : ${statuses}"
+			                  data-th-text="${status}" data-th-value="${status}"
+			                  value="NEWLY">Nuevo</option>
+			                <option value="SEND_BILL" data-th-remove="all">Invoiced</option>
+			                <option value="SENT" data-th-remove="all">Sent</option>
+			                <option value="CLOSED" data-th-remove="all">Closed</option>
+			                <option value="CANCELED" data-th-remove="all">Canceled</option>
+			              </select>
+			            </div>
+			          </div>
+			        </div>
 
-              <div class="form-group">
-                <label class="col-md-3 control-label" for="status"
-                  data-th-text="#{label_customerorder_status}">Status</label>
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <select class="form-control dropdown-select-simple"
-                      id="status" name="statuses" data-th-field="*{statuses}"
-                      multiple="multiple" data-allow-clear="true"
-                      data-th-attr="data-placeholder=#{info_select_multiple_options}">
-                      <option data-th-each="status : ${statuses}"
-                        data-th-text="${status}" data-th-value="${status}"
-                        value="NEWLY">Nuevo</option>
-                      <option value="SEND_BILL" data-th-remove="all">Invoiced</option>
-                      <option value="SENT" data-th-remove="all">Sent</option>
-                      <option value="CLOSED" data-th-remove="all">Closed</option>
-                      <option value="CANCELED" data-th-remove="all">Canceled</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
+			        <div class="form-group">
+			          <label class="col-md-3 control-label" for="orderDateStart"
+			            data-th-text="#{label_customerorder_orderdate_from}">Order
+			            Date Start</label>
+			          <div class="col-md-3">
+			            <input type="text" class="form-control datetimepicker"
+			              id="orderDateStart" name="orderDateStart"
+			              data-mindate="2015/01/01"
+			              data-allowtimes="08:00,10:00,15:00,18:00,20:00"
+			              data-dateformat="dd/MM/yyyy HH:mm"
+			              data-th-field="*{orderDateStart}" />
+			          </div>
+			        </div>
 
-              <div class="form-group">
-                <label class="col-md-3 control-label" for="orderDateStart"
-                  data-th-text="#{label_customerorder_orderdate_from}">Order
-                  Date Start</label>
-                <div class="col-md-3">
-                  <input type="text" class="form-control datetimepicker"
-                    id="orderDateStart" name="orderDateStart"
-                    data-mindate="2015/01/01"
-                    data-allowtimes="08:00,10:00,15:00,18:00,20:00"
-                    data-dateformat="dd/MM/yyyy HH:mm"
-                    data-th-field="*{orderDateStart}" />
-                </div>
-              </div>
+			        <div class="form-group">
+			          <label class="col-md-3 control-label" for="orderDateEnd"
+			            data-th-text="#{label_customerorder_orderdate_thru}">Order
+			            Date End</label>
+			          <div class="col-md-3">
+			            <input type="text" class="form-control datetimepicker"
+			              id="orderDateEnd" name="orderDateEnd"
+			              data-dateformat="dd/MM/yyyy HH:mm" data-maxdate="2018/01/01"
+			              data-maxtime="20:00" data-mintime="8:00" data-timestep="60"
+			              data-th-field="*{orderDateEnd}" />
+			          </div>
+			        </div>
+		        </fieldset>
 
-              <div class="form-group">
-                <label class="col-md-3 control-label" for="orderDateEnd"
-                  data-th-text="#{label_customerorder_orderdate_thru}">Order
-                  Date End</label>
-                <div class="col-md-3">
-                  <input type="text" class="form-control datetimepicker"
-                    id="orderDateEnd" name="orderDateEnd"
-                    data-dateformat="dd/MM/yyyy HH:mm" data-maxdate="2018/01/01"
-                    data-maxtime="20:00" data-mintime="8:00" data-timestep="60"
-                    data-th-field="*{orderDateEnd}" />
-                </div>
-              </div>
+		        <!-- buttons form -->
+		        <div class="form-group">
+		          <div class="col-md-9 col-md-offset-3">
+		            <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{/customers} + '\''" data-th-text="#{label_reset}">Cancel</button>
+		            <button type="submit" class="btn btn-primary" data-th-text="#{label_search}">Search</button>
+		          </div>
+		        </div>
 
-              <!-- form buttons -->
-              <div class="form-group">
-                <div class="col-md-9 col-md-offset-3">
-                  <button type="reset" class="btn btn-default"
-                    onclick="location.href='list.html'"
-                    data-th-onclick="'location.href=\'' + @{/customerorders} + '\''"
-                    data-th-text="#{label_reset}">Cancel</button>
-                  <button type="submit"
-                    class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;<span
-                      data-th-text="#{label_find}">Search</span>
-                  </button>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </div>
-        <!-- panel -->
+	      </form>
 
         <!-- RESULT -->
         <div id="result"></div>
