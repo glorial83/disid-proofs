@@ -21,20 +21,12 @@
           <span class="sr-only">100% Complete</span>
         </div>
       </div>
-
-      <form class="form-horizontal">
-        <div class="form-group">
-          <div class="col-md-12">
-            <div class="pull-left">
-              <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" data-th-text="#{label_reset}">Cancel</button>
-            </div>
-            <div class="pull-right">
-              <button type="button" class="btn btn-primary" data-th-text="#{label_submit}" data-th-onclick="${onclickCallback}">Accept</button>
-            </div>
-          </div>
-        </div>
-      </form>
+    </div><!-- /modal-body -->
+    <div class="modal-footer">
+      <button type="reset" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close" data-th-text="#{label_reset}">Cancel</button>
+      <button type="button" class="btn btn-primary pull-right" data-th-text="#{label_submit}" data-th-onclick="${onclickCallback}">Accept</button>
     </div>
+
   </div>
 </body>
 </html>

@@ -21,15 +21,18 @@
               <div class="form-group">
                 <div class="col-md-12">
                   <div class="pull-left">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" data-th-text="#{label_reset}">Cancel</button>
+
                   </div>
                   <div class="pull-right">
-                    <button type="button" class="btn btn-primary" data-th-id="${tableId} + DeleteButton" data-dismiss="modal" aria-label="Confirm" data-th-text="#{label_submit}">Accept</button>
                   </div>
                 </div>
               </div>
             </form>
-          </div>
+          </div><!-- /modal-body -->
+          <div class="modal-footer">
+			      <button type="reset" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close" data-th-text="#{label_reset}">Cancel</button>
+			      <button type="button" class="btn btn-primary pull-right" data-th-id="${tableId} + DeleteButton" data-dismiss="modal" aria-label="Confirm" data-th-text="#{label_submit}">Accept</button>
+			    </div>
         </div>
 
         <div data-th-replace="fragments/modal :: modal(tableId = ${tableId}, id = ${tableId} + 'DeleteSuccess', title = ${title}, body = ~{::modalSuccessBody})">
