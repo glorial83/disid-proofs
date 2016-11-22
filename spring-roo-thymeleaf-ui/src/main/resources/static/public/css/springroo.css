@@ -230,6 +230,13 @@ table a.btn-action {
   text-decoration: none;
 }
 
+/*--ALERTS-------------*/
+
+.alert blockquote{
+   margin: 0;
+   font-size: inherit;
+}
+
 
 /*--TABLES-------------*/
 
