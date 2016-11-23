@@ -148,10 +148,10 @@ body.home .box-center{
 /*--SHOW-------------*/
 
 .content>ul.list-unstyled li{
-  margin: 1em 0;
+  margin: 0.25em 0;
 }
 .content>ul.list-unstyled li{
-  padding: 0.5em 0;
+  padding: 0.25em 0;
 }
 .content>ul.list-unstyled li strong{
   min-width: 15%;

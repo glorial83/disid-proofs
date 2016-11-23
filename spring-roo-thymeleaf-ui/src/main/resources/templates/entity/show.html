@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-layout-decorator="layouts/default-layout">
+<html lang="en" data-layout-decorator="layouts/default-list-layout">
   <head>
     <meta charset="UTF-8" data-th-remove="all"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all"/>
@@ -14,7 +14,6 @@
 
     <link rel="shortcut icon" href="../../static/public/img/favicon.ico"
       data-th-remove="all"/>
-
     <link rel="apple-touch-icon" href="../../static/public/img/apple-touch-icon.png"
       data-th-remove="all"/>
 
@@ -29,6 +28,32 @@
 
     <!--/* Font Awesome */-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" data-th-remove="all" />
+
+    <!--/* Datatables */-->
+		<link
+		  data-th-href="@{/webjars/datatables/1.10.11/media/css/jquery.dataTables.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.css"></link>
+
+		<link
+		  data-th-href="@{/webjars/datatables.net-bs/1.10.11/css/dataTables.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.css"></link>
+
+		<link
+		  data-th-href="@{/webjars/datatables.net-responsive-bs/2.0.2/css/responsive.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.css"></link>
+
+		<link
+		  data-th-href="@{/webjars/datatables.net-buttons-bs/1.1.2/css/buttons.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.bootstrap.css"></link>
+
+		<link
+		  data-th-href="@{/webjars/datatables.net-select-bs/1.1.2/css/select.bootstrap.css}"
+		  rel="stylesheet" type="text/css"
+		  href="https://cdn.datatables.net/select/1.1.2/css/select.bootstrap.css"></link>
 
     <!--/* Bootswatch CSS custom */-->
     <link rel="stylesheet" type="text/css" href="../../static/public/css/theme.css" data-th-remove="all" />
@@ -172,49 +197,49 @@
 	        <h1 data-th-text="#{label_show_entity(#{label_customer})}">
 	        Customer</h1>
 
-            <ul class="list-unstyled">
-              <li id="companyname">
+            <ul class="list-unstyled" id="containerFields">
+              <li id="customer-companyname-field">
                 <strong data-th-text="#{label_customer_companyname}">Company</strong>
                 <span data-th-text="*{companyName}">Company</span>
               </li>
-              <li id="contactname">
+              <li id="customer-contactname-field">
                 <strong data-th-text="#{label_customer_contactname}">Contact Name
                 </strong>
                 <span data-th-text="*{contactName}">Contact Name</span>
               </li>
-              <li id="contacttitle">
+              <li id="customer-contacttitle-field">
                 <strong data-th-text="#{label_customer_contacttitle}">Job</strong>
                 <span data-th-text="*{contactTitle}">Job</span>
               </li>
-              <li id="email">
+              <li id="customer-email-field">
 	              <strong data-th-text="#{label_customer_email}">Email</strong>
 	              <span data-th-text="*{email}">example@example.com</span>
 	            </li>
-              <li id="adress">
+              <li id="customer-adress-field">
                 <strong data-th-text="#{label_customer_address}">Address</strong>
                 <span data-th-text="*{address}">Address</span>
               </li>
-              <li id="country">
+              <li id="customer-country-field">
                 <strong data-th-text="#{label_customer_country}">Country</strong>
                 <span data-th-text="*{{country}}">Country</span>
               </li>
-              <li id="region">
+              <li id="customer-region-field">
                 <strong data-th-text="#{label_customer_region}">Region</strong>
                 <span data-th-text="*{{region}}">Region</span>
               </li>
-              <li id="city">
+              <li id="customer-city-field">
                 <strong data-th-text="#{label_customer_city}">City</strong>
                 <span data-th-text="*{{city}}">City</span>
               </li>
-              <li id="postalcode">
+              <li id="customer-postalcode-field">
                 <strong data-th-text="#{label_customer_postalcode}">Postal code</strong>
                 <span data-th-text="*{postalCode}">00000</span>
               </li>
-              <li id="phone">
+              <li id="customer-phone-field">
                 <strong data-th-text="#{label_customer_phone}">Phone</strong>
                 <span data-th-text="*{phone}">000 000 000</span>
               </li>
-              <li id="fax">
+              <li id="customer-fax-field">
                 <strong data-th-text="#{label_customer_fax}">Fax</strong>
                 <span data-th-text="*{fax}">000 000 000</span>
               </li>
@@ -223,14 +248,14 @@
 	        <div class="clearfix">
 	          <div class="pull-left">
 	            <a id="store_list" href="list.html" class="btn btn-default"
-	              data-th-href="@{/stores}"> <span
+	              data-th-href="@{${(#mvc.url('CustomerCollectionThymeleafController#list')).build()}}"> <span
 	              class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span
 	              data-th-text="#{label_back}">Back</span>
 	            </a>
 	          </div>
 	          <div class="pull-right">
 	            <a id="store_edit" href="edit.html" class="btn btn-primary"
-	              data-th-href="@{/stores/{storeId}/edit-form(storeId=*{id})}"
+	              data-th-href="@{${(#mvc.url('CustomerItemThymeleafController#editForm')).buildAndExpand(category.id)}}"
 	              data-th-text="#{label_edit}">Edit</a>
 	          </div>
 	        </div>
@@ -302,30 +327,26 @@
     <script src="../../static/public/js/moment-defaults.js">
       </script>
 
+    <!-- Datatables scripts ONLY for HTML templates -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.js"></script>
+    <!-- Datatables responsive plugin -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.js"></script>
+    <!-- Datatables buttons plugins -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.bootstrap.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.js"></script>
+    <!-- Datatables select plugin -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.js"></script>
+    <script type="text/javascript" charset="utf8" src="/js/datatables-locale.js"></script>
+    <script type="text/javascript" charset="utf8" src="/public/js/datatables-defaults.js"></script>
+
     <div data-layout-fragment="javascript">
 
-      <script type="text/javascript" data-th-inline="javascript">
-        // IIFE - Immediately Invoked Function Expression
-        (function(list) {
-
-          // The global jQuery object is passed as a parameter
-          list(window.jQuery, window, document);
-
-        }(function($, window, document) {
-
-          // The $ is now locally scoped, it won't collide with other libraries
-
-          // Listen for the jQuery ready event on the document
-          // READY EVENT BEGIN
-          $(function() {
-
-            // Put this page local javascript here!
-
-          });
-
-          // READY EVENT END
-        }));
-      </script>
+      <!-- Datatables fragment -->
 
     </div><!--/javascript fragment -->
 
