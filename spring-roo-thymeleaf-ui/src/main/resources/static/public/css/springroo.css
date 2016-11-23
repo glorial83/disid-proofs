@@ -265,7 +265,7 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 div.dataTables_wrapper div.dataTables_filter,
 div.dataTables_wrapper div.dt-buttons.btn-group{
-  padding-top: 1em;
+  padding: 1em 0;
 }
 
 /*--SHOW-------------*/
