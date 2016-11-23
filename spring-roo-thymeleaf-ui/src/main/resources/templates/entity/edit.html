@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-layout-decorator="layouts/default-layout">
+<html lang="en" data-layout-decorate="layouts/default-layout">
 	<head>
 		<meta charset="UTF-8" data-th-remove="all"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all"/>
@@ -29,11 +29,11 @@
     <!--/* Font Awesome */-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" data-th-remove="all" />
 
-    <!--/* Select2 */-->
+    <!-- Select2 -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" data-th-href="@{/webjars/select2/dist/css/select2.css}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.7/select2-bootstrap.css" data-th-href="@{/webjars/select2-bootstrap-theme/dist/select2-bootstrap.css}" />
 
-    <!--/* DateTimePicker */-->
+    <!-- DateTimePicker -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.min.css" data-th-href="@{/webjars/datetimepicker/build/jquery.datetimepicker.min.css}" />
 
     <!--/* Bootswatch CSS custom */-->
@@ -56,7 +56,7 @@
     <header role="banner">
 
       <!-- Main navbar -->
-      <nav class="navbar navbar-inverse navbar-static-top">
+      <nav class="navbar navbar-default navbar-static-top">
        <div class="container">
 
           <!-- navbar-header -->
@@ -454,18 +454,19 @@
 		            </div>
 		          </div>
 
-		          <!-- buttons form -->
-		          <div class="form-group">
-		            <div class="col-md-12">
-		              <div class="pull-left">
-		                <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{${(#mvc.url('CustomerCollectionThymeleafController#list')).build()}} + '\''" data-th-text="#{label_reset}">Cancel</button>
-		              </div>
-		              <div class="pull-right">
-		                <button type="submit" class="btn btn-primary" data-th-text="#{label_submit}">Save</button>
-		              </div>
-		            </div>
-		          </div>
-				    </fieldset>
+		        </fieldset>
+
+		        <!-- buttons form -->
+	          <div class="form-group">
+	            <div class="col-md-12">
+	              <div class="pull-left">
+	                <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{${(#mvc.url('CustomerCollectionThymeleafController#list')).build()}} + '\''" data-th-text="#{label_reset}">Cancel</button>
+	              </div>
+	              <div class="pull-right">
+	                <button type="submit" class="btn btn-primary" data-th-text="#{label_submit}">Save</button>
+	              </div>
+	            </div>
+	          </div>
           </form>
 	      </div>
 	      <!-- /CONTENT -->

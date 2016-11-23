@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" data-layout-decorator="layouts/default-list-layout">
+<html lang="en" data-layout-decorate="layouts/default-list-layout">
+
   <head>
     <meta charset="UTF-8" data-th-remove="all"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all"/>
@@ -75,7 +76,7 @@
     <header role="banner">
 
       <!-- Main navbar -->
-      <nav class="navbar navbar-inverse navbar-static-top">
+      <nav class="navbar navbar-default navbar-static-top">
        <div class="container">
 
           <!-- navbar-header -->
@@ -240,7 +241,7 @@
 
           <!--TABLE-->
           <div class="table-responsive" id="containerFields">
-            <table id="customersTable"
+            <table id="customer-entity-table"
               data-select="single"
               class="table table-striped table-hover table-bordered"
               data-datatables="true"
