@@ -36,8 +36,6 @@ section {padding: 1em 0}
 .navbar-header .application-name a {color: #fff; text-decoration: none;}
 .navbar-header .application-name small {}
 
-.navbar-nav > li > .dropdown-menu {  margin-top: 4px;}
-
 .dropdown-menu > li button.btn-link {
   display: block;
   padding: 3px 20px;
@@ -165,6 +163,9 @@ body.home .box-center{
 
 
 /*--BTN-------------*/
+.btn{
+  text-transform: none;
+}
 
 .btn-action {
     display: inline-block;
@@ -266,6 +267,9 @@ div.dataTables_wrapper div.dataTables_filter {
 div.dataTables_wrapper div.dataTables_filter,
 div.dataTables_wrapper div.dt-buttons.btn-group{
   padding: 1em 0;
+}
+.pagination{
+  text-transform: none;
 }
 
 /*--SHOW-------------*/
