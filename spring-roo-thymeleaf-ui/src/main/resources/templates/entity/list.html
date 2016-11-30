@@ -70,7 +70,7 @@
 
 	</head>
 
-	<body id="body" class="page">
+	<body id="body">
 
 	    <!-- HEADER -->
 	    <header role="banner">
@@ -174,16 +174,6 @@
           </div>
         </nav>
 
-        <!-- BANNER -->
-        <div class="bg-header">
-          <div class="jumbotron bg-banner">
-              <div class="container">
-                <h1 class="project-name">Spring Roo Application</h1>
-                <p class="project-tagline" data-th-text="#{info_homepage_project}">Hello, this is your home page.</p>
-              </div>
-          </div>
-        </div>
-
 	    </header>
 	    <!-- /HEADER -->
 
@@ -203,7 +193,7 @@
 	        <div class="table-responsive" id="containerFields">
 	          <table id="customer-entity-table"
 	            class="table table-striped table-hover table-bordered"
-	            data-select="single"	            
+	            data-select="single"
 	            data-datatables="true"
 	            data-row-id="customerId" data-order="[[ 0, &quot;asc&quot; ]]"
 	            data-data-load-url="${(#mvc.url('CategoriesCollectionThymeleafController#datatables')).build()}"
