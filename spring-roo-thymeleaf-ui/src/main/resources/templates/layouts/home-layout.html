@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" data-data-content="${r"#{info_description}"}"/>
-    <meta name="author" data-data-content="${r"#{info_author}"}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" data-data-content="#{info_description}" />
+    <meta name="author" data-data-content="#{info_author}" />
 
     <link rel="shortcut icon" href="../../static/public/img/favicon.ico"
       data-th-href="@{/public/img/favicon.ico}"/>
@@ -48,9 +48,7 @@
     <![endif]-->
 
   </head>
-<#if userManagedComponents?has_content && userManagedComponents["body"]??>
-  ${userManagedComponents["body"]}
-<#else>
+
   <body id="body">
 
      <header role="banner">
@@ -65,7 +63,7 @@
     </header>
 
     <div class="container bg-container">
-      <!-- content -->
+      <!-- CONTENT -->
       <section data-layout-fragment="content">
         <!-- Content replaced by the content fragment of the page displayed -->
         <h2>Sample static body for direct display of the template</h2>
@@ -75,7 +73,7 @@
           Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
           Phasellus et placerat elit.</p>
       </section>
-      <!-- /content -->
+      <!-- /CONTENT -->
     </div>
 
     <footer class="container" data-th-replace="fragments/footer :: footer">
@@ -102,20 +100,13 @@
       </script>
 
     <!-- MomentJS - date format -->
-    <script
-       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js"
-       data-th-src="@{/webjars/momentjs/moment.min.js}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.js" data-th-src="@{/webjars/momentjs/moment.min.js}">
       </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js"
-      data-th-src="@{/webjars/momentjs//locale/}+ ${r"${#"}locale.language${r"}"}+'.js'"
-      data-th-if="${r"${#"}locale.language${r"}"} != 'en' and ${r"${#"}locale.language${r"}"} != 'es'">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/es.js" data-th-src="@{/webjars/momentjs//locale/}+ ${#locale.language}+'.js'" data-th-if="${#locale.language} != 'en' and ${#locale.language} != 'es'">
       </script>
-    <script src="../../static/public/js/moment-locale-es.js"
-      data-th-src="@{/public/js/moment-locale-es.js}"
-      data-th-if="${r"${#"}locale.language${r"}"} == 'es'">
+    <script src="../../static/public/js/moment-locale-es.js" data-th-src="@{/public/js/moment-locale-es.js}" data-th-if="${#locale.language} == 'es'">
       </script>
-    <script src="../../static/public/js/moment-defaults.js"
-      data-th-src="@{/public/js/moment-defaults.js}">
+    <script src="../../static/public/js/moment-defaults.js" data-th-src="@{/public/js/moment-defaults.js}">
       </script>
 
     <div data-layout-fragment="javascript">
@@ -127,5 +118,4 @@
       data-th-src="@{/public/js/main.js}">
       </script>
   </body>
-</#if>
 </html>
