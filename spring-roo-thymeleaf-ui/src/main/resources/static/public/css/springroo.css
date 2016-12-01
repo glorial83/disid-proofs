@@ -248,6 +248,10 @@ table a.btn-action:focus,
 table a.btn-action:active {
   color: #79a736;
 }
+table.dataTable.no-footer {
+    border-bottom: 1px solid #dfd7ca;
+}
+
 
 /*--SHOW-------------*/
 
