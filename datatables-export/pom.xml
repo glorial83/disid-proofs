@@ -47,6 +47,8 @@
     <select2-bootstrap-theme.version>0.1.0-beta.7</select2-bootstrap-theme.version>
     <thymeleaf-extras-springsecurity4.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity4.version>
     <cxf.version>3.1.8</cxf.version>
+    <dynamicjasper.version>5.0.11</dynamicjasper.version>
+    <dynamicjasper-fonts.version>1.0</dynamicjasper-fonts.version>
     </properties>
 
   <repositories>
@@ -212,6 +214,16 @@
                 <artifactId>tracee-cxf</artifactId>
                 <version>${tracee.version}</version>
             </dependency>
+         <dependency>
+            <groupId>ar.com.fdvs</groupId>
+            <artifactId>DynamicJasper</artifactId>
+            <version>${dynamicjasper.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ar.com.fdvs</groupId>
+            <artifactId>DynamicJasper-core-fonts</artifactId>
+            <version>${dynamicjasper-fonts.version}</version>
+        </dependency>
         </dependencies>
   </dependencyManagement>
 
@@ -417,6 +429,22 @@
     <dependency>
             <groupId>io.tracee.binding</groupId>
             <artifactId>tracee-cxf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ar.com.fdvs</groupId>
+            <artifactId>DynamicJasper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ar.com.fdvs</groupId>
+            <artifactId>DynamicJasper-core-fonts</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
         </dependency>
     </dependencies>
 
