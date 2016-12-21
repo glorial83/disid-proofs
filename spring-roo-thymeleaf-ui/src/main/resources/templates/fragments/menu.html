@@ -9,7 +9,7 @@
     Only the internal content of the following div is included within
     the template, in menu fragment
     -->
-    <nav class="navbar navbar-inverse navbar-static-top" data-layout-fragment="menu">
+    <nav class="navbar navbar-default navbar-static-top" data-layout-fragment="menu">
 
          <div class="container">
 
@@ -24,7 +24,7 @@
 
               <!-- Brand logo -->
               <div class="organization-logo navbar-brand">
-                <a title="Spring Roo Application" href="/">
+                <a title="Spring Roo Application" href="/" data-th-href="@{/}">
                   <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
                 </a>
               </div>
@@ -69,6 +69,41 @@
                 <!-- Content replaced by the links template fragment session-links.html
                 -->
                 <span>User session data</span>
+              </ul>
+
+           </div>
+
+          </div>
+    </nav>
+
+    <!--
+    Only the internal content of the following div is included within
+    the template, in menu-languages fragment
+    -->
+    <nav class="navbar navbar-default navbar-static-top" data-layout-fragment="menu-languages">
+
+         <div class="container">
+
+            <div class="navbar-header">
+
+              <!-- Brand logo -->
+              <div class="organization-logo navbar-brand">
+                <a title="Spring Roo Application" href="/" data-th-href="@{/}">
+                  <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../../static/public/img/logo.png" />
+                </a>
+              </div>
+              <!-- Name application -->
+              <div class="application-name navbar-brand hidden-xs"><a href="/" data-th-href="@{/}">Spring Roo Application</a></div>
+
+            </div><!-- /navbar-header -->
+
+            <div id="mainnav" class="navbar-collapse collapse">
+
+              <!-- Language select -->
+              <ul class="nav navbar-nav navbar-right upper-nav languages" data-layout-include="fragments/languages :: languages">
+                <!-- Content replaced by the session template fragment language.html
+                -->
+                <span>Language data</span>
               </ul>
 
            </div>

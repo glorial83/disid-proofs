@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-layout-decorator="layouts/default-layout">
+<html lang="en" data-layout-decorate="~{layouts/home-layout}">
   <head>
     <meta charset="UTF-8" data-th-remove="all"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" data-th-remove="all"/>
@@ -14,53 +14,41 @@
 
     <link rel="shortcut icon" href="../static/public/img/favicon.ico"
       data-th-remove="all"/>
-
     <link rel="apple-touch-icon" href="../static/public/img/apple-touch-icon.png"
       data-th-remove="all"/>
 
-    <title>Welcome - Spring Roo application</title>
+    <title data-th-text="#{welcome_label}">Welcome - SpringRoo Application</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"
-      data-th-remove="all"></link>
+    <!--/* Bootstrap */-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" data-th-remove="all" />
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link rel="stylesheet" type="text/css"
-      href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css"
-      data-th-remove="all"></link>
+    <!--/* IE10 viewport hack for Surface/desktop Windows 8 bug */-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css" data-th-remove="all" />
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css"
-	    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css"
-	    data-th-remove="all"/>
+    <!--/* Font Awesome */-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" data-th-remove="all" />
 
-    <!-- Bootswatch CSS custom -->
-    <link rel="stylesheet" type="text/css"
-      href="../static/public/css/theme.css"
-      data-th-remove="all"/>
+    <!--/* Bootswatch CSS custom */-->
+    <link rel="stylesheet" type="text/css" href="../static/public/css/theme.css" data-th-remove="all" />
 
-    <!-- Roo CSS -->
-    <link rel="stylesheet" type="text/css"
-      href="../static/public/css/springroo.css"
-      data-th-remove="all"/>
+    <!--/* Roo CSS */-->
+    <link rel="stylesheet" type="text/css" href="../static/public/css/springroo.css" data-th-remove="all" />
 
-   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <!--/* HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries */-->
+    <!--/* WARNING: Respond.js doesn't work if you view the page via file:// */-->
+    <!--/*[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js" data-th-remove="all"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" data-th-remove="all"></script>
+    <![endif]*/-->
   </head>
 
-  <body class="home">
+  <body class="home" id="body">
 
       <!-- HEADER -->
       <header role="banner">
 
         <!-- Main navbar -->
-        <nav class="navbar navbar-inverse navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top">
          <div class="container">
 
             <!-- navbar-header -->
@@ -74,7 +62,7 @@
 
               <!-- Brand logo -->
               <div class="organization-logo navbar-brand">
-                <a title="Spring Roo Application" href="/">
+                <a title="Spring Roo Application" href="/" data-th-href="@{/}">
                   <img alt="Spring Roo Application" data-th-src="@{/public/img/logo.png}" src="../static/public/img/logo.png" />
                 </a>
               </div>
@@ -111,10 +99,10 @@
                   <ul class="dropdown-menu" id="languageFlags">
                    <li id="enFlag"><a href="?lang=en"><img class="flag"
                     data-th-src="@{/public/img/en.png}" src="../static/public/img/en.png"
-                    alt="English">&nbsp;<span data-th-text="#{language_label_en}">English</span></a> </li>
+                    alt="English"/>&nbsp;<span data-th-text="#{language_label_en}">English</span></a> </li>
                    <li id="esFlag"><a href="?lang=es"><img class="flag"
                     data-th-src="@{/public/img/es.png}" src="../static/public/img/es.png"
-                    alt="Spanish">&nbsp;<span data-th-text="language_label_es">Spanish</span></a> </li>
+                    alt="Spanish"/>&nbsp;<span data-th-text="language_label_es">Spanish</span></a> </li>
                  </ul>
                </li>
               </ul>
@@ -169,13 +157,13 @@
 
       </header>
 
-    <!--Main container-->
+    <!-- CONTAINER -->
     <div class="container bg-container">
 
-      <!--Content-->
+      <!-- CONTENT -->
       <section data-layout-fragment="content">
 
-        <div class="container content">
+        <div class="container-fluid content">
 
           <div class="box-center">
 
@@ -186,14 +174,14 @@
               src="../static/public/img/springroo-logo.png" />
             </div>
             <div class="col-sm-6">
-              <h2>With Roo you can easily build full Java applications in minutes.</h2>
+                <h2 data-th-text="#{info_homepage_header}">With Roo you can easily build full Java applications in minutes.</h2>
 
-              <p>Spring Roo is a next-generation rapid application development tool for Java developers.
+                <p data-th-text="#{info_homepage_paragraph}">Spring Roo is a next-generation rapid application development tool for Java developers.
               It focuses on higher productivity, stock-standard Java APIs, high usability, avoiding engineering trade-offs and
               facilitating easy Roo removal.
               </p>
 
-              <p class="lead">Thanks for your interest in Spring Roo!</p>
+                <p class="lead" data-th-text="#{info_homepage_thanks}">Thanks for your interest in Spring Roo!</p>
 
               </div>
 
@@ -211,8 +199,8 @@
                      <i class="fa fa-book"></i>
                     </div>
                     <div class="text">
-                     <h2><a href="http://docs.spring.io/spring-roo/docs/current/reference/html/" title="Spring Roo reference documentation" target="_blank">Doc</a></h2>
-                     <small>If you are looking for Reference Documentation you can get it here.</small>
+                       <h2><a href="http://docs.spring.io/spring-roo/docs/current/reference/html/" data-th-title="#{label_spring_documentation}" title="Spring Roo reference documentation" target="_blank" data-th-text="#{label_documentation}">Doc</a></h2>
+                       <small data-th-text="#{info_spring_documentation}">If you are looking for Reference Documentation you can get it here.</small>
                     </div>
                 </div>
             </div>
@@ -226,8 +214,8 @@
                         <i class="fa fa-envira"></i>
                       </div>
                       <div class="text">
-                        <h2><a href="http://projects.spring.io/spring-roo/" title="Spring Roo project site" target="_blank">Project Page</a></h2>
-                        <small>All the info about Spring Roo development.</small>
+                          <h2><a href="http://projects.spring.io/spring-roo/" data-th-title="#{label_spring_site}" title="Spring Roo project site" target="_blank" data-th-text="#{label_projectpage}">Project Page</a></h2>
+                          <small data-th-text="#{info_spring_site}">All the info about Spring Roo development.</small>
                     </div>
                 </div>
             </div>
@@ -241,8 +229,8 @@
                                 <i class="fa fa-stack-overflow"></i>
                               </div>
                               <div class="text">
-                                <h2><a href="http://stackoverflow.com/questions/tagged/spring-roo" title="Spring Roo Stackoverflow support" target="_blank">Support</a></h2>
-                                <small>If you have any question about the project,
+                                  <h2><a href="http://stackoverflow.com/questions/tagged/spring-roo" data-th-title="#{label_spring_support}" title="Spring Roo Stackoverflow support" target="_blank" data-th-text="#{label_support}">Support</a></h2>
+                                  <small data-th-text="#{label_spring_support}">If you have any question about the project,
                                 you can check it.</small>
                             </div>
                       </div>
@@ -256,8 +244,8 @@
                                 <i class="fa fa-code"></i>
                               </div>
                               <div class="text">
-                                <h2><a href="https://github.com/spring-projects/spring-roo/" title="Spring Roo source code" target="_blank">Code</a></h2>
-                                <small>Known, modify and redistribute the source code.</small>
+                                  <h2><a href="https://github.com/spring-projects/spring-roo/" data-th-title="#{label_spring_code}" title="Spring Roo source code" target="_blank" data-th-text="#{label_code}">Code</a></h2>
+                                  <small data-th-text="#{label_spring_sourcecode}">Known, modify and redistribute the source code.</small>
                             </div>
                       </div>
                   </div>
@@ -270,7 +258,7 @@
             <div class="row">
               <div class="col-md-12">
                 <ul class="pull-right list-inline social-links">
-                  <li><small>As always, you can find us also on </small></li>
+                    <li><small data-th-text="#{info_twitter}">As always, you can find us also on </small></li>
                   <li>
                   <a href="http://twitter.com/springroo" class="icon-twitter" target="_blank">
                   <i class="fa fa-twitter"></i>
@@ -286,12 +274,12 @@
          </div>
 
         </div>
-        <!--/content-->
+        <!-- /CONTENT -->
 
       </section>
 
     </div>
-    <!--/container-->
+    <!-- /CONTAINER -->
 
     <footer class="container">
       <div class="row">
@@ -319,7 +307,7 @@
                  src="http://www.w3.org/WAI/wcag2AA"
                  data-th-alt="#{label_accessibility_alt}"
                  alt="Level Double-A conformance, W3C WAI Web Content
-                 Accessibility Guidelines 2.0">
+                 Accessibility Guidelines 2.0"/>
          </a>
          &nbsp;
          <a title="Application developed and tested with OWASP -
@@ -331,7 +319,7 @@
                data-th-src="@{/public/img/owasp_logo.png}"
                src="../static/public/img/owasp_logo.png"
                data-th-alt="#{label_owasp_alt}"
-               alt="Application developed and tested with OWASP">
+               alt="Application developed and tested with OWASP"/>
          </a>
         </div>
       </div>
@@ -346,16 +334,13 @@
       src="https://code.jquery.com/jquery-1.12.3.js"></script>
 
     <!-- Bootstrap -->
-    <script type="text/javascript"
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script type="text/javascript"
-      src="../static/public/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
 
     <!-- Application -->
-    <script type="text/javascript"
-      src="../static/public/js/main.js"></script>
+    <script src="../static/public/js/main.js"></script>
 
   </body>
 </html>
