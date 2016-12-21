@@ -75,3 +75,14 @@ test integration --class ~.repository.PetRepository
 // script --file /tmp/clinic.roo
 quit
 // Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log closed at 2016-12-21 08:29:47
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log opened at 2016-12-21 08:38:23
+quit
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log closed at 2016-12-21 08:39:41
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log opened at 2016-12-21 08:51:54
+push-in --method select2
+push-in --method datatables
+push-in --method datatables
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log opened at 2016-12-21 11:33:50
+push-in --class ~.web.PetsCollectionThymeleafLinkFactory --method toUri(String,Object,Map) 
+push-in --class ~.web.VetsCollectionThymeleafLinkFactory --method toUri(String,Object,Map) 
+push-in --class ~.web.VisitsCollectionThymeleafLinkFactory --method toUri(String,Object,Map) 

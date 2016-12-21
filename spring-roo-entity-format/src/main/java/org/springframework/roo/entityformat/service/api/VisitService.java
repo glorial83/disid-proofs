@@ -1,4 +1,7 @@
 package org.springframework.roo.entityformat.service.api;
+
+import io.springlets.format.EntityResolver;
+
 import org.springframework.roo.addon.layers.service.annotations.RooService;
 import org.springframework.roo.entityformat.domain.Visit;
 
@@ -9,5 +12,5 @@ import org.springframework.roo.entityformat.domain.Visit;
  *
  */
 @RooService(entity = Visit.class)
-public interface VisitService {
+public interface VisitService extends EntityResolver<Visit, Long> {
 }

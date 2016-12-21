@@ -19,50 +19,6 @@ privileged aspect OwnersItemPetsThymeleafLinkFactory_Roo_LinkFactory {
     declare @type: OwnersItemPetsThymeleafLinkFactory: @Component;
     
     /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersItemPetsThymeleafLinkFactory.CREATE_FORM = "createForm";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersItemPetsThymeleafLinkFactory.CREATE = "create";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersItemPetsThymeleafLinkFactory.DATATABLES = "datatables";
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param methodName
-     * @param parameters
-     * @param pathVariables
-     * @return UriComponents
-     */
-    public UriComponents OwnersItemPetsThymeleafLinkFactory.toUri(String methodName, Object[] parameters, Map<String, Object> pathVariables) {
-        Assert.notEmpty(pathVariables, "OwnersItemPetsThymeleafController links need at least "
-            + "the Owner id Path Variable with the 'owner' key");
-            
-        Assert.notNull(pathVariables.get("owner"),
-            "OwnersItemPetsThymeleafController links need at least "
-            + "the Owner id Path Variable with the 'owner' key");
-            
-        if (methodName.equals(CREATE_FORM)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).createForm(null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(CREATE)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).create(null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(DATATABLES)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).datatables(null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        
-        throw new IllegalArgumentException("Invalid method name: " + methodName);
-    }
-    
-    /**
      * TODO Auto-generated method documentation
      * 
      * @return Class

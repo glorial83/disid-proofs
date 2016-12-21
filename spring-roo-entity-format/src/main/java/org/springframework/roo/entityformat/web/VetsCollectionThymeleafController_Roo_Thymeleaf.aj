@@ -8,17 +8,12 @@ import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import io.springlets.data.domain.GlobalSearch;
-import io.springlets.data.web.datatables.Datatables;
-import io.springlets.data.web.datatables.DatatablesData;
-import io.springlets.data.web.datatables.DatatablesPageable;
-import io.springlets.data.web.select2.Select2Data;
 import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
 import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -45,7 +40,6 @@ import org.springframework.roo.entityformat.web.reports.JasperReportsPdfExporter
 import org.springframework.roo.entityformat.web.reports.JasperReportsXlsExporter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -98,44 +92,6 @@ privileged aspect VetsCollectionThymeleafController_Roo_Thymeleaf {
     @ResponseBody
     public ModelAndView VetsCollectionThymeleafController.list(Model model) {
         return new ModelAndView("/vets/list");
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param search
-     * @param pageable
-     * @param draw
-     * @return ResponseEntity
-     */
-    @GetMapping(produces = Datatables.MEDIA_TYPE, name = "datatables", value = "/dt")
-    @ResponseBody
-    public ResponseEntity<DatatablesData<Vet>> VetsCollectionThymeleafController.datatables(GlobalSearch search, DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
-        Page<Vet> vets = vetService.findAll(search, pageable);
-        long totalVetsCount = vets.getTotalElements();
-        if (search != null && StringUtils.hasText(search.getText())) {
-            totalVetsCount = vetService.count();
-        }
-        DatatablesData<Vet> datatablesData = new DatatablesData<Vet>(vets, totalVetsCount, draw);
-        return  ResponseEntity.ok(datatablesData);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param search
-     * @param pageable
-     * @param locale
-     * @return ResponseEntity
-     */
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, name = "select2", value = "/s2")
-    @ResponseBody
-    public ResponseEntity<Select2Data<Vet>> VetsCollectionThymeleafController.select2(GlobalSearch search, Pageable pageable, Locale locale) {
-        Page<Vet> Vets = vetService.findAll(search, pageable);
-        String idExpression = "#{id}";
-        String textExpression = messageSource.getMessage("expression_vet", null, "#{toString()}", locale);
-        Select2Data<Vet> select2Data = new Select2Data<Vet>(Vets, idExpression, textExpression);
-        return  ResponseEntity.ok(select2Data);
     }
     
     /**

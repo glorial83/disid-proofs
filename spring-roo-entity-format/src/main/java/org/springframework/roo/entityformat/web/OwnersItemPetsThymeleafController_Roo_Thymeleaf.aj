@@ -3,10 +3,6 @@
 
 package org.springframework.roo.entityformat.web;
 
-import io.springlets.data.domain.GlobalSearch;
-import io.springlets.data.web.datatables.Datatables;
-import io.springlets.data.web.datatables.DatatablesData;
-import io.springlets.data.web.datatables.DatatablesPageable;
 import io.springlets.web.NotFoundException;
 import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
 import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
@@ -17,7 +13,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.roo.entityformat.domain.Owner;
@@ -103,25 +98,6 @@ privileged aspect OwnersItemPetsThymeleafController_Roo_Thymeleaf {
     public void OwnersItemPetsThymeleafController.populateForm(Model model) {
         populateFormats(model);
         model.addAttribute("type", Arrays.asList(PetType.values()));
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param owner
-     * @param search
-     * @param pageable
-     * @param draw
-     * @return ResponseEntity
-     */
-    @GetMapping(name = "datatables", produces = Datatables.MEDIA_TYPE, value = "/dt")
-    @ResponseBody
-    public ResponseEntity<DatatablesData<Pet>> OwnersItemPetsThymeleafController.datatables(@ModelAttribute Owner owner, GlobalSearch search, DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
-        
-        Page<Pet> pets = petService.findByOwner(owner, search, pageable);
-        long totalPetsCount = petService.countByOwner(owner);
-        DatatablesData<Pet> data =  new DatatablesData<Pet>(pets, totalPetsCount, draw);
-        return ResponseEntity.ok(data);
     }
     
     /**

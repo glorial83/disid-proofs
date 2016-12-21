@@ -1,18 +1,22 @@
 package org.springframework.roo.entityformat.domain;
+import io.springlets.format.EntityFormat;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
+import org.springframework.roo.addon.ws.annotations.jaxb.RooJaxbEntity;
+
+import java.util.Date;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Version;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.roo.addon.ws.annotations.jaxb.RooJaxbEntity;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * = AbstractPerson
@@ -24,6 +28,7 @@ import org.springframework.roo.addon.ws.annotations.jaxb.RooJaxbEntity;
 @RooToString
 @RooJpaEntity
 @RooJaxbEntity
+@EntityFormat("#{firstName} #{lastName}")
 public abstract class AbstractPerson {
 
     /**

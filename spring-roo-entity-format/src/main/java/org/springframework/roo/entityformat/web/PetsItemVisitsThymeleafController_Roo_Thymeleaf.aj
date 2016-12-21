@@ -3,10 +3,6 @@
 
 package org.springframework.roo.entityformat.web;
 
-import io.springlets.data.domain.GlobalSearch;
-import io.springlets.data.web.datatables.Datatables;
-import io.springlets.data.web.datatables.DatatablesData;
-import io.springlets.data.web.datatables.DatatablesPageable;
 import io.springlets.web.NotFoundException;
 import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
 import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
@@ -17,7 +13,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.roo.entityformat.domain.Pet;
@@ -102,25 +97,6 @@ privileged aspect PetsItemVisitsThymeleafController_Roo_Thymeleaf {
      */
     public void PetsItemVisitsThymeleafController.populateForm(Model model) {
         populateFormats(model);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param pet
-     * @param search
-     * @param pageable
-     * @param draw
-     * @return ResponseEntity
-     */
-    @GetMapping(name = "datatables", produces = Datatables.MEDIA_TYPE, value = "/dt")
-    @ResponseBody
-    public ResponseEntity<DatatablesData<Visit>> PetsItemVisitsThymeleafController.datatables(@ModelAttribute Pet pet, GlobalSearch search, DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
-        
-        Page<Visit> visits = visitService.findByPet(pet, search, pageable);
-        long totalVisitsCount = visitService.countByPet(pet);
-        DatatablesData<Visit> data =  new DatatablesData<Visit>(visits, totalVisitsCount, draw);
-        return ResponseEntity.ok(data);
     }
     
     /**

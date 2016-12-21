@@ -8,15 +8,10 @@ import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import io.springlets.data.domain.GlobalSearch;
-import io.springlets.data.web.datatables.Datatables;
-import io.springlets.data.web.datatables.DatatablesData;
-import io.springlets.data.web.datatables.DatatablesPageable;
-import io.springlets.data.web.select2.Select2Data;
 import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
 import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Locale;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -42,7 +37,6 @@ import org.springframework.roo.entityformat.web.reports.JasperReportsPdfExporter
 import org.springframework.roo.entityformat.web.reports.JasperReportsXlsExporter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,44 +89,6 @@ privileged aspect VisitsCollectionThymeleafController_Roo_Thymeleaf {
     @ResponseBody
     public ModelAndView VisitsCollectionThymeleafController.list(Model model) {
         return new ModelAndView("/visits/list");
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param search
-     * @param pageable
-     * @param draw
-     * @return ResponseEntity
-     */
-    @GetMapping(produces = Datatables.MEDIA_TYPE, name = "datatables", value = "/dt")
-    @ResponseBody
-    public ResponseEntity<DatatablesData<Visit>> VisitsCollectionThymeleafController.datatables(GlobalSearch search, DatatablesPageable pageable, @RequestParam("draw") Integer draw) {
-        Page<Visit> visits = visitService.findAll(search, pageable);
-        long totalVisitsCount = visits.getTotalElements();
-        if (search != null && StringUtils.hasText(search.getText())) {
-            totalVisitsCount = visitService.count();
-        }
-        DatatablesData<Visit> datatablesData = new DatatablesData<Visit>(visits, totalVisitsCount, draw);
-        return  ResponseEntity.ok(datatablesData);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param search
-     * @param pageable
-     * @param locale
-     * @return ResponseEntity
-     */
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, name = "select2", value = "/s2")
-    @ResponseBody
-    public ResponseEntity<Select2Data<Visit>> VisitsCollectionThymeleafController.select2(GlobalSearch search, Pageable pageable, Locale locale) {
-        Page<Visit> Visits = visitService.findAll(search, pageable);
-        String idExpression = "#{id}";
-        String textExpression = messageSource.getMessage("expression_visit", null, "#{toString()}", locale);
-        Select2Data<Visit> select2Data = new Select2Data<Visit>(Visits, idExpression, textExpression);
-        return  ResponseEntity.ok(select2Data);
     }
     
     /**
