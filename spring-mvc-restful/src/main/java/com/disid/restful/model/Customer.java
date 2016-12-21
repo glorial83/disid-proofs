@@ -1,5 +1,7 @@
 package com.disid.restful.model;
 
+import io.springlets.format.SpElFormat;
+
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
@@ -19,6 +21,8 @@ import javax.persistence.Table;
 @RooToString
 @RooJpaEntity
 @Table(name = "my_customer")
+//@SpElFormat("#{lastName}, #{firstName}")
+@SpElFormat(message = "format_customer")
 public class Customer {
 
   /**

@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html>
+ <body id="body"> 
+   <!--TABLE-->
+   <div class="table-responsive" data-th-id="(${tableId}?: 'productsTable') + 'Parent'" 
+        data-th-fragment="table(tableId, loadUrl, createUrl, showUrl, editUrl, deleteUrl)" >
+    <table data-th-id="${tableId}?: 'productsTable'" 
+           class="table table-striped table-hover table-bordered"
+           data-datatables="true"
+           data-row-id="id"
+           data-order="[[ 0, &quot;asc&quot; ]]"
+           data-data-load-url="${loadUrl}?: ${(#mvc.url('ProductsCollectionThymeleafController#datatables')).build()}"
+           data-data-create-url="${createUrl}?: ${(#mvc.url('ProductsCollectionThymeleafController#createForm')).build()}"
+           data-data-show-url="${showUrl}?: ${(#mvc.url('ProductsItemThymeleafController#show')).buildAndExpand('_ID_')}"
+           data-data-edit-url="${editUrl}?: ${(#mvc.url('ProductsItemThymeleafController#editForm')).buildAndExpand('_ID_')}"
+           data-data-delete-url="${deleteUrl}?: ${(#mvc.url('ProductsItemThymeleafController#delete')).buildAndExpand('_ID_')}">
+     <caption data-th-text="#{label_list_entity(#{label_product_plural})}">
+      Product List
+     </caption> 
+     <thead> 
+      <tr> 
+       <th data-data="name" data-th-text="#{label_product_name}">name</th> 
+       <th data-data="description" data-th-text="#{label_product_description}">description</th> 
+       <th data-data="id" data-orderable="false" data-searchable="false" class="dttools"
+           data-th-text="#{label_tools}">Tools</th> 
+      </tr> 
+     </thead> 
+    </table> 
+    <!-- content replaced by modal-confirm fragment of modal-confirm.html --> 
+    <div data-th-replace="fragments/modal-confirm-delete :: modalConfirmDelete(tableId=${tableId}?: 'productsTable',
+        title=#{label_delete_entity(#{label_product})}, message=#{info_delete_item_confirm})">
+    </div>
+
+    <!--/* Not needed until we create entities and manage relationships with a modal
+    <div
+      data-th-replace="fragments/modal :: modal(tableId = 'categoryProductsTable', id = 'categoryProductsTableAdd', title = #{label_add_entity(#{label_product})}, body = ~{::modalAddBody})">
+      
+      <div class="modal-body" data-th-fragment="modalAddBody">
+
+        <form class="form-horizontal" method="POST" data-th-id="${tableId} + AddForm">
+          <fieldset> 
+            <div class="form-group"> 
+              <div class="col-md-12"> 
+                <select id="products"
+                  name="products"
+                  multiple="multiple"
+                  class="githform-control dropdown-select-ajax"
+                  data-data-placeholder="#{info_select_an_option}"
+                  data-data-ajax--url="${(#mvc.url('ProductsCollectionThymeleafController#select2')).build()}"
+                  data-ajax--cache="true"
+                  data-ajax--delay="250"
+                  data-ajax--data-type="json">
+                  <option data-th-remove="all" value="1">One product to select</option>
+                </select>
+              </div> 
+            </div> 
+
+            <div class="form-group">                
+              <div class="col-md-12">
+                <div class="pull-left">
+                  <button type="button" class="btn btn-default"
+                    data-dismiss="modal" aria-label="Close"
+                    data-th-text="#{label_reset}">Cancel</button>
+                </div>
+                <div class="pull-right">
+                  <button type="button" class="btn btn-primary" data-th-id="${tableId} + AddButton"
+                    data-dismiss="modal" aria-label="Confirm"
+                    data-th-text="#{label_submit}">Accept</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+      </div>
+    </div>
+    */-->
+
+   </div>
+   <!-- /TABLE --> 
+ </body>
+</html>

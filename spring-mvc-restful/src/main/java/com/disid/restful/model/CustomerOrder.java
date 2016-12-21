@@ -1,5 +1,7 @@
 package com.disid.restful.model;
 
+import io.springlets.format.SpElFormat;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
@@ -58,6 +60,7 @@ public class CustomerOrder {
   /**
    * Bidirectional aggregation many-to-one relationship. Child side.
    */
+  @SpElFormat()
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinTable(name = "my_customer_orders",
       joinColumns = @JoinColumn(name = "my_order", referencedColumnName = "id"),

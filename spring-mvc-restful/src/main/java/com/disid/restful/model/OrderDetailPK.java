@@ -32,4 +32,20 @@ public class OrderDetailPK implements Serializable {
     this.customerOrderId = customerOrderId;
   }
 
+
+	public Integer getId() {
+        return this.id;
+    }
+
+	public void setId(Integer id) {
+        this.id = id;
+    }
+
+	public Long getCustomerOrderId() {
+        return this.customerOrderId;
+    }
+
+	public void setCustomerOrderId(Long customerOrderId) {
+        this.customerOrderId = customerOrderId;
+    }
 }

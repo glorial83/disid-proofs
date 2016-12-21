@@ -1,5 +1,7 @@
 package com.disid.restful.config;
 
+import io.springlets.format.SpElFormatAnnotationFormatterFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.context.ApplicationContext;
@@ -7,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -87,4 +90,9 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter
     return resolver;
   }
 
+  @Override
+  public void addFormatters(FormatterRegistry registry) {
+    super.addFormatters(registry);
+    registry.addFormatterForFieldAnnotation(new SpElFormatAnnotationFormatterFactory());
+  }
 }

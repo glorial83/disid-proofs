@@ -21,7 +21,7 @@
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<aspectj.plugin.version>1.8</aspectj.plugin.version>
-		<springlets.version>1.0.0.BUILD-SNAPSHOT</springlets.version>
+		<springlets.version>1.1.0.BUILD-SNAPSHOT</springlets.version>
 		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
 		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
 		<thymeleaf-data-dialect.version>2.0.1</thymeleaf-data-dialect.version>
@@ -101,6 +101,12 @@
 		</dependency>
 		
 		<!-- Spring dependencies -->
+
+    <dependency>
+      <groupId>io.springlets</groupId>
+      <artifactId>springlets-context</artifactId>
+      <version>${springlets.version}</version>
+    </dependency>
 
 		<dependency>
 			<groupId>io.springlets</groupId>
