@@ -63,7 +63,7 @@
     <div class="col-md-6">
       <!-- Select2 -->
       <select data-th-field="*{type}" class="form-control dropdown-select-simple" data-allow-clear="true" data-th-attr="data-placeholder=#{info_select_an_option}" required="required">
-         <option data-th-each="item : ${type}" data-th-value="${item}" data-th-text="${item}">Value</option>
+         <option data-th-each="item : ${type}" data-th-value="${item}" data-th-text="${{item}}">Value</option>
       </select>
       <span data-th-classappend="${#fields.hasErrors('type')}? 'glyphicon glyphicon-remove form-control-feedback'" class="glyphicon glyphicon-remove form-control-feedback" data-th-if="${#fields.hasErrors('type')}" aria-hidden="true"></span>
       <span id="type-error" class="help-block" data-th-if="${#fields.hasErrors('type')}" data-th-errors="*{type}">Error message.</span>
