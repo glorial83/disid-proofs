@@ -17,9 +17,7 @@ import org.springframework.roo.multiselect.service.api.OwnerService;
 import org.springframework.roo.multiselect.web.OwnersCollectionJsonController;
 import org.springframework.roo.multiselect.web.OwnersItemJsonController;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -128,20 +126,6 @@ privileged aspect OwnersCollectionJsonController_Roo_JSON {
         }
         
         ownerService.save(owners);
-        
-        return ResponseEntity.ok().build();
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param ids
-     * @return ResponseEntity
-     */
-    @DeleteMapping(value = "/batch/{ids}", name = "deleteBatch")
-    public ResponseEntity<?> OwnersCollectionJsonController.deleteBatch(@PathVariable("ids") Collection<Long> ids) {
-        
-        ownerService.delete(ids);
         
         return ResponseEntity.ok().build();
     }

@@ -4,92 +4,15 @@
 package org.springframework.roo.multiselect.web;
 
 import io.springlets.web.mvc.util.MethodLinkFactory;
-import java.io.IOException;
-import java.util.Map;
-import net.sf.jasperreports.engine.JRException;
 import org.springframework.roo.multiselect.web.OwnersCollectionThymeleafController;
 import org.springframework.roo.multiselect.web.OwnersCollectionThymeleafLinkFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.util.UriComponents;
 
 privileged aspect OwnersCollectionThymeleafLinkFactory_Roo_LinkFactory {
     
     declare parents: OwnersCollectionThymeleafLinkFactory implements MethodLinkFactory<OwnersCollectionThymeleafController>;
     
     declare @type: OwnersCollectionThymeleafLinkFactory: @Component;
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersCollectionThymeleafLinkFactory.LIST = "list";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersCollectionThymeleafLinkFactory.DATATABLES = "datatables";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersCollectionThymeleafLinkFactory.CREATE = "create";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersCollectionThymeleafLinkFactory.CREATE_FORM = "createForm";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersCollectionThymeleafLinkFactory.EXPORT_CSV = "exportCsv";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersCollectionThymeleafLinkFactory.EXPORT_PDF = "exportPdf";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    private static final String OwnersCollectionThymeleafLinkFactory.EXPORT_XLS = "exportXls";
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param methodName
-     * @param parameters
-     * @param pathVariables
-     * @return UriComponents
-     * @throws JRException
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    public UriComponents OwnersCollectionThymeleafLinkFactory.toUri(String methodName, Object[] parameters, Map<String, Object> pathVariables) throws JRException, IOException, ClassNotFoundException {
-        if (methodName.equals(LIST)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).list(null)).build();
-        }
-        if (methodName.equals(DATATABLES)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).datatables(null, null, null)).replaceQuery(null).build();
-        }
-        if (methodName.equals(CREATE)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).create(null, null, null)).build();
-        }
-        if (methodName.equals(CREATE_FORM)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).createForm(null)).build();
-        }
-        if (methodName.equals(EXPORT_CSV)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).exportCsv(null, null, null, null)).build();
-        }
-        if (methodName.equals(EXPORT_PDF)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).exportPdf(null, null, null, null)).build();
-        }
-        if (methodName.equals(EXPORT_XLS)) {
-            return MvcUriComponentsBuilder.fromMethodCall(MvcUriComponentsBuilder.on(getControllerClass()).exportXls(null, null, null, null)).build();
-        }
-        
-        throw new IllegalArgumentException("Invalid method name: " + methodName);
-    }
     
     /**
      * TODO Auto-generated method documentation

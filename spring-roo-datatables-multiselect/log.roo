@@ -75,3 +75,7 @@ test integration --class ~.repository.PetRepository
 // script --file /tmp/clinic.roo
 quit
 // Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log closed at 2016-12-22 09:26:14
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log opened at 2016-12-22 09:31:55
+jpa setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT --force 
+quit
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev f740cb6] log closed at 2016-12-22 15:48:59
