@@ -24,6 +24,10 @@ import javax.persistence.ManyToOne;
 import java.util.Calendar;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -42,6 +46,7 @@ import org.springframework.roo.addon.ws.annotations.jaxb.RooJaxbEntity;
 @RooJpaEntity(entityFormatExpression = "#{name} (#{type})")
 @RooJpaAudit
 @RooJaxbEntity
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Pet {
 
     /**
@@ -98,6 +103,7 @@ public class Pet {
      */
     @OneToMany(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "pet")
     @RooJpaRelation(type = JpaRelationType.AGGREGATION)
+    @NotAudited // In this case, we don't want to register the changes applied in this relation.
     private Set<Visit> visits = new HashSet<Visit>();
 
     /**
