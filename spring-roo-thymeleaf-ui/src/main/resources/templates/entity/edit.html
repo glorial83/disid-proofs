@@ -18,7 +18,7 @@
       data-th-remove="all"/>
 
 		<title data-th-text="#{label_edit_entity(#{label_customer})}">Edit
-		Customer - Spring Roo application</title>
+		Form Template - Spring Roo application</title>
 
     <!--/* Bootstrap */-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" data-th-remove="all" />
@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.min.css" data-th-href="@{/webjars/datetimepicker/build/jquery.datetimepicker.min.css}" />
 
     <!--/* Bootswatch CSS custom */-->
-    <link rel="stylesheet" type="text/css" href="../../static/public/css/theme.css" data-th-remove="all" />
+    <!-- <link rel="stylesheet" type="text/css" href="../../static/public/css/theme.css" data-th-remove="all" /> -->
 
     <!--/* Roo CSS */-->
     <link rel="stylesheet" type="text/css" href="../../static/public/css/springroo.css" data-th-remove="all" />
@@ -168,297 +168,314 @@
 	         within the template, in the section "content"
 	        -->
 
-	        <h1 data-th-text="#{label_edit_entity(#{label_customer})}">Edit
-	          Customer</h1>
+	        <h1 data-th-text="#{label_edit_entity(#{label_customer})}">Title page</h1>
 
 	        <!-- FORM -->
-	        <form class="form-horizontal validate" method="POST"
-          data-th-object="${customer}"
-          data-th-action="@{${(#mvc.url('CategoriesItemThymeleafController#update')).buildAndExpand(category.id)}}">
-          <input type="hidden" name="_method" value="PUT" />
+          <form class="form-horizontal validate" method="POST"
+          data-th-object=""
+          data-th-action="">
 
-						<fieldset id="containerFields">
-							<legend data-th-text="#{label_customeruserlogininfo_customerdata}">
-							Customer Data</legend>
+            <div data-th-if="${#fields.hasErrors('${SampleLabel}')}"
+            id="sample-error" class="alert alert-danger"
+            role="alert" data-th-errors="${SampleLabel}">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span>Error message.</span>
+            </div>
 
-							<div class="form-group has-error has-feedback" id="companyName"
-		            data-th-classappend="${#fields.hasErrors('companyName')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="companyName" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_companyname}">Company</label>
-		            <div class="col-md-3">
-		              <input type="text" class="form-control" id="companyName"
-		                name="companyName" data-th-field="*{companyName}"
-		                data-th-placeholder="#{label_customer_companyname}"
-		                placeholder="Company" data-toggle="tooltip"
-		                data-th-title="#{info_required_field}" title="Required field"
-		                required="required" /> <span
-		                data-th-classappend="${#fields.hasErrors('companyName')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('companyName')}"
-		                aria-hidden="true"></span> <span id="companyName-error"
-		                class="help-block"
-		                data-th-if="${#fields.hasErrors('companyName')}"
-		                data-th-errors="*{companyName}">Error message.</span>
-		            </div>
-		          </div>
+            <fieldset id="containerFields">
+              <legend data-th-text="#{sample_label}" class="sr-only">
+              Sample Form</legend>
 
-		          <div class="form-group has-error has-feedback" id="contactName"
-		            data-th-classappend="${#fields.hasErrors('contactName')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="contactName" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_contactname}">Contact
-		              Name</label>
-		            <div class="col-md-3">
-		              <input type="text" class="form-control" id="contactName"
-		                name="contactName" data-th-field="*{contactName}"
-		                data-th-placeholder="#{label_customer_contactname}"
-		                placeholder="Contact Name" data-toggle="tooltip"
-		                data-th-title="#{info_required_field}" title="Required field"
-		                required="required" /> <span
-		                data-th-classappend="${#fields.hasErrors('contactName')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('contactName')}"
-		                aria-hidden="true"></span> <span id="contactName-error"
-		                class="help-block"
-		                data-th-if="${#fields.hasErrors('contactName')}"
-		                data-th-errors="*{contactName}">Error message.</span>
-		            </div>
-		          </div>
+              <div class="form-group" id="sampleLabel1"
+                data-th-class="form-group">
+                <label for="sampleLabel1" class="col-md-3 control-label"
+                  data-th-text="#{label_customeruserlogininfo_sampleLabel1}">Short input</label>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" id="sampleLabel1"
+                    name="sampleLabel1" data-th-field="*{sampleLabel1}"
+                    data-th-placeholder="#{label_customeruserlogininfo_sampleLabel1}"
+                    placeholder="Short input" value="Short input" data-toggle="tooltip"
+                    data-th-title="#{info_required_field}"
+                    title="Required field" required="required" />
+                </div>
+              </div>
 
-		          <div class="form-group has-error has-feedback" id="contactTitle"
-		            data-th-classappend="${#fields.hasErrors('contactTitle')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="contactTitle" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_contacttitle}">Job</label>
-		            <div class="col-md-3">
-		              <input type="text" class="form-control" id="contactTitle"
-		                name="contactTitle" data-th-field="*{contactTitle}"
-		                data-th-placeholder="#{label_customer_contacttitle}"
-		                placeholder="Job" /> <span
-		                data-th-classappend="${#fields.hasErrors('contactTitle')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('contactTitle')}"
-		                aria-hidden="true"></span> <span id="contactTitle-error"
-		                class="help-block"
-		                data-th-if="${#fields.hasErrors('contactTitle')}"
-		                data-th-errors="*{contactTitle}">Error message.</span>
-		            </div>
-		          </div>
+              <div class="form-group has-error has-feedback" id="sampleLabel2"
+                data-th-classappend="${#fields.hasErrors('sampleLabel2')}? 'has-error has-feedback'"
+                data-th-class="form-group">
+                <label for="sampleLabel2" class="col-md-3 control-label"
+                  data-th-text="#{label_customeruserlogininfo_sampleLabel2}">Input with error</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="sampleLabel2"
+                    name="sampleLabel2" data-th-field="*{sampleLabel2}"
+                    data-th-placeholder="#{label_customeruserlogininfo_sampleLabel2}"
+                    placeholder="Input with error" value="Input with error" data-toggle="tooltip"
+                    data-th-title="#{info_required_field}"
+                    title="Required field" required="required" /> <span
+                    data-th-classappend="${#fields.hasErrors('sampleLabel2')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                    class="glyphicon glyphicon-remove form-control-feedback"
+                    data-th-if="${#fields.hasErrors('sampleLabel2')}"
+                    aria-hidden="true"></span> <span id="sampleLabel2-error"
+                    class="help-block"
+                    data-th-if="${#fields.hasErrors('sampleLabel2')}"
+                    data-th-errors="*{sampleLabel2}">Error message.</span>
+                </div>
+              </div>
 
-		          <div class="form-group has-error has-feedback" id="email"
-		            data-th-classappend="${#fields.hasErrors('email')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="email" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_email}">Email</label>
-		            <div class="col-md-3">
-		              <input type="text" class="form-control" id="email" name="email"
-		                data-th-field="*{email}"
-		                data-th-placeholder="#{label_customer_email}"
-		                placeholder="Email" data-toggle="tooltip"
-		                data-th-title="#{info_required_field}" title="Required field"
-		                required="required" /> <span
-		                data-th-classappend="${#fields.hasErrors('email')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('email')}" aria-hidden="true"></span>
-		              <span id="email-error" class="help-block"
-		                data-th-if="${#fields.hasErrors('email')}"
-		                data-th-errors="*{email}">Error message.</span>
-		            </div>
-		          </div>
+              <div class="form-group" id="sampleLabel10"
+                data-th-class="form-group">
+                <label for="sampleLabel10" class="col-md-3 control-label"
+                  data-th-text="#{label_customeruserlogininfo_sampleLabel10}">Disabled input</label>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" id="sampleLabel10"
+                    disabled="disabled"
+                    sampleLabel10" data-th-field="*{sampleLabel10}"
+                    data-th-placeholder="#{label_customeruserlogininfo_sampleLabel10}"
+                    placeholder="Disabled input"/>
+                </div>
+              </div>
 
-		          <div class="form-group has-error has-feedback" id="address"
-		            data-th-classappend="${#fields.hasErrors('address')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="address" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_address}">Address</label>
-		            <div class="col-md-6">
-		              <input type="text" class="form-control" id="address"
-		                name="address" data-th-field="*{address}"
-		                data-th-placeholder="#{label_customer_address}"
-		                placeholder="Address" data-toggle="tooltip"
-		                data-th-title="#{info_required_field}" title="Required field"
-		                required="required" /> <span
-		                data-th-classappend="${#fields.hasErrors('address')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('address')}" aria-hidden="true"></span>
-		              <span id="address-error" class="help-block"
-		                data-th-if="${#fields.hasErrors('address')}"
-		                data-th-errors="*{address}">Error message.</span>
-		            </div>
-		          </div>
+              <div class="form-group" id="sampleLabel3"
+                data-th-class="form-group">
+                <label for="sampleLabel3" class="col-md-3 control-label"
+                  data-th-text="#{label_customeruserlogininfo_sampleLabel3}">Input with message</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="sampleLabel3"
+                    name="sampleLabel3" data-th-field="*{sampleLabel3}"
+                    data-th-placeholder="#{label_customeruserlogininfo_sampleLabel3}"
+                    placeholder="Input with message" value="Input with message" data-toggle="tooltip"
+                    data-th-title="#{info_required_field}"
+                    title="Required field" required="required" />
+                    <div class="help-block alert alert-info"
+                    data-th-text="#{error_Pattern.userLoginPassword.password}">Info
+                    message.</div>
+                </div>
+              </div>
 
-		          <div class="form-group has-error has-feedback" id="country"
-		            data-th-classappend="${#fields.hasErrors('country')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="country" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_country}">Country</label>
-		            <div class="col-md-6">
-		              <select id="country" name="country" required="required"
-		                class="form-control dropdown-select-ajax"
-		                data-id-field="countryId" data-text-fields="description"
-		                data-ajax--url="/countries" data-ajax--cache="true"
-		                data-ajax--delay="250" data-ajax--data-type="json"
-		                data-th-attr="data-placeholder=#{info_select_an_option},data-ajax--url=@{/countries}"
-		                data-th-remove="all-but-first">
-		                <option data-th-unless="*{country} == null"
-		                  data-th-value="*{country.id}"
-		                  data-th-text="*{country.description}" selected="selected"
-		                  value="1">Portugal</option>
-		                <option value="2">Spain</option>
-		              </select><span
-		                data-th-classappend="${#fields.hasErrors('country')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('country')}"
-		                aria-hidden="true"></span> <span id="country-error"
-		                class="help-block"
-		                data-th-if="${#fields.hasErrors('country')}"
-		                data-th-errors="*{country}">Error message.</span>
-		            </div>
-		          </div>
+              <!--  input group addon & inputmask -->
+              <div class="form-group">
+                <label for="exampleInput" class="col-md-3 control-label">Amount (in euros)</label>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <div class="input-group-addon">€</div>
+                      <input type="text" class="form-control inputmask" id="price"
+                        name="price" data-toggle="tooltip" title="Required field" aria-describedby="inputError2Status"
+                        value="5,70" data-maskalias="currency" data-inputmask-placeholder="#"
+                        data-inputmask-integerDigits="5" data-inputmask-digits="2" />
+                  </div>
+                </div>
+              </div>
 
-		          <div class="form-group has-error has-feedback" id="region"
-		            data-th-classappend="${#fields.hasErrors('region')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="region" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_region}">Region</label>
-		            <div class="col-md-6">
-		              <select id="region" name="region" required="required"
-		                class="form-control dropdown-select-ajax"
-		                data-id-field="regionId" data-text-fields="description"
-		                data-ajax--url="/regions" data-ajax--cache="true"
-		                data-ajax--delay="250" data-ajax--data-type="json"
-		                data-th-attr="data-placeholder=#{info_select_an_option},data-ajax--url=@{/regions}"
-		                data-th-remove="all-but-first">
-		                <option data-th-unless="*{region} == null"
-		                  data-th-value="*{region.id}"
-		                  data-th-text="*{region.description}" selected="selected"
-		                  value="1">ALAVA/ARABA</option>
-		                <option value="2">ALBACETE</option>
-		                <option value="3">ALICANTE/ALACANT</option>
-		              </select><span
-		                data-th-classappend="${#fields.hasErrors('region')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('region')}"
-		                aria-hidden="true"></span> <span id="region-error"
-		                class="help-block"
-		                data-th-if="${#fields.hasErrors('region')}"
-		                data-th-errors="*{region}">Error message.</span>
-		            </div>
-		          </div>
+              <div class="form-group" id="sampleId"
+                data-th-class="form-group">
+                <label for="sampleId" class="col-md-3 control-label"
+                  data-th-text="#{label_customeruserlogininfo_sampleId}">Select simple</label>
+                <div class="col-md-6">
+                  <select id="sampleId" name="sampleId" required="required"
+                    class="form-control dropdown-select-simple">
+                    <option data-th-unless="*{sampleId} == null"
+                      data-th-value="*{sampleId.id}"
+                      data-th-text="*{sampleId.description}" selected="selected"
+                      value="1">Option A</option>
+                    <option value="2">Option B</option>
+                  </select>
+                </div>
+              </div>
 
-		          <div class="form-group has-error has-feedback" id="city"
-		            data-th-classappend="${#fields.hasErrors('city')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="city" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_city}">City</label>
-		            <div class="col-md-6">
-		              <select id="city" name="city" required="required"
-		                class="form-control dropdown-select-ajax" data-id-field="cityId"
-		                data-text-fields="description" data-ajax--url="/cities"
-		                data-ajax--cache="true" data-ajax--delay="250"
-		                data-ajax--data-type="json" data-th-remove="all-but-first"
-		                data-th-attr="data-placeholder=#{info_select_an_option},data-ajax--url=@{/cities}">
-		                <option data-th-unless="*{city} == null"
-		                  data-th-value="*{city.id}" data-th-text="*{city.description}"
-		                  selected="selected" value="1">Alegría-Dulantzi</option>
-		                <option value="2">Amurrio</option>
-		                <option value="3">Añana</option>
-		                <option value="4">Aramaio</option>
-		                <option value="5">Armiñón</option>
-		              </select><span
-		                data-th-classappend="${#fields.hasErrors('city')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('city')}"
-		                aria-hidden="true"></span> <span id="city-error"
-		                class="help-block"
-		                data-th-if="${#fields.hasErrors('city')}"
-		                data-th-errors="*{city}">Error message.</span>
-		            </div>
-		          </div>
+              <div class="form-group" id="sampleId"
+                data-th-class="form-group">
+                <label for="sampleId" class="col-md-3 control-label"
+                  data-th-text="#{label_customeruserlogininfo_sampleId}">Select multiple</label>
+                <div class="col-md-6">
+                  <select id="sampleId" name="sampleId" required="required"
+                    multiple="multiple"
+                    class="form-control dropdown-select-simple">
+                    <option data-th-unless="*{sampleId} == null"
+                      data-th-value="*{sampleId.id}"
+                      data-th-text="*{sampleId.description}" selected="selected"
+                      value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                  </select>
+                </div>
+              </div>
 
-		          <div class="row">
-		            <div class="col-md-6">
-		              <div
-		                data-th-classappend="${#fields.hasErrors('postalCode')}? 'has-error has-feedback'"
-		              data-th-class="form-group" class="form-group has-error has-feedback">
-		                <label for="postalCode" class="col-md-offset-3 col-md-3 control-label"
-		                  data-th-text="#{label_customer_postalcode}">Postal
-		                  code</label>
-		                <div class="col-md-6">
-		                  <input type="text" class="form-control" id="postalCode"
-		                    name="postalCode" data-th-field="*{postalCode}"
-		                    data-th-placeholder="#{label_customer_postalcode}"
-		                    placeholder="Postal code" data-toggle="tooltip"
-		                    data-th-title="#{info_required_field}" required="required"
-		                    title="Required field" /> <span
-		                    data-th-classappend="${#fields.hasErrors('postalCode')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                  class="glyphicon glyphicon-remove form-control-feedback"
-		                    data-th-if="${#fields.hasErrors('postalCode')}"
-		                    aria-hidden="true"></span> <span id="postalCode-error"
-		                    class="help-block"
-		                    data-th-if="${#fields.hasErrors('postalCode')}"
-		                    data-th-errors="*{postalCode}">Error message.</span>
-		                </div>
-		              </div>
-		            </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="sampleId-Date"
+                  data-th-text="#{label_sample}">Date
+                  </label>
+                <div class="col-md-3">
+                  <input type="text" class="form-control datetimepicker"
+                    id="sampleId-Date" name="sampleId"
+                    data-mindate="2015/01/01"
+                    value="17/01/2017 14:01"
+                    data-allowtimes="08:00,10:00,15:00,18:00,20:00"
+                    data-dateformat="dd/MM/yyyy HH:mm"
+                    data-th-field="*{sampleId}" />
+                </div>
+              </div>
 
-		            <div class="col-md-6">
-		              <div
-		                data-th-classappend="${#fields.hasErrors('phone')}? 'has-error has-feedback'"
-		              data-th-class="form-group" class="form-group has-error has-feedback">
-		                <label for="phone" class="col-md-2 control-label"
-		                  data-th-text="#{label_customer_phone}">Phone</label>
-		                <div class="col-md-4">
-		                  <input type="text" class="form-control" id="phone" name="phone"
-		                    data-th-field="*{phone}"
-		                    data-th-placeholder="#{label_customer_phone}"
-		                    placeholder="Phone" /> <span
-		                    data-th-classappend="${#fields.hasErrors('phone')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                  class="glyphicon glyphicon-remove form-control-feedback"
-		                    data-th-if="${#fields.hasErrors('phone')}" aria-hidden="true"></span>
-		                  <span id="phone-error" class="help-block"
-		                    data-th-if="${#fields.hasErrors('phone')}"
-		                    data-th-errors="*{phone}">Error message.</span>
-		                </div>
-		              </div>
-		            </div>
-		          </div>
+              <div class="form-group">
+                <label for="comentarios" class="col-md-3 control-label">Textarea</label>
+                <div class="col-md-6">
+                   <textarea class="form-control" rows="5" id="comentarios">Lorem ipsum dolor set.</textarea>
+                </div>
+              </div>
 
-		          <div class="form-group has-error has-feedback" id="fax"
-		            data-th-classappend="${#fields.hasErrors('fax')}? 'has-error has-feedback'"
-		           data-th-class="form-group">
-		            <label for="fax" class="col-md-3 control-label"
-		              data-th-text="#{label_customer_fax}">Fax</label>
-		            <div class="col-md-3">
-		              <input type="text" class="form-control" id="fax" name="fax"
-		                data-th-field="*{fax}"
-		                data-th-placeholder="#{label_customer_fax}" placeholder="Fax" />
-		              <span
-		                data-th-classappend="${#fields.hasErrors('fax')}? 'glyphicon glyphicon-remove form-control-feedback'"
-		                class="glyphicon glyphicon-remove form-control-feedback"
-		                data-th-if="${#fields.hasErrors('fax')}" aria-hidden="true"></span>
-		              <span id="fax-error" class="help-block"
-		                data-th-if="${#fields.hasErrors('fax')}" data-th-errors="*{fax}">
-		                Error message.</span>
-		            </div>
-		          </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="help">Input with help message</label>
+                  <div class="col-md-6">
+                    <input name="help" class="form-control" id="help" type="text"
+                    value="Input with help message" />
+                    <span id="help-error" class="help-block">Help message</span>
+                  </div>
+              </div>
 
-		        </fieldset>
+              <div class="form-group has-success has-feedback">
+                <label class="col-md-3 control-label" for="inputSuccess2">Success input</label>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status" />
+                  <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                  <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                </div>
+              </div>
 
-		        <!-- buttons form -->
-	          <div class="form-group">
-	            <div class="col-md-12">
-	              <div class="pull-left">
-	                <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{${(#mvc.url('CustomerCollectionThymeleafController#list')).build()}} + '\''" data-th-text="#{label_reset}">Cancel</button>
-	              </div>
-	              <div class="pull-right">
-	                <button type="submit" class="btn btn-primary" data-th-text="#{label_submit}">Save</button>
-	              </div>
-	            </div>
-	          </div>
+              <div class="form-group has-warning has-feedback">
+                <label class="col-md-3 control-label" for="inputWarning2">Warning input</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputWarning2" aria-describedby="inputWarning2Status" />
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputWarning2Status" class="sr-only">(warning)</span>
+                </div>
+              </div>
+
+              <div class="form-group has-error has-feedback">
+                <label class="col-md-3 control-label" for="inputError2">Error input</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputError2" aria-describedby="inputError2Status" />
+                    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="sr-only">(error)</span>
+                  </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div
+                    data-th-classappend="${#fields.hasErrors('sampleId')}? 'has-error has-feedback'"
+                  data-th-class="form-group" class="form-group has-error has-feedback">
+                    <label for="sampleId" class="col-md-offset-3 col-md-3 control-label"
+                      data-th-text="#{label_customer_sampleId}">Input inline
+                      </label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" id="sampleId"
+                        name="sampleId" data-th-field="*{sampleId}"
+                        data-th-placeholder="#{label_customer_sampleId}"
+                        placeholder="Input" value="Input" data-toggle="tooltip"
+                        data-th-title="#{info_required_field}" required="required"
+                        title="Required field" /> <span
+                        data-th-classappend="${#fields.hasErrors('sampleId')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                      class="glyphicon glyphicon-remove form-control-feedback"
+                        data-th-if="${#fields.hasErrors('sampleId')}"
+                        aria-hidden="true"></span> <span id="sampleId-error"
+                        class="help-block"
+                        data-th-if="${#fields.hasErrors('sampleId')}"
+                        data-th-errors="*{sampleId}">Error message.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div
+                    data-th-classappend="${#fields.hasErrors('sampleId')}? 'has-error has-feedback'"
+                  data-th-class="form-group" class="form-group has-error has-feedback">
+                    <label for="sampleId" class="col-md-2 control-label"
+                      data-th-text="#{label_customer_sampleId}">Input</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" id="sampleId" name="sampleId"
+                        data-th-field="*{sampleId}"
+                        data-th-placeholder="#{label_customer_sampleId}"
+                        placeholder="Input" value="Input" /> <span
+                        data-th-classappend="${#fields.hasErrors('sampleId')}? 'glyphicon glyphicon-remove form-control-feedback'"
+                      class="glyphicon glyphicon-remove form-control-feedback"
+                        data-th-if="${#fields.hasErrors('sampleId')}" aria-hidden="true"></span>
+                      <span id="sampleId-error" class="help-block"
+                        data-th-if="${#fields.hasErrors('sampleId')}"
+                        data-th-errors="*{sampleId}">Error message.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label" for="simpleCheckbox">Checkbox</label>
+                  <div class="col-md-6">
+                    <div class="checkbox">
+                      <input type="checkbox" id="simpleCheckbox" checked="checked"/>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputFile" class="col-md-3 control-label">File input</label>
+                <div class="col-md-4">
+                  <input type="file" id="exampleInputFile" class="form-control"
+                  data-toggle="tooltip" title="Required field"/>
+                  <p class="help-block">Help message.</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+               <div class="col-md-8 col-md-offset-3">
+                  <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Modal Sample</a>
+                </div>
+              </div>
+
+            </fieldset>
+
+            <!-- buttons form -->
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="pull-left">
+                  <button type="reset" class="btn btn-default" onclick="location.href='list.html'" data-th-onclick="'location.href=\'' + @{${(#mvc.url('CustomerCollectionThymeleafController#list')).build()}} + '\''" data-th-text="#{label_reset}">Cancel</button>
+                </div>
+                <div class="pull-right">
+                  <button type="submit" class="btn btn-primary" data-th-text="#{label_submit}">Save</button>
+                </div>
+              </div>
+            </div>
+
           </form>
-	      </div>
+
+          <!-- Modal Confirm -->
+          <div data-th-fragment="modal(tableId, id, title, body)" class="modal fade" tabindex="-1"
+           role="dialog" aria-labelledby="myModalLabel"
+           data-th-id="${id}" id="myModal"
+           data-th-attr="aria-labelledby=${id} + 'Label'">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+              <!-- classes available: alert-info -->
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title" id="myModalLabel" data-th-id="${id} + 'Label'" data-th-text="${title}">Modal Title</h2>
+              </div>
+              <div class="modal-body" data-th-id="${id} + 'Body'">
+                <p data-th-replace="${body}">Modal message.</p>
+                <div class="progress hide">
+                  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    <span class="sr-only">100% Complete</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="reset" class="btn btn-default pull-left" data-dismiss="modal" aria-label="Close" data-th-text="#{label_reset}">Cancel</button>
+                <button type="button" class="btn btn-primary pull-right" data-th-text="#{label_submit}" data-th-onclick="${onclickCallback}">Accept</button>
+              </div>
+              </div>
+            </div>
+          </div>
+        <!-- Modal -->
+
+        </div>
 	      <!-- /CONTENT -->
 	    </section>
 	  </div>
@@ -575,7 +592,7 @@
 
       <!-- Select2 -->
       <div data-th-replace="~{fragments/js/select2 :: select2-js}">
-        // TODO add js CDN
+
         <!-- Select2 scripts ONLY for HTML templates
           -- Content replaced by the select2 template fragment select2.html
         -->
@@ -595,34 +612,12 @@
                 debug : false,
                 theme : 'bootstrap',
                 allowClear : true,
+                placeholder: "Select an option",
+                width: "auto",
               });
-
               /*]]>*/
-          </script>
+            </script>
       </div><!-- /select2 -->
-
-      <script type="text/javascript" data-th-inline="javascript">
-	      // IIFE - Immediately Invoked Function Expression
-	      (function(list) {
-
-	        // The global jQuery object is passed as a parameter
-	        list(window.jQuery, window, document);
-
-	      }(function($, window, document) {
-
-	        // The $ is now locally scoped, it won't collide with other libraries
-
-	        // Listen for the jQuery ready event on the document
-	        // READY EVENT BEGIN
-	        $(function() {
-
-	          // Put this page local javascript here!
-
-	        });
-
-	        // READY EVENT END
-	      }));
-	    </script>
 
     </div><!--/javascript fragment -->
 
