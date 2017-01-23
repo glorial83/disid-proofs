@@ -1,0 +1,34 @@
+# Folders #
+
+/build/
+/bin/
+target/
+ 
+# Class Files # 
+
+*.class
+ 
+# Package Files #
+
+*.jar
+!maven-wrapper.jar
+*.war
+*.ear
+*.db
+ 
+# Eclipse #
+
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+.classpath
+.settings/
+.loadpath
+.externalToolBuilders/
+.factorypath
+
