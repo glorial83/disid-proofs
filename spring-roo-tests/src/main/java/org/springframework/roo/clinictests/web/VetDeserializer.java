@@ -1,6 +1,7 @@
 package org.springframework.roo.clinictests.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.roo.addon.web.mvc.controller.annotations.config.RooDeserializer;
 import org.springframework.roo.clinictests.domain.Vet;
@@ -34,7 +35,7 @@ public class VetDeserializer extends JsonObjectDeserializer<Vet> {
      * @param conversionService
      */
     @Autowired
-    public VetDeserializer(VetService vetService, ConversionService conversionService) {
+    public VetDeserializer(@Lazy VetService vetService, ConversionService conversionService) {
         this.vetService = vetService;
         this.conversionService = conversionService;
     }
