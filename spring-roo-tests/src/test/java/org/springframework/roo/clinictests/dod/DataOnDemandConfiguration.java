@@ -15,9 +15,10 @@
  */
 package org.springframework.roo.clinictests.dod;
 
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import javax.persistence.EntityManager;
 
 /**
  * Configuration for the data on demand classes.
@@ -27,9 +28,9 @@ import org.springframework.context.annotation.Bean;
 @TestConfiguration
 public class DataOnDemandConfiguration {
 
-  private final TestEntityManager entityManager;
+  private final EntityManager entityManager;
 
-  public DataOnDemandConfiguration(TestEntityManager entityManager) {
+  public DataOnDemandConfiguration(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 

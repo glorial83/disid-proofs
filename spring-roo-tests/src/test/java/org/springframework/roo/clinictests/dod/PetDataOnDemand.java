@@ -1,6 +1,5 @@
 package org.springframework.roo.clinictests.dod;
 
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.roo.clinictests.domain.Pet;
 
 import java.security.SecureRandom;
@@ -9,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -45,7 +45,7 @@ public class PetDataOnDemand {
   /**
    * EntityManager to persist the entities.
    */
-  private final TestEntityManager entityManager;
+  private final EntityManager entityManager;
 
   /**
    * Number of elements to create and persist.
@@ -58,7 +58,7 @@ public class PetDataOnDemand {
    * Creates a new {@link PetDataOnDemand}.
    * @param entityManager to persist entities
    */
-  public PetDataOnDemand(TestEntityManager entityManager) {
+  public PetDataOnDemand(EntityManager entityManager) {
     this(entityManager, 10);
   }
 
@@ -67,16 +67,16 @@ public class PetDataOnDemand {
    * @param entityManager to persist entities
    * @param size the number of entities to create and persist initially
    */
-  public PetDataOnDemand(TestEntityManager entityManager, int size) {
+  public PetDataOnDemand(EntityManager entityManager, int size) {
     this.entityManager = entityManager;
     this.size = size;
   }
 
   /**
-   * Returns the {@link TestEntityManager} used to persist the entities.
+   * Returns the {@link EntityManager} used to persist the entities.
    * @return the entity manager
    */
-  public TestEntityManager getEntityManager() {
+  public EntityManager getEntityManager() {
     return entityManager;
   }
 
@@ -134,12 +134,12 @@ public class PetDataOnDemand {
     int from = 0;
     int to = size;
 
-    CriteriaBuilder cb = entityManager.getEntityManager().getCriteriaBuilder();
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Pet> cq = cb.createQuery(Pet.class);
     Root<Pet> rootEntry = cq.from(Pet.class);
     CriteriaQuery<Pet> all = cq.select(rootEntry);
     TypedQuery<Pet> allQuery =
-        entityManager.getEntityManager().createQuery(all).setFirstResult(from).setMaxResults(to);
+        entityManager.createQuery(all).setFirstResult(from).setMaxResults(to);
     data = allQuery.getResultList();
 
     if (data == null) {
@@ -154,7 +154,7 @@ public class PetDataOnDemand {
     for (int i = from; i < to; i++) {
       Pet obj = factory.create(i);
       try {
-        obj = entityManager.persist(obj);
+        entityManager.persist(obj);
       } catch (final ConstraintViolationException e) {
         final StringBuilder msg = new StringBuilder();
         for (Iterator<ConstraintViolation<?>> iter = e.getConstraintViolations().iterator(); iter

@@ -15,9 +15,9 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.roo.clinictests.dod.PetDataOnDemand;
 import org.springframework.roo.clinictests.dod.VetDataOnDemand;
 import org.springframework.roo.clinictests.dod.VisitDataOnDemand;
+import org.springframework.roo.clinictests.domain.Pet;
 import org.springframework.roo.clinictests.domain.Visit;
 import org.springframework.roo.clinictests.repository.VisitRepository;
 import org.springframework.stereotype.Component;
@@ -40,12 +40,6 @@ privileged aspect VisitDataOnDemand_Roo_DataOnDemand {
      * TODO Auto-generated attribute documentation
      */
     public VisitRepository VisitDataOnDemand.visitRepository;
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     */
-    @Autowired
-    PetDataOnDemand VisitDataOnDemand.petDataOnDemand;
     
     /**
      * TODO Auto-generated attribute documentation
@@ -75,6 +69,7 @@ privileged aspect VisitDataOnDemand_Roo_DataOnDemand {
         setDescription(obj, index);
         setModifiedBy(obj, index);
         setModifiedDate(obj, index);
+        setPet(obj, index);
         setVisitDate(obj, index);
         return obj;
     }
@@ -135,6 +130,17 @@ privileged aspect VisitDataOnDemand_Roo_DataOnDemand {
     public void VisitDataOnDemand.setModifiedDate(Visit obj, int index) {
         Calendar modifiedDate = Calendar.getInstance();
         obj.setModifiedDate(modifiedDate);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param obj
+     * @param index
+     */
+    public void VisitDataOnDemand.setPet(Visit obj, int index) {
+        Pet pet = null;
+        obj.setPet(pet);
     }
     
     /**
