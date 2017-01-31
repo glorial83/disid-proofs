@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.roo.clinictests.dod.DataOnDemandConfiguration;
 import org.springframework.roo.clinictests.dod.OwnerDataOnDemand;
@@ -36,6 +37,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class OwnerIT {
 
   @Autowired
+  private TestEntityManager entityManager;
+
+  @Autowired
   private OwnerDataOnDemand dod;
 
   @Test
@@ -44,7 +48,7 @@ public class OwnerIT {
     Owner newRandomOwner = dod.getNewRandomTransientOwner();
 
     // Exercise
-    Owner owner = dod.getEntityManager().persistFlushFind(newRandomOwner);
+    Owner owner = entityManager.persistFlushFind(newRandomOwner);
 
     // Verify
     assertThat(owner.getFirstName()).as("Check owner first name")

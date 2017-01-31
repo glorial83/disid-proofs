@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import org.springframework.roo.clinictests.dod.DataOnDemandConfiguration;
 import org.springframework.roo.clinictests.dod.PetDataOnDemand;
@@ -38,13 +39,16 @@ public class PetIT {
   @Autowired
   private PetDataOnDemand dod;
 
+  @Autowired
+  private TestEntityManager entityManager;
+
   @Test
   public void saveShouldPersistData() throws Exception {
     // Setup
     Pet newRandomPet = dod.getNewRandomTransientPet();
 
     // Exercise
-    Pet pet = dod.getEntityManager().persistFlushFind(newRandomPet);
+    Pet pet = entityManager.persistFlushFind(newRandomPet);
 
     // Verify
     assertThat(pet.getName()).as("Check pet name").isEqualTo(newRandomPet.getName());
