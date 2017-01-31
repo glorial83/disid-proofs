@@ -3,12 +3,9 @@
 
 package org.springframework.roo.clinictests.web;
 
-import io.springlets.data.domain.GlobalSearch;
 import java.util.Collection;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +15,6 @@ import org.springframework.roo.clinictests.web.PetsCollectionJsonController;
 import org.springframework.roo.clinictests.web.PetsItemJsonController;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,20 +40,6 @@ privileged aspect PetsCollectionJsonController_Roo_JSON {
         this.petService = petService;
     }
 
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param globalSearch
-     * @param pageable
-     * @return ResponseEntity
-     */
-    @GetMapping(name = "list")
-    public ResponseEntity<Page<Pet>> PetsCollectionJsonController.list(GlobalSearch globalSearch, Pageable pageable) {
-        
-        Page<Pet> pets = getPetService().findAll(globalSearch, pageable);
-        return ResponseEntity.status(HttpStatus.FOUND).body(pets);
-    }
-    
     /**
      * TODO Auto-generated method documentation
      * 

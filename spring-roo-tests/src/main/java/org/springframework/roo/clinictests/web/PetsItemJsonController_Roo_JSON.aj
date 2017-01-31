@@ -14,7 +14,6 @@ import org.springframework.roo.clinictests.service.api.PetService;
 import org.springframework.roo.clinictests.web.PetsItemJsonController;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,17 +52,6 @@ privileged aspect PetsItemJsonController_Roo_JSON {
             throw new NotFoundException(String.format("Pet with identifier '%s' not found",id));
         }
         return pet;
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param pet
-     * @return ResponseEntity
-     */
-    @GetMapping(name = "show")
-    public ResponseEntity<?> PetsItemJsonController.show(@ModelAttribute Pet pet) {
-        return ResponseEntity.status(HttpStatus.FOUND).body(pet);
     }
     
     /**
