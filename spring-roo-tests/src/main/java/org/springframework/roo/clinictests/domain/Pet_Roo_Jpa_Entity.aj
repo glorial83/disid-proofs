@@ -26,6 +26,14 @@ privileged aspect Pet_Roo_Jpa_Entity {
     public static final String Pet.ITERABLE_TO_REMOVE_CANT_BE_NULL_MESSAGE = "The given Iterable of items to add can't be null!";
     
     /**
+     * TODO Auto-generated constructor documentation
+     * 
+     */
+    public Pet.new() {
+        super();
+    }
+
+    /**
      * TODO Auto-generated method documentation
      * 
      * @param visitsToAdd

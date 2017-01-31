@@ -1,5 +1,4 @@
 package org.springframework.roo.clinictests.domain;
-
 import io.springlets.format.EntityFormat;
 
 import org.springframework.data.annotation.CreatedBy;
@@ -7,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.roo.addon.javabean.annotations.RooEquals;
 import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
 import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.audit.RooJpaAudit;
@@ -47,124 +47,120 @@ import javax.validation.constraints.Size;
 @RooJpaEntity(entityFormatExpression = "#{name} (#{type})")
 @RooJpaAudit
 @RooJaxbEntity
+@RooEquals(excludeFields = {"createdDate", "modifiedDate", "visits"})
 public class Pet {
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @Id
-  @SequenceGenerator(name = "petGen", sequenceName = "PET_SEQ")
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "petGen")
-  private Long id;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @Id
+    @SequenceGenerator(name = "petGen", sequenceName = "PET_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "petGen")
+    private Long id;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @Version
-  private Integer version;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @Version
+    private Integer version;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @NotNull
-  private boolean sendReminders;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @NotNull
+    private boolean sendReminders;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @NotNull
-  @Size(min = 1)
-  private String name;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @NotNull
+    @Size(min = 1)
+    private String name;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @NotNull
-  @Min(0L)
-  @NumberFormat
-  private Float weight;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @NotNull
+    @Min(0L)
+    @NumberFormat
+    private Float weight;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @NotNull
-  @Enumerated
-  private PetType type;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @NotNull
+    @Enumerated
+    private PetType type;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @OneToMany(cascade = {javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST},
-      fetch = FetchType.LAZY, mappedBy = "pet")
-  @RooJpaRelation(type = JpaRelationType.AGGREGATION)
-  private Set<Visit> visits = new HashSet<Visit>();
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @OneToMany(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "pet")
+    @RooJpaRelation(type = JpaRelationType.AGGREGATION)
+    private Set<Visit> visits = new HashSet<Visit>();
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @ManyToOne(fetch = FetchType.LAZY)
-  @EntityFormat
-  private Owner owner;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @EntityFormat
+    private Owner owner;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @CreatedDate
-  @Temporal(TemporalType.TIMESTAMP)
-  private Calendar createdDate;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar createdDate;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @CreatedBy
-  private String createdBy;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @CreatedBy
+    private String createdBy;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @LastModifiedDate
-  @Temporal(TemporalType.TIMESTAMP)
-  private Calendar modifiedDate;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar modifiedDate;
 
-  /**
-   * TODO Auto-generated field documentation
-   *
-   */
-  @LastModifiedBy
-  private String modifiedBy;
+    /**
+     * TODO Auto-generated field documentation
+     *
+     */
+    @LastModifiedBy
+    private String modifiedBy;
 
-  /**
-   * Empty constructor just needed by the JPA provider.
-   */
-  public Pet() {}
+    /**
+     * @param sendReminders
+     * @param name
+     * @param weight
+     * @param type
+     */
+    public Pet(String name, Float weight, PetType type, boolean sendReminders) {
+        Assert.notNull(name, "Pet name must not be null");
+        Assert.hasText(name, "Pet name must not be empty");
+        Assert.notNull(weight, "Pet weight must not be null");
+        Assert.isTrue(weight >= 0f, "Pet weight must be greater than 0");
+        Assert.notNull(type, "Pet type must not be null");
+        this.name = name;
+        this.weight = weight;
+        this.type = type;
+        this.sendReminders = sendReminders;
+    }
 
-  /**
-   * @param sendReminders
-   * @param name
-   * @param weight
-   * @param type
-   */
-  public Pet(String name, Float weight, PetType type, boolean sendReminders) {
-    Assert.notNull(name, "Pet name must not be null");
-    Assert.hasText(name, "Pet name must not be empty");
-    Assert.notNull(weight, "Pet weight must not be null");
-    Assert.isTrue(weight >= 0f, "Pet weight must be greater than 0");
-    Assert.notNull(type, "Pet type must not be null");
-    this.name = name;
-    this.weight = weight;
-    this.type = type;
-    this.sendReminders = sendReminders;
-  };
-
+    ;
 }
