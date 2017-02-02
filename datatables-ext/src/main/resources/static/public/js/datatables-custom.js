@@ -12,13 +12,24 @@
   // READY EVENT BEGIN
   $(function() {
     // Initialize all datatables in current page
-    $('table[data-datatables="true"]').each(function(){
+    $('table[data-custom-datatables="true"]').each(function(){
       // Use the advanced extension to auto-configure all
       // advanced features (ajax, export, add, edit, show, delete, etc.)
+      // and customize some options 
       $(this).DataTable({
-          advanced: true
+        advanced: {
+          buttons: {
+            'delete' : null,
+            'csv': null,
+            'excel': null
+          },
+          onInitComplete: function(osettings, json) {
+            alert("CUSTOM INIT COMPLETE!");
+          }
+        }
       });
     });
+
   });
 
   // READY EVENT END
