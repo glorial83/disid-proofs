@@ -1,7 +1,6 @@
 /*! Advanced Configuration for DataTables 1.0.0
  * 2017 DISID Corportation, S.L - www.disid.com
  */
-
 /**
  * @summary     Advanced configuration and extra features for DataTables
  * @description A collection of API methods, events and buttons for DataTables
@@ -85,7 +84,7 @@
 
             if (init.buttons !== undefined && $.isPlainObject(init.buttons)) {
                 $.extend(opts.buttons, init.buttons);
-                
+
                 // If button is provided as null, is necessary to register it 
                 // with the default functionality, but will not be included to be
                 // displayed.
@@ -93,13 +92,13 @@
                 for (var i in opts.buttons) {
                     var button = opts.buttons[i];
                     if (!button) {
-                      opts.buttons[i] = DataTable.defaults.advanced.buttons[i];
-                      hiddenButtons.push(i);
+                        opts.buttons[i] = DataTable.defaults.advanced.buttons[i];
+                        hiddenButtons.push(i);
                     }
                 }
 
             }
-          
+
             if (init.classes !== undefined && $.isPlainObject(init.classes)) {
                 $.extend(opts.classes, init.classes);
             }
@@ -119,7 +118,7 @@
             if (init.loadFromState !== undefined) {
                 opts.loadFromState = init.loadFromState;
             }
- 
+
             if (init.onInitComplete !== undefined) {
                 opts.onInitComplete = init.onInitComplete;
             }
@@ -142,12 +141,12 @@
 
             if (init.serverSide !== undefined) {
                 opts.serverSide = init.serverSide;
-            }      
- 
+            }
+
             if (init.stateSave !== undefined) {
                 opts.stateSave = init.stateSave;
             }
- 
+
         }
 
         // Configure this Datatables rendering
@@ -167,13 +166,19 @@
             'buttons': {
                 'dom': {
                     'container': {
-                        'className': opts.btnsContainerClass 
+                        'className': opts.btnsContainerClass
                     }
                 },
                 // Obtains a button list from the specified buttons
                 'buttons': getButtonsList(opts.buttons, hiddenButtons)
             },
             'columnDefs': [{
+                'targets': 'checkboxcol', // First column from the left
+                'checkboxes': {
+                    'selectRow': true,
+                    'selectAllPages': true
+                }
+            }, {
                 'targets': 'dttools', // First column from the right,
                 'width': 100,
                 'render': {
@@ -207,12 +212,12 @@
         $jQueryTableBody.off("click");
         $jQueryTable.DataTable().destroy();
         var datatables = $jQueryTable.DataTable();
-        
+
         // Next tables should use the default configuration, so restore it.
         DataTable.ext.classes = dtClasses;
         DataTable.ext.buttons = dtButtons;
         DataTable.defaults = dtDefaults;
-  
+
         // Finally, register events to this datatable.
         registerEvents(datatables);
 
@@ -264,7 +269,7 @@
         "processing": true,
         "renderTools": renderTools,
         "responsive": true,
-        "retrieve" : true,
+        "retrieve": true,
         "serverSide": true,
         "stateSave": true
 
@@ -285,8 +290,8 @@
         // Obtain buttons and exclude the hidden buttons
         for (var i in buttons) {
             if (hiddenButtons == undefined) {
-              buttonsArray.push(i);
-            }else if(hiddenButtons.indexOf(i) == -1) {
+                buttonsArray.push(i);
+            } else if (hiddenButtons.indexOf(i) == -1) {
                 buttonsArray.push(i);
             }
         }
@@ -481,7 +486,7 @@
             'action': function(e, datatables, node, config) {
                 // Check if current datatable has some records. If not, 
                 // show an error modal and prevent to continue
-                if (datatables.context[0]._iRecordsDisplay == 0) {
+                if (datatables.context[0]._iRecordsDisplay === 0) {
                     var tableId = getTableId(datatables);
                     var $exportError = $('#' + tableId + 'ExportEmptyError');
                     $exportError.modal();
@@ -721,8 +726,8 @@
 
         var sortParams = "";
         for (var i = 0; i < order.length; i++) {
-            if (order[i] != null && order[i] != undefined &&
-                order[i].column != null && order[i].column != undefined) {
+            if (order[i] !== null && order[i] !== undefined &&
+                order[i].column !== null && order[i].column !== undefined) {
                 var columnName = columns[order[i].column].data;
                 var dir = order[i].dir;
 
@@ -736,11 +741,11 @@
 
         var datatablesColumns = "";
         for (i = 0; i < columns.length; i++) {
-            if (columns[i] != null && columns[i] != undefined &&
-                columns[i].data != null && columns[i].data != undefined &&
-                datatablesColumns.indexOf(columns[i].data) === -1){
-    				        datatablesColumns += columns[i].data + ",";
-    			  }
+            if (columns[i] !== null && columns[i] !== undefined &&
+                columns[i].data !== null && columns[i].data !== undefined &&
+                datatablesColumns.indexOf(columns[i].data) === -1) {
+                datatablesColumns += columns[i].data + ",";
+            }
         }
         if (datatablesColumns.length > 0) {
             datatablesColumns = datatablesColumns.substr(0, datatablesColumns.length - 1);
@@ -863,6 +868,9 @@
      * @param id identifier of the element to edit
      */
     function getShowUrl(datatables, id) {
+        if (id == null || id === "null") {
+            return null;
+        }
         var url = getDataValue(datatables, 'show-url');
         return processUrl(datatables, url, id);
     }
@@ -988,7 +996,7 @@
      */
     function emptyData(draw) {
         return {
-            'data': new Array(),
+            'data': [],
             'draw': draw,
             'error': null,
             'recordsFiltered': '0',
@@ -1231,7 +1239,40 @@
 
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     * Initialisation
+     * DataTables Advanced Extension API
+     *
+     * For complete documentation, please refer to the docs/api directory or the
+     * DataTables site
+     */
+
+    // Local variables to improve compression
+    var apiRegister = DataTable.Api.register;
+
+    apiRegister('advanced()', function() {
+        return this.iterator('table', function(settings) {
+            DataTable.advanced.init(settings);
+        });
+    });
+
+    apiRegister('advanced.getTableId()', getTableId);
+    apiRegister('advanced.getCreateUrl()', getCreateUrl);
+    apiRegister('advanced.getEditUrl()', getEditUrl)
+    apiRegister('advanced.getDeleteUrl()', getDeleteUrl);
+    apiRegister('advanced.getDeleteBatchUrl()', getDeleteBatchUrl);
+    apiRegister('advanced.getShowUrl()', getShowUrl);
+    apiRegister('advanced.getDataValue()', getDataValue);
+    apiRegister('advanced.processUrl()', processUrl);
+
+    apiRegister('advanced.getCreateButton()', createButton);
+    apiRegister('advanced.getDeleteBatchButton()', deleteBatchButton);
+    apiRegister('advanced.getExportCsvButton()', exportCsvButton);
+    apiRegister('advanced.getExportExcelButton()', exportExcelButton);
+    apiRegister('advanced.getExportPdfButton()', exportPdfButton);
+
+
+
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * Initialization
      */
 
     // DataTables creation - check if advanced has been defined in the options.
