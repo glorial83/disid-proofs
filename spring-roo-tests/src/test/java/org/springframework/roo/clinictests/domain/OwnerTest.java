@@ -35,7 +35,7 @@ public class OwnerTest {
   private final PetFactory petFactory = new PetFactory();
 
   @Test
-  public void addToVisitsShouldAddTheVisitToTheVisitsRelationship() throws Exception {
+  public void addToPetsShouldAddThePetToThePetsRelationship() throws Exception {
     // Setup
     Owner owner = ownerFactory.create(0);
     Pet pet1 = petFactory.create(0);
@@ -52,7 +52,7 @@ public class OwnerTest {
   }
 
   @Test
-  public void removeFromVisitsShouldRemoveTheVisitFromTheVisitsRelationship() throws Exception {
+  public void removeFromPetsShouldRemoveThePetFromThePetsRelationship() throws Exception {
     // Setup
     Owner owner = ownerFactory.create(0);
     Pet pet1 = petFactory.create(0);
