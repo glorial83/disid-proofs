@@ -190,27 +190,6 @@ privileged aspect PetsItemThymeleafController_Roo_Thymeleaf {
      * TODO Auto-generated method documentation
      * 
      * @param pet
-     * @param version
-     * @param result
-     * @param model
-     * @return ModelAndView
-     */
-    @PutMapping(name = "update")
-    public ModelAndView PetsItemThymeleafController.update(@Valid @ModelAttribute Pet pet, @RequestParam("version") Integer version, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            populateForm(model);
-            
-            return new ModelAndView("pets/edit");
-        }
-        Pet savedPet = getPetService().save(pet);
-        UriComponents showURI = getItemLink().to(PetsItemThymeleafLinkFactory.SHOW).with("pet", savedPet.getId()).toUri();
-        return new ModelAndView("redirect:" + showURI.toUriString());
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param pet
      * @return ResponseEntity
      */
     @ResponseBody
