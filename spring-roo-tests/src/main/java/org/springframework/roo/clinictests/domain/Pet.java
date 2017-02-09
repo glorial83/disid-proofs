@@ -1,6 +1,8 @@
 package org.springframework.roo.clinictests.domain;
 import io.springlets.format.EntityFormat;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -19,6 +21,7 @@ import org.springframework.util.Assert;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Enumerated;
@@ -47,7 +50,7 @@ import javax.validation.constraints.Size;
 @RooJpaEntity(entityFormatExpression = "#{name} (#{type})")
 @RooJpaAudit
 @RooJaxbEntity
-@RooEquals(excludeFields = {"createdDate", "modifiedDate", "visits"})
+@RooEquals(excludeFields = {"createdDate", "modifiedDate", "visits", "owner"})
 public class Pet {
 
     /**
@@ -104,6 +107,7 @@ public class Pet {
      */
     @OneToMany(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "pet")
     @RooJpaRelation(type = JpaRelationType.AGGREGATION)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<Visit> visits = new HashSet<Visit>();
 
     /**
@@ -144,6 +148,10 @@ public class Pet {
     @LastModifiedBy
     private String modifiedBy;
 
+  public Pet() {
+
+  }
+
     /**
      * @param sendReminders
      * @param name
@@ -162,5 +170,32 @@ public class Pet {
         this.sendReminders = sendReminders;
     }
 
-    ;
+  /**
+   * TODO Auto-generated method documentation
+   * 
+   * @param obj
+   * @return Boolean
+   */
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    // instanceof is false if the instance is null
+    if (!(obj instanceof Pet)) {
+      return false;
+    }
+
+    return getId() != null && Objects.equals(getId(), ((Pet) obj).getId());
+  }
+
+  /**
+   * TODO Auto-generated method documentation
+   * 
+   * @return Integer
+   */
+  public int hashCode() {
+    return 31;
+  }
+
 }

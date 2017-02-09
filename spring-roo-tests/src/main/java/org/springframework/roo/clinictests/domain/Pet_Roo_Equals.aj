@@ -9,30 +9,30 @@ import org.springframework.roo.clinictests.domain.Pet;
 
 privileged aspect Pet_Roo_Equals {
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param obj
-     * @return Boolean
-     */
-    public boolean Pet.equals(Object obj) {
-        if (!(obj instanceof Pet)) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        Pet rhs = (Pet) obj;
-        return new EqualsBuilder().append(createdBy, rhs.createdBy).append(id, rhs.id).append(modifiedBy, rhs.modifiedBy).append(name, rhs.name).append(owner, rhs.owner).append(sendReminders, rhs.sendReminders).append(type, rhs.type).append(weight, rhs.weight).isEquals();
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return Integer
-     */
-    public int Pet.hashCode() {
-        return new HashCodeBuilder().append(createdBy).append(id).append(modifiedBy).append(name).append(owner).append(sendReminders).append(type).append(weight).toHashCode();
-    }
+//    /**
+//     * TODO Auto-generated method documentation
+//     * 
+//     * @param obj
+//     * @return Boolean
+//     */
+//    public boolean Pet.equals(Object obj) {
+//        if (!(obj instanceof Pet)) {
+//            return false;
+//        }
+//        if (this == obj) {
+//            return true;
+//        }
+//        Pet rhs = (Pet) obj;
+//        return new EqualsBuilder().append(createdBy, rhs.createdBy).append(id, rhs.id).append(modifiedBy, rhs.modifiedBy).append(name, rhs.name).append(owner, rhs.owner).append(sendReminders, rhs.sendReminders).append(type, rhs.type).append(weight, rhs.weight).isEquals();
+//    }
+//    
+//    /**
+//     * TODO Auto-generated method documentation
+//     * 
+//     * @return Integer
+//     */
+//    public int Pet.hashCode() {
+//        return new HashCodeBuilder().append(createdBy).append(id).append(modifiedBy).append(name).append(owner).append(sendReminders).append(type).append(weight).toHashCode();
+//    }
     
 }

@@ -29,9 +29,9 @@ privileged aspect Pet_Roo_Jpa_Entity {
      * TODO Auto-generated constructor documentation
      * 
      */
-    public Pet.new() {
-        super();
-    }
+//    public Pet.new() {
+//        super();
+//    }
 
     /**
      * TODO Auto-generated method documentation
@@ -41,8 +41,8 @@ privileged aspect Pet_Roo_Jpa_Entity {
     public void Pet.addToVisits(Iterable<Visit> visitsToAdd) {
         Assert.notNull(visitsToAdd, ITERABLE_TO_ADD_CANT_BE_NULL_MESSAGE);
         for (Visit item : visitsToAdd) {
+          item.setPet(this);
             this.visits.add(item);
-            item.setPet(this);
         }
     }
     

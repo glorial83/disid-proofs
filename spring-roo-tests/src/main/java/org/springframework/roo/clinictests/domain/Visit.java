@@ -1,29 +1,33 @@
 package org.springframework.roo.clinictests.domain;
-import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
-import org.springframework.roo.addon.javabean.annotations.RooToString;
-import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Version;
-import javax.validation.constraints.Size;
-import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import org.springframework.format.annotation.DateTimeFormat;
 import io.springlets.format.EntityFormat;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import java.util.Calendar;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.roo.addon.javabean.annotations.RooJavaBean;
+import org.springframework.roo.addon.javabean.annotations.RooToString;
 import org.springframework.roo.addon.jpa.annotations.audit.RooJpaAudit;
+import org.springframework.roo.addon.jpa.annotations.entity.RooJpaEntity;
 import org.springframework.roo.addon.ws.annotations.jaxb.RooJaxbEntity;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 /**
  * = Visit
@@ -116,4 +120,33 @@ public class Visit {
      */
     @LastModifiedBy
     private String modifiedBy;
+
+  /**
+   * TODO Auto-generated method documentation
+   * 
+   * @param obj
+   * @return Boolean
+   */
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    // instanceof is false if the instance is null
+    if (!(obj instanceof Visit)) {
+      return false;
+    }
+
+    return getId() != null && Objects.equals(getId(), ((Visit) obj).getId());
+  }
+
+  /**
+   * TODO Auto-generated method documentation
+   * 
+   * @return Integer
+   */
+  public int hashCode() {
+    return 31;
+  }
+
 }

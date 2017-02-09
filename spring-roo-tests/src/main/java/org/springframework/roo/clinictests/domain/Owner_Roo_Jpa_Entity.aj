@@ -33,8 +33,8 @@ privileged aspect Owner_Roo_Jpa_Entity {
     public void Owner.addToPets(Iterable<Pet> petsToAdd) {
         Assert.notNull(petsToAdd, ITERABLE_TO_ADD_CANT_BE_NULL_MESSAGE);
         for (Pet item : petsToAdd) {
-            this.pets.add(item);
             item.setOwner(this);
+            this.pets.add(item);
         }
     }
     
