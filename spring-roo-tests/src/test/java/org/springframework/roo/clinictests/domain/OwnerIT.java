@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.roo.clinictests.config.SpringDataJpaDetachableRepositoryConfiguration;
 import org.springframework.roo.clinictests.dod.DataOnDemandConfiguration;
 import org.springframework.roo.clinictests.dod.OwnerDataOnDemand;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,7 +34,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Import(DataOnDemandConfiguration.class)
+@Import({DataOnDemandConfiguration.class, SpringDataJpaDetachableRepositoryConfiguration.class})
 public class OwnerIT {
 
   @Autowired

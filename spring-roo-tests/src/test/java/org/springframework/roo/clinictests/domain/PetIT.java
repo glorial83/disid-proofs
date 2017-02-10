@@ -16,6 +16,8 @@
 package org.springframework.roo.clinictests.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,9 +25,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.roo.clinictests.config.SpringDataJpaDetachableRepositoryConfiguration;
 import org.springframework.roo.clinictests.dod.DataOnDemandConfiguration;
 import org.springframework.roo.clinictests.dod.PetDataOnDemand;
+import org.springframework.roo.clinictests.dod.PetFactory;
+import org.springframework.roo.clinictests.dod.VisitFactory;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Integration tests for the {@link Pet} entity.
@@ -33,7 +43,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Import(DataOnDemandConfiguration.class)
+@Import({DataOnDemandConfiguration.class, SpringDataJpaDetachableRepositoryConfiguration.class})
 public class PetIT {
 
   @Autowired
@@ -57,4 +67,58 @@ public class PetIT {
     assertThat(pet.isSendReminders()).as("Check pet sendReminders")
         .isEqualTo(newRandomPet.isSendReminders());
   }
+
+  @Test
+  public void testEqualityConstraints() {
+    Pet entity = dod.getNewRandomTransientPet();
+
+    Set<Pet> tuples = new HashSet<Pet>();
+
+    assertFalse(tuples.contains(entity));
+    tuples.add(entity);
+    assertTrue(tuples.contains(entity));
+
+    Pet persisted = entityManager.persist(entity);
+    entityManager.flush();
+
+    assertTrue("The entity is NOT found after it's persisted", tuples.contains(persisted));
+
+    //The entity is found after the entity is detached
+    assertTrue(tuples.contains(entity));
+
+    Pet merged = entityManager.merge(entity);
+    assertTrue("The entity is NOT found after it's merged", tuples.contains(merged));
+
+    Pet found = entityManager.find(Pet.class, entity.getId());
+    assertTrue("The entity is NOT found after it's loaded " + "in an other Persistence Context",
+        tuples.contains(found));
+
+    Pet reference = entityManager.getEntityManager().getReference(Pet.class, entity.getId());
+    assertTrue(
+        "The entity is NOT found after it's loaded as a Proxy " + "in an other Persistence Context",
+        tuples.contains(reference));
+  }
+
+  @Test
+  public void removeFromVisitsShouldRemoveTheVisitFromTheVisitsRelationship() throws Exception {
+    // Setup
+    PetFactory petFactory = new PetFactory();
+    VisitFactory visitFactory = new VisitFactory();
+    Pet pet = petFactory.create(0);
+    Visit visit1 = entityManager.persistFlushFind(visitFactory.create(0));
+    Visit visit2 = entityManager.persistFlushFind(visitFactory.create(1));
+    pet.addToVisits(Arrays.asList(visit1, visit2));
+    pet = entityManager.persistFlushFind(pet);
+
+    // Exercise
+    pet.removeFromVisits(Collections.singleton(visit1));
+    pet = entityManager.persistFlushFind(pet);
+
+    // Verify
+    assertThat(visit1.getPet()).as("Check 'removeFromVisits' updates the visit relationship side")
+        .isNull();
+    assertThat(pet.getVisits()).as("Check 'removeFromVisits' removes a visit from the relationship")
+        .doesNotContain(visit1).contains(visit2);
+  }
+
 }
