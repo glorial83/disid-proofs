@@ -18,12 +18,12 @@
 
   <properties>
     <roo.version>2.0.0.BUILD-SNAPSHOT</roo.version>
-    <java.product.version>6</java.product.version>
+    <java.product.version>7</java.product.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <aspectj.plugin.version>1.8</aspectj.plugin.version>
     <asciidoclet.version>1.5.4</asciidoclet.version>
     <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-  <springlets.version>1.1.0.BUILD-SNAPSHOT</springlets.version>
+    <springlets.version>1.2.0.BUILD-SNAPSHOT</springlets.version>
     <tracee.version>1.1.2</tracee.version>
     <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
     <thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
@@ -220,6 +220,11 @@
                 <version>${springlets.version}</version>
             </dependency>
         <dependency>
+                <groupId>io.springlets</groupId>
+                <artifactId>springlets-boot-starter-test</artifactId>
+                <version>${springlets.version}</version>
+            </dependency>
+        <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
                 <version>${cxf.version}</version>
@@ -247,6 +252,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.springlets</groupId>
+        <artifactId>springlets-boot-starter-test</artifactId>
+        <scope>test</scope>
     </dependency>
 
     <dependency>

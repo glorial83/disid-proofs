@@ -24,16 +24,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.springlets.boot.test.autoconfigure.web.servlet.SpringletsWebMvcTest;
 import io.springlets.data.domain.GlobalSearch;
+import io.springlets.data.web.datatables.Datatables;
 
+import org.assertj.core.api.Condition;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -47,6 +52,7 @@ import org.springframework.http.MediaType;
 import org.springframework.roo.clinictests.dod.PetFactory;
 import org.springframework.roo.clinictests.domain.Pet;
 import org.springframework.roo.clinictests.service.api.PetService;
+import org.springframework.roo.clinictests.service.api.VisitService;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -58,8 +64,8 @@ import java.util.Collection;
  * @author Cèsar Ordiñana at http://www.disid.com[DISID Corporation S.L.]
  */
 @RunWith(SpringRunner.class)
-@SpringletsWebMvcTest(controllers = PetsCollectionJsonController.class, secure = false)
-public class PetsCollectionJsonControllerIT {
+@SpringletsWebMvcTest(controllers = PetsCollectionThymeleafController.class, secure = false)
+public class PetsCollectionThymeleafControllerIT {
 
   @Autowired
   private MockMvc mvc;
@@ -67,10 +73,19 @@ public class PetsCollectionJsonControllerIT {
   @MockBean
   private PetService petService;
 
+  @MockBean
+  private VisitService visitService;
+
+  @MockBean
+  private VisitsItemThymeleafController visitsItemThymeleafController;
+
   private PetFactory factory = new PetFactory();
 
   @Captor
   private ArgumentCaptor<Collection<Pet>> petCollectionCaptor;
+
+  @Captor
+  private ArgumentCaptor<Pet> petCaptor;
 
   @Captor
   private ArgumentCaptor<Iterable<Long>> petIdIterableCaptor;
@@ -78,44 +93,43 @@ public class PetsCollectionJsonControllerIT {
   private ObjectMapper mapper = new ObjectMapper();
 
   @Test
-  public void listShouldReturnPets() throws Exception {
+  public void listShouldReturnPetsListView() throws Exception {
+    // Setup, Execute & Verify
+    // @formatter:off
+    mvc.perform(get("/pets")
+        .accept(MediaType.TEXT_HTML))
+        .andExpect(status().isOk())
+        .andExpect(view().name("/pets/list"));
+    // @formatter:on
+  }
+
+  @Test
+  public void datatablesShouldReturnPets() throws Exception {
     // Setup
     Pet pet0 = factory.create(0);
     Pet pet1 = factory.create(1);
     Page<Pet> page = new PageImpl<Pet>(Arrays.asList(pet0, pet1));
     when(petService.findAll(any(GlobalSearch.class), any(Pageable.class))).thenReturn(page);
 
-    // For information about the JsonPath syntax take a look at
-    // the README.adoc at: https://github.com/jayway/JsonPath
-
     // Execute & Verify
     // @formatter:off
-    mvc.perform(get("/pets")
-        .accept(MediaType.APPLICATION_JSON))
+    mvc.perform(get("/pets/dt")
+        .accept(Datatables.MEDIA_TYPE)
+        .param("draw", "1")
+        .param("columns[0][data]", "name"))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.totalPages", is(1)))
-        .andExpect(jsonPath("$.totalElements", is(2)))
-        .andExpect(jsonPath("$.last", is(true)))
-        .andExpect(jsonPath("$.numberOfElements", is(2)))
-        .andExpect(jsonPath("$.content[0].id", is(pet0.getId())))
-        .andExpect(jsonPath("$.content[0].name", is(pet0.getName())))
-        .andExpect(jsonPath("$.content[0].type", is(pet0.getType().toString())))
-        .andExpect(jsonPath("$.content[0].weight", is(pet0.getWeight().doubleValue())))
-        .andExpect(jsonPath("$.content[1].id", is(pet1.getId())))
-        .andExpect(jsonPath("$.content[1].name", is(pet1.getName())))
-        .andExpect(jsonPath("$.content[1].type", is(pet1.getType().toString())))
-        .andExpect(jsonPath("$.content[1].weight", is(pet1.getWeight().doubleValue())));
-        //.andDo(print());
+        .andExpect(jsonPath("$.recordsTotal", is(2)))
+        .andExpect(jsonPath("$.recordsFiltered", is(2)))
+        .andExpect(jsonPath("$.data[0].name", is(pet0.getName())))
+        .andExpect(jsonPath("$.data[1].name", is(pet1.getName())));
     // @formatter:on
   }
 
   @Test
-  public void createShouldCreateANewPetAndReturnUriToGetIt() throws Exception {
+  public void createShouldCreateANewPetAndRedirectToShowUri() throws Exception {
     // Setup
     // Sent pet can't have the id set
-    Pet petRequest = factory.create(1);
-    String jsonContent = mapper.writeValueAsString(petRequest);
+    final Pet petRequest = factory.create(1);
 
     Pet petResponse = factory.create(1);
     petResponse.setId(1l);
@@ -124,30 +138,50 @@ public class PetsCollectionJsonControllerIT {
     // Execute & Verify
     // @formatter:off
     mvc.perform(post("/pets")
-        .content(jsonContent)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isCreated())
-        .andExpect(header().string("Location", "http://localhost/pets/1/"));
+          .param("sendReminders", String.valueOf(petRequest.isSendReminders()))
+          .param("name", petRequest.getName())
+          .param("weight", String.valueOf(petRequest.getWeight()))
+          .param("type", String.valueOf(petRequest.getType()))
+        )
+        .andExpect(redirectedUrl("http://localhost/pets/1/"));
     // @formatter:on
+
+    verify(petService).save(petCaptor.capture());
+    assertThat(petCaptor.getValue()).as("Check the pet to create has the sent values")
+        .is(new Condition<Pet>() {
+          @Override
+          public boolean matches(Pet value) {
+            return value.getName().equals(petRequest.getName())
+                && value.isSendReminders() == petRequest.isSendReminders()
+                && value.getWeight().equals(petRequest.getWeight())
+                && value.getType().equals(petRequest.getType());
+          }
+        });
   }
 
   @Test
-  public void createWithIdShouldNotBeAllowed() throws Exception {
+  public void createWithIdShouldIgnoreIdParameter() throws Exception {
     // Setup
-    // Sent pet can't have the id set
     Pet petRequest = factory.create(1);
-    petRequest.setId(1l);
-    String jsonContent = mapper.writeValueAsString(petRequest);
+
+    Pet petResponse = factory.create(1);
+    petResponse.setId(1l);
+    when(petService.save(any(Pet.class))).thenReturn(petResponse);
 
     // Execute & Verify
     // @formatter:off
     mvc.perform(post("/pets")
-        .content(jsonContent)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isConflict());
+          .param("id", String.valueOf(3))
+          .param("sendReminders", String.valueOf(petRequest.isSendReminders()))
+          .param("name", petRequest.getName())
+          .param("weight", String.valueOf(petRequest.getWeight()))
+          .param("type", String.valueOf(petRequest.getType()))
+        )
+       .andExpect(redirectedUrl("http://localhost/pets/1/"));
     // @formatter:on
+
+    verify(petService).save(petCaptor.capture());
+    assertThat(petCaptor.getValue().getId()).as("Check the pet to save don't have an id").isNull();
   }
 
   @Test
@@ -156,20 +190,22 @@ public class PetsCollectionJsonControllerIT {
     // Sent pet can't have the id set
     Pet petRequest = factory.create(1);
     petRequest.setWeight(-1.0f);;
-    String jsonContent = mapper.writeValueAsString(petRequest);
 
     // Execute & Verify
     // @formatter:off
     mvc.perform(post("/pets")
-        .content(jsonContent)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isConflict())
-        .andExpect(jsonPath("$.errors.weight", is("must be greater than or equal to 0")));
+          .param("sendReminders", String.valueOf(petRequest.isSendReminders()))
+          .param("name", petRequest.getName())
+          .param("weight", String.valueOf(petRequest.getWeight()))
+          .param("type", String.valueOf(petRequest.getType()))
+        )
+        .andExpect(view().name("/pets/create"))
+        .andExpect(model().attributeExists("pet"));
     // @formatter:on
   }
 
   @Test
+  @Ignore
   public void createBatchShouldCreateNewPetsAndReturnUriToList() throws Exception {
     // Setup
     Pet[] petsRequest = new Pet[] {factory.create(0), factory.create(1), factory.create(2)};
@@ -188,23 +224,14 @@ public class PetsCollectionJsonControllerIT {
     verify(petService).save(petCollectionCaptor.capture());
     // NOTE: requires equals method implemented in the Pet class, ignoring date values
     // @formatter:off
-    int i = 0;
-    for (Pet pet : petCollectionCaptor.getValue()) {
-      assertThat(pet.getName())
+    assertThat(petCollectionCaptor.getValue())
         .as("Check the pets to save are the same as the sent ones")
-        .isEqualTo(petsRequest[i].getName());
-      assertThat(pet.getType())
-        .as("Check the pets to save are the same as the sent ones")
-        .isEqualTo(petsRequest[i].getType());
-      assertThat(pet.getWeight())
-        .as("Check the pets to save are the same as the sent ones")
-        .isEqualTo(petsRequest[i].getWeight());
-      i++;
-    }
+        .containsExactly(petsRequest);
     // @formatter:on
   }
 
   @Test
+  @Ignore
   public void createBatchWithNotValidPetShouldNotBeAllowed() throws Exception {
     // Setup
     Pet badPet = factory.create(1);
@@ -224,6 +251,7 @@ public class PetsCollectionJsonControllerIT {
   }
 
   @Test
+  @Ignore
   public void updateBatchShouldUpdatePetsAndReturnUriToList() throws Exception {
     // Setup
     Pet[] petsRequest = new Pet[] {factory.create(0), factory.create(1), factory.create(2)};
@@ -251,6 +279,7 @@ public class PetsCollectionJsonControllerIT {
   }
 
   @Test
+  @Ignore
   public void updateBatchWithNotValidPetShouldNotBeAllowed() throws Exception {
     // Setup
     Pet badPet = factory.create(1);
@@ -262,9 +291,7 @@ public class PetsCollectionJsonControllerIT {
     // Execute & Verify
     // @formatter:off
     mvc.perform(put("/pets/batch")
-        .content(jsonContent)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
+        .content(jsonContent))
         .andExpect(status().isConflict())
         .andExpect(jsonPath("$.errors.1.weight", is("must be greater than or equal to 0")));
     // @formatter:on
@@ -277,8 +304,7 @@ public class PetsCollectionJsonControllerIT {
 
     // Execute & Verify
     // @formatter:off
-    mvc.perform(delete(uri)
-        .accept(MediaType.APPLICATION_JSON))
+    mvc.perform(delete(uri))
         .andExpect(status().isOk());
     // @formatter:on
     verify(petService).delete(petIdIterableCaptor.capture());
