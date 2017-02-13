@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.roo.clinictests.config.SpringDataJpaDetachableRepositoryConfiguration;
 import org.springframework.roo.clinictests.dod.DataOnDemandConfiguration;
 import org.springframework.roo.clinictests.dod.PetDataOnDemand;
 import org.springframework.roo.clinictests.domain.Pet;
@@ -31,7 +32,7 @@ import javax.validation.ConstraintViolationException;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Import(DataOnDemandConfiguration.class)
+@Import({DataOnDemandConfiguration.class, SpringDataJpaDetachableRepositoryConfiguration.class})
 public class PetRepositoryIT {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
