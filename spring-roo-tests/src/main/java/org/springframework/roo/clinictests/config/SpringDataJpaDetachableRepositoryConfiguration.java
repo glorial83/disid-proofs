@@ -17,7 +17,6 @@ package org.springframework.roo.clinictests.config;
 
 import io.springlets.data.jpa.repository.support.DetachableJpaRepositoryImpl;
 
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.roo.clinictests.ClinictestsApplication;
@@ -31,7 +30,7 @@ import org.springframework.roo.clinictests.ClinictestsApplication;
  * performed anymore. That's why the _basePackageClasses_ has to be set here.
  * 
  * Another option would be to put the {@link EnableJpaRepositories} annotation in the main
- * class, but then the Spring Boot test slices, for example with the {@link WebMvcTest} annotation,
+ * class, but then the Spring Boot test slices, for example with the WebMvcTest annotation,
  * will apply the annotation and try to load the Spring Data JPA repositories.
  * 
  * @author Cèsar Ordiñana at http://www.disid.com[DISID Corporation S.L.]
