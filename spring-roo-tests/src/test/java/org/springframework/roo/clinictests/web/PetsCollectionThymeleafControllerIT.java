@@ -23,22 +23,17 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.springlets.boot.test.autoconfigure.web.servlet.SpringletsWebMvcTest;
 import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.web.datatables.Datatables;
 
 import org.assertj.core.api.Condition;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -52,7 +47,6 @@ import org.springframework.http.MediaType;
 import org.springframework.roo.clinictests.dod.PetFactory;
 import org.springframework.roo.clinictests.domain.Pet;
 import org.springframework.roo.clinictests.service.api.PetService;
-import org.springframework.roo.clinictests.service.api.VisitService;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -73,12 +67,6 @@ public class PetsCollectionThymeleafControllerIT {
   @MockBean
   private PetService petService;
 
-  @MockBean
-  private VisitService visitService;
-
-  @MockBean
-  private VisitsItemThymeleafController visitsItemThymeleafController;
-
   private PetFactory factory = new PetFactory();
 
   @Captor
@@ -89,8 +77,6 @@ public class PetsCollectionThymeleafControllerIT {
 
   @Captor
   private ArgumentCaptor<Iterable<Long>> petIdIterableCaptor;
-
-  private ObjectMapper mapper = new ObjectMapper();
 
   @Test
   public void listShouldReturnPetsListView() throws Exception {
@@ -201,99 +187,6 @@ public class PetsCollectionThymeleafControllerIT {
         )
         .andExpect(view().name("/pets/create"))
         .andExpect(model().attributeExists("pet"));
-    // @formatter:on
-  }
-
-  @Test
-  @Ignore
-  public void createBatchShouldCreateNewPetsAndReturnUriToList() throws Exception {
-    // Setup
-    Pet[] petsRequest = new Pet[] {factory.create(0), factory.create(1), factory.create(2)};
-    String jsonContent = mapper.writeValueAsString(petsRequest);
-
-    // Execute & Verify
-    // @formatter:off
-    mvc.perform(post("/pets/batch")
-        .content(jsonContent)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isCreated())
-        .andExpect(header().string("Location", "http://localhost/pets/"));
-    // @formatter:on
-
-    verify(petService).save(petCollectionCaptor.capture());
-    // NOTE: requires equals method implemented in the Pet class, ignoring date values
-    // @formatter:off
-    assertThat(petCollectionCaptor.getValue())
-        .as("Check the pets to save are the same as the sent ones")
-        .containsExactly(petsRequest);
-    // @formatter:on
-  }
-
-  @Test
-  @Ignore
-  public void createBatchWithNotValidPetShouldNotBeAllowed() throws Exception {
-    // Setup
-    Pet badPet = factory.create(1);
-    badPet.setWeight(-1.0f);
-    Pet[] petsRequest = new Pet[] {factory.create(0), badPet, factory.create(2)};
-    String jsonContent = mapper.writeValueAsString(petsRequest);
-
-    // Execute & Verify
-    // @formatter:off
-    mvc.perform(post("/pets/batch")
-        .content(jsonContent)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isConflict())
-        .andExpect(jsonPath("$.errors.1.weight", is("must be greater than or equal to 0")));
-    // @formatter:on
-  }
-
-  @Test
-  @Ignore
-  public void updateBatchShouldUpdatePetsAndReturnUriToList() throws Exception {
-    // Setup
-    Pet[] petsRequest = new Pet[] {factory.create(0), factory.create(1), factory.create(2)};
-    petsRequest[0].setId(0l);
-    petsRequest[1].setId(1l);
-    petsRequest[2].setId(2l);
-    String jsonContent = mapper.writeValueAsString(petsRequest);
-
-    // Execute & Verify
-    // @formatter:off
-    mvc.perform(put("/pets/batch")
-        .content(jsonContent)
-        .contentType(MediaType.APPLICATION_JSON)
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-    // @formatter:on
-
-    verify(petService).save(petCollectionCaptor.capture());
-    // NOTE: requires equals method implemented in the Pet class, ignoring date values
-    // @formatter:off
-    assertThat(petCollectionCaptor.getValue())
-        .as("Check the pets to save are the same as the sent ones")
-        .containsExactly(petsRequest);
-    // @formatter:on
-  }
-
-  @Test
-  @Ignore
-  public void updateBatchWithNotValidPetShouldNotBeAllowed() throws Exception {
-    // Setup
-    Pet badPet = factory.create(1);
-    badPet.setId(1l);
-    badPet.setWeight(-1.0f);
-    Pet[] petsRequest = new Pet[] {factory.create(0), badPet, factory.create(2)};
-    String jsonContent = mapper.writeValueAsString(petsRequest);
-
-    // Execute & Verify
-    // @formatter:off
-    mvc.perform(put("/pets/batch")
-        .content(jsonContent))
-        .andExpect(status().isConflict())
-        .andExpect(jsonPath("$.errors.1.weight", is("must be greater than or equal to 0")));
     // @formatter:on
   }
 
