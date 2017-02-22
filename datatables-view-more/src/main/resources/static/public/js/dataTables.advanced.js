@@ -1225,7 +1225,7 @@
             buttons = buttons.concat('<a class="btn btn-action btn-sm" href="')
                 .concat(showUrl).concat('" ><span class="glyphicon glyphicon-eye-open"></span></a>');
         }else if(showUrl && showInline){
-        	buttons = buttons.concat('<a class="btn btn-action btn-sm" href="#" onclick="jQuery(\'#').concat(tableId).concat('\').DataTable().advanced.showMoreInfo(this, jQuery(\'#').concat(tableId).concat('\').DataTable(),\'').concat(showUrl).concat('\')"><span class="glyphicon glyphicon-eye-open"></span></a>');
+        	buttons = buttons.concat('<a class="btn btn-action btn-sm" href="#" onclick="jQuery(\'#').concat(tableId).concat('\').DataTable().advanced.showInline(this, jQuery(\'#').concat(tableId).concat('\').DataTable(),\'').concat(showUrl).concat('\')"><span class="glyphicon glyphicon-eye-open"></span></a>');
         }
 
         var editUrl = getEditUrl(datatables, rowId);
@@ -1247,11 +1247,11 @@
     
     
     /**
-     * This method tries to display more information of the selected record
+     * This method tries to display the show view of the selected record
      * expanding the selected row.
      */
-    function showMoreInfo(showMoreButton, datatables, showUrl){
-    	var tr = showMoreButton.closest('tr');
+    function showInline(showButton, datatables, showUrl){
+    	var tr = showButton.closest('tr');
         var row = datatables.row( tr );
         if ( row.child.isShown() ) {
             // This row is already open - close it
@@ -1259,7 +1259,7 @@
         }
         else {
         	$.ajax({
-    		  url: showUrl,
+    		  url: showUrl + "/inline",
     		  dataType: 'html'
     		}).done(function(data) {
     			// Open this row
@@ -1302,7 +1302,7 @@
     apiRegister('advanced.getExportExcelButton()', exportExcelButton);
     apiRegister('advanced.getExportPdfButton()', exportPdfButton);
     
-    apiRegister('advanced.showMoreInfo()', showMoreInfo);
+    apiRegister('advanced.showInline()', showInline);
 
 
 
