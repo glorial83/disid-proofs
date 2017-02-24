@@ -40,6 +40,7 @@
     <datatables-select.version>1.1.2</datatables-select.version>
     <datatables-select-bs.version>1.1.2</datatables-select-bs.version>
     <datatables-checkboxes.version>1.1.2</datatables-checkboxes.version>
+    <datatables-mark.version>2.0.0</datatables-mark.version>
     <datetimepicker.version>2.5.4</datetimepicker.version>
     <fontawesome.version>4.6.2</fontawesome.version>
     <jquery.version>1.12.3</jquery.version>
@@ -192,6 +193,11 @@
                         <artifactId>datatables.net</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.bower</groupId>
+                <artifactId>github-com-julmot-datatables-mark-js</artifactId>
+                <version>${datatables-mark.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.webjars.bower</groupId>
@@ -453,6 +459,10 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>jquery-datatables-checkboxes</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>github-com-julmot-datatables-mark-js</artifactId>
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
