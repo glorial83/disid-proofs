@@ -1,0 +1,22 @@
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev 03b15d2] log opened at 2017-03-01 13:42:04
+project setup --topLevelPackage org.disid.proof
+jpa setup --provider HIBERNATE --database POSTGRES --databaseName manytomany --userName postgres --password admin --hostName localhost
+entity jpa --class ~.domain.Author
+field string --fieldName name --notNull
+field string --fieldName lastName --notNull
+entity jpa --class ~.domain.Book 
+field string --fieldName title
+field string --fieldName isbn
+focus --class ~.domain.Author
+help field set
+field set --fieldName books --type ~.domain.Book --cardinality MANY_TO_MANY
+repository jpa --all 
+service --all --apiPackage ~.service.api --implPackage ~.service.impl
+web mvc setup 
+web mvc view setup --type THYMELEAF 
+web mvc controller --all --package ~.web --responseType THYMELEAF
+web mvc detail --entity ~.domain.Author --field books --package ~.web --responseType THYMELEAF 
+// script script.roo
+hint
+exit
+// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev 03b15d2] log closed at 2017-03-01 13:42:34
