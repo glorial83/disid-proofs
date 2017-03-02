@@ -6,31 +6,29 @@ package org.disid.proof.service.api;
 import io.springlets.data.domain.GlobalSearch;
 import io.springlets.format.EntityResolver;
 import java.util.List;
-import org.disid.proof.domain.Author;
-import org.disid.proof.domain.Book;
 import org.disid.proof.domain.Editorial;
-import org.disid.proof.service.api.BookService;
+import org.disid.proof.service.api.EditorialService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-privileged aspect BookService_Roo_Service {
+privileged aspect EditorialService_Roo_Service {
     
-    declare parents: BookService extends EntityResolver<Book, Long>;
+    declare parents: EditorialService extends EntityResolver<Editorial, Long>;
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @param id
-     * @return Book
+     * @return Editorial
      */
-    public abstract Book BookService.findOne(Long id);
+    public abstract Editorial EditorialService.findOne(Long id);
     
     /**
      * TODO Auto-generated method documentation
      * 
-     * @param book
+     * @param editorial
      */
-    public abstract void BookService.delete(Book book);
+    public abstract void EditorialService.delete(Editorial editorial);
     
     /**
      * TODO Auto-generated method documentation
@@ -38,30 +36,30 @@ privileged aspect BookService_Roo_Service {
      * @param entities
      * @return List
      */
-    public abstract List<Book> BookService.save(Iterable<Book> entities);
+    public abstract List<Editorial> EditorialService.save(Iterable<Editorial> entities);
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @param ids
      */
-    public abstract void BookService.delete(Iterable<Long> ids);
+    public abstract void EditorialService.delete(Iterable<Long> ids);
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @param entity
-     * @return Book
+     * @return Editorial
      */
-    public abstract Book BookService.save(Book entity);
+    public abstract Editorial EditorialService.save(Editorial entity);
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @param id
-     * @return Book
+     * @return Editorial
      */
-    public abstract Book BookService.findOneForUpdate(Long id);
+    public abstract Editorial EditorialService.findOneForUpdate(Long id);
     
     /**
      * TODO Auto-generated method documentation
@@ -69,21 +67,21 @@ privileged aspect BookService_Roo_Service {
      * @param ids
      * @return List
      */
-    public abstract List<Book> BookService.findAll(Iterable<Long> ids);
+    public abstract List<Editorial> EditorialService.findAll(Iterable<Long> ids);
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @return List
      */
-    public abstract List<Book> BookService.findAll();
+    public abstract List<Editorial> EditorialService.findAll();
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @return Long
      */
-    public abstract long BookService.count();
+    public abstract long EditorialService.count();
     
     /**
      * TODO Auto-generated method documentation
@@ -92,42 +90,33 @@ privileged aspect BookService_Roo_Service {
      * @param pageable
      * @return Page
      */
-    public abstract Page<Book> BookService.findAll(GlobalSearch globalSearch, Pageable pageable);
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param authors
-     * @param globalSearch
-     * @param pageable
-     * @return Page
-     */
-    public abstract Page<Book> BookService.findByAuthorsContains(Author authors, GlobalSearch globalSearch, Pageable pageable);
+    public abstract Page<Editorial> EditorialService.findAll(GlobalSearch globalSearch, Pageable pageable);
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @param editorial
-     * @param globalSearch
-     * @param pageable
-     * @return Page
+     * @param booksToAdd
+     * @return Editorial
      */
-    public abstract Page<Book> BookService.findByEditorial(Editorial editorial, GlobalSearch globalSearch, Pageable pageable);
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param authors
-     * @return Long
-     */
-    public abstract long BookService.countByAuthorsContains(Author authors);
+    public abstract Editorial EditorialService.addToBooks(Editorial editorial, Iterable<Long> booksToAdd);
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @param editorial
-     * @return Long
+     * @param booksToRemove
+     * @return Editorial
      */
-    public abstract long BookService.countByEditorial(Editorial editorial);
+    public abstract Editorial EditorialService.removeFromBooks(Editorial editorial, Iterable<Long> booksToRemove);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param editorial
+     * @param books
+     * @return Editorial
+     */
+    public abstract Editorial EditorialService.setBooks(Editorial editorial, Iterable<Long> books);
     
 }

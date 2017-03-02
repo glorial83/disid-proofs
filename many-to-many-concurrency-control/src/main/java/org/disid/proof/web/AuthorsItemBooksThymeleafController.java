@@ -35,6 +35,8 @@ public class AuthorsItemBooksThymeleafController {
      * 
      * @param author
      * @param books
+     * @param version
+     * @param concurrency
      * @param model
      * @return ModelAndView
      */
@@ -59,6 +61,8 @@ public class AuthorsItemBooksThymeleafController {
             // included in the view
             if(books != null){
             	author.setBooks(new HashSet<Book>(getBookService().findAll(books)));
+            }else{
+            	author.setBooks(new HashSet<Book>());
             }
             // Reset the version to prevent update
             author.setVersion(version);

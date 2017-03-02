@@ -10,12 +10,12 @@ import javax.persistence.Version;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import io.springlets.format.EntityFormat;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import org.springframework.roo.addon.jpa.annotations.entity.JpaRelationType;
+import org.springframework.roo.addon.jpa.annotations.entity.RooJpaRelation;
 
 /**
- * = Book
+ * = Editorial
  *
  * TODO Auto-generated class documentation
  *
@@ -24,7 +24,7 @@ import javax.persistence.ManyToOne;
 @RooToString
 @RooJpaEntity
 @RooEquals(isJpaEntity = true)
-public class Book {
+public class Editorial {
 
     /**
      * TODO Auto-generated attribute documentation
@@ -45,26 +45,19 @@ public class Book {
      * TODO Auto-generated attribute documentation
      *
      */
-    private String title;
+    private String name;
 
     /**
      * TODO Auto-generated attribute documentation
      *
      */
-    private String isbn;
+    private String address;
 
     /**
      * TODO Auto-generated attribute documentation
      *
      */
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Author> authors = new HashSet<Author>();
-
-    /**
-     * TODO Auto-generated attribute documentation
-     *
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @EntityFormat
-    private Editorial editorial;
+    @OneToMany(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "editorial")
+    @RooJpaRelation(type = JpaRelationType.AGGREGATION)
+    private Set<Book> books = new HashSet<Book>();
 }

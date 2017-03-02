@@ -7,6 +7,7 @@ import io.springlets.data.domain.GlobalSearch;
 import java.util.List;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Editorial;
 import org.disid.proof.repository.BookRepository;
 import org.disid.proof.service.impl.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,11 @@ privileged aspect BookServiceImpl_Roo_Service_Impl {
      */
     @Transactional
     public void BookServiceImpl.delete(Book book) {
+        // Clear bidirectional many-to-one child relationship with Editorial
+        if (book.getEditorial() != null) {
+            book.getEditorial().getBooks().remove(book);
+        }
+        
         // Clear bidirectional many-to-many child relationship with Author
         for (Author item : book.getAuthors()) {
             item.getBooks().remove(book);
@@ -177,11 +183,33 @@ privileged aspect BookServiceImpl_Roo_Service_Impl {
     /**
      * TODO Auto-generated method documentation
      * 
+     * @param editorial
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public Page<Book> BookServiceImpl.findByEditorial(Editorial editorial, GlobalSearch globalSearch, Pageable pageable) {
+        return getBookRepository().findByEditorial(editorial, globalSearch, pageable);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
      * @param authors
      * @return Long
      */
     public long BookServiceImpl.countByAuthorsContains(Author authors) {
         return getBookRepository().countByAuthorsContains(authors);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param editorial
+     * @return Long
+     */
+    public long BookServiceImpl.countByEditorial(Editorial editorial) {
+        return getBookRepository().countByEditorial(editorial);
     }
     
     /**

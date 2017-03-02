@@ -6,11 +6,22 @@ package org.disid.proof.repository;
 import io.springlets.data.domain.GlobalSearch;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Editorial;
 import org.disid.proof.repository.BookRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 privileged aspect BookRepositoryCustom_Roo_Jpa_Repository_Custom {
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param editorial
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public abstract Page<Book> BookRepositoryCustom.findByEditorial(Editorial editorial, GlobalSearch globalSearch, Pageable pageable);
     
     /**
      * TODO Auto-generated method documentation

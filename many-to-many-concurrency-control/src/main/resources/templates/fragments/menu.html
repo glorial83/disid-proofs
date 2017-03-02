@@ -51,6 +51,13 @@
 	                  <li><a href="/books" data-th-href="@{/books}" data-th-utext="#{label_list_entity(#{label_book_plural})}">List Book</a></li>
                  </ul>
                 </li>
+                <li class="dropdown" id="editorial-entry" data-z="62fd4c16">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_editorial})}">Editorial<span class="caret"></span></a>
+                 <ul class="dropdown-menu">
+	                   <li><a href="/editorials/create-form" data-th-href="@{/editorials/create-form}" data-th-utext="#{label_create_entity(#{label_editorial})}">Create Editorial</a></li>
+	                  <li><a href="/editorials" data-th-href="@{/editorials}" data-th-utext="#{label_list_entity(#{label_editorial_plural})}">List Editorial</a></li>
+                 </ul>
+                </li>
               </ul>
 
               <!-- Language select -->

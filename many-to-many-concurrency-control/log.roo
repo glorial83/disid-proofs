@@ -16,7 +16,13 @@ web mvc setup
 web mvc view setup --type THYMELEAF 
 web mvc controller --all --package ~.web --responseType THYMELEAF
 web mvc detail --entity ~.domain.Author --field books --package ~.web --responseType THYMELEAF 
-// script script.roo
-hint
-exit
-// Spring Roo 2.0.0.BUILD-SNAPSHOT [rev 03b15d2] log closed at 2017-03-01 13:42:34
+entity jpa --class ~.domain.Editorial
+field string --fieldName name
+field string --fieldName address
+focus --class ~.domain.Book
+focus --class ~.domain.Editorial
+field set --fieldName books --type ~.domain.Book --cardinality ONE_TO_MANY 
+repository jpa --entity ~.domain.Editorial 
+service --entity ~.domain.Editorial
+web mvc controller --entity ~.domain.Editorial --package ~.web --responseType THYMELEAF 
+web mvc detail --entity ~.domain.Editorial --field books --package ~.web --responseType THYMELEAF 

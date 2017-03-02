@@ -4,18 +4,17 @@
 package org.disid.proof.domain;
 
 import java.util.Set;
-import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
 import org.disid.proof.domain.Editorial;
 
-privileged aspect Book_Roo_JavaBean {
+privileged aspect Editorial_Roo_JavaBean {
     
     /**
      * TODO Auto-generated method documentation
      * 
      * @return Long
      */
-    public Long Book.getId() {
+    public Long Editorial.getId() {
         return this.id;
     }
     
@@ -24,7 +23,7 @@ privileged aspect Book_Roo_JavaBean {
      * 
      * @param id
      */
-    public void Book.setId(Long id) {
+    public void Editorial.setId(Long id) {
         this.id = id;
     }
     
@@ -33,7 +32,7 @@ privileged aspect Book_Roo_JavaBean {
      * 
      * @return Integer
      */
-    public Integer Book.getVersion() {
+    public Integer Editorial.getVersion() {
         return this.version;
     }
     
@@ -42,7 +41,7 @@ privileged aspect Book_Roo_JavaBean {
      * 
      * @param version
      */
-    public void Book.setVersion(Integer version) {
+    public void Editorial.setVersion(Integer version) {
         this.version = version;
     }
     
@@ -51,17 +50,17 @@ privileged aspect Book_Roo_JavaBean {
      * 
      * @return String
      */
-    public String Book.getTitle() {
-        return this.title;
+    public String Editorial.getName() {
+        return this.name;
     }
     
     /**
      * TODO Auto-generated method documentation
      * 
-     * @param title
+     * @param name
      */
-    public void Book.setTitle(String title) {
-        this.title = title;
+    public void Editorial.setName(String name) {
+        this.name = name;
     }
     
     /**
@@ -69,17 +68,17 @@ privileged aspect Book_Roo_JavaBean {
      * 
      * @return String
      */
-    public String Book.getIsbn() {
-        return this.isbn;
+    public String Editorial.getAddress() {
+        return this.address;
     }
     
     /**
      * TODO Auto-generated method documentation
      * 
-     * @param isbn
+     * @param address
      */
-    public void Book.setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void Editorial.setAddress(String address) {
+        this.address = address;
     }
     
     /**
@@ -87,35 +86,17 @@ privileged aspect Book_Roo_JavaBean {
      * 
      * @return Set
      */
-    public Set<Author> Book.getAuthors() {
-        return this.authors;
+    public Set<Book> Editorial.getBooks() {
+        return this.books;
     }
     
     /**
      * TODO Auto-generated method documentation
      * 
-     * @param authors
+     * @param books
      */
-    public void Book.setAuthors(Set<Author> authors) {
-        this.authors = authors;
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @return Editorial
-     */
-    public Editorial Book.getEditorial() {
-        return this.editorial;
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param editorial
-     */
-    public void Book.setEditorial(Editorial editorial) {
-        this.editorial = editorial;
+    public void Editorial.setBooks(Set<Book> books) {
+        this.books = books;
     }
     
 }

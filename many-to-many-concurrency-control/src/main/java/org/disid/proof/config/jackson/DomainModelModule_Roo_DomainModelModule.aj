@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.disid.proof.config.jackson.DomainModelModule;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Editorial;
 import org.disid.proof.web.AuthorJsonMixin;
 import org.disid.proof.web.BookJsonMixin;
+import org.disid.proof.web.EditorialJsonMixin;
 import org.springframework.boot.jackson.JsonComponent;
 
 privileged aspect DomainModelModule_Roo_DomainModelModule {
@@ -26,6 +28,7 @@ privileged aspect DomainModelModule_Roo_DomainModelModule {
         
         setMixInAnnotation(Author.class, AuthorJsonMixin.class);
         setMixInAnnotation(Book.class, BookJsonMixin.class);
+        setMixInAnnotation(Editorial.class, EditorialJsonMixin.class);
     }
 
 }

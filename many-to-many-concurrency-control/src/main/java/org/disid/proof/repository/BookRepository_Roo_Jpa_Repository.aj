@@ -6,6 +6,7 @@ package org.disid.proof.repository;
 import io.springlets.data.jpa.repository.DetachableJpaRepository;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Editorial;
 import org.disid.proof.repository.BookRepository;
 import org.disid.proof.repository.BookRepositoryCustom;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,14 @@ privileged aspect BookRepository_Roo_Jpa_Repository {
     declare parents: BookRepository extends BookRepositoryCustom;
     
     declare @type: BookRepository: @Transactional(readOnly = true);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param editorial
+     * @return Long
+     */
+    public abstract long BookRepository.countByEditorial(Editorial editorial);
     
     /**
      * TODO Auto-generated method documentation
