@@ -118,31 +118,6 @@ privileged aspect AuthorServiceImpl_Roo_Service_Impl {
      * TODO Auto-generated method documentation
      * 
      * @param author
-     * @param books
-     * @return Author
-     */
-    @Transactional
-    public Author AuthorServiceImpl.setBooks(Author author, Iterable<Long> books) {
-        List<Book> items = getBookService().findAll(books);
-        Set<Book> currents = author.getBooks();
-        Set<Book> toRemove = new HashSet<Book>();
-        for (Iterator<Book> iterator = currents.iterator(); iterator.hasNext();) {
-            Book nextBook = iterator.next();
-            if (items.contains(nextBook)) {
-                items.remove(nextBook);
-            } else {
-                toRemove.add(nextBook);
-            }
-        }
-        author.removeFromBooks(toRemove);
-        author.addToBooks(items);
-        return getAuthorRepository().save(author);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param author
      */
     @Transactional
     public void AuthorServiceImpl.delete(Author author) {

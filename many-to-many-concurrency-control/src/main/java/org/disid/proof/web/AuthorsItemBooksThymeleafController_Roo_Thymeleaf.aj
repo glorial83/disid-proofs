@@ -13,15 +13,12 @@ import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
 import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
 import org.disid.proof.service.api.AuthorService;
 import org.disid.proof.service.api.BookService;
 import org.disid.proof.web.AuthorsCollectionThymeleafController;
-import org.disid.proof.web.AuthorsCollectionThymeleafLinkFactory;
 import org.disid.proof.web.AuthorsItemBooksThymeleafController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -37,7 +34,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -241,26 +237,6 @@ privileged aspect AuthorsItemBooksThymeleafController_Roo_Thymeleaf {
     public ResponseEntity<?> AuthorsItemBooksThymeleafController.removeFromBooksBatch(@ModelAttribute Author author, @PathVariable("booksToRemove") Collection<Long> booksToRemove) {
         getAuthorService().removeFromBooks(author, booksToRemove);
         return ResponseEntity.ok().build();
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param author
-     * @param books
-     * @param model
-     * @return ModelAndView
-     */
-    @PostMapping(name = "create")
-    public ModelAndView AuthorsItemBooksThymeleafController.create(@ModelAttribute Author author, @RequestParam("booksIds") List<Long> books, Model model) {
-        // Remove empty values
-        for (Iterator<Long> iterator = books.iterator(); iterator.hasNext();) {
-            if (iterator.next() == null) {
-                iterator.remove();
-            }
-        }
-        getAuthorService().setBooks(author,books);
-        return new ModelAndView("redirect:" + getCollectionLink().to(AuthorsCollectionThymeleafLinkFactory.LIST).toUriString());
     }
     
 }
