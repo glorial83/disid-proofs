@@ -388,6 +388,33 @@
 
                         // Populate the row-id data attribute in the modal
                         $('#' + tableId + 'DeleteBatchRowId').data('row-id', rows_selected.join(","));
+                        
+                        // Populate DeleteConfirm table which displays the item that
+                        // will be removed
+                        var rowsData = jQuery("#" + tableId).DataTable().rows().data();
+                        var idField = jQuery("#" + tableId).data("row-id");
+                        var itemData = [];
+                        for(var i=0; i < rowsData.length; i++){
+                        	 var item = rowsData[i];
+                        	 // Check if this item is the item that should be removed
+                        	 if(rows_selected[0].indexOf(item[idField]) != -1){
+                        		 itemData.push(item);
+                        	 }
+                    	}
+                        $('#' + tableId + '-items-to-remove-batch').DataTable({
+                        	data: itemData,
+                        	dom: ''
+                        });
+                    });
+                    
+                    // When the delete modal confirm is closed, is necessary to destroy
+                    // the datatables that displays the information of the item to be removed
+                    $deleteConfirm.on('hidden.bs.modal', function(e) {
+                        $('#' + tableId + '-items-to-remove-batch').DataTable().destroy();
+                        // Remove previous events
+                        $deleteConfirm.off("show.bs.modal");
+                        $deleteConfirm.off("hidden.bs.modal");
+                        $('#' + tableId + 'DeleteBatchButton').off("click");
                     });
 
                     $('#' + tableId + 'DeleteBatchButton').on('click', function() {
@@ -1146,7 +1173,25 @@
             // Get data-row-id attribute of the clicked element
             var rowId = jQuery(e.relatedTarget).data('row-id');
             // Populate the row-id data attribute in the modal
-            $('#' + tableId + 'DeleteRowId').data('row-id', rowId)
+            $('#' + tableId + 'DeleteRowId').data('row-id', rowId);
+            
+            // Populate DeleteConfirm table which displays the item that
+            // will be removed
+            var dt = $('#' + tableId).DataTable();
+            var row = dt.row("#" + jQuery(e.relatedTarget).closest("tr").attr("id"));
+            var itemData = row.data();
+            $('#' + tableId + '-item-to-remove').DataTable({
+            	data: [itemData],
+            	dom: '',
+            	ordering: false
+            });
+            
+        });
+        
+        // When the delete modal confirm is closed, is necessary to destroy
+        // the datatables that displays the information of the item to be removed
+        $deleteConfirm.on('hidden.bs.modal', function(e) {
+            $('#' + tableId + '-item-to-remove').DataTable().destroy();
         });
 
         $('#' + tableId + 'DeleteButton').on('click', function() {

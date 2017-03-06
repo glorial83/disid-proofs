@@ -54,10 +54,10 @@
               </table>
                 <!-- content replaced by modal-confirm fragment of modal-confirm.html -->
                 <div data-th-replace="~{fragments/modal-confirm-delete :: modalConfirmDelete(tableId='pet-entity-table',
-                    title=#{label_delete_entity(#{label_pet_plural})}, message=#{info_delete_item_confirm})}">
+                    title=#{label_delete_entity(#{label_pet_plural})}, message=#{info_delete_item_confirm}, content=~{pets/deleteModal :: petModalConfirmBody})}">
                 </div>
                 <div data-th-replace="~{fragments/modal-confirm-delete-batch :: modalConfirmDeleteBatch(tableId='pet-entity-table',
-                    title=#{label_delete_entity(#{label_pet_plural})}, message=#{info_delete_batch_confirm})}">
+                    title=#{label_delete_entity(#{label_pet_plural})}, message=#{info_delete_batch_confirm}, content=~{pets/deleteModalBatch :: petModalConfirmBody})}">
                 </div>
               <div data-th-replace="~{fragments/modal-export-empty-error :: modalExportEmptyError(tableId='pet-entity-table',
                   title=#{label_export_empty_error(#{label_pet_plural})}, message=#{info_export_empty_error})}">
@@ -102,10 +102,10 @@
                     </table>
                     <!-- content replaced by modal-confirm fragment of modal-confirm.html -->
                     <div data-th-replace="~{fragments/modal-confirm-delete :: modalConfirmDelete(tableId='visits-detail-table',
-                        title=#{label_delete_entity(#{label_pet_visits})}, message=#{info_delete_item_confirm})}">
+                        title=#{label_delete_entity(#{label_pet_visits})}, message=#{info_delete_item_confirm}, content=~{pets/visits/deleteModal :: visitModalConfirmBody})}">
                     </div>
                    <div data-th-replace="~{fragments/modal-confirm-delete-batch :: modalConfirmDeleteBatch(tableId='visits-detail-table',
-                        title=#{label_delete_entity(#{label_pet_visits})}, message=#{info_delete_batch_confirm})}">
+                        title=#{label_delete_entity(#{label_pet_visits})}, message=#{info_delete_batch_confirm}, content=~{pets/visits/deleteModalBatch :: visitModalConfirmBody})}">
                     </div>
                     <div data-th-replace="~{fragments/modal-export-empty-error :: modalExportEmptyError(tableId='visits-detail-table',
                         title=#{label_export_empty_error(#{label_pet_visits})}, message=#{info_export_empty_error})}">
