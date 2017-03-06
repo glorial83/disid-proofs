@@ -26,3 +26,9 @@ repository jpa --entity ~.domain.Editorial
 service --entity ~.domain.Editorial
 web mvc controller --entity ~.domain.Editorial --package ~.web --responseType THYMELEAF 
 web mvc detail --entity ~.domain.Editorial --field books --package ~.web --responseType THYMELEAF 
+entity jpa --class ~.domain.Cover
+field string --fieldName coverUrl
+field reference --fieldName book --type ~.domain.Book
+repository jpa --entity ~.domain.Cover 
+service --entity ~.domain.Cover 
+web mvc controller --entity ~.domain.Cover --package ~.web --responseType THYMELEAF 

@@ -4,8 +4,10 @@
 package org.disid.proof.web;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.disid.proof.domain.Cover;
 import org.disid.proof.domain.Editorial;
 import org.disid.proof.web.BookJsonMixin;
+import org.disid.proof.web.CoverDeserializer;
 import org.disid.proof.web.EditorialDeserializer;
 
 privileged aspect BookJsonMixin_Roo_JSONMixin {
@@ -14,8 +16,33 @@ privileged aspect BookJsonMixin_Roo_JSONMixin {
      * TODO Auto-generated attribute documentation
      * 
      */
+    @JsonDeserialize(using = CoverDeserializer.class)
+    private Cover BookJsonMixin.cover;
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
     @JsonDeserialize(using = EditorialDeserializer.class)
     private Editorial BookJsonMixin.editorial;
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return Cover
+     */
+    public Cover BookJsonMixin.getCover() {
+        return cover;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param cover
+     */
+    public void BookJsonMixin.setCover(Cover cover) {
+        this.cover = cover;
+    }
     
     /**
      * TODO Auto-generated method documentation

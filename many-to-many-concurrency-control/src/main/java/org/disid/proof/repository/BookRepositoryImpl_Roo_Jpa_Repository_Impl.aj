@@ -9,6 +9,7 @@ import io.springlets.data.domain.GlobalSearch;
 import io.springlets.data.jpa.repository.support.QueryDslRepositorySupportExt.AttributeMappingBuilder;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Cover;
 import org.disid.proof.domain.Editorial;
 import org.disid.proof.domain.QBook;
 import org.disid.proof.repository.BookRepositoryCustom;
@@ -43,6 +44,12 @@ privileged aspect BookRepositoryImpl_Roo_Jpa_Repository_Impl {
     public static final String BookRepositoryImpl.EDITORIAL = "editorial";
     
     /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String BookRepositoryImpl.COVER = "cover";
+    
+    /**
      * TODO Auto-generated method documentation
      * 
      * @param globalSearch
@@ -55,13 +62,14 @@ privileged aspect BookRepositoryImpl_Roo_Jpa_Repository_Impl {
         
         JPQLQuery<Book> query = from(book);
         
-        Path<?>[] paths = new Path<?>[] {book.title,book.isbn,book.editorial};        
+        Path<?>[] paths = new Path<?>[] {book.title,book.isbn,book.editorial,book.cover};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
 			.map(TITLE, book.title)
 			.map(ISBN, book.isbn)
-			.map(EDITORIAL, book.editorial);
+			.map(EDITORIAL, book.editorial)
+			.map(COVER, book.cover);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);
@@ -86,13 +94,46 @@ privileged aspect BookRepositoryImpl_Roo_Jpa_Repository_Impl {
         Assert.notNull(authors, "authors is required");
         
         query.where(book.authors.contains(authors));
-        Path<?>[] paths = new Path<?>[] {book.title,book.isbn,book.editorial};        
+        Path<?>[] paths = new Path<?>[] {book.title,book.isbn,book.editorial,book.cover};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
 			.map(TITLE, book.title)
 			.map(ISBN, book.isbn)
-			.map(EDITORIAL, book.editorial);
+			.map(EDITORIAL, book.editorial)
+			.map(COVER, book.cover);
+        
+        applyPagination(pageable, query, mapping);
+        applyOrderById(query);
+        
+        return loadPage(query, pageable, book);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param cover
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public Page<Book> BookRepositoryImpl.findByCover(Cover cover, GlobalSearch globalSearch, Pageable pageable) {
+        
+        QBook book = QBook.book;
+        
+        JPQLQuery<Book> query = from(book);
+        
+        Assert.notNull(cover, "cover is required");
+        
+        query.where(book.cover.eq(cover));
+        Path<?>[] paths = new Path<?>[] {book.title,book.isbn,book.editorial,book.cover};        
+        applyGlobalSearch(globalSearch, query, paths);
+        
+        AttributeMappingBuilder mapping = buildMapper()
+			.map(TITLE, book.title)
+			.map(ISBN, book.isbn)
+			.map(EDITORIAL, book.editorial)
+			.map(COVER, book.cover);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);
@@ -117,13 +158,14 @@ privileged aspect BookRepositoryImpl_Roo_Jpa_Repository_Impl {
         Assert.notNull(editorial, "editorial is required");
         
         query.where(book.editorial.eq(editorial));
-        Path<?>[] paths = new Path<?>[] {book.title,book.isbn,book.editorial};        
+        Path<?>[] paths = new Path<?>[] {book.title,book.isbn,book.editorial,book.cover};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
 			.map(TITLE, book.title)
 			.map(ISBN, book.isbn)
-			.map(EDITORIAL, book.editorial);
+			.map(EDITORIAL, book.editorial)
+			.map(COVER, book.cover);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);

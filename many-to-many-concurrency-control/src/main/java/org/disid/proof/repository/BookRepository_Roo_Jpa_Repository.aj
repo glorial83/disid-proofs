@@ -6,6 +6,7 @@ package org.disid.proof.repository;
 import io.springlets.data.jpa.repository.DetachableJpaRepository;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Cover;
 import org.disid.proof.domain.Editorial;
 import org.disid.proof.repository.BookRepository;
 import org.disid.proof.repository.BookRepositoryCustom;
@@ -26,6 +27,14 @@ privileged aspect BookRepository_Roo_Jpa_Repository {
      * @return Long
      */
     public abstract long BookRepository.countByEditorial(Editorial editorial);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param cover
+     * @return Long
+     */
+    public abstract long BookRepository.countByCover(Cover cover);
     
     /**
      * TODO Auto-generated method documentation

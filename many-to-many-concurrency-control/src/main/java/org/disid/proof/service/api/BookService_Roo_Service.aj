@@ -8,6 +8,7 @@ import io.springlets.format.EntityResolver;
 import java.util.List;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Cover;
 import org.disid.proof.domain.Editorial;
 import org.disid.proof.service.api.BookService;
 import org.springframework.data.domain.Page;
@@ -107,6 +108,16 @@ privileged aspect BookService_Roo_Service {
     /**
      * TODO Auto-generated method documentation
      * 
+     * @param cover
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public abstract Page<Book> BookService.findByCover(Cover cover, GlobalSearch globalSearch, Pageable pageable);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
      * @param editorial
      * @param globalSearch
      * @param pageable
@@ -121,6 +132,14 @@ privileged aspect BookService_Roo_Service {
      * @return Long
      */
     public abstract long BookService.countByAuthorsContains(Author authors);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param cover
+     * @return Long
+     */
+    public abstract long BookService.countByCover(Cover cover);
     
     /**
      * TODO Auto-generated method documentation

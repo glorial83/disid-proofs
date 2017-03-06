@@ -6,6 +6,7 @@ package org.disid.proof.domain;
 import java.util.Set;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Cover;
 import org.disid.proof.domain.Editorial;
 
 privileged aspect Book_Roo_JavaBean {
@@ -116,6 +117,24 @@ privileged aspect Book_Roo_JavaBean {
      */
     public void Book.setEditorial(Editorial editorial) {
         this.editorial = editorial;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return Cover
+     */
+    public Cover Book.getCover() {
+        return this.cover;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param cover
+     */
+    public void Book.setCover(Cover cover) {
+        this.cover = cover;
     }
     
 }

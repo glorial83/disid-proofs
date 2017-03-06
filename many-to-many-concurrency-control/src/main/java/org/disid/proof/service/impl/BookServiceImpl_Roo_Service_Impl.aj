@@ -7,6 +7,7 @@ import io.springlets.data.domain.GlobalSearch;
 import java.util.List;
 import org.disid.proof.domain.Author;
 import org.disid.proof.domain.Book;
+import org.disid.proof.domain.Cover;
 import org.disid.proof.domain.Editorial;
 import org.disid.proof.repository.BookRepository;
 import org.disid.proof.service.impl.BookServiceImpl;
@@ -183,6 +184,18 @@ privileged aspect BookServiceImpl_Roo_Service_Impl {
     /**
      * TODO Auto-generated method documentation
      * 
+     * @param cover
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public Page<Book> BookServiceImpl.findByCover(Cover cover, GlobalSearch globalSearch, Pageable pageable) {
+        return getBookRepository().findByCover(cover, globalSearch, pageable);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
      * @param editorial
      * @param globalSearch
      * @param pageable
@@ -200,6 +213,16 @@ privileged aspect BookServiceImpl_Roo_Service_Impl {
      */
     public long BookServiceImpl.countByAuthorsContains(Author authors) {
         return getBookRepository().countByAuthorsContains(authors);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param cover
+     * @return Long
+     */
+    public long BookServiceImpl.countByCover(Cover cover) {
+        return getBookRepository().countByCover(cover);
     }
     
     /**

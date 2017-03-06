@@ -7,16 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import io.springlets.format.EntityFormat;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import org.springframework.roo.addon.jpa.annotations.entity.JpaRelationType;
+import org.springframework.roo.addon.jpa.annotations.entity.RooJpaRelation;
 
 /**
- * = Book
+ * = Cover
  *
  * TODO Auto-generated class documentation
  *
@@ -25,7 +23,7 @@ import javax.persistence.OneToOne;
 @RooToString
 @RooJpaEntity
 @RooEquals(isJpaEntity = true)
-public class Book {
+public class Cover {
 
     /**
      * TODO Auto-generated attribute documentation
@@ -46,34 +44,14 @@ public class Book {
      * TODO Auto-generated attribute documentation
      *
      */
-    private String title;
+    private String coverUrl;
 
     /**
      * TODO Auto-generated attribute documentation
      *
      */
-    private String isbn;
-
-    /**
-     * TODO Auto-generated attribute documentation
-     *
-     */
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Author> authors = new HashSet<Author>();
-
-    /**
-     * TODO Auto-generated attribute documentation
-     *
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "cover")
+    @RooJpaRelation(type = JpaRelationType.AGGREGATION)
     @EntityFormat
-    private Editorial editorial;
-
-    /**
-     * TODO Auto-generated attribute documentation
-     *
-     */
-    @OneToOne(fetch = FetchType.LAZY)
-    @EntityFormat
-    private Cover cover;
+    private Book book;
 }

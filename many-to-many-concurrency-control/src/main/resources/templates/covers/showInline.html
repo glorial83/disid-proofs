@@ -2,7 +2,7 @@
 <html lang="en" data-layout-decorate="~{layouts/default-list-layout}">
     <head id="head">
 
-    <title data-th-text="|#{label_show_entity(#{label_book})}|">Show Book - Spring Roo application</title>
+    <title data-th-text="|#{label_show_entity(#{label_cover})}|">Show Cover - Spring Roo application</title>
 
   </head>
 
@@ -19,27 +19,19 @@
         Only the inner content of the following tag "section" is included
         within the template, in the section "content"
       -->
-      <section data-th-fragment="inline-content" data-layout-fragment="content" data-th-object="${book}">
+      <section data-th-fragment="inline-content" data-layout-fragment="content" data-th-object="${cover}">
         <div>
 
           <!-- CONTENT -->
             <div id="mainEntityFieldSet">
               <ul class="list-unstyled" id="containerFields">
-                  <li id="book-title-field" data-z="3c44f2aa">
-            	      <strong data-th-text="#{label_book_title}">title</strong>
-                    <span data-th-text="*{{title}}">titleValue</span>
+                  <li id="cover-coverurl-field" data-z="78335b6c">
+            	      <strong data-th-text="#{label_cover_coverurl}">coverUrl</strong>
+                    <span data-th-text="*{{coverUrl}}">coverUrlValue</span>
          	        </li>
-                  <li id="book-isbn-field" data-z="9c862ef4">
-            	      <strong data-th-text="#{label_book_isbn}">isbn</strong>
-                    <span data-th-text="*{{isbn}}">isbnValue</span>
-         	        </li>
-                  <li id="book-editorial-field" data-z="bb1f234a">
-            	      <strong data-th-text="#{label_book_editorial}">editorial</strong>
-                    <span data-th-text="*{{editorial}}">editorialValue</span>
-         	        </li>
-                  <li id="book-cover-field" data-z="a6a442ca">
-            	      <strong data-th-text="#{label_book_cover}">cover</strong>
-                    <span data-th-text="*{{cover}}">coverValue</span>
+                  <li id="cover-book-field" data-z="34139bec">
+            	      <strong data-th-text="#{label_cover_book}">book</strong>
+                    <span data-th-text="*{{book}}">bookValue</span>
          	        </li>
               </ul>
             </div>
