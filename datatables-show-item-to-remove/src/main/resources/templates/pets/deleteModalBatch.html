@@ -1,5 +1,5 @@
-<div data-th-fragment="petModalConfirmBody">
-  <table id="pet-entity-table-items-to-remove-batch">
+<div data-th-fragment="petModalConfirmBody" data-th-with="collectionLink=${@linkBuilder.of('PetsCollectionThymeleafController')}">
+  <table id="pet-entity-table-items-to-remove-batch" data-data-load-url="${collectionLink.to('datatablesByIdsIn')}">
     <thead>
       <tr>
         <th data-data="sendReminders" data-th-text="#{label_pet_sendreminders}">sendReminders</th>

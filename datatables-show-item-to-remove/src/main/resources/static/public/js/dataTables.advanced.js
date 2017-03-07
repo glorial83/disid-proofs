@@ -387,24 +387,18 @@
                         var rows_selected = datatables.columns().checkboxes.selected();
 
                         // Populate the row-id data attribute in the modal
-                        $('#' + tableId + 'DeleteBatchRowId').data('row-id', rows_selected.join(","));
+                        var ids = rows_selected.join(",");
+                        $('#' + tableId + 'DeleteBatchRowId').data('row-id', ids);
                         
-                        // Populate DeleteConfirm table which displays the item that
+                        // Populate DeleteBatchConfirm table which displays the item that
                         // will be removed
-                        var rowsData = jQuery("#" + tableId).DataTable().rows().data();
-                        var idField = jQuery("#" + tableId).data("row-id");
-                        var itemData = [];
-                        for(var i=0; i < rowsData.length; i++){
-                        	 var item = rowsData[i];
-                        	 // Check if this item is the item that should be removed
-                        	 if(rows_selected[0].indexOf(item[idField]) != -1){
-                        		 itemData.push(item);
-                        	 }
-                    	}
-                        $('#' + tableId + '-items-to-remove-batch').DataTable({
-                        	data: itemData,
-                        	dom: ''
-                        });
+                    	$('#' + tableId + '-items-to-remove-batch').DataTable({
+                    		advanced: {
+                    			loadData: loadDataForConfirmDeleteBatchDialog,
+                    			dom: 'rtip',
+                    		}
+                    	});
+                        
                     });
                     
                     // When the delete modal confirm is closed, is necessary to destroy
@@ -563,6 +557,50 @@
             callback(emptyData(data.draw));
         }
     }
+    
+    /**
+     * Generates and executes an ajax request whose goal is to load data for a
+     * DataTable element inside the Delete confirm Dialog.
+     *
+     * @param data DataTable object data
+     * @param callback Name of the function to call with the server data obtained
+     *        once the ajax request has been completed
+     * @param settings DataTable object options
+     */
+    function loadDataForConfirmDeleteBatchDialog(data, callback, settings) {
+        var datatables = this.DataTable();
+        var url = getLoadUrl(datatables);
+        if (url) {
+        	var parentTableId = settings.oInstance.attr("id").replace("-items-to-remove-batch", "");
+        	var ids = jQuery("#" + parentTableId + "DeleteBatchRowId").data("row-id");
+        	data.ids = ids;
+            loadDataFromUrl(datatables, data, callback, url);
+        } else {
+            callback(emptyData(data.draw));
+        }
+    }
+    
+    /**
+     * Generates and executes an ajax request whose goal is to load data for a
+     * DataTable element inside the Delete confirm Dialog.
+     *
+     * @param data DataTable object data
+     * @param callback Name of the function to call with the server data obtained
+     *        once the ajax request has been completed
+     * @param settings DataTable object options
+     */
+    function loadDataForConfirmDeleteDialog(data, callback, settings) {
+        var datatables = this.DataTable();
+        var url = getLoadUrl(datatables);
+        if (url) {
+        	var parentTableId = settings.oInstance.attr("id").replace("-item-to-remove", "");
+        	var id = jQuery("#" + parentTableId + "DeleteRowId").data("row-id");
+        	data.ids = id;
+            loadDataFromUrl(datatables, data, callback, url);
+        } else {
+            callback(emptyData(data.draw));
+        }
+    }
 
     /**
      * Generates and executes an ajax request whose goal is to load data for a
@@ -678,6 +716,8 @@
             if (selected.any()) {
                 return selected.data().id;
             }
+        }else{
+        	return getDataValue(datatables, "parent-id");
         }
     }
 
@@ -863,7 +903,7 @@
         var url = getDataValue(datatables, 'load-url');
         return processUrl(datatables, url);
     }
-
+    
     /**
      * Returns the URL to create a new element for the Datatables.
      * The URL is processed to replace any parameters.
@@ -1177,15 +1217,12 @@
             
             // Populate DeleteConfirm table which displays the item that
             // will be removed
-            var dt = $('#' + tableId).DataTable();
-            var row = dt.row("#" + jQuery(e.relatedTarget).closest("tr").attr("id"));
-            var itemData = row.data();
-            $('#' + tableId + '-item-to-remove').DataTable({
-            	data: [itemData],
-            	dom: '',
-            	ordering: false
-            });
-            
+        	$('#' + tableId + '-item-to-remove').DataTable({
+        		advanced: {
+        			loadData: loadDataForConfirmDeleteDialog,
+        			dom: ''
+        		}
+        	});
         });
         
         // When the delete modal confirm is closed, is necessary to destroy

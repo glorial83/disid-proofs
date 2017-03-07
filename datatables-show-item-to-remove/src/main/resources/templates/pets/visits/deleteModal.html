@@ -1,8 +1,11 @@
-<div data-th-fragment="visitModalConfirmBody">
-  <table id="visits-detail-table-item-to-remove">
+<div data-th-fragment="visitModalConfirmBody"
+  data-th-with="collectionLink=${@linkBuilder.of('PetsItemVisitsThymeleafController')}">
+  <table id="visits-detail-table-item-to-remove"
+    data-parent-table="pet-entity-table"
+    data-data-parent-id="${pet != null ? pet.id : ''}"
+    data-data-load-url="${collectionLink.to('datatablesByIdsIn').with('pet', '_PARENTID_')}">
     <thead>
       <tr>
-        <th data-data="id" data-checkboxes="true"></th>
         <th data-data="description" data-th-text="#{label_pet_visits_description}">description</th>
         <th data-data="visitDate" data-th-text="#{label_pet_visits_visitdate}">visitDate</th>
         <th data-data="pet" data-th-text="#{label_pet_visits_pet}">pet</th>

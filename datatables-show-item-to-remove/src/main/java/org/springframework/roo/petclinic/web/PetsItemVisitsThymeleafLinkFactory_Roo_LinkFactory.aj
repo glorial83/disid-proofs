@@ -55,32 +55,4 @@ privileged aspect PetsItemVisitsThymeleafLinkFactory_Roo_LinkFactory {
     public Class<PetsItemVisitsThymeleafController> PetsItemVisitsThymeleafLinkFactory.getControllerClass() {
         return PetsItemVisitsThymeleafController.class;
     }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param methodName
-     * @param parameters
-     * @param pathVariables
-     * @return UriComponents
-     */
-    public UriComponents PetsItemVisitsThymeleafLinkFactory.toUri(String methodName, Object[] parameters, Map<String, Object> pathVariables) {
-        if (methodName.equals(DATATABLES)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).datatables(null, null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(CREATEFORM)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).createForm(null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(REMOVEFROMVISITS)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).removeFromVisits(null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(REMOVEFROMVISITSBATCH)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).removeFromVisitsBatch(null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(CREATE)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).create(null, null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        throw new IllegalArgumentException("Invalid method name: " + methodName);
-    }
-    
 }

@@ -80,43 +80,4 @@ privileged aspect PetsCollectionThymeleafLinkFactory_Roo_LinkFactory {
         return PetsCollectionThymeleafController.class;
     }
     
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param methodName
-     * @param parameters
-     * @param pathVariables
-     * @return UriComponents
-     */
-    public UriComponents PetsCollectionThymeleafLinkFactory.toUri(String methodName, Object[] parameters, Map<String, Object> pathVariables) {
-        if (methodName.equals(LIST)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).list(null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(DATATABLES)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).datatables(null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(SELECT2)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).select2(null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(CREATE)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).create(null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(CREATEFORM)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).createForm(null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(DELETEBATCH)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).deleteBatch(null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(EXPORTCSV)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).exportCsv(null, null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(EXPORTPDF)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).exportPdf(null, null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(EXPORTXLS)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).exportXls(null, null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        throw new IllegalArgumentException("Invalid method name: " + methodName);
-    }
-    
 }
