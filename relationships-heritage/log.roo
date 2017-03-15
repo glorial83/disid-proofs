@@ -1,0 +1,48 @@
+// Spring Roo 2.0.0.RC1 [rev 28015e3] log opened at 2017-03-15 09:19:09
+hint
+project setup --topLevelPackage com.disid.proofs 
+jpa setup --provider HIBERNATE --database POSTGRES --databaseName roo_samples --userName postgres --password admin
+entity jpa --class ~.domain.Option --abstract 
+entity jpa --class ~.domain.CallOption --abstract
+field string --fieldName name
+// Spring Roo 2.0.0.RC1 [rev 28015e3] log opened at 2017-03-15 09:22:10
+hin
+entity jpa --class ~.domain.Menu --extends ~.domain.CallOption
+entity jpa --class ~.domain.AdvancedOption --abstract --extends ~.domain.CallOption
+entity jpa --class ~.domain.Redirect --extends ~.domain.AdvancedOption
+field string --fieldName phone
+entity jpa --class ~.domain.Agent --extends ~.domain.AdvancedOption
+field string --fieldName company
+hint
+focus --class ~.domain.CallOption
+field set --fieldName options1 --type ~.domain.Menu
+// [failed] field set --fieldName options2 --type ~.domain.Menu
+field set --fieldName options2 --type ~.domain.Menu --mappedBy option2
+field set --fieldName options3 --type ~.domain.Menu --mappedBy option3
+field set --fieldName options4 --type ~.domain.Menu --mappedBy option4
+field set --fieldName options5 --type ~.domain.Menu --mappedBy option5
+field set --fieldName options6 --type ~.domain.Menu --mappedBy option6
+field set --fieldName options7 --type ~.domain.Menu --mappedBy option7
+field set --fieldName options8 --type ~.domain.Menu --mappedBy option8
+field set --fieldName options9 --type ~.domain.Menu --mappedBy option9
+hint
+// Spring Roo 2.0.0.RC1 [rev 28015e3] log opened at 2017-03-15 09:29:00
+repository jpa --all --package ~.repository
+service --all --apiPackage ~.service.api --implPackage ~.service.impl
+web mvc setup 
+web mvc view setup --type THYMELEAF 
+// [failed] web mvc controller --all --package ~.web --responseType THYMELEAF 
+hint
+// Spring Roo 2.0.0.RC1 [rev 28015e3] log opened at 2017-03-15 09:30:39
+hint
+// Spring Roo 2.0.0.RC1 [rev 28015e3] log opened at 2017-03-15 09:35:58
+web mvc detail --all --package ~.web --responseType THYMELEAF 
+web mvc controller --entity ~.domain.Redirect --package ~.web --responseType THYMELEAF 
+// [failed] web mvc detail --entity ~.domain.Menu --field options1 --package ~.web --responseType THYMELEAF 
+web mvc detail --entity ~.domain.CallOption --field options1 --package ~.web --responseType THYMELEAF 
+// Spring Roo 2.0.0.RC1 [rev 28015e3] log opened at 2017-03-15 10:00:35
+hint
+service --entity ~.domain.CallOption
+repository jpa --entity ~.domain.CallOption 
+service --entity ~.domain.CallOption 
+hint

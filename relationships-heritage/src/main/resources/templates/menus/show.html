@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{layouts/default-list-layout}">
+  <head id="head">
+
+    <title data-th-text="|#{label_show_entity(#{label_menu})}|">Show Menu - Spring Roo application</title>
+
+  </head>
+
+  <body id="body">
+
+    <header role="banner">
+      <!-- Content replaced by layout of the page displayed -->
+    </header>
+
+    <!--CONTAINER-->
+    <div class="container bg-container">
+      <!-- CONTENT -->
+      <!--
+        Only the inner content of the following tag "section" is included
+        within the template, in the section "content"
+      -->
+      <section data-layout-fragment="content" data-th-object="${menu}">
+        <div class="container-fluid content">
+
+          <!-- CONTENT -->
+          <h1 data-th-text="#{label_show_entity(#{label_menu})}">Show Menu</h1>
+
+            <div id="mainEntityFieldSet">
+              <h2 data-th-text="#{label_data_entity(#{label_menu})}">Menu data</h2>
+              <ul class="list-unstyled" id="containerFields">
+                  <li id="menu-name-field" data-z="1ecba4a">
+            	      <strong data-th-text="#{label_menu_name}">name</strong>
+                    <span data-th-text="*{{name}}">nameValue</span>
+         	        </li>
+					<li id="menu-option1-field" data-z="1ecba4a">
+            	      <strong data-th-text="#{label_menu_option1}">option1</strong>
+                    <span data-th-text="*{{option1.name}}">option1Value</span>
+         	        </li>
+					<li id="menu-option2-field" data-z="1ecba4a">
+            	      <strong data-th-text="#{label_menu_option2}">option2</strong>
+                    <span data-th-text="*{{option2.name}}">option2Value</span>
+         	        </li>
+					<li id="menu-option3-field" data-z="1ecba4a">
+            	      <strong data-th-text="#{label_menu_option3}">option3</strong>
+                    <span data-th-text="*{{option3.name}}">option3Value</span>
+         	        </li>
+					<li id="menu-option4-field" data-z="1ecba4a">
+            	      <strong data-th-text="#{label_menu_option4}">option4</strong>
+                    <span data-th-text="*{{option4.name}}">option4Value</span>
+         	        </li>
+					<li id="menu-option5-field" data-z="1ecba4a">
+            	      <strong data-th-text="#{label_menu_option5}">option5</strong>
+                    <span data-th-text="*{{option5.name}}">option5Value</span>
+         	        </li>
+					<li id="menu-option6-field" data-z="1ecba4a">
+            	      <strong data-th-text="#{label_menu_option6}">option6</strong>
+                    <span data-th-text="*{{option6.name}}">option6Value</span>
+         	        </li>
+              </ul>
+            </div>
+
+
+          <div class="clearfix">
+            <div class="pull-right">
+             <a id="Menu_edit" href="edit.html" class="btn btn-primary" data-th-title="#{label_goEdit}" data-th-href="${@linkBuilder.of('MenusItemThymeleafController').to('editForm').with('menu', menu.id)}" data-th-text="#{label_edit}">Edit</a>
+            </div>
+          </div>
+
+
+          <div class="clearfix">
+            <div class="pull-left">
+              <a id="Menu_list" href="list.html" class="btn btn-default" data-th-title="#{label_goBack}" data-th-href="${@linkBuilder.of('MenusCollectionThymeleafController').to('list')}">
+  	             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+  	             <span data-th-text="#{label_back}">Back</span>
+  	          </a>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!-- /CONTENT -->
+  </div>
+  <!-- /CONTAINER -->
+
+  <footer class="container">
+    <!-- Content replaced by layout of the page displayed -->
+  </footer>
+
+  <!-- JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so that the pages load faster -->
+  <!-- JavaScript loaded by layout of the page displayed -->
+  <!--
+       Only the inner content of the following tag "javascript" is included
+       within the template, in the div "javascript"
+      -->
+  <div data-layout-fragment="javascript">
+  </div>
+
+  </body>
+
+</html>
