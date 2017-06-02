@@ -1,0 +1,13 @@
+project setup --topLevelPackage com.disid.proofs.server --packaging WAR --java 8
+jpa setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT 
+entity jpa --class ~.domain.Person
+field string --fieldName name
+field string --fieldName lastName
+field string --fieldName age
+field string --fieldName nif
+repository jpa --entity ~.domain.Person --interface ~.repository.PersonRepository
+service --entity ~.domain.Person --repository ~.repository.PersonRepository --interface ~.service.api.PersonService --class ~.service.impl.PersonServiceImpl 
+web mvc setup 
+web mvc view setup --type THYMELEAF 
+web mvc controller --entity ~.domain.Person --package ~.web.html --responseType THYMELEAF 
+web mvc controller --entity ~.domain.Person --package ~.web.api --pathPrefix api --responseType JSON 
