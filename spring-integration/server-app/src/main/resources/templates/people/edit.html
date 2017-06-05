@@ -31,7 +31,7 @@
           <h1 data-th-text="#{label_edit_entity(#{label_person})}">Edit Person</h1>
 
           <!-- FORM -->
-          <form class="form-horizontal validate" method="POST" data-th-object="${person}" data-th-action="@{${itemLink.to('update').with('person', person.id)}}">
+          <form class="form-horizontal validate" method="POST" data-th-object="${person}" data-th-action="${itemLink.to('update').with('person', person.id)}">
             <input type="hidden" name="_method" value="PUT" />
             <input type="hidden" name="version" data-th-value="*{version}" />
 

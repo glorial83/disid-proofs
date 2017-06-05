@@ -13,8 +13,6 @@ privileged aspect Person_Roo_Jpa_Entity {
     
     declare @type: Person: @Entity;
     
-    declare @type: Person: @EntityFormat;
-    
     /**
      * TODO Auto-generated attribute documentation
      * 

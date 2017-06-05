@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/integration
+    http://www.springframework.org/schema/integration/spring-integration.xsd
+    http://www.springframework.org/schema/integration/http
+    http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+
+	<!-- Create the channel that will receive the request -->
+	<int:channel id="peopleRequestChannel" />
+
+	<!-- Creating an inbound gateway that will receive the message -->
+	<int-http:inbound-gateway id="inboundGateway"
+		path="/people" request-channel="peopleRequestChannel"
+		supported-methods="GET" />
+
+	<int:service-activator input-channel="peopleRequestChannel"
+		ref="peopleEndpoint" output-channel="peopleChannel" />
+
+	<int:channel id="peopleChannel" />
+
+	<int-http:outbound-gateway id="outboundGateway"
+		request-channel="peopleChannel" url="http://localhost:8081/server/api/people"
+		http-method="GET" reply-channel="peopleResponseChannel"
+		expected-response-type="java.util.List" message-converters="personFromServerConverter" />
+
+	<int:channel id="peopleResponseChannel" />
+
+	<int:service-activator input-channel="peopleResponseChannel"
+		ref="peopleResponseServiceActivator" />
+
+	<int:logging-channel-adapter id="loggingChannel"
+		level="INFO" expression="'Sended response with ' + payload" channel="peopleResponseChannel" />
+
+
+</beans>

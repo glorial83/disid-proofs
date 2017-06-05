@@ -29,7 +29,7 @@
           <h1 data-th-text="#{label_create_entity(#{label_operation})}">Create Operation</h1>
 
           <!-- FORM -->
-          <form class="form-horizontal validate" method="POST" data-th-object="${operation}" data-th-action="@{${collectionLink.to('create').with('operation', operation.id)}}">
+          <form class="form-horizontal validate" method="POST" data-th-object="${operation}" data-th-action="${collectionLink.to('create').with('operation', operation.id)}">
 
             <fieldset id="containerFields">
               <legend class="sr-only" data-th-text="#{label_data_entity(#{label_operation})}">Operation data </legend>

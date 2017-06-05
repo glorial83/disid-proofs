@@ -8,6 +8,7 @@ import org.springframework.roo.addon.web.mvc.controller.annotations.ControllerTy
 import org.springframework.roo.addon.web.mvc.controller.annotations.RooController;
 import org.springframework.roo.addon.web.mvc.controller.annotations.responses.json.RooJSON;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.disid.proofs.server.domain.Person;
 
@@ -19,24 +20,21 @@ import io.springlets.data.domain.GlobalSearch;
  * TODO Auto-generated class documentation
  *
  */
-@RooController( entity = Person.class, pathPrefix = "api", type = ControllerType.COLLECTION )
+@RooController(entity = Person.class, pathPrefix = "api", type = ControllerType.COLLECTION)
 @RooJSON
-public class PeopleCollectionJsonController
-{
+public class PeopleCollectionJsonController {
 
-  /**
-   * List operation that returns all the existing persons
-   * 
-   * @param globalSearch
-   * @param pageable
-   * @return ResponseEntity
-   */
-  @GetMapping( name = "list" )
-  public ResponseEntity<List<Person>> list( GlobalSearch globalSearch, Pageable pageable )
-  {
-
-    List<Person> people = getPersonService().findAll();
-    return ResponseEntity.ok( people );
-  }
+	/**
+	 * List operation that returns all the existing persons
+	 * 
+	 * @param globalSearch
+	 * @param pageable
+	 * @return ResponseEntity
+	 */
+	@GetMapping(name = "list")
+	public ResponseEntity<List<Person>> list(GlobalSearch globalSearch, Pageable pageable) {
+		List<Person> people = getPersonService().findAll();
+		return ResponseEntity.ok(people);
+	}
 
 }
