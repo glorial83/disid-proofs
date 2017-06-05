@@ -10,18 +10,13 @@
     http://www.springframework.org/schema/integration/http
     http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
 
-	<!-- Create the channel that will receive the request -->
-	<int:channel id="peopleRequestChannel" />
+	<int:channel id="peopleChannel" />
 
 	<!-- Creating an inbound gateway that will receive the message -->
 	<int-http:inbound-gateway id="inboundGateway"
-		path="/people" request-channel="peopleRequestChannel"
+		path="/people" request-channel="peopleChannel"
 		supported-methods="GET" />
 
-	<int:service-activator input-channel="peopleRequestChannel"
-		ref="peopleEndpoint" output-channel="peopleChannel" />
-
-	<int:channel id="peopleChannel" />
 
 	<int-http:outbound-gateway id="outboundGateway"
 		request-channel="peopleChannel" url="http://localhost:8081/server/api/people"
