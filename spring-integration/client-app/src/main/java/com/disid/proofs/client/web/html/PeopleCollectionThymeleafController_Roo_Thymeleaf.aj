@@ -11,7 +11,6 @@ import com.disid.proofs.client.domain.Person;
 import com.disid.proofs.client.service.api.PersonService;
 import com.disid.proofs.client.web.html.PeopleCollectionThymeleafController;
 import com.disid.proofs.client.web.html.PeopleItemThymeleafController;
-import com.disid.proofs.client.web.html.PeopleItemThymeleafLinkFactory;
 import com.disid.proofs.client.web.reports.ExportingErrorException;
 import com.disid.proofs.client.web.reports.JasperReportsCsvExporter;
 import com.disid.proofs.client.web.reports.JasperReportsExporter;
@@ -27,10 +26,8 @@ import io.springlets.data.web.select2.Select2DataWithConversion;
 import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
 import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Locale;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -47,19 +44,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriComponents;
 
 privileged aspect PeopleCollectionThymeleafController_Roo_Thymeleaf {
     
@@ -231,7 +222,6 @@ privileged aspect PeopleCollectionThymeleafController_Roo_Thymeleaf {
     public void PeopleCollectionThymeleafController.populateForm(Model model) {
         populateFormats(model);
     }
-    
     
     /**
      * Method that obtains the filtered and ordered records using the Datatables information and 

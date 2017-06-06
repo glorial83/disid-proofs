@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/integration
+    http://www.springframework.org/schema/integration/spring-integration.xsd
+    http://www.springframework.org/schema/integration/http
+    http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+
+	<int:channel id="toolsChannel" />
+
+	<!-- Creating an inbound gateway that will receive the message -->
+	<int-http:inbound-gateway id="inboundToolsGateway"
+		path="/tools" request-channel="toolsChannel" supported-methods="GET" />
+
+
+	<int-http:outbound-gateway id="outboundToolsGateway"
+		request-channel="toolsChannel" url="http://localhost:8081/server/api/tools"
+		http-method="GET" reply-channel="toolsResponseChannel"
+		expected-response-type="java.util.List" message-converters="toolFromServerConverter" />
+
+	<int:channel id="toolsResponseChannel" />
+
+	<int:service-activator input-channel="toolsResponseChannel"
+		ref="toolsResponseServiceActivator" />
+
+	<int:logging-channel-adapter id="loggingToolsChannel"
+		level="INFO" expression="'Sended response with ' + payload" channel="toolsResponseChannel" />
+
+
+</beans>

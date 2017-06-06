@@ -36,6 +36,12 @@ privileged aspect OperationRepositoryImpl_Roo_Jpa_Repository_Impl {
     public static final String OperationRepositoryImpl.PERSON = "person";
     
     /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String OperationRepositoryImpl.TOOLS = "tools";
+    
+    /**
      * TODO Auto-generated method documentation
      * 
      * @param globalSearch
@@ -48,12 +54,13 @@ privileged aspect OperationRepositoryImpl_Roo_Jpa_Repository_Impl {
         
         JPQLQuery<Operation> query = from(operation);
         
-        Path<?>[] paths = new Path<?>[] {operation.title,operation.person};        
+        Path<?>[] paths = new Path<?>[] {operation.title,operation.person,operation.tools};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
 			.map(TITLE, operation.title)
-			.map(PERSON, operation.person);
+			.map(PERSON, operation.person)
+			.map(TOOLS, operation.tools);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);
@@ -78,12 +85,13 @@ privileged aspect OperationRepositoryImpl_Roo_Jpa_Repository_Impl {
         Assert.notNull(person, "person is required");
         
         query.where(operation.person.eq(person));
-        Path<?>[] paths = new Path<?>[] {operation.title,operation.person};        
+        Path<?>[] paths = new Path<?>[] {operation.title,operation.person,operation.tools};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
 			.map(TITLE, operation.title)
-			.map(PERSON, operation.person);
+			.map(PERSON, operation.person)
+			.map(TOOLS, operation.tools);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);

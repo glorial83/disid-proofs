@@ -44,13 +44,6 @@ public class Person {
 	 * TODO Auto-generated attribute documentation
 	 *
 	 */
-	@Version
-	private Integer version;
-
-	/**
-	 * TODO Auto-generated attribute documentation
-	 *
-	 */
 	private String name;
 
 	/**

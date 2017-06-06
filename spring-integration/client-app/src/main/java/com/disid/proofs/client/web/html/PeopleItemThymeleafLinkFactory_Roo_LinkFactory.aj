@@ -21,18 +21,6 @@ privileged aspect PeopleItemThymeleafLinkFactory_Roo_LinkFactory {
      * TODO Auto-generated attribute documentation
      * 
      */
-    public static final String PeopleItemThymeleafLinkFactory.SHOW = "show";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     * 
-     */
-    public static final String PeopleItemThymeleafLinkFactory.SHOWINLINE = "showInline";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     * 
-     */
     public static final String PeopleItemThymeleafLinkFactory.EDITFORM = "editForm";
     
     /**
@@ -46,6 +34,18 @@ privileged aspect PeopleItemThymeleafLinkFactory_Roo_LinkFactory {
      * 
      */
     public static final String PeopleItemThymeleafLinkFactory.DELETE = "delete";
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String PeopleItemThymeleafLinkFactory.SHOW = "show";
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String PeopleItemThymeleafLinkFactory.SHOWINLINE = "showInline";
     
     /**
      * TODO Auto-generated method documentation
@@ -65,12 +65,6 @@ privileged aspect PeopleItemThymeleafLinkFactory_Roo_LinkFactory {
      * @return UriComponents
      */
     public UriComponents PeopleItemThymeleafLinkFactory.toUri(String methodName, Object[] parameters, Map<String, Object> pathVariables) {
-        if (methodName.equals(SHOW)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).show(null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(SHOWINLINE)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).showInline(null, null)).buildAndExpand(pathVariables);
-        }
         if (methodName.equals(EDITFORM)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).editForm(null, null)).buildAndExpand(pathVariables);
         }
@@ -79,6 +73,12 @@ privileged aspect PeopleItemThymeleafLinkFactory_Roo_LinkFactory {
         }
         if (methodName.equals(DELETE)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).delete(null)).buildAndExpand(pathVariables);
+        }
+        if (methodName.equals(SHOW)) {
+            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).show(null, null)).buildAndExpand(pathVariables);
+        }
+        if (methodName.equals(SHOWINLINE)) {
+            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).showInline(null, null)).buildAndExpand(pathVariables);
         }
         throw new IllegalArgumentException("Invalid method name: " + methodName);
     }

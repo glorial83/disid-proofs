@@ -44,6 +44,13 @@
 	                  <li><a href="/people" data-th-href="@{/people}" data-th-utext="#{label_list_entity(#{label_person_plural})}">List Person</a></li>
                  </ul>
                 </li>
+                <li class="dropdown" id="tool-entry" data-z="446d0368">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-utext="#{label_menu_entry(#{label_tool})}">Tool<span class="caret"></span></a>
+                 <ul class="dropdown-menu">
+	                   <li><a href="/tools/create-form" data-th-href="@{/tools/create-form}" data-th-utext="#{label_create_entity(#{label_tool})}">Create Tool</a></li>
+	                  <li><a href="/tools" data-th-href="@{/tools}" data-th-utext="#{label_list_entity(#{label_tool_plural})}">List Tool</a></li>
+                 </ul>
+                </li>
               </ul>
 
               <!-- Language select -->

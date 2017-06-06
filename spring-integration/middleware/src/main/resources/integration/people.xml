@@ -13,12 +13,12 @@
 	<int:channel id="peopleChannel" />
 
 	<!-- Creating an inbound gateway that will receive the message -->
-	<int-http:inbound-gateway id="inboundGateway"
+	<int-http:inbound-gateway id="inboundPeopleGateway"
 		path="/people" request-channel="peopleChannel"
 		supported-methods="GET" />
 
 
-	<int-http:outbound-gateway id="outboundGateway"
+	<int-http:outbound-gateway id="outboundPeopleGateway"
 		request-channel="peopleChannel" url="http://localhost:8081/server/api/people"
 		http-method="GET" reply-channel="peopleResponseChannel"
 		expected-response-type="java.util.List" message-converters="personFromServerConverter" />
@@ -28,7 +28,7 @@
 	<int:service-activator input-channel="peopleResponseChannel"
 		ref="peopleResponseServiceActivator" />
 
-	<int:logging-channel-adapter id="loggingChannel"
+	<int:logging-channel-adapter id="loggingPeopleChannel"
 		level="INFO" expression="'Sended response with ' + payload" channel="peopleResponseChannel" />
 
 

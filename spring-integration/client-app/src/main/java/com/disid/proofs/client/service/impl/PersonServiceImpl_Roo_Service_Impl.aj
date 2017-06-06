@@ -8,15 +8,12 @@ import com.disid.proofs.client.domain.Person;
 import com.disid.proofs.client.repository.PersonRepository;
 import com.disid.proofs.client.service.api.OperationService;
 import com.disid.proofs.client.service.impl.PersonServiceImpl;
-import io.springlets.data.domain.GlobalSearch;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,34 +108,6 @@ privileged aspect PersonServiceImpl_Roo_Service_Impl {
     public Person PersonServiceImpl.removeFromOperations(Person person, Iterable<Long> operationsToRemove) {
         List<Operation> operations = getOperationService().findAll(operationsToRemove);
         person.removeFromOperations(operations);
-        return getPersonRepository().save(person);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param person
-     * @param operations
-     * @return Person
-     */
-    @Transactional
-    public Person PersonServiceImpl.setOperations(Person person, Iterable<Long> operations) {
-        List<Operation> items = getOperationService().findAll(operations);
-        Set<Operation> currents = person.getOperations();
-        Set<Operation> toRemove = new HashSet<Operation>();
-        for (Iterator<Operation> iterator = currents.iterator(); iterator.hasNext();) {
-            Operation nextOperation = iterator.next();
-            if (items.contains(nextOperation)) {
-                items.remove(nextOperation);
-            } else {
-                toRemove.add(nextOperation);
-            }
-        }
-        person.removeFromOperations(toRemove);
-        person.addToOperations(items);
-        // Force the version update of the parent side to know that the parent has changed
-        // because it has new books assigned
-        person.setVersion(person.getVersion() + 1);
         return getPersonRepository().save(person);
     }
     

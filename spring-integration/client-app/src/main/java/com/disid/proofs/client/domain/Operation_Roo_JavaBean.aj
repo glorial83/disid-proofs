@@ -5,6 +5,7 @@ package com.disid.proofs.client.domain;
 
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
+import com.disid.proofs.client.domain.Tool;
 
 privileged aspect Operation_Roo_JavaBean {
     
@@ -78,6 +79,24 @@ privileged aspect Operation_Roo_JavaBean {
      */
     public void Operation.setPerson(Person person) {
         this.person = person;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return Tool
+     */
+    public Tool Operation.getTools() {
+        return this.tools;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param tools
+     */
+    public void Operation.setTools(Tool tools) {
+        this.tools = tools;
     }
     
 }

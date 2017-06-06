@@ -5,7 +5,9 @@ package com.disid.proofs.server.config.jackson;
 
 import com.disid.proofs.server.config.jackson.DomainModelModule;
 import com.disid.proofs.server.domain.Person;
+import com.disid.proofs.server.domain.Tool;
 import com.disid.proofs.server.web.html.PersonJsonMixin;
+import com.disid.proofs.server.web.html.ToolJsonMixin;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.boot.jackson.JsonComponent;
 
@@ -23,6 +25,7 @@ privileged aspect DomainModelModule_Roo_DomainModelModule {
         // Mixin registration
         
         setMixInAnnotation(Person.class, PersonJsonMixin.class);
+        setMixInAnnotation(Tool.class, ToolJsonMixin.class);
     }
 
 }

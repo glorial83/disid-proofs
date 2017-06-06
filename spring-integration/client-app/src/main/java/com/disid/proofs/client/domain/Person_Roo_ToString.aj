@@ -15,7 +15,6 @@ privileged aspect Person_Roo_ToString {
     public String Person.toString() {
         return "Person {" + 
                 "id='" + id + '\'' + 
-                ", version='" + version + '\'' + 
                 ", name='" + name + '\'' + 
                 ", age='" + age + '\'' + 
                 ", ITERABLE_TO_ADD_CANT_BE_NULL_MESSAGE='" + ITERABLE_TO_ADD_CANT_BE_NULL_MESSAGE + '\'' + 

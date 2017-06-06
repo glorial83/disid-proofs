@@ -5,7 +5,6 @@ package com.disid.proofs.client.domain;
 
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
-import io.springlets.format.EntityFormat;
 import javax.persistence.Entity;
 import org.springframework.util.Assert;
 

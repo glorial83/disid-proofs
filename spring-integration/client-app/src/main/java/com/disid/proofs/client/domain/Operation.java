@@ -51,4 +51,12 @@ public class Operation {
     @ManyToOne(fetch = FetchType.LAZY)
     @EntityFormat
     private Person person;
+
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @EntityFormat
+    private Tool tools;
 }

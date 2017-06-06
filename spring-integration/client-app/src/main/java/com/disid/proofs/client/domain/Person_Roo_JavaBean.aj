@@ -30,24 +30,6 @@ privileged aspect Person_Roo_JavaBean {
     /**
      * TODO Auto-generated method documentation
      * 
-     * @return Integer
-     */
-    public Integer Person.getVersion() {
-        return this.version;
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param version
-     */
-    public void Person.setVersion(Integer version) {
-        this.version = version;
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
      * @return String
      */
     public String Person.getName() {

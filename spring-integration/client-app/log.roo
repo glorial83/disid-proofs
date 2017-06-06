@@ -17,3 +17,14 @@ web mvc controller --entity ~.domain.Person --package ~.web.html --responseType 
 web mvc controller --entity ~.domain.Person --package ~.web.api --pathPrefix api --responseType JSON 
 web mvc controller --entity ~.domain.Operation --package ~.web.html --responseType THYMELEAF
 web mvc controller --entity ~.domain.Operation --package ~.web.api --pathPrefix api --responseType JSON 
+entity jpa --class ~.domain.Tool 
+field string --fieldName name
+field number --fieldName size --type java.lang.Integer --permitReservedWords 
+repository jpa --entity ~.domain.Tool 
+service --entity ~.domain.Tool 
+web mvc controller --entity ~.domain.Tool --package ~.web.html --responseType THYMELEAF 
+web mvc controller --entity ~.domain.Tool --package ~.web.api --pathPrefix api --responseType JSON 
+focus --class ~.domain.Operation
+focus --class ~.domain.Tool
+field set --fieldName operations --type ~.domain.Operation --cardinality ONE_TO_MANY --mappedBy tools
+hint

@@ -6,8 +6,10 @@ package com.disid.proofs.client.config.jackson;
 import com.disid.proofs.client.config.jackson.DomainModelModule;
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
+import com.disid.proofs.client.domain.Tool;
 import com.disid.proofs.client.web.html.OperationJsonMixin;
 import com.disid.proofs.client.web.html.PersonJsonMixin;
+import com.disid.proofs.client.web.html.ToolJsonMixin;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.boot.jackson.JsonComponent;
 
@@ -26,6 +28,7 @@ privileged aspect DomainModelModule_Roo_DomainModelModule {
         
         setMixInAnnotation(Operation.class, OperationJsonMixin.class);
         setMixInAnnotation(Person.class, PersonJsonMixin.class);
+        setMixInAnnotation(Tool.class, ToolJsonMixin.class);
     }
 
 }

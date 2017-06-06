@@ -6,34 +6,24 @@ package com.disid.proofs.client.web.html;
 import com.disid.proofs.client.domain.Person;
 import com.disid.proofs.client.service.api.PersonService;
 import com.disid.proofs.client.web.html.PeopleItemThymeleafController;
-import com.disid.proofs.client.web.html.PeopleItemThymeleafLinkFactory;
 import io.springlets.web.NotFoundException;
 import io.springlets.web.mvc.util.ControllerMethodLinkBuilderFactory;
 import io.springlets.web.mvc.util.MethodLinkBuilderFactory;
 import java.util.Locale;
-import javax.validation.Valid;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriComponents;
 
 privileged aspect PeopleItemThymeleafController_Roo_Thymeleaf {
     
@@ -180,7 +170,5 @@ privileged aspect PeopleItemThymeleafController_Roo_Thymeleaf {
     public void PeopleItemThymeleafController.populateForm(Model model) {
         populateFormats(model);
     }
-    
-    
     
 }

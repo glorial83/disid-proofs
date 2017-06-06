@@ -21,24 +21,6 @@ privileged aspect PeopleCollectionThymeleafLinkFactory_Roo_LinkFactory {
      * TODO Auto-generated attribute documentation
      * 
      */
-    public static final String PeopleCollectionThymeleafLinkFactory.LIST = "list";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     * 
-     */
-    public static final String PeopleCollectionThymeleafLinkFactory.DATATABLES = "datatables";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     * 
-     */
-    public static final String PeopleCollectionThymeleafLinkFactory.SELECT2 = "select2";
-    
-    /**
-     * TODO Auto-generated attribute documentation
-     * 
-     */
     public static final String PeopleCollectionThymeleafLinkFactory.CREATE = "create";
     
     /**
@@ -52,6 +34,24 @@ privileged aspect PeopleCollectionThymeleafLinkFactory_Roo_LinkFactory {
      * 
      */
     public static final String PeopleCollectionThymeleafLinkFactory.DELETEBATCH = "deleteBatch";
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String PeopleCollectionThymeleafLinkFactory.LIST = "list";
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String PeopleCollectionThymeleafLinkFactory.DATATABLES = "datatables";
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String PeopleCollectionThymeleafLinkFactory.SELECT2 = "select2";
     
     /**
      * TODO Auto-generated attribute documentation
@@ -89,15 +89,6 @@ privileged aspect PeopleCollectionThymeleafLinkFactory_Roo_LinkFactory {
      * @return UriComponents
      */
     public UriComponents PeopleCollectionThymeleafLinkFactory.toUri(String methodName, Object[] parameters, Map<String, Object> pathVariables) {
-        if (methodName.equals(LIST)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).list(null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(DATATABLES)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).datatables(null, null, null, null)).buildAndExpand(pathVariables);
-        }
-        if (methodName.equals(SELECT2)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).select2(null, null, null)).buildAndExpand(pathVariables);
-        }
         if (methodName.equals(CREATE)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).create(null, null, null)).buildAndExpand(pathVariables);
         }
@@ -106,6 +97,15 @@ privileged aspect PeopleCollectionThymeleafLinkFactory_Roo_LinkFactory {
         }
         if (methodName.equals(DELETEBATCH)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).deleteBatch(null)).buildAndExpand(pathVariables);
+        }
+        if (methodName.equals(LIST)) {
+            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).list(null)).buildAndExpand(pathVariables);
+        }
+        if (methodName.equals(DATATABLES)) {
+            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).datatables(null, null, null, null)).buildAndExpand(pathVariables);
+        }
+        if (methodName.equals(SELECT2)) {
+            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).select2(null, null, null)).buildAndExpand(pathVariables);
         }
         if (methodName.equals(EXPORTCSV)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).exportCsv(null, null, null, null, null)).buildAndExpand(pathVariables);
