@@ -1,3 +1,75 @@
 = Spring Integration
 
-TODO
+This proof of concept tries to show you how to create a basic middleware application using Spring Integration and Spring Boot.
+
+== Description
+
+We supose a background where we need to develop an application to manage operations. To create a new operation, we need to set a new name for the operation, we must choose the person who will do it and we must choose the tool that will be used during that job. 
+The people and the tools are not managed in our systems, these items could be provided by some different external companies that offer their workers and their available tools.
+
+== Server side
+
+To be able to test this proof of concept, we are going to create a sample server application using the Spring Roo generation tool. This server-side application is an Spring Boot application that allows you to create new people and new tools. Also, it provides some JSON API REST operations that offers information about the existing elements. 
+
+NOTE: _Remember that we have created this server side application because this is only a proof of concept. In a real stage, the server application or server applications will exists and will provide the operations that their owners have been defined before._
+
+=== Testing the server side
+
+. Download the code of this repository
+. Navigate to the `spring-integration/server-app` folder.
+. Open a new shell and execute the following command:
++
+`mvn clean compile spring-boot:run`
+. Open your favourite browser and navigate to `http://localhost:8081/server`
+. Create some new people
++
+image::images/people.png["list of the created people"]
+. Create some new tools
++
+image::images/tools.png["list of the created tools"]
+
+NOTE: _As always, you could import the project to your preferred IDE and execute it as an Spring Boot application or deploying the generated .war file in a Tomcat server_
+
+== Middleware
+
+After create the server side, is time to create the middleware. To implement this middleware we're going to use Spring Boot and Spring Integration. You could create an Spring Boot simple application that includes the Spring Integration boot starter using the Spring Initializr http://start.spring.io/. 
+
+Define the necessary flows to obtain serve the data by demand.
+
+=== People flow
+
+This is the integration graph of the people operations:
+
+image::images/people-integration-graph.png["Integration graph of the people operations"]
+
+It defines an `inbound-gateway` that listen the `/people` request. When someone invoke this operation, uses the `outbound-gateway` component to make a petition to the server side. The response of this petition is managed and finally, returns the obtained results. 
+
+=== Tools flow
+
+This is the integration graph of the people operations:
+
+image::images/tools-integration-graph.png["Integration graph of the tools operations"]
+
+The defined components are the same as the people operation.
+
+== Client side
+
+Now that the server application exists and we have the basic middleware with Spring Integration, we're going to create the sample client application using the Spring Roo generation tool. This client-side application is an Spring Boot application that allows you to create new operations and assign to them the people and the tools that will be involved into the process.
+
+NOTE: _In a real stage, this will be the application that we want to develop._
+
+=== Testing the client side
+
+. Download the code of this repository
+. Navigate to the `spring-integration/client-app` folder.
+. Open a new shell and execute the following command:
++
+`mvn clean compile spring-boot:run`
+. Open your favourite browser and navigate to `http://localhost:8080/client`
+. Create some new operation selecting the person involved and the tool that will be used.
++
+image::images/people_select2.png["list of the obtained people in the select2 component"]
+image::images/tools_select2.png["list of the obtained tools in the select2 component"]
+
+As you could see, the obtained list of people and the obtained list of tools are the same items like the created one into the server side.
+
