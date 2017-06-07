@@ -57,16 +57,6 @@ privileged aspect PersonServiceImpl_Roo_Service_Impl {
     /**
      * TODO Auto-generated method documentation
      * 
-     * @param person
-     */
-    @Transactional
-    public void PersonServiceImpl.delete(Person person) {
-        getPersonRepository().delete(person);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
      * @param entities
      * @return List
      */

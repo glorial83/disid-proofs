@@ -10,13 +10,11 @@
     http://www.springframework.org/schema/integration/http
     http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
 
+	<!-- GET -->
 	<int:channel id="peopleChannel" />
 
-	<!-- Creating an inbound gateway that will receive the message -->
 	<int-http:inbound-gateway id="inboundPeopleGateway"
-		path="/people" request-channel="peopleChannel"
-		supported-methods="GET" />
-
+		path="/people" request-channel="peopleChannel" supported-methods="GET" />
 
 	<int-http:outbound-gateway id="outboundPeopleGateway"
 		request-channel="peopleChannel" url="http://localhost:8081/server/api/people"
@@ -24,12 +22,24 @@
 		expected-response-type="java.util.List" message-converters="personFromServerConverter" />
 
 	<int:channel id="peopleResponseChannel" />
-
 	<int:service-activator input-channel="peopleResponseChannel"
 		ref="peopleResponseServiceActivator" />
 
 	<int:logging-channel-adapter id="loggingPeopleChannel"
 		level="INFO" expression="'Sended response with ' + payload" channel="peopleResponseChannel" />
 
+	<!-- DELETE -->
+	<int:channel id="personChannel" />
+
+	<int-http:inbound-gateway id="inboundPersonGateway"
+		path="/people/{person}" payload-expression="#pathVariables.person"
+		request-channel="personChannel" supported-methods="DELETE" />
+
+	<int-http:outbound-gateway
+		request-channel="personChannel" http-method="DELETE"
+		url="http://localhost:8080/client/api/people/{person}" 
+		  expected-response-type="java.lang.Void">
+		<int-http:uri-variable name="person" expression="payload" />
+	</int-http:outbound-gateway>
 
 </beans>

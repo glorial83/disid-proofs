@@ -27,4 +27,4 @@ web mvc controller --entity ~.domain.Tool --package ~.web.api --pathPrefix api -
 focus --class ~.domain.Operation
 focus --class ~.domain.Tool
 field set --fieldName operations --type ~.domain.Operation --cardinality ONE_TO_MANY --mappedBy tools
-hint
+web mvc controller --entity ~.domain.Person --package ~.web.api --pathPrefix api --responseType JSON

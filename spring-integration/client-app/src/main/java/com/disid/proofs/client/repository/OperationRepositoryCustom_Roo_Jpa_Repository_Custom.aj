@@ -5,6 +5,7 @@ package com.disid.proofs.client.repository;
 
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
+import com.disid.proofs.client.domain.Tool;
 import com.disid.proofs.client.repository.OperationRepositoryCustom;
 import io.springlets.data.domain.GlobalSearch;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,16 @@ privileged aspect OperationRepositoryCustom_Roo_Jpa_Repository_Custom {
      * @return Page
      */
     public abstract Page<Operation> OperationRepositoryCustom.findByPerson(Person person, GlobalSearch globalSearch, Pageable pageable);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param tools
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public abstract Page<Operation> OperationRepositoryCustom.findByTools(Tool tools, GlobalSearch globalSearch, Pageable pageable);
     
     /**
      * TODO Auto-generated method documentation

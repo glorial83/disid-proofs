@@ -5,6 +5,7 @@ package com.disid.proofs.client.service.api;
 
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
+import com.disid.proofs.client.domain.Tool;
 import com.disid.proofs.client.service.api.OperationService;
 import io.springlets.data.domain.GlobalSearch;
 import io.springlets.format.EntityResolver;
@@ -106,9 +107,27 @@ privileged aspect OperationService_Roo_Service {
     /**
      * TODO Auto-generated method documentation
      * 
+     * @param tools
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public abstract Page<Operation> OperationService.findByTools(Tool tools, GlobalSearch globalSearch, Pageable pageable);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
      * @param person
      * @return Long
      */
     public abstract long OperationService.countByPerson(Person person);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param tools
+     * @return Long
+     */
+    public abstract long OperationService.countByTools(Tool tools);
     
 }

@@ -6,6 +6,7 @@ package com.disid.proofs.client.repository;
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
 import com.disid.proofs.client.domain.QOperation;
+import com.disid.proofs.client.domain.Tool;
 import com.disid.proofs.client.repository.OperationRepositoryCustom;
 import com.disid.proofs.client.repository.OperationRepositoryImpl;
 import com.querydsl.core.types.Path;
@@ -85,6 +86,37 @@ privileged aspect OperationRepositoryImpl_Roo_Jpa_Repository_Impl {
         Assert.notNull(person, "person is required");
         
         query.where(operation.person.eq(person));
+        Path<?>[] paths = new Path<?>[] {operation.title,operation.person,operation.tools};        
+        applyGlobalSearch(globalSearch, query, paths);
+        
+        AttributeMappingBuilder mapping = buildMapper()
+			.map(TITLE, operation.title)
+			.map(PERSON, operation.person)
+			.map(TOOLS, operation.tools);
+        
+        applyPagination(pageable, query, mapping);
+        applyOrderById(query);
+        
+        return loadPage(query, pageable, operation);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param tools
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public Page<Operation> OperationRepositoryImpl.findByTools(Tool tools, GlobalSearch globalSearch, Pageable pageable) {
+        
+        QOperation operation = QOperation.operation;
+        
+        JPQLQuery<Operation> query = from(operation);
+        
+        Assert.notNull(tools, "tools is required");
+        
+        query.where(operation.tools.eq(tools));
         Path<?>[] paths = new Path<?>[] {operation.title,operation.person,operation.tools};        
         applyGlobalSearch(globalSearch, query, paths);
         

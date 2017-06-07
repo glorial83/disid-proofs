@@ -5,6 +5,7 @@ package com.disid.proofs.client.service.impl;
 
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
+import com.disid.proofs.client.domain.Tool;
 import com.disid.proofs.client.repository.OperationRepository;
 import com.disid.proofs.client.service.impl.OperationServiceImpl;
 import io.springlets.data.domain.GlobalSearch;
@@ -65,6 +66,11 @@ privileged aspect OperationServiceImpl_Roo_Service_Impl {
         // Clear bidirectional many-to-one child relationship with Person
         if (operation.getPerson() != null) {
             operation.getPerson().getOperations().remove(operation);
+        }
+        
+        // Clear bidirectional many-to-one child relationship with Tool
+        if (operation.getTools() != null) {
+            operation.getTools().getOperations().remove(operation);
         }
         
         getOperationRepository().delete(operation);
@@ -177,11 +183,33 @@ privileged aspect OperationServiceImpl_Roo_Service_Impl {
     /**
      * TODO Auto-generated method documentation
      * 
+     * @param tools
+     * @param globalSearch
+     * @param pageable
+     * @return Page
+     */
+    public Page<Operation> OperationServiceImpl.findByTools(Tool tools, GlobalSearch globalSearch, Pageable pageable) {
+        return getOperationRepository().findByTools(tools, globalSearch, pageable);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
      * @param person
      * @return Long
      */
     public long OperationServiceImpl.countByPerson(Person person) {
         return getOperationRepository().countByPerson(person);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param tools
+     * @return Long
+     */
+    public long OperationServiceImpl.countByTools(Tool tools) {
+        return getOperationRepository().countByTools(tools);
     }
     
     /**

@@ -5,6 +5,7 @@ package com.disid.proofs.client.repository;
 
 import com.disid.proofs.client.domain.Operation;
 import com.disid.proofs.client.domain.Person;
+import com.disid.proofs.client.domain.Tool;
 import com.disid.proofs.client.repository.OperationRepository;
 import com.disid.proofs.client.repository.OperationRepositoryCustom;
 import io.springlets.data.jpa.repository.DetachableJpaRepository;
@@ -25,5 +26,13 @@ privileged aspect OperationRepository_Roo_Jpa_Repository {
      * @return Long
      */
     public abstract long OperationRepository.countByPerson(Person person);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param tools
+     * @return Long
+     */
+    public abstract long OperationRepository.countByTools(Tool tools);
     
 }

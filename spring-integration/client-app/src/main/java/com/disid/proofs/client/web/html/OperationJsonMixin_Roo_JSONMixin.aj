@@ -4,8 +4,10 @@
 package com.disid.proofs.client.web.html;
 
 import com.disid.proofs.client.domain.Person;
+import com.disid.proofs.client.domain.Tool;
 import com.disid.proofs.client.web.html.OperationJsonMixin;
 import com.disid.proofs.client.web.html.PersonDeserializer;
+import com.disid.proofs.client.web.html.ToolDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 privileged aspect OperationJsonMixin_Roo_JSONMixin {
@@ -16,6 +18,13 @@ privileged aspect OperationJsonMixin_Roo_JSONMixin {
      */
     @JsonDeserialize(using = PersonDeserializer.class)
     private Person OperationJsonMixin.person;
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    @JsonDeserialize(using = ToolDeserializer.class)
+    private Tool OperationJsonMixin.tools;
     
     /**
      * TODO Auto-generated method documentation
@@ -33,6 +42,24 @@ privileged aspect OperationJsonMixin_Roo_JSONMixin {
      */
     public void OperationJsonMixin.setPerson(Person person) {
         this.person = person;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return Tool
+     */
+    public Tool OperationJsonMixin.getTools() {
+        return tools;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param tools
+     */
+    public void OperationJsonMixin.setTools(Tool tools) {
+        this.tools = tools;
     }
     
 }
