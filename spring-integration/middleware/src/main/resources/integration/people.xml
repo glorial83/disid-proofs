@@ -10,7 +10,7 @@
     http://www.springframework.org/schema/integration/http
     http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
 
-	<!-- GET -->
+	<!-- COLLECTION -->
 	<int:channel id="peopleChannel" />
 
 	<int-http:inbound-gateway id="inboundPeopleGateway"
@@ -28,7 +28,7 @@
 	<int:logging-channel-adapter id="loggingPeopleChannel"
 		level="INFO" expression="'Sended response with ' + payload" channel="peopleResponseChannel" />
 
-	<!-- DELETE -->
+	<!-- ITEM -->
 	<int:channel id="personChannel" />
 
 	<int-http:inbound-gateway id="inboundPersonGateway"

@@ -1,6 +1,11 @@
-var stompClient = null;
-
+/**
+ * This file contain the necessary javascript functions to connect to the registered
+ * websocket and subscribe the client to the channel that will receive all the
+ * STOMP messages.
+ */
 jQuery(document).ready(function(){
+	
+	var stompClient = null;
 	
 	/**
 	 * Function that connects with the published websocket and subscribes the
