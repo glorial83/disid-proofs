@@ -142,4 +142,9 @@ public class Pet {
      */
     @LastModifiedBy
     private String modifiedBy;
+    
+    /**
+     * Pet's image
+     */
+    private byte[] image;
 }

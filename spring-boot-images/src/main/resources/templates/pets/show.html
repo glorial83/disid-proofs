@@ -64,6 +64,10 @@
             	      <strong data-th-text="#{label_pet_modifiedby}">modifiedBy</strong>
                     <span data-th-text="*{{modifiedBy}}">modifiedByValue</span>
          	        </li>
+                  <li id="pet-image-field" data-z="8400064a">
+            	      <strong data-th-text="#{label_pet_image}">image</strong>
+                    <img id="image" name="image" data-th-src="'data:image/' + ${imageType} + ';base64,' + ${imageBase64}" />
+         	        </li>
               </ul>
             </div>
 

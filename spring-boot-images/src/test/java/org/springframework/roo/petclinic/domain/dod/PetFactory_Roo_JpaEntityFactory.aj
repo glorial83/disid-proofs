@@ -22,6 +22,7 @@ privileged aspect PetFactory_Roo_JpaEntityFactory {
         Pet obj = new Pet();
         setCreatedBy(obj, index);
         setCreatedDate(obj, index);
+        setImage(obj, index);
         setModifiedBy(obj, index);
         setModifiedDate(obj, index);
         setName(obj, index);
@@ -52,6 +53,17 @@ privileged aspect PetFactory_Roo_JpaEntityFactory {
     public void PetFactory.setCreatedDate(Pet obj, int index) {
         Calendar createdDate = Calendar.getInstance();
         obj.setCreatedDate(createdDate);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param obj
+     * @param index
+     */
+    public void PetFactory.setImage(Pet obj, int index) {
+        byte[] image = String.valueOf(index).getBytes();
+        obj.setImage(image);
     }
     
     /**

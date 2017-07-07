@@ -137,19 +137,6 @@ privileged aspect PetsItemThymeleafController_Roo_Thymeleaf {
      * @param model
      * @return ModelAndView
      */
-    @GetMapping(name = "show")
-    public ModelAndView PetsItemThymeleafController.show(@ModelAttribute Pet pet, Model model) {
-        model.addAttribute("pet", pet);
-        return new ModelAndView("pets/show");
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param pet
-     * @param model
-     * @return ModelAndView
-     */
     @GetMapping(value = "/inline", name = "showInline")
     public ModelAndView PetsItemThymeleafController.showInline(@ModelAttribute Pet pet, Model model) {
         model.addAttribute("pet", pet);

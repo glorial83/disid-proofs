@@ -23,6 +23,7 @@ privileged aspect Pet_Roo_ToString {
                 ", createdBy='" + createdBy + '\'' + 
                 ", modifiedDate='" + modifiedDate + '\'' + 
                 ", modifiedBy='" + modifiedBy + '\'' + 
+                ", image='" + image + '\'' + 
                 ", ITERABLE_TO_ADD_CANT_BE_NULL_MESSAGE='" + ITERABLE_TO_ADD_CANT_BE_NULL_MESSAGE + '\'' + 
                 ", ITERABLE_TO_REMOVE_CANT_BE_NULL_MESSAGE='" + ITERABLE_TO_REMOVE_CANT_BE_NULL_MESSAGE + '\'' + "}" + super.toString();
     }

@@ -228,4 +228,22 @@ privileged aspect Pet_Roo_JavaBean {
         this.modifiedBy = modifiedBy;
     }
     
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @return Byte
+     */
+    public byte[] Pet.getImage() {
+        return this.image;
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param image
+     */
+    public void Pet.setImage(byte[] image) {
+        this.image = image;
+    }
+    
 }
