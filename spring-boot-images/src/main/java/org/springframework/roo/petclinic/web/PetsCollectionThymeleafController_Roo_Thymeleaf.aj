@@ -38,6 +38,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.reference.PetType;
 import org.springframework.roo.petclinic.service.api.PetService;
@@ -471,6 +472,9 @@ privileged aspect PetsCollectionThymeleafController_Roo_Thymeleaf {
         }
         else if (columnName.equals("modifiedBy")) {
             builder.addColumn(getMessageSource().getMessage("label_pet_modifiedby", null, "Modified By", locale), "modifiedBy", String.class.getName(), 100);
+        }
+        else if (columnName.equals("image")) {
+            builder.addColumn(getMessageSource().getMessage("label_pet_image", null, "Image", locale), "image", Image.class.getName(), 100);
         }
         }
         catch (ColumnBuilderException e) {

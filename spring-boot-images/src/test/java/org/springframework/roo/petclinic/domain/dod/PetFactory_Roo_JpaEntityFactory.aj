@@ -5,6 +5,7 @@ package org.springframework.roo.petclinic.domain.dod;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.dod.PetFactory;
@@ -62,7 +63,7 @@ privileged aspect PetFactory_Roo_JpaEntityFactory {
      * @param index
      */
     public void PetFactory.setImage(Pet obj, int index) {
-        byte[] image = String.valueOf(index).getBytes();
+        Image image = null;
         obj.setImage(image);
     }
     

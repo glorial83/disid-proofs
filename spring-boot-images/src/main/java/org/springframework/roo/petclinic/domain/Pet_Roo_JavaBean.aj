@@ -5,6 +5,7 @@ package org.springframework.roo.petclinic.domain;
 
 import java.util.Calendar;
 import java.util.Set;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.Visit;
@@ -231,9 +232,9 @@ privileged aspect Pet_Roo_JavaBean {
     /**
      * TODO Auto-generated method documentation
      * 
-     * @return Byte
+     * @return Image
      */
-    public byte[] Pet.getImage() {
+    public Image Pet.getImage() {
         return this.image;
     }
     
@@ -242,7 +243,7 @@ privileged aspect Pet_Roo_JavaBean {
      * 
      * @param image
      */
-    public void Pet.setImage(byte[] image) {
+    public void Pet.setImage(Image image) {
         this.image = image;
     }
     

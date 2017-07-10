@@ -1,6 +1,10 @@
 package org.springframework.roo.petclinic.service.impl;
+
 import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
+import org.springframework.roo.petclinic.domain.Image;
+import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.service.api.PetService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * = PetServiceImpl
@@ -10,4 +14,21 @@ import org.springframework.roo.petclinic.service.api.PetService;
  */
 @RooServiceImpl(service = PetService.class)
 public class PetServiceImpl implements PetService {
+
+  /**
+   * Method that saves the provided {@link Pet}
+   * 
+   * @param entity
+   * @return Pet
+   */
+  @Transactional
+  public Pet save(Pet pet) {
+    // Resize and format the image
+    Image formattedAndResizedImage = pet.getImage().formatAndResize("png", 1000, 1000);
+    // Set the resized and formatted image as new pet image
+    pet.setImage(formattedAndResizedImage);
+    // Delegates into the Pet Repository to save the entity 
+    return getPetRepository().save(pet);
+  }
+
 }

@@ -80,6 +80,12 @@ privileged aspect PetRepositoryImpl_Roo_Jpa_Repository_Impl {
     public static final String PetRepositoryImpl.MODIFIED_BY = "modifiedBy";
     
     /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String PetRepositoryImpl.IMAGE = "image";
+    
+    /**
      * TODO Auto-generated method documentation
      * 
      * @param globalSearch
@@ -92,7 +98,7 @@ privileged aspect PetRepositoryImpl_Roo_Jpa_Repository_Impl {
         
         JPQLQuery<Pet> query = from(pet);
         
-        Path<?>[] paths = new Path<?>[] {pet.sendReminders,pet.name,pet.weight,pet.type,pet.owner,pet.createdDate,pet.createdBy,pet.modifiedDate,pet.modifiedBy};        
+        Path<?>[] paths = new Path<?>[] {pet.sendReminders,pet.name,pet.weight,pet.type,pet.owner,pet.createdDate,pet.createdBy,pet.modifiedDate,pet.modifiedBy,pet.image};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
@@ -104,7 +110,8 @@ privileged aspect PetRepositoryImpl_Roo_Jpa_Repository_Impl {
 			.map(CREATED_DATE, pet.createdDate)
 			.map(CREATED_BY, pet.createdBy)
 			.map(MODIFIED_DATE, pet.modifiedDate)
-			.map(MODIFIED_BY, pet.modifiedBy);
+			.map(MODIFIED_BY, pet.modifiedBy)
+			.map(IMAGE, pet.image);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);
@@ -129,7 +136,7 @@ privileged aspect PetRepositoryImpl_Roo_Jpa_Repository_Impl {
         Assert.notNull(owner, "owner is required");
         
         query.where(pet.owner.eq(owner));
-        Path<?>[] paths = new Path<?>[] {pet.sendReminders,pet.name,pet.weight,pet.type,pet.owner,pet.createdDate,pet.createdBy,pet.modifiedDate,pet.modifiedBy};        
+        Path<?>[] paths = new Path<?>[] {pet.sendReminders,pet.name,pet.weight,pet.type,pet.owner,pet.createdDate,pet.createdBy,pet.modifiedDate,pet.modifiedBy,pet.image};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
@@ -141,7 +148,8 @@ privileged aspect PetRepositoryImpl_Roo_Jpa_Repository_Impl {
 			.map(CREATED_DATE, pet.createdDate)
 			.map(CREATED_BY, pet.createdBy)
 			.map(MODIFIED_DATE, pet.modifiedDate)
-			.map(MODIFIED_BY, pet.modifiedBy);
+			.map(MODIFIED_BY, pet.modifiedBy)
+			.map(IMAGE, pet.image);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);
@@ -176,7 +184,7 @@ privileged aspect PetRepositoryImpl_Roo_Jpa_Repository_Impl {
         }
         }
         
-        Path<?>[] paths = new Path<?>[] {pet.sendReminders,pet.name,pet.weight,pet.type,pet.owner,pet.createdDate,pet.createdBy,pet.modifiedDate,pet.modifiedBy};        
+        Path<?>[] paths = new Path<?>[] {pet.sendReminders,pet.name,pet.weight,pet.type,pet.owner,pet.createdDate,pet.createdBy,pet.modifiedDate,pet.modifiedBy,pet.image};        
         applyGlobalSearch(globalSearch, query, paths);
         
         AttributeMappingBuilder mapping = buildMapper()
@@ -188,7 +196,8 @@ privileged aspect PetRepositoryImpl_Roo_Jpa_Repository_Impl {
 			.map(CREATED_DATE, pet.createdDate)
 			.map(CREATED_BY, pet.createdBy)
 			.map(MODIFIED_DATE, pet.modifiedDate)
-			.map(MODIFIED_BY, pet.modifiedBy);
+			.map(MODIFIED_BY, pet.modifiedBy)
+			.map(IMAGE, pet.image);
         
         applyPagination(pageable, query, mapping);
         applyOrderById(query);

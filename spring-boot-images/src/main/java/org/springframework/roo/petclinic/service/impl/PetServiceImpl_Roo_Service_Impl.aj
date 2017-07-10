@@ -190,17 +190,6 @@ privileged aspect PetServiceImpl_Roo_Service_Impl {
     /**
      * TODO Auto-generated method documentation
      * 
-     * @param entity
-     * @return Pet
-     */
-    @Transactional
-    public Pet PetServiceImpl.save(Pet entity) {
-        return getPetRepository().save(entity);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
      * @param id
      * @return Pet
      */
