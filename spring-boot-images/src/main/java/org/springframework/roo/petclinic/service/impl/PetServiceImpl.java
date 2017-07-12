@@ -1,7 +1,7 @@
 package org.springframework.roo.petclinic.service.impl;
 
+import io.springlets.data.jpa.domain.EmbeddableImage;
 import org.springframework.roo.addon.layers.service.annotations.RooServiceImpl;
-import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.service.api.PetService;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class PetServiceImpl implements PetService {
   @Transactional
   public Pet save(Pet pet) {
     // Resize and format the image
-    Image formattedAndResizedImage = pet.getImage().formatAndResize("png", 1000, 1000);
+    EmbeddableImage formattedAndResizedImage = pet.getImage().formatAndResize("png", 1000, 1000);
     // Set the resized and formatted image as new pet image
     pet.setImage(formattedAndResizedImage);
     // Delegates into the Pet Repository to save the entity 

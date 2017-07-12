@@ -1,5 +1,6 @@
 package org.springframework.roo.petclinic.domain;
 
+import io.springlets.data.jpa.domain.EmbeddableImage;
 import io.springlets.format.EntityFormat;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -150,5 +151,5 @@ public class Pet {
   /**
    * Pet's image
    */
-  private Image image;
+  private EmbeddableImage image;
 }

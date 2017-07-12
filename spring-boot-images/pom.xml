@@ -24,7 +24,7 @@
 		<aspectj.plugin.version>1.8</aspectj.plugin.version>
 		<asciidoclet.version>1.5.4</asciidoclet.version>
 		<spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-		<springlets.version>1.2.0.RC1</springlets.version>
+		<springlets.version>1.2.0.BUILD-SNAPSHOT</springlets.version>
 		<tracee.version>1.1.2</tracee.version>
 		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
 		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
@@ -55,7 +55,6 @@
 		<bootstrap.ie10-viewport-bug-workaround.version>1.0.3</bootstrap.ie10-viewport-bug-workaround.version>
 		<thymeleaf-extras-springsecurity4.version>3.0.0.RELEASE</thymeleaf-extras-springsecurity4.version>
 		<cxf.version>3.1.8</cxf.version>
-		<bootstrap-fileinput.version>4.4.0</bootstrap-fileinput.version>
 	</properties>
 
 	<repositories>
@@ -140,11 +139,6 @@
 				<groupId>org.webjars.bower</groupId>
 				<artifactId>bootstrap</artifactId>
 				<version>${bootstrap.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.webjars.bower</groupId>
-				<artifactId>bootstrap-fileinput</artifactId>
-				<version>${bootstrap-fileinput.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.webjars.bower</groupId>
@@ -425,10 +419,6 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>bootstrap</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>bootstrap-fileinput</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
