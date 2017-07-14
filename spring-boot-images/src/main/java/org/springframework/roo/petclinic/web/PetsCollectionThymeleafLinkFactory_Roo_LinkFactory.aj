@@ -72,6 +72,12 @@ privileged aspect PetsCollectionThymeleafLinkFactory_Roo_LinkFactory {
     public static final String PetsCollectionThymeleafLinkFactory.EXPORTXLS = "exportXls";
     
     /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
+    public static final String PetsCollectionThymeleafLinkFactory.IMAGES = "images";
+    
+    /**
      * TODO Auto-generated method documentation
      * 
      * @return Class
@@ -99,7 +105,7 @@ privileged aspect PetsCollectionThymeleafLinkFactory_Roo_LinkFactory {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).select2(null, null, null)).buildAndExpand(pathVariables);
         }
         if (methodName.equals(CREATE)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).create(null, null, null)).buildAndExpand(pathVariables);
+            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).create(null, null, null, null)).buildAndExpand(pathVariables);
         }
         if (methodName.equals(CREATEFORM)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).createForm(null)).buildAndExpand(pathVariables);
@@ -115,6 +121,9 @@ privileged aspect PetsCollectionThymeleafLinkFactory_Roo_LinkFactory {
         }
         if (methodName.equals(EXPORTXLS)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).exportXls(null, null, null, null, null)).buildAndExpand(pathVariables);
+        }
+        if (methodName.equals(IMAGES)) {
+          return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).findAllImages()).buildAndExpand(pathVariables);
         }
         throw new IllegalArgumentException("Invalid method name: " + methodName);
     }

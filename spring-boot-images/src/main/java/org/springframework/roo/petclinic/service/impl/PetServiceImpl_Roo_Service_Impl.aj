@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.PetNameAndWeightFormBean;
@@ -157,6 +158,11 @@ privileged aspect PetServiceImpl_Roo_Service_Impl {
             pet.getOwner().getPets().remove(pet);
         }
         
+        // Clear bidirectional many-to-one child relationship with Image
+        if (pet.getImage() != null) {
+            pet.getImage().getPets().remove(pet);
+        }
+        
         // Clear bidirectional one-to-many parent relationship with Visit
         for (Visit item : pet.getVisits()) {
             item.setPet(null);
@@ -256,6 +262,16 @@ privileged aspect PetServiceImpl_Roo_Service_Impl {
      */
     public Page<Pet> PetServiceImpl.findByOwner(Owner owner, GlobalSearch globalSearch, Pageable pageable) {
         return getPetRepository().findByOwner(owner, globalSearch, pageable);
+    }
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param image
+     * @return Long
+     */
+    public long PetServiceImpl.countByImage(Image image) {
+        return getPetRepository().countByImage(image);
     }
     
     /**

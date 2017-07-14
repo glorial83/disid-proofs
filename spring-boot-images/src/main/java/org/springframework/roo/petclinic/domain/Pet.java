@@ -51,105 +51,107 @@ import javax.validation.constraints.Size;
 @RooJaxbEntity
 public class Pet {
 
-  /**
-  * TODO Auto-generated attribute documentation
-  *
-  */
-  @Id
-  @SequenceGenerator(name = "petGen", sequenceName = "PET_SEQ")
-  @GeneratedValue(strategy = GenerationType.AUTO, generator = "petGen")
-  private Long id;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @Id
+    @SequenceGenerator(name = "petGen", sequenceName = "PET_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "petGen")
+    private Long id;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @Version
-  private Integer version;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @Version
+    private Integer version;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @NotNull
-  private boolean sendReminders;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @NotNull
+    private boolean sendReminders;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @NotNull
-  @Size(min = 1)
-  private String name;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @NotNull
+    @Size(min = 1)
+    private String name;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @NotNull
-  @Min(0L)
-  @NumberFormat
-  private Float weight;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @NotNull
+    @Min(0L)
+    @NumberFormat
+    private Float weight;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @NotNull
-  @Enumerated
-  private PetType type;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @NotNull
+    @Enumerated
+    private PetType type;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @OneToMany(cascade = {javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST},
-      fetch = FetchType.LAZY, mappedBy = "pet")
-  @RooJpaRelation(type = JpaRelationType.AGGREGATION)
-  private Set<Visit> visits = new HashSet<Visit>();
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @OneToMany(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST }, fetch = FetchType.LAZY, mappedBy = "pet")
+    @RooJpaRelation(type = JpaRelationType.AGGREGATION)
+    private Set<Visit> visits = new HashSet<Visit>();
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @ManyToOne(fetch = FetchType.LAZY)
-  @EntityFormat
-  private Owner owner;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @EntityFormat
+    private Owner owner;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @CreatedDate
-  @Temporal(TemporalType.TIMESTAMP)
-  @DateTimeFormat(style = "M-")
-  private Calendar createdDate;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(style = "M-")
+    private Calendar createdDate;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @CreatedBy
-  private String createdBy;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @CreatedBy
+    private String createdBy;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @LastModifiedDate
-  @Temporal(TemporalType.TIMESTAMP)
-  @DateTimeFormat(style = "M-")
-  private Calendar modifiedDate;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(style = "M-")
+    private Calendar modifiedDate;
 
-  /**
-   * TODO Auto-generated attribute documentation
-   *
-   */
-  @LastModifiedBy
-  private String modifiedBy;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @LastModifiedBy
+    private String modifiedBy;
 
-  /**
-   * Pet's image
-   */
-  private EmbeddableImage image;
+    /**
+     * TODO Auto-generated attribute documentation
+     *
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @EntityFormat
+    private Image image;
 }

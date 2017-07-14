@@ -8,7 +8,6 @@ import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import io.springlets.data.domain.GlobalSearch;
-import io.springlets.data.jpa.domain.EmbeddableImage;
 import io.springlets.data.web.datatables.ConvertedDatatablesData;
 import io.springlets.data.web.datatables.Datatables;
 import io.springlets.data.web.datatables.DatatablesColumns;
@@ -243,26 +242,6 @@ privileged aspect PetsCollectionThymeleafController_Roo_Thymeleaf {
     /**
      * TODO Auto-generated method documentation
      * 
-     * @param pet
-     * @param result
-     * @param model
-     * @return ModelAndView
-     */
-    @PostMapping(name = "create")
-    public ModelAndView PetsCollectionThymeleafController.create(@Valid @ModelAttribute Pet pet, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            populateForm(model);
-            
-            return new ModelAndView("/pets/create");
-        }
-        Pet newPet = getPetService().save(pet);
-        UriComponents showURI = getItemLink().to(PetsItemThymeleafLinkFactory.SHOW).with("pet", newPet.getId()).toUri();
-        return new ModelAndView("redirect:" + showURI.toUriString());
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
      * @param model
      * @return ModelAndView
      */
@@ -472,9 +451,6 @@ privileged aspect PetsCollectionThymeleafController_Roo_Thymeleaf {
         }
         else if (columnName.equals("modifiedBy")) {
             builder.addColumn(getMessageSource().getMessage("label_pet_modifiedby", null, "Modified By", locale), "modifiedBy", String.class.getName(), 100);
-        }
-        else if (columnName.equals("image")) {
-            builder.addColumn(getMessageSource().getMessage("label_pet_image", null, "Image", locale), "image", EmbeddableImage.class.getName(), 100);
         }
         }
         catch (ColumnBuilderException e) {

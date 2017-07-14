@@ -3,9 +3,9 @@
 
 package org.springframework.roo.petclinic.domain;
 
-import io.springlets.data.jpa.domain.EmbeddableImage;
 import java.util.Calendar;
 import java.util.Set;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.Visit;
@@ -232,9 +232,9 @@ privileged aspect Pet_Roo_JavaBean {
     /**
      * TODO Auto-generated method documentation
      * 
-     * @return EmbeddableImage
+     * @return Image
      */
-    public EmbeddableImage Pet.getImage() {
+    public Image Pet.getImage() {
         return this.image;
     }
     
@@ -243,7 +243,7 @@ privileged aspect Pet_Roo_JavaBean {
      * 
      * @param image
      */
-    public void Pet.setImage(EmbeddableImage image) {
+    public void Pet.setImage(Image image) {
         this.image = image;
     }
     

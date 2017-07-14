@@ -5,14 +5,15 @@ package org.springframework.roo.petclinic.service.api;
 
 import io.springlets.data.domain.GlobalSearch;
 import io.springlets.format.EntityResolver;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.PetNameAndWeightFormBean;
 import org.springframework.roo.petclinic.domain.reference.PetType;
-import org.springframework.roo.petclinic.service.api.PetService;
+
+import java.util.List;
 
 privileged aspect PetService_Roo_Service {
     
@@ -131,6 +132,14 @@ privileged aspect PetService_Roo_Service {
      * @return Page
      */
     public abstract Page<Pet> PetService.findByOwner(Owner owner, GlobalSearch globalSearch, Pageable pageable);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param image
+     * @return Long
+     */
+    public abstract long PetService.countByImage(Image image);
     
     /**
      * TODO Auto-generated method documentation

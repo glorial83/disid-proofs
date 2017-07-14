@@ -6,6 +6,7 @@ package org.springframework.roo.petclinic.repository;
 import io.springlets.data.jpa.repository.DetachableJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.reference.PetType;
@@ -28,6 +29,14 @@ privileged aspect PetRepository_Roo_Jpa_Repository {
      * @return Long
      */
     public abstract long PetRepository.countByOwner(Owner owner);
+    
+    /**
+     * TODO Auto-generated method documentation
+     * 
+     * @param image
+     * @return Long
+     */
+    public abstract long PetRepository.countByImage(Image image);
     
     /**
      * TODO Auto-generated method documentation

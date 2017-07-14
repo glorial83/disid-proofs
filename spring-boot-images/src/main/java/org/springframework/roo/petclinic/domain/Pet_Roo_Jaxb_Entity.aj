@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.Pet_Roo_Jaxb_Entity;
@@ -34,6 +35,10 @@ privileged aspect Pet_Roo_Jaxb_Entity {
     declare @method: public Owner Pet.getOwner(): @XmlIDREF;
     
     declare @method: public Owner Pet.getOwner(): @XmlElement(name = "owner");
+    
+    declare @method: public Image Pet.getImage(): @XmlIDREF;
+    
+    declare @method: public Image Pet.getImage(): @XmlElement(name = "image");
     
     declare @method: public Long Pet.getId(): @XmlTransient;
     

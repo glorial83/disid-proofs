@@ -11,8 +11,7 @@
   data-th-href="@{/webjars/datetimepicker/build/jquery.datetimepicker.min.css}" />
 
 <!-- bootstrap-file-input -->
-<link data-th-href="@{/webjars/bootstrap-fileinput/css/fileinput.min.css}"
-  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.0/css/fileinput.css"
+<link data-th-href="@{/public/css/fileinput.css}"
   media="all" rel="stylesheet" type="text/css" />
 
 </head>
@@ -38,7 +37,8 @@
 
         <!-- FORM -->
         <form class="form-horizontal validate" method="POST" data-th-object="${pet}"
-          data-th-action="@{${collectionLink.to('create').with('pet', pet.id)}}" enctype="multipart/form-data">
+          data-th-action="@{${collectionLink.to('create').with('pet', pet.id)}}"
+          enctype="multipart/form-data">
 
           <fieldset id="containerFields">
             <legend class="sr-only" data-th-text="#{label_data_entity(#{label_pet})}">Pet
@@ -142,7 +142,12 @@
               data-th-class="form-group">
               <label for="image" class="col-md-3 control-label" data-th-text="#{label_pet_image}">image</label>
               <div class="col-md-6">
-                <input id="image" name="image" type="file" accept="image/*"
+                <input id="newImage" name="newImage" type="file" accept="image/*"
+                  data-show-gallery="true"
+                  data-th-data-gallery-url="${collectionLink.to('images')}"
+                  data-fn-render-gallery="renderGallery"
+                  data-fn-set-image-from-gallery="setImageId"
+                  data-hidden-input-name="image"
                   data-show-upload="false" data-show-preview="true" data-browse-on-zone-click="true"
                   data-th-data-language="${#locale.language}"
                   data-allowed-file-extensions='["jpg","jpeg","gif","png","bmp","ico"]'
@@ -150,6 +155,36 @@
                   data-th-data-initial-caption="${imageName}"
                   data-th-placeholder="#{label_pet_image}" data-toggle="tooltip"
                   aria-describedby="imageStatus" />
+                  
+                  <script>
+                  
+                  /**
+                   * Custom function to render the gallery using my own JSON 
+                   * format.
+                   */
+                  function renderGallery(data, modal, fileInput){
+                    for(var i=0; i < data.length;i++){
+                      var imageElement = data[i];
+                      var image = "data:image/" + imageElement.image.format + ";base64," + imageElement.image.base64;
+                      // Creating HTML
+                      var html = '<div class="col-lg-3 col-md-4 col-xs-6 thumb">'
+                        + '<a class="thumbnail" href="#">'
+                        + '<img id="'+imageElement.id+'" class="img-responsive" src="'+image+'" alt=""></a></div>';
+                      modal.find("#content").append(html);
+                    }
+                  }
+                  
+                  /**
+                   * Custom function to se the image in the hiddenInput file. Instead of set the image,
+                   * I want to set the identifier of the image.
+                   */
+                  function setImageId(image, hiddenInput, fileinput){
+                    var imageId = image.id;
+                    hiddenInput.val(imageId);
+                  }
+                  
+                  </script>
+                  
               </div>
             </div>
             <!-- End input file -->
@@ -197,8 +232,10 @@
       data-th-src="@{/public/js/datetimepicker-defaults.js}"></script>
 
     <!-- bootstrap-file-input -->
-    <script data-th-src="@{/webjars/bootstrap-fileinput/4.4.0/js/fileinput.js}"></script>
-    <script data-th-src="@{/webjars/bootstrap-fileinput/4.4.0/js/locales} + '/' + ${#locale.language} + '.js'"></script>
+    <!-- <script data-th-src="@{/webjars/bootstrap-fileinput/4.4.0/js/fileinput.js}"></script> -->
+    <script data-th-src="@{/public/js/fileinput.js}"/></script>
+    <script
+      data-th-src="@{/webjars/bootstrap-fileinput/4.4.0/js/locales} + '/' + ${#locale.language} + '.js'" data-th-if="${#locale.language} != 'en'"></script>
 
     <!-- jquery.inputmask -->
     <script

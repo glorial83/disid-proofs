@@ -17,7 +17,17 @@
       // advanced features (ajax, export, add, edit, show, delete, etc.)
       $(this).DataTable({
     	  mark: true,
-          advanced: true
+          advanced: true,
+          rowCallback: function (row) {
+            var tds = jQuery("td", row);
+            jQuery(tds).each(function(){
+              if(jQuery(this).html().startsWith("data:image/")){
+                var html = jQuery(this).html();
+                var imageHtml = '<img width="50" src="'+html+'" />';
+                jQuery(this).html(imageHtml);
+              }
+            });
+          }
       });
     });
   });

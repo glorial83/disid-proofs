@@ -6,6 +6,7 @@ package org.springframework.roo.petclinic.repository;
 import io.springlets.data.domain.GlobalSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.roo.petclinic.domain.Image;
 import org.springframework.roo.petclinic.domain.Owner;
 import org.springframework.roo.petclinic.domain.Pet;
 import org.springframework.roo.petclinic.domain.PetNameAndWeightFormBean;
