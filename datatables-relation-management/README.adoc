@@ -1,0 +1,18 @@
+= Datatables Relation Management
+
+This proof of concept tries to show you how to manage relation between two Datatables using two tables. One to display all the available records to be associated and the other one a table with the associated records.
+
+== Testing the code
+
+. Download the code of this repository
+. Navigate to the `datatables-relation-management` folder.
+. Open a new shell and execute the following command:
++
+`mvn clean compile spring-boot:run`
+. Open your favourite browser and navigate to `http://localhost:8080`
+. Create at least 2 new Owners
+. Create at least 12 new Pets
+. Navigate to `http://localhost:8080/owners` view and assign some existing pet to a selected owner.
+
+NOTE: _As always, you could import the project to your preferred IDE and execute it as an Spring Boot application or deploying the generated .war file in a Tomcat server_
+
