@@ -121,34 +121,6 @@ privileged aspect OwnerServiceImpl_Roo_Service_Impl {
      * TODO Auto-generated method documentation
      * 
      * @param owner
-     * @param pets
-     * @return Owner
-     */
-    @Transactional
-    public Owner OwnerServiceImpl.setPets(Owner owner, Iterable<Long> pets) {
-        List<Pet> items = getPetService().findAll(pets);
-        Set<Pet> currents = owner.getPets();
-        Set<Pet> toRemove = new HashSet<Pet>();
-        for (Iterator<Pet> iterator = currents.iterator(); iterator.hasNext();) {
-            Pet nextPet = iterator.next();
-            if (items.contains(nextPet)) {
-                items.remove(nextPet);
-            } else {
-                toRemove.add(nextPet);
-            }
-        }
-        owner.removeFromPets(toRemove);
-        owner.addToPets(items);
-        // Force the version update of the parent side to know that the parent has changed
-        // because it has new books assigned
-        owner.setVersion(owner.getVersion() + 1);
-        return getOwnerRepository().save(owner);
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param owner
      */
     @Transactional
     public void OwnerServiceImpl.delete(Owner owner) {

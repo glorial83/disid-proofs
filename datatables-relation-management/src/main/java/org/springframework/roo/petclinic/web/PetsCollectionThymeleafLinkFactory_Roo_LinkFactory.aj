@@ -33,6 +33,12 @@ privileged aspect PetsCollectionThymeleafLinkFactory_Roo_LinkFactory {
      * TODO Auto-generated attribute documentation
      * 
      */
+    public static final String PetsCollectionThymeleafLinkFactory.DATATABLES_NOT_ASSIGNED_TO_OWNER = "datatablesNotAssignedToOwner";
+    
+    /**
+     * TODO Auto-generated attribute documentation
+     * 
+     */
     public static final String PetsCollectionThymeleafLinkFactory.SELECT2 = "select2";
     
     /**
@@ -115,6 +121,9 @@ privileged aspect PetsCollectionThymeleafLinkFactory_Roo_LinkFactory {
         }
         if (methodName.equals(EXPORTXLS)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).exportXls(null, null, null, null, null)).buildAndExpand(pathVariables);
+        }
+        if (methodName.equals(DATATABLES_NOT_ASSIGNED_TO_OWNER)){
+            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).datatablesNotAssignedToOwner(null, null, null, null, null)).buildAndExpand(pathVariables);
         }
         throw new IllegalArgumentException("Invalid method name: " + methodName);
     }
