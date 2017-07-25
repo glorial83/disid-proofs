@@ -230,20 +230,6 @@ privileged aspect OwnersItemPetsThymeleafController_Roo_Thymeleaf {
      * @param petsToRemove
      * @return ResponseEntity
      */
-    @DeleteMapping(name = "removeFromPets", value = "/{petsToRemove}")
-    @ResponseBody
-    public ResponseEntity<?> OwnersItemPetsThymeleafController.removeFromPets(@ModelAttribute Owner owner, @PathVariable("petsToRemove") Long petsToRemove) {
-        getOwnerService().removeFromPets(owner,Collections.singleton(petsToRemove));
-        return ResponseEntity.ok().build();
-    }
-    
-    /**
-     * TODO Auto-generated method documentation
-     * 
-     * @param owner
-     * @param petsToRemove
-     * @return ResponseEntity
-     */
     @DeleteMapping(name = "removeFromPetsBatch", value = "/batch/{petsToRemove}")
     @ResponseBody
     public ResponseEntity<?> OwnersItemPetsThymeleafController.removeFromPetsBatch(@ModelAttribute Owner owner, @PathVariable("petsToRemove") Collection<Long> petsToRemove) {

@@ -40,7 +40,7 @@ public class PetRepositoryImpl extends QueryDslRepositorySupportExt<Pet> {
       Pageable pageable) {
     QPet pet = QPet.pet;
 
-    JPQLQuery<Pet> query = from(pet).where(pet.owner.id.ne(owner.getId()));
+    JPQLQuery<Pet> query = from(pet).where(pet.owner.id.ne(owner.getId()).or(pet.owner.isNull()));
 
     Path<?>[] paths = new Path<?>[] {pet.sendReminders, pet.name, pet.weight, pet.type, pet.owner,
         pet.createdDate, pet.createdBy, pet.modifiedDate, pet.modifiedBy};

@@ -1307,6 +1307,8 @@
     apiRegister('advanced.getExportExcelButton()', exportExcelButton);
     apiRegister('advanced.getExportPdfButton()', exportPdfButton);
     
+    apiRegister('advanced.getParentSelectedRowId()', getParentSelectedRowId);
+    
     apiRegister('advanced.showInline()', showInline);
 
 

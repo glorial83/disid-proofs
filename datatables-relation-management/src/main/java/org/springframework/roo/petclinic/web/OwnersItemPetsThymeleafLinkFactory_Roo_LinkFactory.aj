@@ -71,9 +71,6 @@ privileged aspect OwnersItemPetsThymeleafLinkFactory_Roo_LinkFactory {
         if (methodName.equals(CREATEFORM)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).createForm(null, null)).buildAndExpand(pathVariables);
         }
-        if (methodName.equals(REMOVEFROMPETS)) {
-            return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).removeFromPets(null, null)).buildAndExpand(pathVariables);
-        }
         if (methodName.equals(REMOVEFROMPETSBATCH)) {
             return SpringletsMvcUriComponentsBuilder.fromMethodCall(SpringletsMvcUriComponentsBuilder.on(getControllerClass()).removeFromPetsBatch(null, null)).buildAndExpand(pathVariables);
         }

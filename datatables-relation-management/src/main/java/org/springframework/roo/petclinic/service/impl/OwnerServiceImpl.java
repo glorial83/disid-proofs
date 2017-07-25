@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OwnerServiceImpl implements OwnerService {
 
   /**
-   * TODO Auto-generated method documentation
+   * Method that set the new pets 
    * 
    * @param owner
    * @param pets
@@ -33,10 +33,6 @@ public class OwnerServiceImpl implements OwnerService {
   public Owner setPets(Owner owner, Iterable<Long> pets) {
     List<Pet> items = getPetService().findAll(pets);
     owner.addToPets(items);
-    // Force the version update of the parent side to know that the parent has changed
-    // because it has new books assigned
-    // TODO: Check if this is necessary
-    //owner.setVersion(owner.getVersion() + 1);
     return getOwnerRepository().save(owner);
   }
 
