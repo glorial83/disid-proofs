@@ -174,6 +174,8 @@ privileged aspect PetsItemVisitsThymeleafController_Roo_Thymeleaf {
     public void PetsItemVisitsThymeleafController.populateFormats(Model model) {
         model.addAttribute("application_locale", LocaleContextHolder.getLocale().getLanguage());
         model.addAttribute("visitDate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
+        model.addAttribute("createdDate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
+        model.addAttribute("modifiedDate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
     }
     
     /**
