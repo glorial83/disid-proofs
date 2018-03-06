@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{layouts/default-layout-no-menu}">
+    <head id="head">
+
+    <title data-th-text="#{label_login}">Login- Spring Roo application</title>
+
+  </head>
+
+  <body id="body">
+
+    <header role="banner">
+      <!-- Content replaced by layout of the page displayed -->
+    </header>
+
+    <!-- CONTAINER -->
+    <div class="container bg-container">
+      <!-- CONTENT -->
+      <!--
+        Only the inner content of the following tag "section" is included
+        within the template, in the section "content"
+      -->
+      <section data-layout-fragment="content">
+        <div class="container-fluid content">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1 class="panel-title" data-th-text="#{label_login}">Login</h1>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal" data-th-action="@{/datasource}" method="post">
+               <fieldset>
+                <legend class="sr-only" data-th-text="#{help_login}">Enter the database file</legend>
+                <div class="form-group">
+                 <label for="username" class="col-md-3 control-label" data-th-text="#{label_login_username}">Username</label>
+                 <div class="col-md-6">
+                  <input id="filePath" name="filePath" type="text" class="form-control" placeholder="HSQLDB File path" data-toggle="tooltip"/>
+                 </div>
+                </div>
+                <div class="form-group">
+                 <div class="col-md-9 col-md-offset-3">
+                  <button type="submit" class="btn btn-primary" data-th-text="#{label_submit}">Accept</button>
+                  <button type="reset" class="btn btn-default" data-th-text="#{label_reset}">Cancel</button>
+                 </div>
+                </div>
+               </fieldset>
+              </form>
+             </div>
+          </div>
+        </div>
+      </section>
+     <!-- /CONTENT -->
+    </div>
+    <!-- /CONTAINER -->
+
+    <footer class="container">
+      <!-- Content replaced by layout of the page displayed -->
+    </footer>
+
+    <!-- JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so that the pages load faster -->
+    <!-- JavaScript loaded by layout of the page displayed -->
+    <!--
+         Only the inner content of the following tag "javascript" is included
+         within the template, in the div "javascript"
+        -->
+    <div data-layout-fragment="javascript">
+    </div>
+
+  </body>
+
+</html>
