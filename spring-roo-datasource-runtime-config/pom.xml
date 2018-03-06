@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <!-- Spring IO Platform is the parent of the generated application to be able to
     use Spring Boot and all its default configuration -->
   <parent>
@@ -508,22 +507,27 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>ie10-viewport-bug-workaround</artifactId>
         </dependency>
+        <!-- disable security
     <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
     <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         </dependency>
+
     <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
         </dependency>
+        -->
     <dependency>
             <groupId>io.springlets</groupId>
             <artifactId>springlets-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- disable cxf
     <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
@@ -536,6 +540,7 @@
             <groupId>io.tracee.binding</groupId>
             <artifactId>tracee-cxf</artifactId>
         </dependency>
+         -->
     <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
